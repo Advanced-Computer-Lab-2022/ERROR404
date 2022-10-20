@@ -1,0 +1,24 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "ACL Project",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Advanced-Computer-Lab-2022/ERROR404.git"
+  },
+  "author": "Ali Ghieth, Abdulrahman Ali, Mohammed Tamer, Malak Amr, Dina Tamer",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Advanced-Computer-Lab-2022/ERROR404/issues"
+  },
+  "homepage": "https://github.com/Advanced-Computer-Lab-2022/ERROR404#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^6.6.6",
+    "nodemon": "^2.0.20"
+  }
+}
