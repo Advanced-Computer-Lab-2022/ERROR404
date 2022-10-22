@@ -48,17 +48,3 @@ app.get("/", (req, res) => {
     res.status(200).send("Hello World")
 })
 
-const Drone = mongoose.model('Drone', User);
-
-const drone = new Drone({
-    First_name: "SV - Aira 157B",
-    Last_name: "Hello" ,
-    id: 2455,
-    Password: "Photography",
-    Email: "Mohamedtamer",
-    Country: "Egypt",
-})
-
-drone.save(function (err, doc) {
-    console.log(doc._id);
-});
