@@ -21,12 +21,12 @@ const user = new Schema({
         },
         required: [ true, "Name is required" ]
     },
-    id: {
-        type: Number,
-        index: { unique: true },
-        min: [ 1, "ID must be greater than 0" ],
-        required: [ true, "ID is required" ]
-    },
+    // id: {
+    //     type: Number,
+    //     index: { unique: true },
+    //     min: [ 1, "ID must be greater than 0" ],
+    //     required: [ true, "ID is required" ]
+    // },
     Age:{
         type: Number,
     },
@@ -34,7 +34,6 @@ const user = new Schema({
         type: String,
     },
     Password: { type: String, 
-        unique: true,
         required: true
      },
 
@@ -49,26 +48,14 @@ const user = new Schema({
      },
     
     Country: {
-        type: String ,
-        required: true
+        type: String 
     },
+    userType:{
+        enum: ["Instructor","Individual-trainee","Admin","Corporate-trainee"]
+    }
     
 }, { timestamps: true });
 
-const Drone = mongoose.model('Drone', user);
-
-const drone = new Drone({
-    First_name: "SV - Aira 157B",
-    Last_name: "Hello" ,
-    id: 2455,
-    Password: "Photography",
-    Email: "Mohamedtamer",
-    Country: "Egypt",
-})
-
-drone.save(function (err, doc) {
-    console.log(doc._id);
-});
 
 const User = mongoose.model('User', user);
 module.exports = User;
