@@ -12,6 +12,24 @@ const port = process.env.PORT || "3030";
 // const user = require('./Models/User');
 // #Importing the userController
 
+app.post("/createUser", (req, res) => {
+  const userData = {
+    First_name: req.body.First_Name,
+    Last_name: req.body.Last_name,
+    Email: req.body.Email,
+    Username: req.body.Username,
+    Password: req.body.Password,
+  };
+  user.create(userData, function (err, small) {
+    if (err) {
+      res.status(500).send("Database not responding");
+      return handleError(err);
+    }
+    // this means record created
+    res.status(200).send("Course Created Successfully");
+  });
+});
+
 // i am here
 
 // configurations
