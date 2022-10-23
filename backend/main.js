@@ -48,3 +48,35 @@ app.post("/createUser", (req, res) => {
     res.status(200).send("user Created Successfully");
   });
 });
+
+app.post("/createCourse", (req, res) => {
+  const instructor = user.find({ username: req.username });
+  if (instructor == null && instructor.role == "instructor") {
+    res.status(401).send("Username is not found, or unauthorized");
+  } else if (
+    req.title == null ||
+    req.subtitle == null ||
+    req.price == null ||
+    req.summary == null
+  ) {
+    res.status(400).send("Required fields were not submitted");
+  } else if (req.summary.length < 50) {
+    res.status(400).send("Summary should be atleast 50 words long");
+  } else {
+    const courseDetails = {
+      title: req.title,
+      subtitle: req.subtitle,
+      price: req.price,
+      summary: req.summary,
+    };
+
+    user.create(courseDetails, function (err, small) {
+      if (err) {
+        res.status(500).send("Database not responding");
+        return handleError(err);
+      }
+      // this means record created
+      res.status(200).send("Course Created Successfully");
+    });
+  }
+});
