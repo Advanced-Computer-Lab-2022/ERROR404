@@ -1,12 +1,15 @@
-POST http://localhost:2020/createUser
+POST http://localhost:2020/createCourse
 content-type: application/json
 
-{
-    "firstName": "Ali",
-    "lastName": "Ghieth",
-    "email": "ahmed@gmail.com5s",
-    "gender": "Female",
-    "userName": "abdoAli25",
-    "password": "123",
-    "role": "Instructor"
-}
+ {
+     "title": "csen55",
+     "subtitle": "sdgfdfggggggggggggggggggggggggggg",
+     "subject": "csen",
+     "price": "125",
+     "username":"abdoAli25",
+     "totalHours": "25",
+     "image": "ddddddddddddddddddddddddd",
+     "video": "asdglgllllllfasdgdas",
+     "prerequisite":"fjdskla;ggsfm;lgasldga",
+     "summary":"dasfglkdgsldgdagsldg"
+ } 

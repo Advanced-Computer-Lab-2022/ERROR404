@@ -42,7 +42,6 @@ const courses = new Schema(
     video: {
       required: [true, "Video Required"],
       type: String,
-      description: String,
     },
     prerequisite: {
       type: String,

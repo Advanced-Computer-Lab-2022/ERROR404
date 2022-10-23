@@ -48,24 +48,22 @@ app.post("/createUser", (req, res) => {
     res.status(200).send("user Created Successfully");
   });
 });
-//view the price of each course 
-app.get('/coursePrice',(req,res)=>{
-  res.json(course.title,course.price);
-})
 
 // create course ~alighieth
 app.post("/createCourse", async (req, res) => {
-  const instructor = user.find({ username: req.username, role: "Instructor" });
+  console.log(req.body)
+  const instructor = user.find({ username: req.body.username, role: "Instructor" });
+  const instructorUsername = req.body.username
   if (instructor == null && instructor.role == "instructor") {
     res.status(401).send("Username is not found, or unauthorized");
   } else if (
-    req.title == null ||
-    req.subtitle == null ||
-    req.price == null ||
-    req.summary == null
+    req.body.title == null ||
+    req.body.subtitle == null ||
+    req.body.price == null ||
+    req.body.summary == null
   ) {
     res.status(400).send("Required fields were not submitted");
-  } else if (req.summary.length < 50) {
+  } else if (req.body.summary.length < 5) {
     res.status(400).send("Summary should be atleast 50 words long");
   } else {
     const courseDetails = {
@@ -73,36 +71,45 @@ app.post("/createCourse", async (req, res) => {
       subtitle: req.body.subtitle,
       subject: req.body.subject,
       price: req.body.price,
+      instructor: instructorUsername,
       totalHours: req.body.totalHours,
       image: req.body.image,
       video: req.body.video,
       prerequisite: req.body.prerequisite,
-      summary: req.body.summary,
+      summary: req.body.summary
     };
-
-    user
-      .create(courseDetails, function (err, small) {
-        if (err) {
-          res.status(500).send("Database not responding");
-          return handleError(err);
-        }
-        // this means record created
-        res.status(200).send("Course Created Successfully");
-      })
-      .then((courseId) => {
-        console.log("course Id", courseId);
+    //try
+   
+    await course.create(courseDetails, function (err, small) {
+      console.log("hello ",small)
+      const courseId  = small._id;
+      if(err) {
+        console.log("error with course ", err.message )
+      } else {
+        console.log("done cousrse")
         user.updateOne(
-          { username: req.username, role: "Instructor" },
-          { instructorAttributes: { courses: courseId } },
-          function (err, doc) {
-            if (err) return res.send(500, { error: err });
-            return res.send("Instructor updated Succesfully.");
+          { username: instructorUsername, role: "Instructor" },
+          { instructorAttributes: {courses:  courseId} }, 
+          function (err, small) {
+            if(err) {
+            console.log("error with instructor ", err.message ) }
+            else {
+              res.status(200).send("all good!!!");
+            }
           }
         );
-      });
+      }
+    })             
   }
 });
+
 //view the price of each course 
-app.get('/coursePrice',(req,res)=>{
-  res.json(course.title,course.price);
+app.get('/coursePrice', async (req,res)=>{
+  console.log(req.params);
+  const c = await course.find({},{title:1 ,price:1,_id:0 });
+  if(c==null){
+    res.status(404).send('no course found');
+  }
+  else{res.json(c);}
 })
+
