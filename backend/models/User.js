@@ -7,7 +7,7 @@ const user = new Schema(
       minLength: 3,
       validate: {
         validator: (value) => /^[A-Za-z]+$/.test(value),
-        message: (props) => `${props.value} is not a valid name!`,
+        message: "firstname is not a valid name!",
       },
       required: [true, "Name is required"],
     },
@@ -16,7 +16,7 @@ const user = new Schema(
       minLength: 3,
       validate: {
         validator: (value) => /^[A-Za-z]+$/.test(value),
-        message: (props) => `${props.value} is not a valid name!`,
+        message: "lastname not a valid name!",
       },
       required: [true, "Name is required"],
     },
@@ -24,6 +24,7 @@ const user = new Schema(
       type: Number,
     },
     gender: {
+      type: String,
       enum: ["Male", "Female"],
     },
     password: { type: String, required: true },
@@ -33,52 +34,57 @@ const user = new Schema(
       unique: true,
       required: true,
     },
-
     email: { type: String, unique: true, required: true },
-
     country: {
       type: String,
     },
-    userType: {
+    role: {
       type: String,
       enum: ["Instructor", "Individual-trainee", "Admin", "Corporate-trainee"],
-      required: [true, "UserType is required"]
+      required: [true, "role is required"],
     },
-    courses: { type: Schema.Types.ObjectId, ref: 'Courses' },
-    biography: {
-      type: String,
-      validator : {
-        $jsonSchema : {
-        bsonType: "userType",
-        required: ["Instructor"],
-      message: (props) => `${props.value} is not a valid usertype!`,
-        }
-      }
+    instructorAttributes: [
+      {
+        courses: { type: Schema.Types.ObjectId, ref: "Courses" },
+        wallet: {
+          type: Number,
+        },
+        rating: {
+          type: Number,
+        },
+        biography: {
+          type: String,
+        },
+      },
+    ],
+    indivisualTraineeAttributes: {
+      creditCardInfo: [
+        {
+          holderName: {
+            type: String,
+          },
+          cardNumber: {
+            type: String,
+          },
+          cvv: {
+            type: Number,
+            validator: (value) => {
+              value.toString().length == 3;
+            },
+          },
+          expirationDate: {
+            type: Date,
+            validator: (value) => {
+              value > Date.now();
+            },
+          },
+        },
+      ],
     },
-    creditCardInfo: [{
-      holderName: {
-        type: String
-      },
-      cardNumber: {
-        type: String
-      },
-      cvv:{
-        type:Number,
-        validator:(value)=>{
-            value.toString().length == 3;
-        }
-      }, 
-      expirationDate: {
-        type: Date,
-        validator:(value)=>{
-          value > Date.now();
-      }
-      },
-      wallet:{
-        type:Number,
-      },
-    }]},{ timestamps: true });
+  },
 
+  { timestamps: true }
+);
 
 const User = mongoose.model("User", user);
-Module.exports = User;
+module.exports = User;

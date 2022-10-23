@@ -2,10 +2,11 @@ POST http://localhost:2020/createUser
 content-type: application/json
 
 {
-    "First_name": "alsdfi",
-    "Last_name": "ghifsdeth",
-    "Email": "gmailll.com",
-    "Username": "alighiethhhh",
-    "Password": "123",
-    "userType":"Instructor"
+    "firstName": "Ali",
+    "lastName": "Ghieth",
+    "email": "ahmed@gmail.com5s",
+    "gender": "Female",
+    "userName": "abdoAli25",
+    "password": "123",
+    "role": "Instructor"
 }

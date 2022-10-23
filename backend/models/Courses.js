@@ -31,11 +31,10 @@ const courses = new Schema(
       type: String,
       required: [true, "Summary Required"],
       minLength: 5,
-      maxLength: 100, 
-
+      maxLength: 100,
     },
     discount: {
-      type: Double
+      type: Number,
     },
     image: {
       type: String,
@@ -44,11 +43,11 @@ const courses = new Schema(
     video: {
       required: [true, "Video Required"],
       type: String,
-      description:String
+      description: String,
     },
     prerequisite: {
-        type: String
-    }
+      type: String,
+    },
   },
   { timestamps: true }
 );
