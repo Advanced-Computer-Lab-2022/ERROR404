@@ -8,7 +8,7 @@ const user = require("./models/User");
 const course = require("./models/Courses");
 //App variables
 const app = express();
-const port = process.env.PORT || "2020";
+const port = process.env.PORT || "3030";
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 // configurations
@@ -113,3 +113,12 @@ app.get('/coursePrice', async (req,res)=>{
   else{res.json(c);}
 })
 
+//filter the courses based on price (price can be FREE)
+
+app.get("/filter", async (req, res) => {
+  const Courseprice = await course.findById(Course_price).exec();
+  if(!Courseprice){
+    res.status(500).json({success: false})
+  }
+  res.status(200).send(Courseprice);
+});
