@@ -1,61 +1,84 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const user = new Schema({
-    First_name: {
-        type: String,
-        minLength: 3,
-        lowercase: true,
-        validate: {
-            validator: (value) => /^[a-z ]+$/.test(value),
-            message: (props) => `${props.value} is not a valid name!`
-        },
-        required: [ true, "Name is required" ]
+const user = new Schema(
+  {
+    firstName: {
+      type: String,
+      minLength: 3,
+      validate: {
+        validator: (value) => /^[A-Za-z]+$/.test(value),
+        message: (props) => `${props.value} is not a valid name!`,
+      },
+      required: [true, "Name is required"],
     },
-    Last_name: {
-        type: String,
-        minLength: 3,
-        lowercase: true,
-        validate: {
-            validator: (value) => /^[a-z ]+$/.test(value),
-            message: (props) => `${props.value} is not a valid name!`
-        },
-        required: [ true, "Name is required" ]
+    lastName: {
+      type: String,
+      minLength: 3,
+      validate: {
+        validator: (value) => /^[A-Za-z]+$/.test(value),
+        message: (props) => `${props.value} is not a valid name!`,
+      },
+      required: [true, "Name is required"],
     },
-    // id: {
-    //     type: Number,
-    //     index: { unique: true },
-    //     min: [ 1, "ID must be greater than 0" ],
-    //     required: [ true, "ID is required" ]
-    // },
-    Age:{
-        type: Number,
+    age: {
+      type: Number,
     },
-    Gender: {
-        type: String,
+    gender: {
+      enum: ["Male", "Female"],
     },
-    Password: { type: String, 
-        required: true
-     },
+    password: { type: String, required: true },
 
-    Username: { type: String,
-         unique: true,
-         required: true
-         },
-
-    Email: { type: String, 
-        unique: true,
-        required: true
-     },
-    
-    Country: {
-        type: String 
+    userName: {
+      type: String,
+      unique: true,
+      required: true,
     },
-    userType:{
-        enum: ["Instructor","Individual-trainee","Admin","Corporate-trainee"]
-    }
-    
-}, { timestamps: true });
+
+    email: { type: String, unique: true, required: true },
+
+    country: {
+      type: String,
+    },
+    userType: {
+      type: String,
+      enum: ["Instructor", "Individual-trainee", "Admin", "Corporate-trainee"],
+      required: [true, "UserType is required"]
+    },
+    courses: { type: Schema.Types.ObjectId, ref: 'Courses' },
+    biography: {
+      type: String,
+      validator : {
+        $jsonSchema : {
+        bsonType: "userType",
+        required: ["Instructor"],
+      message: (props) => `${props.value} is not a valid usertype!`,
+        }
+      }
+    },
+    creditCardInfo: [{
+      holderName: {
+        type: String
+      },
+      cardNumber: {
+        type: String
+      },
+      cvv:{
+        type:Number,
+        validator:(value)=>{
+            value.toString().length == 3;
+        }
+      }, 
+      expirationDate: {
+        type: Date,
+        validator:(value)=>{
+          value > Date.now();
+      }
+      },
+      wallet:{
+        type:Number,
+      },
+    }]},{ timestamps: true });
 
 
-const User = mongoose.model('User', user);
-module.exports = User;
+const User = mongoose.model("User", user);
+Module.exports = User;

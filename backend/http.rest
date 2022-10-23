@@ -2,9 +2,9 @@ POST http://localhost:2020/createUser
 content-type: application/json
 
 {
-    "First_name": "ali",
-    "Last_name": "ghieth",
-    "Email": "gmail.com",
+    "First_name": "alsdfi",
+    "Last_name": "ghifsdeth",
+    "Email": "gmailll.com",
     "Username": "alighiethhhh",
     "Password": "123",
     "userType":"Instructor"
