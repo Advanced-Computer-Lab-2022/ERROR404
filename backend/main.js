@@ -48,6 +48,10 @@ app.post("/createUser", (req, res) => {
     res.status(200).send("user Created Successfully");
   });
 });
+//view the price of each course 
+app.get('/coursePrice',(req,res)=>{
+  res.json(course.title,course.price);
+})
 
 // create course ~alighieth
 app.post("/createCourse", async (req, res) => {
@@ -98,3 +102,7 @@ app.post("/createCourse", async (req, res) => {
       });
   }
 });
+//view the price of each course 
+app.get('/coursePrice',(req,res)=>{
+  res.json(course.title,course.price);
+})
