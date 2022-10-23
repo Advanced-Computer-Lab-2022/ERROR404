@@ -113,3 +113,7 @@ app.get('/coursePrice', async (req,res)=>{
   else{res.json(c);}
 })
 
+//search for a course based on course title or subject or instructor
+app.get('/search',async (req,res)=>{
+const c = await course.find({title,subject,instructorUsername})
+});
