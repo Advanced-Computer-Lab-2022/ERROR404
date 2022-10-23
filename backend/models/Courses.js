@@ -20,7 +20,6 @@ const courses = new Schema(
     },
     rating: {
       type: Number,
-      required: true,
     },
     price: {
       type: Number,
@@ -47,6 +46,7 @@ const courses = new Schema(
     },
     prerequisite: {
       type: String,
+      required: true,
     },
   },
   { timestamps: true }

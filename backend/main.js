@@ -49,8 +49,9 @@ app.post("/createUser", (req, res) => {
   });
 });
 
-app.post("/createCourse", (req, res) => {
-  const instructor = user.find({ username: req.username });
+// create course ~alighieth
+app.post("/createCourse", async (req, res) => {
+  const instructor = user.find({ username: req.username, role: "Instructor" });
   if (instructor == null && instructor.role == "instructor") {
     res.status(401).send("Username is not found, or unauthorized");
   } else if (
@@ -64,19 +65,36 @@ app.post("/createCourse", (req, res) => {
     res.status(400).send("Summary should be atleast 50 words long");
   } else {
     const courseDetails = {
-      title: req.title,
-      subtitle: req.subtitle,
-      price: req.price,
-      summary: req.summary,
+      title: req.body.title,
+      subtitle: req.body.subtitle,
+      subject: req.body.subject,
+      price: req.body.price,
+      totalHours: req.body.totalHours,
+      image: req.body.image,
+      video: req.body.video,
+      prerequisite: req.body.prerequisite,
+      summary: req.body.summary,
     };
 
-    user.create(courseDetails, function (err, small) {
-      if (err) {
-        res.status(500).send("Database not responding");
-        return handleError(err);
-      }
-      // this means record created
-      res.status(200).send("Course Created Successfully");
-    });
+    user
+      .create(courseDetails, function (err, small) {
+        if (err) {
+          res.status(500).send("Database not responding");
+          return handleError(err);
+        }
+        // this means record created
+        res.status(200).send("Course Created Successfully");
+      })
+      .then((courseId) => {
+        console.log("course Id", courseId);
+        user.updateOne(
+          { username: req.username, role: "Instructor" },
+          { instructorAttributes: { courses: courseId } },
+          function (err, doc) {
+            if (err) return res.send(500, { error: err });
+            return res.send("Instructor updated Succesfully.");
+          }
+        );
+      });
   }
 });
