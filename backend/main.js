@@ -48,6 +48,10 @@ app.post("/createUser", (req, res) => {
     res.status(200).send("user Created Successfully");
   });
 });
+//view the price of each course 
+app.get('/coursePrice',(req,res)=>{
+  res.json(course.title,course.price);
+})
 
 app.post("/createCourse", (req, res) => {
   const instructor = user.find({ username: req.username });
@@ -80,3 +84,7 @@ app.post("/createCourse", (req, res) => {
     });
   }
 });
+//view the price of each course 
+app.get('/coursePrice',(req,res)=>{
+  res.json(course.title,course.price);
+})
