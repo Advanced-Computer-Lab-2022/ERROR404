@@ -15,6 +15,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 // configurations
 // Mongo DB
+
 mongoose
   .connect(MongoURI)
   .then(() => {
@@ -53,9 +54,12 @@ app.post("/createUser", (req, res) => {
 
 // create course ~alighieth
 app.post("/createCourse", async (req, res) => {
-  console.log(req.body)
-  const instructor = user.find({ username: req.body.username, role: "Instructor" });
-  const instructorUsername = req.body.username
+  console.log(req.body);
+  const instructor = user.find({
+    username: req.body.username,
+    role: "Instructor",
+  });
+  const instructorUsername = req.body.username;
   if (instructor == null && instructor.role == "instructor") {
     res.status(401).send("Username is not found, or unauthorized");
   } else if (
@@ -78,66 +82,71 @@ app.post("/createCourse", async (req, res) => {
       image: req.body.image,
       video: req.body.video,
       prerequisite: req.body.prerequisite,
-      summary: req.body.summary
+      summary: req.body.summary,
     };
     //try
-   
+
     await course.create(courseDetails, function (err, small) {
-      console.log("hello ",small)
-      const courseId  = small._id;
-      if(err) {
-        console.log("error with course ", err.message )
+      console.log("hello ", small);
+      const courseId = small._id;
+      if (err) {
+        console.log("error with course ", err.message);
       } else {
-        console.log("done cousrse")
+        console.log("done cousrse");
         user.updateOne(
           { username: instructorUsername, role: "Instructor" },
-          { instructorAttributes: {courses:  courseId} }, 
+          { instructorAttributes: { courses: courseId } },
           function (err, small) {
-            if(err) {
-            console.log("error with instructor ", err.message ) }
-            else {
+            if (err) {
+              console.log("error with instructor ", err.message);
+            } else {
               res.status(200).send("all good!!!");
             }
           }
         );
       }
-    })             
+    });
   }
 });
 
-//view the price of each course 
-app.get('/coursePrice', async (req,res)=>{
+//view the price of each course
+app.get("/coursePrice", async (req, res) => {
   console.log(req.params);
-  const c = await course.find({},{title:1 ,price:1,_id:0 });
-  if(c==null){
-    res.status(404).send('no course found');
+  const c = await course.find({}, { title: 1, price: 1, _id: 0 });
+  if (c == null) {
+    res.status(404).send("no course found");
+  } else {
+    res.json(c);
   }
-  else{res.json(c);}
-})
-
-//filter the courses based on price (price can be FREE)
-app.get("/filter", async (req, res) => {
-  const Courseprice = await course.findById(Course_price).exec();
-  if(!Courseprice){
-    res.status(500).json({success: false})
-  }
-  res.status(200).send(Courseprice);
 });
+
 //search for a course based on course title or subject or instructor
-app.get('/search/:key',async (req,res)=>{
-
-const data = await course.find({
-  "$or":[
-    {title:{$regex:req.params.key}},
-    {subject:{$regex:req.params.key}},
-    {instructor:{$regex:req.params.key}}
-  ]
+app.get("/search/:key", async (req, res) => {
+  const data = await course
+    .find(
+      {
+        $or: [
+          { title: { $regex: req.params.key } },
+          { subject: { $regex: req.params.key } },
+          { instructor: { $regex: req.params.key } },
+        ],
+      },
+      function (err, results) {
+        if (err) {
+          res.status(500).json("Server not responding");
+        }
+        if (!results.length) {
+          res.status(404).json("no result found");
+        } else {
+          res.status(200).json(data);
+        }
+      }
+    )
+    .clone();
 });
-// if (data===[]){
-//   res.json('no result found')
-// }
-// else{
-//   res.json(data);
-// }
-res.json(data);
-});
+app.post('/chooseCountry',async(req,res)=>{
+user.updateOne({userName:req.body.userName},{country:req.body.country},(err)=>{
+  if(err){res.status(500).json('error')}
+  else{res.status(200).json('all good')}
+})
+})

@@ -1,15 +1,7 @@
-GET  http://localhost:2020/search/52245
-# content-type: application/json
+POST http://localhost:2020/chooseCountry
+ content-type: application/json
 
-#  {
-#      "title": "csen55",
-#      "subtitle": "sdgfdfggggggggggggggggggggggggggg",
-#      "subject": "csen",
-#      "price": "125",
-#      "username":"abdoAli25",
-#      "totalHours": "25",
-#      "image": "ddddddddddddddddddddddddd",
-#      "video": "asdglgllllllfasdgdas",
-#      "prerequisite":"fjdskla;ggsfm;lgasldga",
-#      "summary":"dasfglkdgsldgdagsldg"
-#  } 
+  {
+      "userName": "jsdflkdf",
+      "country": "egypt"
+  } 
