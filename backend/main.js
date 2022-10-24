@@ -6,6 +6,8 @@ const bodyParser = require("body-parser");
 const MongoURI = "mongodb+srv://admin:admin@cluster0.vm6qaas.mongodb.net/test";
 const user = require("./models/User");
 const course = require("./models/Courses");
+const Courses = require("./models/Courses");
+const { title } = require("process");
 //App variables
 const app = express();
 const port = process.env.PORT || "2020";
@@ -113,7 +115,29 @@ app.get('/coursePrice', async (req,res)=>{
   else{res.json(c);}
 })
 
+//filter the courses based on price (price can be FREE)
+app.get("/filter", async (req, res) => {
+  const Courseprice = await course.findById(Course_price).exec();
+  if(!Courseprice){
+    res.status(500).json({success: false})
+  }
+  res.status(200).send(Courseprice);
+});
 //search for a course based on course title or subject or instructor
-app.get('/search',async (req,res)=>{
-const c = await course.find({title,subject,instructorUsername})
+app.get('/search/:key',async (req,res)=>{
+
+const data = await course.find({
+  "$or":[
+    {title:{$regex:req.params.key}},
+    {subject:{$regex:req.params.key}},
+    {instructor:{$regex:req.params.key}}
+  ]
+});
+// if (data===[]){
+//   res.json('no result found')
+// }
+// else{
+//   res.json(data);
+// }
+res.json(data);
 });
