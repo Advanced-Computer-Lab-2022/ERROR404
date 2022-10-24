@@ -51,9 +51,12 @@ app.post("/createUser", (req, res) => {
 
 // create course ~alighieth
 app.post("/createCourse", async (req, res) => {
-  console.log(req.body)
-  const instructor = user.find({ username: req.body.username, role: "Instructor" });
-  const instructorUsername = req.body.username
+  console.log(req.body);
+  const instructor = user.find({
+    username: req.body.username,
+    role: "Instructor",
+  });
+  const instructorUsername = req.body.username;
   if (instructor == null && instructor.role == "instructor") {
     res.status(401).send("Username is not found, or unauthorized");
   } else if (
@@ -76,49 +79,95 @@ app.post("/createCourse", async (req, res) => {
       image: req.body.image,
       video: req.body.video,
       prerequisite: req.body.prerequisite,
-      summary: req.body.summary
+      summary: req.body.summary,
     };
     //try
-   
+
     await course.create(courseDetails, function (err, small) {
-      console.log("hello ",small)
-      const courseId  = small._id;
-      if(err) {
-        console.log("error with course ", err.message )
+      console.log("hello ", small);
+      const courseId = small._id;
+      if (err) {
+        console.log("error with course ", err.message);
       } else {
-        console.log("done cousrse")
+        console.log("done cousrse");
         user.updateOne(
           { username: instructorUsername, role: "Instructor" },
-          { instructorAttributes: {courses:  courseId} }, 
+          { instructorAttributes: { courses: courseId } },
           function (err, small) {
-            if(err) {
-            console.log("error with instructor ", err.message ) }
-            else {
+            if (err) {
+              console.log("error with instructor ", err.message);
+            } else {
               res.status(200).send("all good!!!");
             }
           }
         );
       }
-    })             
+    });
   }
 });
 
-//view the price of each course 
-app.get('/coursePrice', async (req,res)=>{
+//view the price of each course
+app.get("/coursePrice", async (req, res) => {
   console.log(req.params);
-  const c = await course.find({},{title:1 ,price:1,_id:0 });
-  if(c==null){
-    res.status(404).send('no course found');
+  const c = await course.find({}, { title: 1, price: 1, _id: 0 });
+  if (c == null) {
+    res.status(404).send("no course found");
+  } else {
+    res.json(c);
   }
-  else{res.json(c);}
-})
+});
 
 //filter the courses based on price (price can be FREE)
 
 app.get("/filter", async (req, res) => {
   const Courseprice = await course.findById(Course_price).exec();
-  if(!Courseprice){
-    res.status(500).json({success: false})
+  if (!Courseprice) {
+    res.status(500).json({ success: false });
   }
   res.status(200).send(Courseprice);
+});
+
+app.get("/createAdmin", (req, res) => {
+  const reqBody = req.body;
+  const fName = reqBody.firstName;
+  const lName = reqBody.lastName;
+  const email = reqBody.email;
+  const role = reqBody.role;
+  const password = reqBody.password;
+  const username = reqBody.userName;
+  if (
+    fName == null ||
+    lName == null ||
+    email == null ||
+    role == null ||
+    password == null ||
+    username == null
+  ) {
+    return res.status(400).send("Required fields are not submitted");
+  }
+  if (req.body.userRole != "admin") {
+    return res.status(401).send("User Not authorized for this action");
+  }
+  if (role != "admin") {
+    return res.status(401).send("User Not authorized for this action");
+  }
+  const adminData = {
+    firstName: fName,
+    lastName: lName,
+    age: req.body.age == undefined ? "" : req.body.age,
+    gender: req.body.gender == undefined ? "" : req.body.gender,
+    password: password,
+    userName: username,
+    email: email,
+    role: "admin",
+  };
+
+  adminData.create(adminData, function (err, small) {
+    if (err) {
+      res.status(500).send("Database not responding  => " + err.message);
+      return;
+    }
+    // this means record created
+    res.status(200).send("admin " + username + " created Successfully");
+  });
 });
