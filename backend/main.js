@@ -115,15 +115,6 @@ app.get("/coursePrice", async (req, res) => {
   }
 });
 
-//filter the courses based on price (price can be FREE)
-
-app.get("/filter", async (req, res) => {
-  const Courseprice = await course.findById(Course_price).exec();
-  if (!Courseprice) {
-    res.status(500).json({ success: false });
-  }
-  res.status(200).send(Courseprice);
-});
 //Admin creation
 app.get("/createAdmin", (req, res) => {
   const reqBody = req.body;
@@ -174,25 +165,13 @@ app.get("/createAdmin", (req, res) => {
 //filter the courses given by him/her based on a subject or price
 app.get("/search/:key", async (req, res) => {
   const query = isNaN(req.params.key)
-    ? { subject: { $regex: req.params.key } }
-    : { price: req.params.key };
-  await course
-    .find(query, function (err, results) {
-      if (err) {
-        res.status(500).json("Server not responding " + err.message);
-      } else if (results.length == 0) {
-        res.status(404).json("no result found");
-      } else {
-        res.status(200).json(results);
+    ? {
+        $or: [
+          { title: { $regex: req.params.key } },
+          { subject: { $regex: req.params.key } },
+          { instructor: { $regex: req.params.key } },
+        ],
       }
-    })
-    .clone();
-});
-
-//filter the courses given by him/her based on a subject or price
-app.get("/search/:key", async (req, res) => {
-  const query = isNaN(req.params.key)
-    ? { subject: { $regex: req.params.key } }
     : { price: req.params.key };
   await course
     .find(query, function (err, results) {

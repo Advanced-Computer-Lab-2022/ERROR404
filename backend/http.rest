@@ -1,7 +1,7 @@
-POST http://localhost:3030/chooseCountry
- content-type: application/json
+GET http://localhost:2020/search/125
+#  content-type: application/json
 
-  {
-      "userName": "das",
-      "country": "america"
-  } 
+#   {
+#       "userName": "das",
+#       "country": "america"
+#   } 
