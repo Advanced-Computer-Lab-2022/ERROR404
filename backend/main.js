@@ -8,7 +8,7 @@ const user = require("./models/User");
 const course = require("./models/Courses");
 //App variables
 const app = express();
-const port = process.env.PORT || "3030";
+const port = process.env.PORT || "2020";
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 // configurations
@@ -114,55 +114,15 @@ app.get("/coursePrice", async (req, res) => {
     res.json(c);
   }
 });
-//search for a course based on course title or subject or instructor
-app.get("/search/:key", async (req, res) => {
-  const data = await course
-    .find(
-      {
-        $or: [
-          { title: { $regex: req.params.key } },
-          { subject: { $regex: req.params.key } },
-          { instructor: { $regex: req.params.key } },
-        ],
-      },
-      function (err, results) {
-        if (err) {
-          res.status(500).json("Server not responding");
-        }
-        if (!results.length) {
-          res.status(404).json("no result found");
-        } else {
-          res.status(200).json(data);
-        }
-      }
-    )
-    .clone();
-});
-//choose the country
-app.post("/chooseCountry", async (req, res) => {
-  const username = req.body.userName;
-  const counrty = req.body.country;
-  if (counrty == null) {
-    return res.status(400).send("Required fields are not submitted");
-  } else if (
-    user.find({ userName: username }, (err, result) => {
-      if (!result.length) {
-        return res.status(404).json("no result found");
-      } else {
-        const x = user.updateOne(
-          { userName: username },
-          { country: req.body.country },
-          (err) => {
-            if (err) {
-              res.status(500).json("error");
-            } else {
-              res.status(200).json("all good");
-            }
-          }
-        );
-      }
-    })
-  );
+
+//filter the courses based on price (price can be FREE)
+
+app.get("/filter", async (req, res) => {
+  const Courseprice = await course.findById(Course_price).exec();
+  if (!Courseprice) {
+    res.status(500).json({ success: false });
+  }
+  res.status(200).send(Courseprice);
 });
 //Admin creation
 app.get("/createAdmin", (req, res) => {
@@ -210,3 +170,39 @@ app.get("/createAdmin", (req, res) => {
   });
 });
 //admin creates instructor
+
+//filter the courses given by him/her based on a subject or price
+app.get("/search/:key", async (req, res) => {
+  const query = isNaN(req.params.key)
+    ? { subject: { $regex: req.params.key } }
+    : { price: req.params.key };
+  await course
+    .find(query, function (err, results) {
+      if (err) {
+        res.status(500).json("Server not responding " + err.message);
+      } else if (results.length == 0) {
+        res.status(404).json("no result found");
+      } else {
+        res.status(200).json(results);
+      }
+    })
+    .clone();
+});
+
+//filter the courses given by him/her based on a subject or price
+app.get("/search/:key", async (req, res) => {
+  const query = isNaN(req.params.key)
+    ? { subject: { $regex: req.params.key } }
+    : { price: req.params.key };
+  await course
+    .find(query, function (err, results) {
+      if (err) {
+        res.status(500).json("Server not responding " + err.message);
+      } else if (results.length == 0) {
+        res.status(404).json("no result found");
+      } else {
+        res.status(200).json(results);
+      }
+    })
+    .clone();
+});
