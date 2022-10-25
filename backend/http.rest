@@ -1,7 +1,7 @@
-POST http://localhost:2020/chooseCountry
+POST http://localhost:3030/chooseCountry
  content-type: application/json
 
   {
-      "userName": "jsdflkdf",
-      "country": "egypt"
+      "userName": "das",
+      "country": "america"
   } 

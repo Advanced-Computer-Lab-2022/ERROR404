@@ -6,16 +6,13 @@ const bodyParser = require("body-parser");
 const MongoURI = "mongodb+srv://admin:admin@cluster0.vm6qaas.mongodb.net/test";
 const user = require("./models/User");
 const course = require("./models/Courses");
-const Courses = require("./models/Courses");
-const { title } = require("process");
 //App variables
 const app = express();
-const port = process.env.PORT || "2020";
+const port = process.env.PORT || "3030";
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 // configurations
 // Mongo DB
-
 mongoose
   .connect(MongoURI)
   .then(() => {
@@ -27,7 +24,7 @@ mongoose
   })
   .catch((err) => console.log(err));
 app.get("/", (req, res) => {
-  res.status(200).send("Hello World");
+  res.status(200).send("Server is Running");
 });
 
 //Methods
@@ -51,7 +48,6 @@ app.post("/createUser", (req, res) => {
     res.status(200).send("user Created Successfully");
   });
 });
-
 // create course ~alighieth
 app.post("/createCourse", async (req, res) => {
   console.log(req.body);
@@ -108,7 +104,6 @@ app.post("/createCourse", async (req, res) => {
     });
   }
 });
-
 //view the price of each course
 app.get("/coursePrice", async (req, res) => {
   console.log(req.params);
@@ -119,7 +114,6 @@ app.get("/coursePrice", async (req, res) => {
     res.json(c);
   }
 });
-
 //search for a course based on course title or subject or instructor
 app.get("/search/:key", async (req, res) => {
   const data = await course
@@ -144,9 +138,75 @@ app.get("/search/:key", async (req, res) => {
     )
     .clone();
 });
-app.post('/chooseCountry',async(req,res)=>{
-user.updateOne({userName:req.body.userName},{country:req.body.country},(err)=>{
-  if(err){res.status(500).json('error')}
-  else{res.status(200).json('all good')}
-})
-})
+//choose the country
+app.post("/chooseCountry", async (req, res) => {
+  const username = req.body.userName;
+  const counrty = req.body.country;
+  if (counrty == null) {
+    return res.status(400).send("Required fields are not submitted");
+  } else if (
+    user.find({ userName: username }, (err, result) => {
+      if (!result.length) {
+        return res.status(404).json("no result found");
+      } else {
+        const x = user.updateOne(
+          { userName: username },
+          { country: req.body.country },
+          (err) => {
+            if (err) {
+              res.status(500).json("error");
+            } else {
+              res.status(200).json("all good");
+            }
+          }
+        );
+      }
+    })
+  );
+});
+//Admin creation
+app.get("/createAdmin", (req, res) => {
+  const reqBody = req.body;
+  const fName = reqBody.firstName;
+  const lName = reqBody.lastName;
+  const email = reqBody.email;
+  const role = reqBody.role;
+  const password = reqBody.password;
+  const username = reqBody.userName;
+  if (
+    fName == null ||
+    lName == null ||
+    email == null ||
+    role == null ||
+    password == null ||
+    username == null
+  ) {
+    return res.status(400).send("Required fields are not submitted");
+  }
+  if (req.body.userRole != "admin") {
+    return res.status(401).send("User Not authorized for this action");
+  }
+  if (role != "admin") {
+    return res.status(401).send("User Not authorized for this action");
+  }
+  const adminData = {
+    firstName: fName,
+    lastName: lName,
+    age: req.body.age == undefined ? "" : req.body.age,
+    gender: req.body.gender == undefined ? "" : req.body.gender,
+    password: password,
+    userName: username,
+    email: email,
+    role: "admin",
+  };
+
+  adminData.create(adminData, function (err, small) {
+    if (err) {
+      res.status(500).send("Database not responding  => " + err.message);
+      return;
+    }
+    // this means record created
+    res.status(200).send("admin " + username + " created Successfully");
+  });
+});
+//admin creates instructor
