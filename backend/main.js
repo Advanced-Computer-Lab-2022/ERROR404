@@ -8,7 +8,7 @@ const user = require("./models/User");
 const course = require("./models/Courses");
 //App variables
 const app = express();
-const port = process.env.PORT || "3030";
+const port = process.env.PORT || "2020";
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 // configurations
@@ -117,14 +117,21 @@ app.get("/coursePrice", async (req, res) => {
   }
 });
 
-//filter the courses based on price (price can be FREE)
+//filter the courses based on price
 
-app.get("/filter", async (req, res) => {
-  const Courseprice = await course.findById(Course_price).exec();
-  if (!Courseprice) {
-    res.status(500).json({ success: false });
+app.get("/filter/:price", async (req, res) => {
+  if (req.params.price < 0) {
+    res.status(400).send("Price should not be a negaitve number");
+  } else {
+    const courseData = await course.find(
+      { price: req.params.price },
+      { _id: 0 }
+    );
+    if (!courseData.length) {
+      res.status(500).send("No courses found");
+    }
+    res.status(200).json(courseData);
   }
-  res.status(200).send(Courseprice);
 });
 
 app.get("/createAdmin", (req, res) => {
@@ -170,4 +177,22 @@ app.get("/createAdmin", (req, res) => {
     // this means record created
     res.status(200).send("admin " + username + " created Successfully");
   });
+});
+
+//filter the courses given by him/her based on a subject or price
+app.get("/search/:key", async (req, res) => {
+  const query = isNaN(req.params.key)
+    ? { subject: { $regex: req.params.key } }
+    : { price: req.params.key };
+  await course
+    .find(query, function (err, results) {
+      if (err) {
+        res.status(500).json("Server not responding " + err.message);
+      } else if (results.length == 0) {
+        res.status(404).json("no result found");
+      } else {
+        res.status(200).json(results);
+      }
+    })
+    .clone();
 });
