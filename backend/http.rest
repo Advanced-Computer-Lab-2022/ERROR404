@@ -1,0 +1,7 @@
+GET http://localhost:2020/search/csen
+#  content-type: application/json
+
+#   {
+#       "userName": "das",
+#       "country": "america"
+#   } 
