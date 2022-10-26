@@ -9,7 +9,7 @@ const user = new Schema(
         validator: (value) => /^[A-Za-z]+$/.test(value),
         message: "firstname is not a valid name!",
       },
-      required: [true, "Name is required"],
+      //required: [true, "Name is required"],
     },
     lastName: {
       type: String,
@@ -18,7 +18,7 @@ const user = new Schema(
         validator: (value) => /^[A-Za-z]+$/.test(value),
         message: "lastname not a valid name!",
       },
-      required: [true, "Name is required"],
+      //required: [true, "Name is required"],
     },
     age: {
       type: Number,
