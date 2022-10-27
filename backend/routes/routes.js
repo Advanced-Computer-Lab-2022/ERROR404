@@ -140,13 +140,13 @@ const search = async (req, res) => {
           { instructor: { $regex: req.params.key } },
         ],
       }
-    : { $or: { price: req.params.key, rating: req.params.key } };
+    : { $or: [{ price: req.params.key }, { rating: req.params.key }] };
   await course
     .find(query, function (err, results) {
       if (err) {
-        res.status(500).json("Server not responding " + err.message);
+        res.status(500).send("Server not responding " + err.message);
       } else if (results.length == 0) {
-        res.status(404).json("no result found");
+        res.status(404).send("no result found");
       } else {
         res.status(200).json(results);
       }

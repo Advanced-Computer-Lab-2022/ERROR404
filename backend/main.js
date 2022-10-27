@@ -2,6 +2,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+var cors = require("cors");
 //DB connections to be put in .env file
 const MongoURI = "mongodb+srv://admin:admin@cluster0.vm6qaas.mongodb.net/test";
 const {
@@ -18,6 +19,7 @@ const app = express();
 const port = process.env.PORT || "2020";
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(cors());
 // configurations
 // Mongo DB
 mongoose
