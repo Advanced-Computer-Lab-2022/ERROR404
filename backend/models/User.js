@@ -34,13 +34,17 @@ const user = new Schema(
       unique: true,
       required: true,
     },
-    email: { type: String, unique: true, required: true },
+    email: {
+      type: String,
+      //unique: true,
+      // required: true
+    },
     country: {
       type: String,
     },
     role: {
       type: String,
-      enum: ["Instructor", "Individual-trainee", "Admin", "Corporate-trainee"],
+      enum: ["Instructor", "Individual-trainee", "Corporate-trainee"],
       required: [true, "role is required"],
     },
     instructorAttributes: [
