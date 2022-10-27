@@ -181,7 +181,19 @@ const instSearch = async (req, res) => {
 //admin creates instructor
 
 //admin creates cooprate
-
+//
+const viewCourses = async (req, res) => {
+  console.log(req.params);
+  const a = await course.find(
+    {},
+    { title: 1, totalHours: 1, rating: 1, _id: 0 }
+  );
+  if (a == null) {
+    res.status(404).send("no courses available");
+  } else {
+    res.json(a);
+  }
+};
 module.exports = {
   search,
   createUser,
@@ -189,4 +201,5 @@ module.exports = {
   coursePrice,
   createCourse,
   instSearch,
+  viewCourses,
 };
