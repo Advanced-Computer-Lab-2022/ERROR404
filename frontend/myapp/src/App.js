@@ -11,6 +11,7 @@ import {
   Breadcrumb,
   Menu,
 } from "antd";
+import GetCourses from "./components/getCourses";
 import {
   DesktopOutlined,
   FileOutlined,
@@ -18,7 +19,6 @@ import {
   TeamOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-import {} from "antd";
 const { Header, Footer, Sider, Content } = Layout;
 const { Option } = Select;
 
@@ -67,6 +67,7 @@ function App() {
         <Content style={{ display: "flex", flexDirection: "row", gap: "5px" }}>
           <CreateAdmin />
           <GetCoursesByPrice />
+          <GetCourses />
         </Content>
         <Footer>Footer</Footer>
       </Layout>
