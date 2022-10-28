@@ -12,6 +12,9 @@ const {
   coursePrice,
   createCourse,
   instSearch,
+  viewCourses,
+  createInstr,
+  createCoop,
 } = require("./routes/routes");
 
 //App variables
@@ -42,3 +45,6 @@ app.get("/searchmycourses/:user/:key", instSearch);
 app.post("/createUser", createUser);
 app.post("/createAdmin", createAdmin);
 app.post("/createCourse", createCourse);
+app.get("/viewCourses", viewCourses);
+app.post("/createInstr", createInstr);
+app.post("/createCoop", createCoop);
