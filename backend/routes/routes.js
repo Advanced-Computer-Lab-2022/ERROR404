@@ -158,7 +158,7 @@ const instSearch = async (req, res) => {
   const data = await course.find(
     {
       $and: [
-        { userName: req.params.key },
+        { instructor: req.params.user },
         {
           $or: [
             { title: { $regex: req.params.key } },
@@ -176,7 +176,8 @@ const instSearch = async (req, res) => {
         res.status(404).json("no data found");
       }
     }
-  );
+  )
+  .clone();
 };
 //admin creates instructor
 

@@ -11,6 +11,7 @@ import {
   Breadcrumb,
   Menu,
 } from "antd";
+import GetAllInstructorCourses from "./components/getAllInstructorCourses";
 import GetCourses from "./components/getCourses";
 import {
   DesktopOutlined,
@@ -68,6 +69,7 @@ function App() {
           <CreateAdmin />
           <GetCoursesByPrice />
           <GetCourses />
+          <GetAllInstructorCourses />
         </Content>
         <Footer>Footer</Footer>
       </Layout>
@@ -99,6 +101,9 @@ const GetCoursesByPrice = () => {
     </Button>
   );
 };
+
+
+
 
 const CreateAdmin = () => {
   const onFinish = (values) => {
