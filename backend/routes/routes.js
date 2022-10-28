@@ -156,30 +156,29 @@ const search = async (req, res) => {
 };
 //instructor searches for his courses validation based on user
 const instSearch = async (req, res) => {
-  const data = await course
-    .find(
-      {
-        $and: [
-          { userName: req.params.user },
-          {
-            $or: [
-              { title: { $regex: req.params.key } },
-              { subject: { $regex: req.params.key } },
-            ],
-          },
-        ],
-      },
-      function (err, data) {
-        if (err) {
-          res.status(500).send("Server Error");
-        } else if (data.length > 0) {
-          res.status(200).json(data);
-        } else {
-          res.status(404).json("no data found");
-        }
+  const data = await course.find(
+    {
+      $and: [
+        { instructor: req.params.user },
+        {
+          $or: [
+            { title: { $regex: req.params.key } },
+            { subject: { $regex: req.params.key } },
+          ],
+        },
+      ],
+    },
+    function (err, data) {
+      if (err) {
+        res.status(500).send("Server Error");
+      } else if (data.length > 0) {
+        res.status(200).json(data);
+      } else {
+        res.status(404).json("no data found");
       }
-    )
-    .clone();
+    }
+  )
+  .clone();
 };
 //admin creates instructor
 const createInstr = async (req, res) => {
