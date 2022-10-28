@@ -95,7 +95,7 @@ const createAdmin = (req, res) => {
   // const email = reqBody.email;
   // const role = "Admin";
   const password = reqBody.password;
-  const username = reqBody.userName;
+  const username = reqBody.username;
   if (
     // fName == null ||
     // lName == null ||
@@ -117,7 +117,7 @@ const createAdmin = (req, res) => {
     // age: req.body.age == undefined ? "" : req.body.age,
     // gender: req.body.gender == undefined ? "" : req.body.gender,
     password: password,
-    userName: username,
+    username: username,
     //email: email,
     // role: "admin",
   };
@@ -181,11 +181,12 @@ const instSearch = async (req, res) => {
     )
     .clone();
 };
+
 //admin creates instructor
 const createInstr = async (req, res) => {
   console.log(req.body);
   const currentUser = req.body.currentUser;
-  const userName = req.body.userName;
+  const userName = req.body.username;
   const password = req.body.password;
   const instData = {
     userName: userName,
@@ -214,6 +215,7 @@ const createInstr = async (req, res) => {
     })
     .clone();
 };
+
 //admin creates cooprate
 const createCoop = async (req, res) => {
   const currentUser = req.body.currentUser;

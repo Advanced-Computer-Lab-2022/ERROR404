@@ -4,32 +4,34 @@ import App from "../App";
 import { Layout, Button, Form, Input, Select, message } from "antd";
 const { Option } = Select;
 
-const CreateAdminWrapper = () => {
+const CreateInstructorWrapper = () => {
   return (
     <>
       <App>
-        <CreateAdmin />
+        <CreateInstructor />
       </App>
     </>
   );
 };
 
-const CreateAdmin = () => {
+const CreateInstructor = () => {
   const onFinish = async (event) => {
     console.log("Success:", event);
     const password = event.password;
     const username = event.username;
+    const currentUser = event.Parentusername;
 
-    await createAdmin(password, username);
+    await createInstructor(password, username, currentUser);
   };
 
-  const createAdmin = async (username, password) => {
+  const createInstructor = async (username, password, currentUser) => {
     const requestBody = {
+      currentUser: currentUser,
       username: username,
       password: password,
     };
     axios
-      .post("http://localhost:2020/createAdmin", requestBody)
+      .post("http://localhost:2020/createInstr", requestBody)
       .then((response) => {
         message.success("user " + username + "has been created", 5);
       })
@@ -167,4 +169,4 @@ const CreateAdmin = () => {
   );
 };
 
-export default CreateAdminWrapper;
+export default CreateInstructorWrapper;

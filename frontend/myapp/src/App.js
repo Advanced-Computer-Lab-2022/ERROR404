@@ -2,8 +2,6 @@ import "./App.css";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Layout, Select, Breadcrumb, Menu, Image } from "antd";
-import CreateAdmin from "./components/createAdmin";
-import MainHeader from "./components/websiteHeader";
 import {
   DesktopOutlined,
   FileOutlined,
@@ -11,6 +9,7 @@ import {
   PieChartOutlined,
   TeamOutlined,
   UserOutlined,
+  FontColorsOutlined,
 } from "@ant-design/icons";
 const { Header, Footer, Sider, Content } = Layout;
 const { Option } = Select;
@@ -23,12 +22,23 @@ function getItem(label, key, icon, children) {
     label,
   };
 }
+
 const items = [
   getItem(<Link to="/">Home</Link>, "12", <HomeOutlined />),
   getItem(
     <Link to="/courses">Filtering Courses</Link>,
     "1",
     <PieChartOutlined />
+  ),
+  getItem(
+    <Link to="/adminCreateAdmin">Create Admin</Link>,
+    "13",
+    <FontColorsOutlined />
+  ),
+  getItem(
+    <Link to="/adminCreateInstructor">Create Instructor</Link>,
+    "14",
+    <FontColorsOutlined />
   ),
   getItem("Option 2", "2", <DesktopOutlined />),
   getItem("Team", "sub2", <TeamOutlined />, [

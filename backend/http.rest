@@ -1,8 +1,7 @@
-POST  http://localhost:2020/createCoop
+POST  http://localhost:2020/createAdmin
 content-type: application/json
 
  {      
-    "currentUser":"abdo",
-    "userName":"alisalemmohamed",
+    "username":"alisalemmohamed",
     "password":"4323432"
  } 
