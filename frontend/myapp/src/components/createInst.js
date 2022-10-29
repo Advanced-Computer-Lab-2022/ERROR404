@@ -19,21 +19,20 @@ const CreateInstructor = () => {
     console.log("Success:", event);
     const password = event.password;
     const username = event.username;
-    const currentUser = event.Parentusername;
 
-    await createInstructor(password, username, currentUser);
+    await createInstructor(username, password);
   };
 
-  const createInstructor = async (username, password, currentUser) => {
+  const createInstructor = async (username, password) => {
     const requestBody = {
-      currentUser: currentUser,
+      currentUser: "alighieth",
       username: username,
       password: password,
     };
     axios
       .post("http://localhost:2020/createInstr", requestBody)
       .then((response) => {
-        message.success("user " + username + "has been created", 5);
+        message.success("user " + username + " has been created", 5);
       })
       .catch((error) => {
         console.log("erorr ", error.message);
@@ -61,16 +60,7 @@ const CreateInstructor = () => {
         onFinishFailed={onFinishFailed}
         autoComplete="off"
       >
-        <Form.Item
-          label="Parent Admin Username"
-          name="Parentusername"
-          rules={[
-            {
-              required: true,
-              message: "Please input your username!",
-            },
-          ]}
-        >
+        <Form.Item label="Parent Admin Username" name="Parentusername">
           <Input />
         </Form.Item>
 
