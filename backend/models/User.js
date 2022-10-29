@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const user = new Schema(
   {
-    firstName: {
+    firstname: {
       type: String,
       minLength: 3,
       validate: {
@@ -11,7 +11,7 @@ const user = new Schema(
       },
       //required: [true, "Name is required"],
     },
-    lastName: {
+    lastname: {
       type: String,
       minLength: 3,
       validate: {
@@ -29,7 +29,7 @@ const user = new Schema(
     },
     password: { type: String, required: true },
 
-    userName: {
+    username: {
       type: String,
       unique: true,
       required: true,
