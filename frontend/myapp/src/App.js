@@ -30,6 +30,16 @@ const items = [
     "1",
     <PieChartOutlined />
   ),
+  getItem(
+    <Link to="/getAllInstructorCourses">Get Instructor Courses</Link>,
+    "15",
+    <PieChartOutlined />
+  ),
+  getItem(
+    <Link to="/viewallcoursesPrice">view Courses Prices</Link>,
+    "30",
+    <PieChartOutlined />
+  ),
   getItem("Option 2", "2", <DesktopOutlined />),
   getItem("Team", "sub2", <TeamOutlined />, [
     getItem("Ali Ghieth", "6"),
