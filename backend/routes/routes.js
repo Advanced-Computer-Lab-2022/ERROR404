@@ -23,76 +23,44 @@ const createUser = (req, res) => {
   });
 };
 
-//create course
-// const createCourse = async (req, res) => {
-//   const instructorUsername = req.body.username;
-// if (instructor == null && instructor.role == "instructor") {
-//   res.status(401).send("Username is not found, or unauthorized");
-// } else
-// if (
-//   req.body.title == null ||
-//   req.body.subtitle == null ||
-//   req.body.price == null ||
-//   req.body.summary == null
-// ) {
-//   res.status(400).send("Required fields were not submitted");
-// } else if (req.body.summary.length < 5) {
-//   res.status(400).send("Summary should be atleast 50 words long");
-// } else {
-//   const courseDetails = {
-//     title: req.body.title == null ? "" : req.body.title,
-//     subtitle: req.body.subtitle == null ? "" : req.body.subtitle,
-//     subject: req.body.subject == null ? "" : req.body.subject,
-//     price: req.body.price == null ? 0 : req.body.price,
-//     instructor: instructorUsername,
-//     totalHours: req.body.totalHours == null ? "" : req.body.totalHours,
-//     image: req.body.image == null ? "" : req.body.image,
-//     video: req.body.video == null ? "" : req.body.video,
-//     prerequisite: req.body.prerequisite == null ? "" : req.body.prerequisite,
-//     summary: req.body.summary == null ? "" : req.body.summary,
-//   };
-
-//   await course.create(courseDetails, (err, small) => {
-//     //  console.log("hello ", small);
-//     const courseId = small._id;
-//     if (err) {
-//       console.log("error with course ", err.message);
-//     } else {
-//       console.log("done course");
-//       user.updateOne(
-//         { username: instructorUsername, role: "Instructor" },
-//         { instructorAttributes: { courses: courseId } },
-//         function (err, small) {
-//           if (err) {
-//             console.log("error with instructor ", err.message);
-//           } else {
-//             res.status(200).send("all good!!!");
-//           }
-//         }
-//       );
-//     }
-//   });
-// }
-//};
-
 const createCourse = async (req, res) => {
-  const courseData = {
-    instructor = req.body.username,
-   title = req.body.title,
-   subtitle = req.body.title,
-   subject = req.body.title,
-   totalHours = req.body.totalHours,
-   summary = req.body.summary,
-  };
+  const instructor = user.find({ username: req.body.username });
+  const instructorUsername = req.body.username;
+  if (instructor == null && instructor.role == "instructor") {
+    res.status(401).send("Username is not found, or unauthorized");
+  } else if (
+    req.body.title == null ||
+    req.body.subtitle == null ||
+    req.body.price == null ||
+    req.body.summary == null
+  ) {
+    res.status(400).send("Required fields were not submitted");
+  } else if (req.body.summary.length < 5) {
+    res.status(400).send("Summary should be atleast 50 words long");
+  } else {
+    const courseDetails = {
+      title: req.body.title == null ? "" : req.body.title,
+      subtitle: req.body.subtitle == null ? "" : req.body.subtitle,
+      subject: req.body.subject == null ? "" : req.body.subject,
+      price: req.body.price == null ? 0 : req.body.price,
+      instructor: instructorUsername,
+      totalHours: req.body.totalHours == null ? "" : req.body.totalHours,
+      image: req.body.image == null ? "" : req.body.image,
+      video: req.body.video == null ? "" : req.body.video,
+      prerequisite: req.body.prerequisite == null ? "" : req.body.prerequisite,
+      summary: req.body.summary == null ? "" : req.body.summary,
+    };
 
-  course.create( courseData, (err, data) => {
-    if(err) {
-      res.status(500);
-    } else {
-      res.status(200);
-    }
-  })
-
+    await course.create(courseDetails, (err, small) => {
+      console.log("hello ", small);
+      if (err) {
+        console.log("error with course ", err.message);
+      } else {
+        res.status(200).json(small);
+      }
+    });
+  }
+};
 
 //view the price of each course
 const coursePrice = async (req, res) => {
@@ -211,10 +179,10 @@ const createInstr = async (req, res) => {
   };
   if (username == "" || password == "") {
     res.status(400).json("Enter a valid data ");
-    return;
   } else {
+    console.log(currentUser);
     await admin
-      .find({ username: currentUser }, {}, (err, result) => {
+      .find({ username: [currentUser] }, {}, (err, result) => {
         if (err) {
           res.status(500).send(err.message + "eeeee");
         } else if (result == "") {
@@ -224,7 +192,7 @@ const createInstr = async (req, res) => {
             if (error) {
               res.status(400).send(error.message + "eeeeee");
             } else {
-              res.status(200).send("user is created");
+              res.status(200).json(result);
             }
           });
         }

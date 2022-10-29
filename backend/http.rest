@@ -1,10 +1,9 @@
-POST http://localhost:2020/createCourse
-content-type: application/json
+POST   http://localhost:2020/createCoop
+Content-Type: application/json
 
-{      
-   "title":"Csen",
-   "subtitle":"computer engineering",
-   "price":1205,
-   "summary":"akfjsgjnigenwfakjfjrhjrhegtkjrejkbgjdnfj",
+{
+   "currentUser": "alighieth",
+   "username": "DinaTamer",
+   "password": "1234"
 }
  
