@@ -16,7 +16,6 @@ const courses = new Schema(
     },
     totalHours: {
       type: Number,
-      required: true,
     },
     rating: {
       type: Number,
@@ -37,15 +36,12 @@ const courses = new Schema(
     },
     image: {
       type: String,
-      required: [true, "Image Required"],
     },
     video: {
-      required: [true, "Video Required"],
       type: String,
     },
     prerequisite: {
       type: String,
-      required: true,
     },
   },
   { timestamps: true }

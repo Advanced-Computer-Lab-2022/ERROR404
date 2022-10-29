@@ -1,7 +1,10 @@
-POST  http://localhost:2020/createAdmin
+POST http://localhost:2020/createCourse
 content-type: application/json
 
- {      
-    "username":"alisalemmohamed",
-    "password":"4323432"
- } 
+{      
+   "title":"Csen",
+   "subtitle":"computer engineering",
+   "price":1205,
+   "summary":"akfjsgjnigenwfakjfjrhjrhegtkjrejkbgjdnfj",
+}
+ 
