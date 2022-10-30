@@ -25,26 +25,33 @@ const WrapperCreateCourses = () => {
 const CreateCourse = () => {
   // axios({
   //   method: "post",
-  //   url: "http://localhost:2020/createCourse/" ,  
-  //   {      
+  //   url: "http://localhost:2020/createCourse/" ,
+  //   {
   //     "title":"",
   //     "userName":"alisalemmohamed",
   //     "password":"4323432"
-  //  } 
+  //  }
   //})
   const onFinish = async (event) => {
     console.log("Success:", event);
     const title = event.title;
     const subtitles = event.subtitles;
     const price = event.price;
-    const summary= event.summary;
-    const subject=event.subject;
-    const totalHours=event.totalHours;
+    const summary = event.summary;
+    const subject = event.subject;
+    const totalHours = event.totalHours;
 
-    await createCourse(title, subtitles, price,summary,subject,totalHours);
+    await createCourse(title, subtitles, price, summary, subject, totalHours);
   };
 
-  const createCourse = async (title, subtitle, price, summary, subject,totalHours) => {
+  const createCourse = async (
+    title,
+    subtitle,
+    price,
+    summary,
+    subject,
+    totalHours
+  ) => {
     const requestBody = {
       username: "abdoAli",
       title: title,
@@ -55,7 +62,6 @@ const CreateCourse = () => {
       image: "ali dina",
       subject: subject,
       totalHours: totalHours,
-
     };
     axios
       .post("http://localhost:2020/createCourse", requestBody)
@@ -171,8 +177,7 @@ const CreateCourse = () => {
             span: 25,
           }}
         >
-          <Button type="primary" htmlType="submit"> 
-        
+          <Button type="primary" htmlType="submit">
             Create Course
           </Button>
         </Form.Item>
