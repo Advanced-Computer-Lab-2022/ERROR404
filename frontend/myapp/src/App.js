@@ -34,6 +34,16 @@ const items = [
     <PieChartOutlined />
   ),
   getItem(
+    <Link to="/getAllInstructorCourses">GetAllInstructorCourses</Link>,
+    "15",
+    <PieChartOutlined />
+  ),
+  getItem(
+    <Link to="/viewallCoursesPrice">ViewAllCoursesPrice</Link>,
+    "30",
+    <PieChartOutlined />
+  ),
+  getItem(
     <Link to="/adminCreateAdmin">Create Admin</Link>,
     "13",
     <FontColorsOutlined />

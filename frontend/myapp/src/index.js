@@ -4,6 +4,8 @@ import "./index.css";
 import App from "./App";
 import "antd/dist/antd.css";
 import GetCoursesByPrice from "./components/getCourses";
+import GetAllInstructorCoursesWrapper from "./components/getAllInstructorCourses";
+import ViewAllCoursesPriceWrapper from "./components/viewallCoursesPrice";
 import CreateAdminWrapper from "./components/createAdmin";
 import CreateInstructorWrapper from "./components/createInst";
 import WrapperCreateCourses from "./components/createCourse";
@@ -26,7 +28,8 @@ export default function MainApp() {
           element={<CreateInstructorWrapper />}
         />
         <Route path="/createCourse" element={<WrapperCreateCourses />} />
-        <Route path="/createCourse" element={<WrapperCreateCourses />} />
+        <Route path="/getAllInstructorCourses" element={<GetAllInstructorCoursesWrapper />} />
+        <Route path="/viewallCoursesPrice" element={<ViewAllCoursesPriceWrapper />} />
       </Routes>
     </Router>
   );
