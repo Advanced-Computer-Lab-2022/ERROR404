@@ -23,15 +23,6 @@ const WrapperCreateCourses = () => {
 };
 
 const CreateCourse = () => {
-  // axios({
-  //   method: "post",
-  //   url: "http://localhost:2020/createCourse/" ,
-  //   {
-  //     "title":"",
-  //     "userName":"alisalemmohamed",
-  //     "password":"4323432"
-  //  }
-  //})
   const onFinish = async (event) => {
     console.log("Success:", event);
     const title = event.title;

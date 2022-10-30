@@ -26,6 +26,7 @@ export default function MainApp() {
           element={<CreateInstructorWrapper />}
         />
         <Route path="/createCourse" element={<WrapperCreateCourses />} />
+        <Route path="/createCourse" element={<WrapperCreateCourses />} />
       </Routes>
     </Router>
   );
