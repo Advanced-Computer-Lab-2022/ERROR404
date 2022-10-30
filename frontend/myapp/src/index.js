@@ -4,6 +4,7 @@ import "./index.css";
 import App from "./App";
 import "antd/dist/antd.css";
 import GetCoursesByPrice from "./components/getCourses";
+import WrapperCreateCourses from "./components/createCourse";
 import {
   BrowserRouter as Router,
   Routes,
@@ -17,6 +18,8 @@ export default function MainApp() {
       <Routes>
         <Route exact path="/" element={<App />} />
         <Route path="/courses" element={<GetCoursesByPrice />} />
+        <Route path="/createCourse" element={<WrapperCreateCourses />} />
+
       </Routes>
     </Router>
   );

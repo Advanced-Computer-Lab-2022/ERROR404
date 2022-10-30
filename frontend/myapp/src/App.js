@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { Layout, Select, Breadcrumb, Menu, Image } from "antd";
 import CreateAdmin from "./components/createAdmin";
 import MainHeader from "./components/websiteHeader";
+import CreateCourse from "./components/createCourse";
 import {
   DesktopOutlined,
   FileOutlined,
@@ -28,6 +29,11 @@ const items = [
   getItem(
     <Link to="/courses">Filtering Courses</Link>,
     "1",
+    <PieChartOutlined />
+  ),
+  getItem(
+    <Link to="/createCourse">Create Course</Link>,
+    "20",
     <PieChartOutlined />
   ),
   getItem("Option 2", "2", <DesktopOutlined />),
