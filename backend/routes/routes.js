@@ -191,6 +191,7 @@ const createInstr = async (req, res) => {
   const instData = {
     userName: userName,
     password: password,
+    country: (req.body.country) == null ? '' : req.body.country,
     role: "Instructor",
   };
   if (userName == null || password == null) {
@@ -262,6 +263,30 @@ const viewCourses = async (req, res) => {
     res.json(a);
   }
 };
+
+//choose country
+const chooseCountry = async (req, res) => {
+  const { username, country } = req.body;
+  if (username == "" || country == "") {
+    res.status(400).send("valid data required");
+  } else {
+    await user
+      .updateOne(
+        { username: username }, { "country": country },
+        (error, docs) => {
+          if (error) {
+            res.status(400).send(error);
+           } else if (docs == null) {
+             res.status(404).send("error not found");
+          } else {
+            res.status(200).json(docs);
+          }
+        }
+      )
+      .clone();
+  }
+};
+
 module.exports = {
   search,
   createUser,
@@ -272,4 +297,5 @@ module.exports = {
   viewCourses,
   createInstr,
   createCoop,
+  chooseCountry,
 };

@@ -6,12 +6,14 @@ import "antd/dist/antd.css";
 import GetCoursesByPrice from "./components/getCourses";
 import CreateAdminWrapper from "./components/createAdmin";
 import CreateInstructorWrapper from "./components/createInst";
+import SelectCountryWrapper from "./components/selectCountry1";
 import {
   BrowserRouter as Router,
   Routes,
   Route,
   Navigate,
 } from "react-router-dom";
+
 
 export default function MainApp() {
   return (
@@ -24,6 +26,7 @@ export default function MainApp() {
           path="/adminCreateInstructor"
           element={<CreateInstructorWrapper />}
         />
+        <Route path="/SelectCountry1" element={<SelectCountryWrapper />} />
       </Routes>
     </Router>
   );

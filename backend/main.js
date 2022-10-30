@@ -15,6 +15,7 @@ const {
   viewCourses,
   createInstr,
   createCoop,
+  chooseCountry,
 } = require("./routes/routes");
 
 //App variables
@@ -48,3 +49,4 @@ app.post("/createCourse", createCourse);
 app.get("/viewCourses", viewCourses);
 app.post("/createInstr", createInstr);
 app.post("/createCoop", createCoop);
+app.patch("/country", chooseCountry);
