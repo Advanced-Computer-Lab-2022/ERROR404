@@ -36,11 +36,11 @@ const createCourse = async (req, res) => {
   ) {
     res.status(400).send("Required fields were not submitted");
   } else if (req.body.summary.length < 5) {
-    res.status(400).send("Summary should be atleast 50 words long");
+    res.status(400).send("Summary should be atleast 5 words long");
   } else {
     const courseDetails = {
       title: req.body.title == null ? "" : req.body.title,
-      subtitle: req.body.subtitle == null ? "" : req.body.subtitle,
+      subtitles: req.body.subtitle == null ? "" : req.body.subtitle,
       subject: req.body.subject == null ? "" : req.body.subject,
       price: req.body.price == null ? 0 : req.body.price,
       instructor: instructorUsername,
@@ -50,6 +50,8 @@ const createCourse = async (req, res) => {
       prerequisite: req.body.prerequisite == null ? "" : req.body.prerequisite,
       summary: req.body.summary == null ? "" : req.body.summary,
     };
+
+    console.log(courseDetails);
 
     await course.create(courseDetails, (err, small) => {
       console.log("hello ", small);
