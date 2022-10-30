@@ -25,6 +25,20 @@ const courses = new Schema(
       default: 0,
       required: true,
     },
+
+    subtitles:{
+      type: String,
+      required: true,
+      minLength:5,
+      maxLength:200,
+    },
+
+    exercises:{
+      type: String,
+      required: false,
+
+    },
+
     summary: {
       type: String,
       required: [true, "Summary Required"],

@@ -6,6 +6,7 @@ import "antd/dist/antd.css";
 import GetCoursesByPrice from "./components/getCourses";
 import CreateAdminWrapper from "./components/createAdmin";
 import CreateInstructorWrapper from "./components/createInst";
+import WrapperCreateCourses from "./components/createCourse";
 import {
   BrowserRouter as Router,
   Routes,
@@ -24,6 +25,7 @@ export default function MainApp() {
           path="/adminCreateInstructor"
           element={<CreateInstructorWrapper />}
         />
+        <Route path="/createCourse" element={<WrapperCreateCourses />} />
       </Routes>
     </Router>
   );
