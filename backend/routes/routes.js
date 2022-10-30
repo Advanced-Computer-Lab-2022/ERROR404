@@ -177,6 +177,7 @@ const createInstr = async (req, res) => {
   const instData = {
     username: username,
     password: password,
+    country: (req.body.country) == null ? '' : req.body.country,
     role: "Instructor",
   };
   if (username == "" || password == "") {

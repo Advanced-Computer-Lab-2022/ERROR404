@@ -58,6 +58,11 @@ const items = [
     "20",
     <PieChartOutlined />
   ),
+  getItem(
+    <Link to="/SelectCountry1">Select Country</Link>,
+    "21",
+    <FontColorsOutlined />
+  ),
   getItem("Option 2", "2", <DesktopOutlined />),
   getItem("Team", "sub2", <TeamOutlined />, [
     getItem("Ali Ghieth", "6"),
