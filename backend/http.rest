@@ -1,9 +1,3 @@
-POST   http://localhost:2020/createCoop
-Content-Type: application/json
+GET http://localhost:2020/instViewCourses/abdoAli
 
-{
-   "currentUser": "alighieth",
-   "username": "DinaTamer",
-   "password": "1234"
-}
  

@@ -11,6 +11,8 @@ import CreateInstructorWrapper from "./components/createInst";
 import WrapperCreateCourses from "./components/createCourse";
 import SelectCountryWrapper from "./components/selectCountry1";
 import CreateCorporateWrapper from "./components/createCorp";
+import ViewAllCoursesWrapper from "./components/viewAllCourses";
+import InstViewCoursesWrapper from "./components/instViewCourses";
 import {
   BrowserRouter as Router,
   Routes,
@@ -40,6 +42,8 @@ export default function MainApp() {
         />
         <Route path="/createCorp" element={<CreateCorporateWrapper />} />
         <Route path="/SelectCountry1" element={<SelectCountryWrapper />} />
+        <Route path="/viewAllCourses" element={<ViewAllCoursesWrapper />} />
+        <Route path="/instViewCourses" element={<InstViewCoursesWrapper />} />
       </Routes>
     </Router>
   );
