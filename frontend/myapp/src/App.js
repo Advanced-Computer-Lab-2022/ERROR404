@@ -94,6 +94,7 @@ function App({ children }) {
       </Header>
       <Layout style={{ minHeight: "90vh" }} theme="light">
         <Sider
+          width={300}
           theme="light"
           collapsible
           collapsed={collapsed}

@@ -120,6 +120,14 @@ const createAdmin = (req, res) => {
 };
 //filter the courses given by him/her based on a subject or price
 const search = async (req, res) => {
+  let coursePrice = {
+    price: req.params.key,
+  };
+  if (req.params.key.valueOf().toLowerCase() == "free") {
+    coursePrice = {
+      price: 0,
+    };
+  }
   const query = isNaN(req.params.key)
     ? {
         $or: [
@@ -128,7 +136,7 @@ const search = async (req, res) => {
           { instructor: { $regex: req.params.key } },
         ],
       }
-    : { $or: [{ price: req.params.key }, { rating: req.params.key }] };
+    : { $or: [coursePrice, { rating: req.params.key }] };
   await course
     .find(query, function (err, results) {
       if (err) {
@@ -177,7 +185,7 @@ const createInstr = async (req, res) => {
   const instData = {
     username: username,
     password: password,
-    country: (req.body.country) == null ? '' : req.body.country,
+    country: req.body.country == null ? "" : req.body.country,
     role: "Instructor",
   };
   if (username == "" || password == "") {
