@@ -72,6 +72,17 @@ const items = [
     "21",
     <SelectOutlined />
   ),
+  getItem(
+    <Link to="/viewAllCourses">View All Courses</Link>,
+    "27",
+    <FontColorsOutlined />
+  ),
+  getItem(
+    <Link to="/instViewCourses">View Instructor Courses</Link>,
+    "7",
+    <FontColorsOutlined />
+  ),
+  getItem("Option 2", "2", <DesktopOutlined />),
   getItem("Team", "sub2", <TeamOutlined />, [
     getItem("Ali Ghieth", "6"),
     getItem("Abdelrahman Ali", "8"),

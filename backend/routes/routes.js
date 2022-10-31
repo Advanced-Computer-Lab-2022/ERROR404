@@ -302,6 +302,19 @@ const view = async (req, res) => {
     })
     .clone();
 };
+const instViewCourses = async (req, res) => {
+  const a = await course.find({ instructor: req.params.user },
+    {
+      title: 1,
+      _id: 0,
+    }
+  );
+  if (a == null) {
+    res.status(404).send("no courses available");
+  } else {
+    res.json(a);
+  }
+};
 module.exports = {
   search,
   createUser,
@@ -313,5 +326,6 @@ module.exports = {
   createInstr,
   createCoop,
   chooseCountry,
+  instViewCourses,
   view,
 };

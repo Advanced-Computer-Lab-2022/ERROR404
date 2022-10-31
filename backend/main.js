@@ -16,6 +16,7 @@ const {
   createInstr,
   createCoop,
   chooseCountry,
+  instViewCourses,
   view,
 } = require("./routes/routes");
 
@@ -51,4 +52,5 @@ app.post("/createCourse", createCourse);
 app.post("/createInstr", createInstr);
 app.post("/createCoop", createCoop);
 app.patch("/country", chooseCountry);
+app.get("/instViewCourses/:user", instViewCourses);
 // app.get("/view", view);
