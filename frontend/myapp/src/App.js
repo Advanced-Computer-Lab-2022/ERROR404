@@ -63,10 +63,15 @@ const items = [
     "21",
     <FontColorsOutlined />
   ),
+  getItem(
+    <Link to="/createCorp">CreateCorporate</Link>,
+    "22",
+    <FontColorsOutlined />
+  ),
   getItem("Option 2", "2", <DesktopOutlined />),
   getItem("Team", "sub2", <TeamOutlined />, [
     getItem("Ali Ghieth", "6"),
-    getItem("Abdulrahman Ali", "8"),
+    getItem("Abdelrahman Ali", "8"),
     getItem("Mohammed Tamer", "9"),
     getItem("Dina Tamer", "10"),
     getItem("Malak Amr ", "11"),
