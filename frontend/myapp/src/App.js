@@ -93,7 +93,7 @@ function App({ children }) {
           fontSize: "20px",
         }}
       >
-        ERROR404 Team
+        <h1>ERROR404 Team</h1>
       </Header>
       <Layout style={{ minHeight: "90vh" }} theme="light">
         <Sider
