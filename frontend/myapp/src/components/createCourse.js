@@ -49,8 +49,8 @@ const CreateCourse = () => {
       subtitle: subtitle,
       price: price,
       summary: summary,
-      video: "dina ali",
-      image: "ali dina",
+      video: "video",
+      image: "image",
       subject: subject,
       totalHours: totalHours,
     };

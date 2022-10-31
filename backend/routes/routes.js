@@ -49,6 +49,7 @@ const createCourse = async (req, res) => {
       video: req.body.video == null ? "" : req.body.video,
       prerequisite: req.body.prerequisite == null ? "" : req.body.prerequisite,
       summary: req.body.summary == null ? "" : req.body.summary,
+      rating: 5.0,
     };
 
     console.log(courseDetails);
