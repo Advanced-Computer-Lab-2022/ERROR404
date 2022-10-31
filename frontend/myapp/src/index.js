@@ -10,13 +10,13 @@ import CreateAdminWrapper from "./components/createAdmin";
 import CreateInstructorWrapper from "./components/createInst";
 import WrapperCreateCourses from "./components/createCourse";
 import SelectCountryWrapper from "./components/selectCountry1";
+import CreateCorporateWrapper from "./components/createCorp";
 import {
   BrowserRouter as Router,
   Routes,
   Route,
   Navigate,
 } from "react-router-dom";
-
 
 export default function MainApp() {
   return (
@@ -30,8 +30,15 @@ export default function MainApp() {
           element={<CreateInstructorWrapper />}
         />
         <Route path="/createCourse" element={<WrapperCreateCourses />} />
-        <Route path="/getAllInstructorCourses" element={<GetAllInstructorCoursesWrapper />} />
-        <Route path="/viewallCoursesPrice" element={<ViewAllCoursesPriceWrapper />} />
+        <Route
+          path="/getAllInstructorCourses"
+          element={<GetAllInstructorCoursesWrapper />}
+        />
+        <Route
+          path="/viewallCoursesPrice"
+          element={<ViewAllCoursesPriceWrapper />}
+        />
+        <Route path="/createCorp" element={<CreateCorporateWrapper />} />
         <Route path="/SelectCountry1" element={<SelectCountryWrapper />} />
       </Routes>
     </Router>
