@@ -8,6 +8,10 @@ import CreateCourse from "./components/createCourse";
 import {
   DesktopOutlined,
   FileOutlined,
+  SelectOutlined,
+  FolderViewOutlined,
+  PlusSquareOutlined,
+  SearchOutlined,
   HomeOutlined,
   PieChartOutlined,
   TeamOutlined,
@@ -31,44 +35,43 @@ const items = [
   getItem(
     <Link to="/courses">Filtering Courses</Link>,
     "1",
-    <PieChartOutlined />
+    <SearchOutlined />
   ),
   getItem(
     <Link to="/getAllInstructorCourses">GetAllInstructorCourses</Link>,
     "15",
-    <PieChartOutlined />
+    <SearchOutlined />
   ),
   getItem(
     <Link to="/viewallCoursesPrice">ViewAllCoursesPrice</Link>,
     "30",
-    <PieChartOutlined />
+    <FolderViewOutlined />
   ),
   getItem(
     <Link to="/adminCreateAdmin">Create Admin</Link>,
     "13",
-    <FontColorsOutlined />
+    <PlusSquareOutlined />
   ),
   getItem(
     <Link to="/adminCreateInstructor">Create Instructor</Link>,
     "14",
-    <FontColorsOutlined />
+    <PlusSquareOutlined />
   ),
   getItem(
     <Link to="/createCourse">Create Course</Link>,
     "20",
-    <PieChartOutlined />
-  ),
-  getItem(
-    <Link to="/SelectCountry1">Select Country</Link>,
-    "21",
-    <FontColorsOutlined />
+    <PlusSquareOutlined />
   ),
   getItem(
     <Link to="/createCorp">CreateCorporate</Link>,
     "22",
-    <FontColorsOutlined />
+    <PlusSquareOutlined />
   ),
-  getItem("Option 2", "2", <DesktopOutlined />),
+  getItem(
+    <Link to="/SelectCountry1">Select Country</Link>,
+    "21",
+    <SelectOutlined />
+  ),
   getItem("Team", "sub2", <TeamOutlined />, [
     getItem("Ali Ghieth", "6"),
     getItem("Abdelrahman Ali", "8"),

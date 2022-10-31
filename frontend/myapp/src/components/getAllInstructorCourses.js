@@ -1,4 +1,4 @@
-import React, {useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Button, Modal, Form, Input, Select } from "antd";
 import { Collapse } from "antd";
@@ -17,38 +17,38 @@ const GetAllInstructorCoursesWrapper = () => {
 const GetAllInstructorCourses = () => {
   const [data, setData] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  
-const showModal = () => {
-  setIsModalOpen(true);
-};
 
-const handleOk = () => {
-  setIsModalOpen(false);
-};
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
 
-const handleCancel = () => {
-  setIsModalOpen(false);
-};
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
 
-useEffect(() => {
-  console.log("data =>  ", data);
-}, [data]);
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
 
-const GetAllInstructorCourses = (username , key) => {
-      setIsModalOpen(true);
-      axios({
-        method: "get",
-        url: "http://localhost:2020/searchmycourses/" + username + "/" + key,
+  useEffect(() => {
+    console.log("data =>  ", data);
+  }, [data]);
+
+  const GetAllInstructorCourses = (username, key) => {
+    setIsModalOpen(true);
+    axios({
+      method: "get",
+      url: "http://localhost:2020/searchmycourses/" + username + "/" + key,
+    })
+      .then((response) => {
+        setData(response.data);
       })
-        .then((response) => {
-          setData(response.data);
-        })
-        .catch((error) => {
-          console.log("erorr ", error.message);
-        });
-    };
+      .catch((error) => {
+        console.log("erorr ", error.message);
+      });
+  };
 
-    const [form] = Form.useForm();
+  const [form] = Form.useForm();
   const onFinish = async (event) => {
     console.log(" => ", event);
     const value = event.username;
@@ -62,16 +62,19 @@ const GetAllInstructorCourses = (username , key) => {
   const onReset = () => {
     form.resetFields();
   };
-  
-    return (
-      <>
+
+  return (
+    <>
       <Form onFinish={onFinish} form={form} name="control-hooks">
-        
-        <Form.Item name="username" label="Username" rules={[{ required: true }]}>
+        <Form.Item
+          name="username"
+          label="Username"
+          rules={[{ required: true }]}
+        >
           <Input />
         </Form.Item>
-        <Form.Item name="key" label="TitleSubject" rules={[{ required: true }]}>
-          <Input />
+        <Form.Item name="key" label="Course Query" rules={[{ required: true }]}>
+          <Input placeholder="enter a course price or subject" />
         </Form.Item>
 
         <Form.Item>
@@ -106,7 +109,7 @@ const GetAllInstructorCourses = (username , key) => {
         </Collapse>
       </Modal>
     </>
-    );
-  };
+  );
+};
 
 export default GetAllInstructorCoursesWrapper;
