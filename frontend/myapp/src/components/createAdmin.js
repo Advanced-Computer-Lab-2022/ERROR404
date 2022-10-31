@@ -20,7 +20,7 @@ const CreateAdmin = () => {
     const password = event.password;
     const username = event.username;
 
-    await createAdmin(password, username);
+    await createAdmin(username, password);
   };
 
   const createAdmin = async (username, password) => {

@@ -113,6 +113,7 @@ const createAdmin = (req, res) => {
   Admin.create(adminData, function (err, small) {
     if (err) {
       res.status(500).send("Database not responding  => " + err.message);
+      console.log(err.message);
       return;
     }
     // this means record created
@@ -303,7 +304,8 @@ const view = async (req, res) => {
     .clone();
 };
 const instViewCourses = async (req, res) => {
-  const a = await course.find({ instructor: req.params.user },
+  const a = await course.find(
+    { instructor: req.params.user },
     {
       title: 1,
       _id: 0,

@@ -38,12 +38,12 @@ const items = [
     <SearchOutlined />
   ),
   getItem(
-    <Link to="/getAllInstructorCourses">GetAllInstructorCourses</Link>,
+    <Link to="/getAllInstructorCourses">Instructor Courses</Link>,
     "15",
     <SearchOutlined />
   ),
   getItem(
-    <Link to="/viewallCoursesPrice">ViewAllCoursesPrice</Link>,
+    <Link to="/viewallCoursesPrice">View Courses with Prices</Link>,
     "30",
     <FolderViewOutlined />
   ),
@@ -63,7 +63,7 @@ const items = [
     <PlusSquareOutlined />
   ),
   getItem(
-    <Link to="/createCorp">CreateCorporate</Link>,
+    <Link to="/createCorp">Create Corporate</Link>,
     "22",
     <PlusSquareOutlined />
   ),
@@ -82,11 +82,10 @@ const items = [
     "7",
     <FontColorsOutlined />
   ),
-  getItem("Option 2", "2", <DesktopOutlined />),
   getItem("Team", "sub2", <TeamOutlined />, [
     getItem("Ali Ghieth", "6"),
     getItem("Abdelrahman Ali", "8"),
-    getItem("Mohammed Tamer", "9"),
+    getItem("موهمد تامر ", "9"),
     getItem("Dina Tamer", "10"),
     getItem("Malak Amr ", "11"),
   ]),

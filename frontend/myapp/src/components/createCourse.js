@@ -57,7 +57,7 @@ const CreateCourse = () => {
     axios
       .post("http://localhost:2020/createCourse", requestBody)
       .then((response) => {
-        message.success("course " + title + "has been created", 5);
+        message.success("course " + title + " has been created", 5);
       })
       .catch((error) => {
         console.log("erorr ", error);
@@ -69,7 +69,7 @@ const CreateCourse = () => {
   };
   return (
     <div style={{ textAlign: "center" }}>
-      <span>Create New User</span>
+      <span>Create New Course</span>
       <Form
         name="basic"
         labelCol={{
