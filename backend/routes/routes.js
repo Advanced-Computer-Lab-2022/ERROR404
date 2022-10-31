@@ -119,7 +119,7 @@ const createAdmin = (req, res) => {
   });
 };
 //filter the courses given by him/her based on a subject or price
-const search = async (req, res) => {
+let search = async (req, res) => {
   let query = {};
   if (req.params.key.valueOf().toLowerCase() == "free") {
     query = {
@@ -134,8 +134,9 @@ const search = async (req, res) => {
             { instructor: { $regex: req.params.key } },
           ],
         }
-      : { $or: [coursePrice, { rating: req.params.key }] };
+      : { $or: [{ price: req.params.key }, { rating: req.params.key }] };
   }
+
   await course
     .find(query, function (err, results) {
       if (err) {
@@ -153,13 +154,13 @@ const instSearch = async (req, res) => {
   let query = {};
   if (req.params.key.valueOf().toLowerCase() == "free") {
     query = {
-      $and: [{ username: req.params.user }, { price: 0 }],
+      $and: [{ instructor: req.params.user }, { price: 0 }],
     };
   } else {
     query = isNaN(req.params.key)
       ? {
           $and: [
-            { username: req.params.user },
+            { instructor: req.params.user },
             {
               $or: [
                 { title: { $regex: req.params.key } },
@@ -168,10 +169,13 @@ const instSearch = async (req, res) => {
             },
           ],
         }
-      : { $or: [{ price: req.params.key }, { rating: req.params.key }] };
+      : {
+          $and: [{ instructor: req.params.user }, { price: req.params.key }],
+        };
   }
-  const data = await course
-    .find(query, function (err, data) {
+
+  await course
+    .find(query, (err, data) => {
       if (err) {
         res.status(500).send("Server Error");
       } else if (data.length > 0) {

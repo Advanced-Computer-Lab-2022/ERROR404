@@ -102,6 +102,8 @@ const GetAllInstructorCourses = () => {
                 <p>Title: {course.title}</p>
                 <p>Summary: {course.summary}</p>
                 <p>Instructor: {course.instructor}</p>
+                <p>Price: {course.price}</p>
+                <p>rating: {course.rating}</p>
                 <p>Total Hours: {course.totalHours}</p>
               </Panel>
             );
