@@ -2,20 +2,10 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Button, Modal, Form, Input, Select } from "antd";
 import { Collapse } from "antd";
-import App from "../App";
-import {SearchOutlined} from "@ant-design/icons"; 
+import { SearchOutlined } from "@ant-design/icons";
 
-const { Option } = Select;
-
+const { Search } = Input;
 const { Panel } = Collapse;
-
-const WrapperSeachCourses = () => {
-  return (
-    <App>
-      <SearchByForm />
-    </App>
-  );
-};
 
 const SearchByForm = () => {
   const [data, setData] = useState([]);
@@ -52,9 +42,9 @@ const SearchByForm = () => {
   };
 
   const [form] = Form.useForm();
-  const onFinish = async (event) => {
+  const onSearch = async (event) => {
     console.log(" => ", event);
-    const value = event.value;
+    const value = event;
     console.log(value);
 
     await getCourses(value);
@@ -66,21 +56,16 @@ const SearchByForm = () => {
 
   return (
     <>
-      <Form onFinish={onFinish} form={form} name="control-hooks">
-
-      <Form.Item name="value" label="value" rules={[{ required: true }]}>
-          <Input />
-        </Form.Item>
-
-        <Form.Item>
-          <Button type="primary" htmlType="submit" icon={<SearchOutlined/>}>
-            Search
-          </Button>
-          <Button htmlType="button" onClick={onReset} >
-            Reset
-          </Button>
-        </Form.Item>
-      </Form>
+      <Search
+        placeholder="input search text"
+        onSearch={onSearch}
+        enterButton
+        size="middle"
+        bordered={true}
+        style={{
+          maxWidth: "20vw",
+        }}
+      />
 
       <Modal
         title="Basic Modal"
@@ -109,4 +94,4 @@ const SearchByForm = () => {
   );
 };
 
-export default WrapperSeachCourses;
+export default SearchByForm;

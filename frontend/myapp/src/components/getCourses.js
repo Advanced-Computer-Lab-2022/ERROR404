@@ -2,18 +2,9 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Button, Modal, Form, Input, Select } from "antd";
 import { Collapse } from "antd";
-import App from "../App";
 const { Option } = Select;
 
 const { Panel } = Collapse;
-
-const WrapperGetCourses = () => {
-  return (
-    <App>
-      <SearchByForm />
-    </App>
-  );
-};
 
 const SearchByForm = () => {
   const [data, setData] = useState([]);
@@ -126,4 +117,4 @@ const SearchByForm = () => {
   );
 };
 
-export default WrapperGetCourses;
+export default SearchByForm;
