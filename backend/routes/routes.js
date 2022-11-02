@@ -161,7 +161,7 @@ let search = async (req, res) => {
     .clone();
 };
 //instructor searches for his courses validation based on user
-const instSearch = async (req, res) => {
+const instructorSearch = async (req, res) => {
   let query = {};
   if (req.params.key.valueOf().toLowerCase() == "free") {
     query = {
@@ -268,10 +268,7 @@ const createCorporate = async (req, res) => {
 
 //
 const viewCourses = async (req, res) => {
-  const a = await course.find(
-    {},
-    { title: 1, totalHours: 1, rating: 1, _id: 0 }
-  );
+  const a = await course.find({}, { _id: 0 });
   if (a == null) {
     res.status(404).send("no courses available");
   } else {
@@ -351,7 +348,7 @@ module.exports = {
   createAdmin,
   coursePrice,
   createCourse,
-  instSearch,
+  instructorSearch,
   viewCourses,
   createInstructor,
   createCorporate,

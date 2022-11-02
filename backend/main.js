@@ -11,7 +11,7 @@ const {
   createAdmin,
   coursePrice,
   createCourse,
-  instSearch,
+  instructorSearch,
   viewCourses,
   createInstructor,
   createCorporate,
@@ -45,7 +45,7 @@ app.get("/", (req, res) => {
 
 app.get("/search/:key/:max", search);
 app.get("/coursePrice", coursePrice);
-app.get("/searchmycourses/:user/:key", instSearch);
+app.get("/searchmycourses/:user/:key", instructorSearch);
 app.get("/viewCourses", viewCourses);
 app.post("/createUser", createUser);
 app.post("/createAdmin", createAdmin);
