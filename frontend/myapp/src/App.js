@@ -43,6 +43,11 @@ const items = [
     <SearchOutlined />
   ),
   getItem(
+    <Link to="/SearchCourses">Search Courses</Link>,
+    "30",
+    <SearchOutlined />
+  ),
+  getItem(
     <Link to="/viewallCoursesPrice">View Courses with Prices</Link>,
     "30",
     <FolderViewOutlined />
@@ -82,6 +87,7 @@ const items = [
     "7",
     <FontColorsOutlined />
   ),
+ 
   getItem("Team", "sub2", <TeamOutlined />, [
     getItem("Ali Ghieth", "6"),
     getItem("Abdelrahman Ali", "8"),
