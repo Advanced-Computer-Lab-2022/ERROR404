@@ -116,6 +116,7 @@ const SearchByForm = () => {
                 <p>Price: {course.price}</p>
                 <p>rating: {course.rating}</p>
                 <p>Total Hours: {course.totalHours}</p>
+                <p>Subject: {course.subject}</p>
               </Panel>
             );
           })}
