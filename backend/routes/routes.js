@@ -120,7 +120,7 @@ const createAdmin = (req, res) => {
     res.status(200).send("admin " + username + " created Successfully");
   });
 };
-//filter the courses given by him/her based on a subject or price
+//search the courses given by him/her based on a subject or price
 let search = async (req, res) => {
   let query = {};
   if (req.params.key.valueOf().toLowerCase() == "free") {
@@ -136,9 +136,18 @@ let search = async (req, res) => {
             { instructor: { $regex: req.params.key } },
           ],
         }
-      : { $or: [{ price: req.params.key }, { rating: req.params.key }] };
+      : {
+          $or: [
+            {
+              $and: [
+                { price: { $gte: parseInt(req.params.key) } },
+                { price: { $lte: parseInt(req.params.max) } },
+              ],
+            },
+            { rating: req.params.key },
+          ],
+        };
   }
-
   await course
     .find(query, function (err, results) {
       if (err) {
@@ -190,7 +199,7 @@ const instSearch = async (req, res) => {
 };
 
 //admin creates instructor
-const createInstr = async (req, res) => {
+const createInstructor = async (req, res) => {
   const currentUser = req.body.currentUser;
   const username = req.body.username;
   const password = req.body.password;
@@ -225,7 +234,7 @@ const createInstr = async (req, res) => {
 };
 
 //admin creates cooprate
-const createCoop = async (req, res) => {
+const createCorporate = async (req, res) => {
   const currentUser = req.body.currentUser;
   const username = req.body.username;
   const password = req.body.password;
@@ -317,6 +326,25 @@ const instViewCourses = async (req, res) => {
     res.json(a);
   }
 };
+//filter
+const filterCourses = async (req, res) => {
+  const filterType = req.params.filterType;
+  const key = req.params.key;
+  if (filterType == null || key == null) {
+    res.status(404).send("enter a filter type");
+  } else {
+    const data = await course
+      .find()
+      .where(filterType, key)
+      .exec((err, result) => {
+        if (err) {
+          res.status(500).send(err.message);
+        } else if (result) {
+          res.status(200).json(result);
+        }
+      });
+  }
+};
 module.exports = {
   search,
   createUser,
@@ -325,9 +353,10 @@ module.exports = {
   createCourse,
   instSearch,
   viewCourses,
-  createInstr,
-  createCoop,
+  createInstructor,
+  createCorporate,
   chooseCountry,
   instViewCourses,
   view,
+  filterCourses,
 };
