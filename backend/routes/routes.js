@@ -342,6 +342,20 @@ const filterCourses = async (req, res) => {
       });
   }
 };
+const updateViews = async (req, res) => {
+  const id = req.body.id;
+  const x = 0;
+  await course
+    .updateOne({ _id: id }, { $inc: { views: 1 } }, (err, result) => {
+      if (err) {
+        res.status(500).send(err.message);
+      } else {
+        res.status(200).json(result);
+      }
+    })
+    .clone();
+};
+
 module.exports = {
   search,
   createUser,
@@ -356,4 +370,5 @@ module.exports = {
   instViewCourses,
   view,
   filterCourses,
+  updateViews,
 };
