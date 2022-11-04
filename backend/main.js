@@ -56,5 +56,5 @@ app.post("/createCorporate", createCorporate);
 app.patch("/country", chooseCountry);
 app.get("/instViewCourses/:user", instViewCourses);
 app.get("/filter/:filterType/:key", filterCourses);
-app.put("/updateViews", updateViews);
+app.patch("/updateViews", updateViews);
 // app.get("/view", view);
