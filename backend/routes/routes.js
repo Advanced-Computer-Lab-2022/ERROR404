@@ -120,7 +120,7 @@ const createAdmin = (req, res) => {
     res.status(200).send("admin " + username + " created Successfully");
   });
 };
-//filter the courses given by him/her based on a subject or price
+//search the courses given by him/her based on a subject or price
 let search = async (req, res) => {
   let query = {};
   if (req.params.key.valueOf().toLowerCase() == "free") {
@@ -136,9 +136,18 @@ let search = async (req, res) => {
             { instructor: { $regex: req.params.key } },
           ],
         }
-      : { $or: [{ price: req.params.key }, { rating: req.params.key }] };
+      : {
+          $or: [
+            {
+              $and: [
+                { price: { $gte: parseInt(req.params.key) } },
+                { price: { $lte: parseInt(req.params.max) } },
+              ],
+            },
+            { rating: req.params.key },
+          ],
+        };
   }
-
   await course
     .find(query, function (err, results) {
       if (err) {
@@ -152,7 +161,7 @@ let search = async (req, res) => {
     .clone();
 };
 //instructor searches for his courses validation based on user
-const instSearch = async (req, res) => {
+const instructorSearch = async (req, res) => {
   let query = {};
   if (req.params.key.valueOf().toLowerCase() == "free") {
     query = {
@@ -190,7 +199,7 @@ const instSearch = async (req, res) => {
 };
 
 //admin creates instructor
-const createInstr = async (req, res) => {
+const createInstructor = async (req, res) => {
   const currentUser = req.body.currentUser;
   const username = req.body.username;
   const password = req.body.password;
@@ -225,7 +234,7 @@ const createInstr = async (req, res) => {
 };
 
 //admin creates cooprate
-const createCoop = async (req, res) => {
+const createCorporate = async (req, res) => {
   const currentUser = req.body.currentUser;
   const username = req.body.username;
   const password = req.body.password;
@@ -259,10 +268,7 @@ const createCoop = async (req, res) => {
 
 //
 const viewCourses = async (req, res) => {
-  const a = await course.find(
-    {},
-    { title: 1, totalHours: 1, rating: 1, _id: 0 }
-  );
+  const a = await course.find({}, { _id: 0 });
   if (a == null) {
     res.status(404).send("no courses available");
   } else {
@@ -317,17 +323,52 @@ const instViewCourses = async (req, res) => {
     res.json(a);
   }
 };
+//filter
+const filterCourses = async (req, res) => {
+  const filterType = req.params.filterType;
+  const key = req.params.key;
+  if (filterType == null || key == null) {
+    res.status(404).send("enter a filter type");
+  } else {
+    const data = await course
+      .find()
+      .where(filterType, key)
+      .exec((err, result) => {
+        if (err) {
+          res.status(500).send(err.message);
+        } else if (result) {
+          res.status(200).json(result);
+        }
+      });
+  }
+};
+const updateViews = async (req, res) => {
+  const id = req.body.id;
+  const x = 0;
+  await course
+    .updateOne({ _id: id }, { $inc: { views: 1 } }, (err, result) => {
+      if (err) {
+        res.status(500).send(err.message);
+      } else {
+        res.status(200).json(result);
+      }
+    })
+    .clone();
+};
+
 module.exports = {
   search,
   createUser,
   createAdmin,
   coursePrice,
   createCourse,
-  instSearch,
+  instructorSearch,
   viewCourses,
-  createInstr,
-  createCoop,
+  createInstructor,
+  createCorporate,
   chooseCountry,
   instViewCourses,
   view,
+  filterCourses,
+  updateViews,
 };

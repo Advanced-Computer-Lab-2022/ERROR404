@@ -11,13 +11,15 @@ const {
   createAdmin,
   coursePrice,
   createCourse,
-  instSearch,
+  instructorSearch,
   viewCourses,
-  createInstr,
-  createCoop,
+  createInstructor,
+  createCorporate,
   chooseCountry,
   instViewCourses,
   view,
+  filterCourses,
+  updateViews,
 } = require("./routes/routes");
 
 //App variables
@@ -42,15 +44,17 @@ app.get("/", (req, res) => {
   res.status(200).send("Server is Running");
 });
 
-app.get("/search/:key", search);
+app.get("/search/:key/:max", search);
 app.get("/coursePrice", coursePrice);
-app.get("/searchmycourses/:user/:key", instSearch);
+app.get("/searchmycourses/:user/:key", instructorSearch);
 app.get("/viewCourses", viewCourses);
 app.post("/createUser", createUser);
 app.post("/createAdmin", createAdmin);
 app.post("/createCourse", createCourse);
-app.post("/createInstr", createInstr);
-app.post("/createCoop", createCoop);
+app.post("/createInstructor", createInstructor);
+app.post("/createCorporate", createCorporate);
 app.patch("/country", chooseCountry);
 app.get("/instViewCourses/:user", instViewCourses);
+app.get("/filter/:filterType/:key", filterCourses);
+app.put("/updateViews", updateViews);
 // app.get("/view", view);
