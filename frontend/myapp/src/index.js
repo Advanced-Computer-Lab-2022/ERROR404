@@ -9,11 +9,11 @@ import ViewAllCoursesPriceWrapper from "./components/viewallCoursesPrice";
 import CreateAdminWrapper from "./components/createAdmin";
 import CreateInstructorWrapper from "./components/createInst";
 import WrapperCreateCourses from "./components/createCourse";
-import SelectCountryWrapper from "./components/selectCountry1";
+import SelectCountryWrapper from "./components/selectCountry";
 import CreateCorporateWrapper from "./components/createCorp";
 import ViewAllCoursesWrapper from "./components/viewAllCourses";
 import InstViewCoursesWrapper from "./components/instViewCourses";
-import WrapperSeachCourses from "./components/search";
+import HomePageWrapper from "./components/homePage";
 import {
   BrowserRouter as Router,
   Routes,
@@ -25,7 +25,7 @@ export default function MainApp() {
   return (
     <Router>
       <Routes>
-        <Route exact path="/" element={<App />} />
+        <Route exact path="/" element={<HomePageWrapper />} />
         <Route path="/courses" element={<GetCoursesByPrice />} />
         <Route path="/adminCreateAdmin" element={<CreateAdminWrapper />} />
         <Route
@@ -45,7 +45,6 @@ export default function MainApp() {
         <Route path="/SelectCountry1" element={<SelectCountryWrapper />} />
         <Route path="/viewAllCourses" element={<ViewAllCoursesWrapper />} />
         <Route path="/instViewCourses" element={<InstViewCoursesWrapper />} />
-        <Route path="/SearchCourses" element={<WrapperSeachCourses />} />
       </Routes>
     </Router>
   );
