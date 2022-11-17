@@ -19,6 +19,9 @@ const {
   instViewCourses,
   view,
   filterCourses,
+  updateViews,
+  rateInstructor,
+  rateCourse,
 } = require("./routes/routes");
 
 //App variables
@@ -55,4 +58,7 @@ app.post("/createCorporate", createCorporate);
 app.patch("/country", chooseCountry);
 app.get("/instViewCourses/:user", instViewCourses);
 app.get("/filter/:filterType/:key", filterCourses);
+app.patch("/updateViews", updateViews);
+app.patch("/rateInstructor/:username/:rate", rateInstructor);
+app.patch("/rateCourse/:newRate", rateCourse);
 // app.get("/view", view);

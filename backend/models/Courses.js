@@ -16,9 +16,11 @@ const courses = new Schema(
     },
     totalHours: {
       type: Number,
+      default: 0,
     },
     rating: {
       type: Number,
+      default: 5,
     },
     price: {
       type: Number,
@@ -26,17 +28,18 @@ const courses = new Schema(
       required: true,
     },
 
-    subtitles:{
+    subtitles: {
       type: String,
       required: true,
-      minLength:5,
-      maxLength:200,
+      minLength: 5,
+      maxLength: 200,
+      default: "",
     },
 
-    exercises:{
+    exercises: {
       type: String,
       required: false,
-
+      default: "",
     },
 
     summary: {
@@ -44,9 +47,11 @@ const courses = new Schema(
       required: [true, "Summary Required"],
       minLength: 5,
       maxLength: 100,
+      default: "",
     },
     discount: {
       type: Number,
+      default: 0,
     },
     image: {
       type: String,
@@ -56,6 +61,15 @@ const courses = new Schema(
     },
     prerequisite: {
       type: String,
+      default: "",
+    },
+    views: {
+      type: Number,
+      default: 0,
+    },
+    numberOfSubscribers: {
+      type: Number,
+      default: 0,
     },
   },
   { timestamps: true }

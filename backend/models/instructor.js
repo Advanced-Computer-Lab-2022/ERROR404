@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const user = new Schema(
+
+const instructor = new Schema(
   {
     firstname: {
       type: String,
@@ -10,7 +11,6 @@ const user = new Schema(
         message: "firstname is not a valid name!",
       },
       default: "UnNamed",
-      //required: [true, "Name is required"],
     },
     lastname: {
       type: String,
@@ -19,7 +19,6 @@ const user = new Schema(
         validator: (value) => /^[A-Za-z]+$/.test(value),
         message: "lastname not a valid name!",
       },
-      //required: [true, "Name is required"],
       default: "UnNamed",
     },
     age: {
@@ -50,12 +49,27 @@ const user = new Schema(
     },
     role: {
       type: String,
-      default: "Corporate-trainee",
+      default: "Instructor",
+    },
+    courses: {
+      type: Schema.Types.ObjectId,
+      ref: "Courses",
+    },
+    wallet: {
+      type: Number,
+      default: 0,
+    },
+    rating: {
+      type: Number,
+      default: 5,
+    },
+    biography: {
+      type: String,
+      default: "",
     },
   },
-
   { timestamps: true }
 );
 
-const User = mongoose.model("User", user);
-module.exports = User;
+const Instructor = mongoose.model("instructor", instructor);
+module.exports = Instructor;
