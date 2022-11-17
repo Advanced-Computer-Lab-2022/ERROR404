@@ -1,3 +1,7 @@
-GET http://localhost:2020/filter/price/125
+PATCH http://localhost:2020/rateInstructor/abdelrahman/3
+# Content-Type: application/json
 
- 
+# {
+#    "username":"abdelrahman",
+#    "password":"123"
+# }

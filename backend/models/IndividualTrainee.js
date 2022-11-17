@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const user = new Schema(
+
+const individualTrainee = new Schema(
   {
     firstname: {
       type: String,
@@ -50,12 +51,40 @@ const user = new Schema(
     },
     role: {
       type: String,
-      default: "Corporate-trainee",
+      default: "Individual-trainee",
     },
+    creditCardInfo: [
+      {
+        holderName: {
+          type: String,
+          default: "",
+        },
+        cardNumber: {
+          type: String,
+          default: 0,
+        },
+        cvv: {
+          type: Number,
+          validator: (value) => {
+            value.toString().length == 3;
+          },
+          default: 000,
+        },
+        expirationDate: {
+          type: Date,
+          validator: (value) => {
+            value >= Date.now();
+          },
+          default: Date.now(),
+        },
+      },
+    ],
   },
-
   { timestamps: true }
 );
 
-const User = mongoose.model("User", user);
-module.exports = User;
+const IndividualTrainee = mongoose.model(
+  "IndividualTrainee",
+  individualTrainee
+);
+module.exports = IndividualTrainee;

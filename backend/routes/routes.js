@@ -1,7 +1,7 @@
 const user = require("../models/User");
 const course = require("../models/Courses");
 const admin = require("../models/Admin");
-const Admin = require("../models/Admin");
+const Instructor = require("../models/instructor");
 //Methods
 const createUser = (req, res) => {
   const userData = {
@@ -24,9 +24,9 @@ const createUser = (req, res) => {
 };
 
 const createCourse = async (req, res) => {
-  const instructor = user.find({ username: req.body.username });
   const instructorUsername = req.body.username;
-  if (instructor == null && instructor.role == "instructor") {
+  const instructor = Instructor.find({ username: req.body.username });
+  if (instructor == null && instructor.role != "instructor") {
     res.status(401).send("Username is not found, or unauthorized");
   } else if (
     req.body.title == null ||
@@ -110,7 +110,7 @@ const createAdmin = (req, res) => {
     // role: "admin",
   };
 
-  Admin.create(adminData, function (err, small) {
+  admin.create(adminData, function (err, small) {
     if (err) {
       res.status(500).send("Database not responding  => " + err.message);
       console.log(err.message);
@@ -121,7 +121,7 @@ const createAdmin = (req, res) => {
   });
 };
 //search the courses given by him/her based on a subject or price
-let search = async (req, res) => {
+const search = async (req, res) => {
   let query = {};
   if (req.params.key.valueOf().toLowerCase() == "free") {
     query = {
@@ -207,7 +207,6 @@ const createInstructor = async (req, res) => {
     username: username,
     password: password,
     country: req.body.country == null ? "" : req.body.country,
-    role: "Instructor",
   };
   if (username == "" || password == "") {
     res.status(400).json("Enter a valid data ");
@@ -216,13 +215,13 @@ const createInstructor = async (req, res) => {
     await admin
       .find({ username: [currentUser] }, {}, (err, result) => {
         if (err) {
-          res.status(500).send(err.message + "eeeee");
+          res.status(500).send(err.message);
         } else if (result == "") {
           res.status(400).send("not an admin");
         } else {
-          user.create(instData, (error, small) => {
+          Instructor.create(instData, (error, small) => {
             if (error) {
-              res.status(400).send(error.message + "eeeeee");
+              res.status(400).send(error.message);
             } else {
               res.status(200).json(result);
             }
@@ -241,7 +240,6 @@ const createCorporate = async (req, res) => {
   const coopData = {
     username: username,
     password: password,
-    role: "Corporate-trainee",
   };
   if (username == null || password == null) {
     res.status(400).json("Enter a valid data ");
@@ -250,13 +248,13 @@ const createCorporate = async (req, res) => {
   const x = await admin
     .find({ username: currentUser }, (err, result) => {
       if (err) {
-        res.status(500).send(err.message + "eeeee");
+        res.status(500).send(err.message);
       } else if (result == null) {
         res.status(400).send("not an admin");
       } else {
         user.create(coopData, (error, small) => {
           if (error) {
-            res.status(400).send(error.message + "eeeeee");
+            res.status(400).send(error.message);
           } else {
             res.status(200).send("user is created");
           }
@@ -289,8 +287,18 @@ const chooseCountry = async (req, res) => {
           if (error) {
             res.status(400).send(error);
           } else if (docs == null) {
-            res.status(404).send("error not found");
-          } else {
+            Instructor.updateOne(
+              { username: username },
+              { country: country },
+              (err, result) => {
+                if (err) {
+                  res.status(400).send(err.message);
+                } else {
+                  res.status(200).json(result);
+                }
+              }
+            );
+          } else if (docs) {
             res.status(200).json(docs);
           }
         }
@@ -342,9 +350,15 @@ const filterCourses = async (req, res) => {
       });
   }
 };
+<<<<<<< HEAD
 const updateViews = async (req, res) => {
   const id = req.body.id;
   const x = 0;
+=======
+
+const updateViews = async (req, res) => {
+  const id = req.body.id;
+>>>>>>> 01d5016 (indv and instr schema,)
   await course
     .updateOne({ _id: id }, { $inc: { views: 1 } }, (err, result) => {
       if (err) {
@@ -356,6 +370,57 @@ const updateViews = async (req, res) => {
     .clone();
 };
 
+<<<<<<< HEAD
+=======
+const rateInstructor = async (req, res) => {
+  const username = req.params.username;
+  const rate = req.params.rate;
+  let oldrate = 0;
+  if (isNaN(rate)) {
+    res.status(400).send("invalid rate");
+  } else if (rate > 5 || rate < 0) {
+    res.status(400).send("invalid rate, the rate must be between 0 and 5");
+  } else {
+    const x = await Instructor.findOne({ username: username }, { rating: 1 });
+    oldrate = x.rating;
+    let newRating = rate / 2 + oldrate / 2;
+    await Instructor.updateOne(
+      { username: username },
+      { rating: newRating },
+      (err, result) => {
+        if (err) {
+          res.status(500).send(err.message);
+        } else {
+          res.status(200).json(result);
+        }
+      }
+    ).clone();
+  }
+};
+const rateCourse = async (req, res) => {
+  const courseId = req.body.id;
+  const newRate = req.params.newRate;
+  let oldRate = 0;
+  if (isNaN(newRate)) {
+    res.status(400).send("invalid rate");
+  } else if (newRate > 5 || newRate < 0) {
+    res.status(400).send("invalid rate, the rate must be between 0 and 5");
+  } else {
+    const x = await course.findOne({ _id: courseId }, { rating: 1 });
+    oldRate = x.rating;
+    let rate = oldRate / 2 + newRate / 2;
+    await course
+      .updateOne({ _id: courseId }, { rating: rate }, (err, result) => {
+        if (err) {
+          res.status(500).send(err.message);
+        } else {
+          res.status(200).json(result);
+        }
+      })
+      .clone();
+  }
+};
+>>>>>>> 01d5016 (indv and instr schema,)
 module.exports = {
   search,
   createUser,
@@ -371,4 +436,9 @@ module.exports = {
   view,
   filterCourses,
   updateViews,
+<<<<<<< HEAD
+=======
+  rateInstructor,
+  rateCourse,
+>>>>>>> 01d5016 (indv and instr schema,)
 };
