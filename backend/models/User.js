@@ -29,7 +29,7 @@ const user = new Schema(
     gender: {
       type: String,
       enum: ["Male", "Female", "Not Defined"],
-      default: "Not Defined",
+      default: "Not Defined Yet",
     },
     password: { type: String, required: true },
 

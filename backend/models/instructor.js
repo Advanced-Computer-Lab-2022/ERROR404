@@ -63,6 +63,10 @@ const instructor = new Schema(
       type: Number,
       default: 5,
     },
+    review: {
+      type: Array,
+      default: [],
+    },
     biography: {
       type: String,
       default: "",
