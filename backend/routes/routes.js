@@ -398,6 +398,7 @@ const rateInstructor = async (req, res) => {
   }
 };
 const rateCourse = async (req, res) => {
+  // didnt test it
   const courseId = req.body.id;
   const newRate = req.params.newRate;
   let oldRate = 0;
