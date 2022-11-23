@@ -20,6 +20,8 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
+import ChangePasswordPage from "./components/changePassword";
+import ChangingPaswword from "./components/changePasswordAfterEmail";
 
 export default function MainApp() {
   return (
@@ -45,6 +47,8 @@ export default function MainApp() {
         <Route path="/SelectCountry1" element={<SelectCountryWrapper />} />
         <Route path="/viewAllCourses" element={<ViewAllCoursesWrapper />} />
         <Route path="/instViewCourses" element={<InstViewCoursesWrapper />} />
+        <Route path="/changePassword" element={<ChangePasswordPage />} />
+        <Route path="/changingPasswordEmail" element={<ChangingPaswword />} />
       </Routes>
     </Router>
   );
