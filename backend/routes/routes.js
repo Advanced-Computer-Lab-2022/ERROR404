@@ -351,6 +351,7 @@ const filterCourses = async (req, res) => {
   }
 };
 <<<<<<< HEAD
+<<<<<<< HEAD
 const updateViews = async (req, res) => {
   const id = req.body.id;
   const x = 0;
@@ -359,6 +360,11 @@ const updateViews = async (req, res) => {
 const updateViews = async (req, res) => {
   const id = req.body.id;
 >>>>>>> 01d5016 (indv and instr schema,)
+=======
+
+const updateViews = async (req, res) => {
+  const id = req.body.id;
+>>>>>>> 48e85282a2f1c79543d01464c9285d32418e6a66
   await course
     .updateOne({ _id: id }, { $inc: { views: 1 } }, (err, result) => {
       if (err) {
@@ -371,7 +377,10 @@ const updateViews = async (req, res) => {
 };
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 48e85282a2f1c79543d01464c9285d32418e6a66
 const rateInstructor = async (req, res) => {
   const username = req.params.username;
   const rate = req.params.rate;
@@ -421,7 +430,10 @@ const rateCourse = async (req, res) => {
       .clone();
   }
 };
+<<<<<<< HEAD
 >>>>>>> 01d5016 (indv and instr schema,)
+=======
+>>>>>>> 48e85282a2f1c79543d01464c9285d32418e6a66
 module.exports = {
   search,
   createUser,
@@ -438,8 +450,13 @@ module.exports = {
   filterCourses,
   updateViews,
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
   rateInstructor,
   rateCourse,
 >>>>>>> 01d5016 (indv and instr schema,)
+=======
+  rateInstructor,
+  rateCourse,
+>>>>>>> 48e85282a2f1c79543d01464c9285d32418e6a66
 };
