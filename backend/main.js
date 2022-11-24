@@ -26,6 +26,7 @@ const {
   uploadVideoForCourse,
   editEmailOrBio,
   changePassword,
+  viewReviewAndRating,
 } = require("./routes/routes");
 
 //App variables
@@ -69,4 +70,5 @@ app.get("/viewRatingAndReviews/:username", viewRatingAndReviews);
 app.post("/uploadVideoForCourse", uploadVideoForCourse);
 app.put("/editEmailOrBio", editEmailOrBio);
 app.put("/changePassword", changePassword);
+app.get("/viewReviewAndRating/:username", viewReviewAndRating);
 // app.get("/view", view);

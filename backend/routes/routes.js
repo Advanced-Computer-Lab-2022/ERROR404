@@ -64,7 +64,6 @@ const createCourse = async (req, res) => {
     });
   }
 };
-
 //view the price of each course
 const coursePrice = async (req, res) => {
   console.log(req.params);
@@ -521,6 +520,22 @@ const editEmailOrBio = async (req, res) => {
     ).clone();
   }
 };
+const viewReviewAndRating = async (req, res) => {
+  const username = req.params.username;
+  await course
+    .find(
+      { instructor: username },
+      { _id: 0, title: 1, rating: 1, review: 1 },
+      (err, result) => {
+        if (err) {
+          res.status(500).json(err);
+        } else {
+          res.status(200).json(result);
+        }
+      }
+    )
+    .clone();
+};
 module.exports = {
   search,
   createUser,
@@ -542,4 +557,5 @@ module.exports = {
   uploadVideoForCourse,
   editEmailOrBio,
   changePassword,
+  viewReviewAndRating,
 };
