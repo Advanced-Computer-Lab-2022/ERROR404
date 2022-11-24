@@ -2,6 +2,8 @@ const user = require("../models/User");
 const course = require("../models/Courses");
 const admin = require("../models/Admin");
 const Instructor = require("../models/instructor");
+const nodemailer = require("nodemailer");
+
 //Methods
 const createUser = (req, res) => {
   const userData = {
@@ -22,6 +24,45 @@ const createUser = (req, res) => {
     res.status(200).send("user Created Successfully");
   });
 };
+
+// const sendEmail = async (req, res) => {
+//   const clientEmail = req.params.email;
+//   const userId = req.params.userId;
+//   const userType = req.params.userType;
+
+//   const body =
+//     "We are sendiog you this email because you have asked to change your password, Press the below link to be redircted to the changing password page." +
+//     `http://localhost:3000/changingPasswordEmail?userId=${userId}&email=alilolo&userType=${userType}`;
+
+//   const sendingEmail = "gucacllab@gmail.com";
+//   const transport = nodemailer.createTransport({
+//     host: "smtp.mailtrap.io",
+//     port: 2525,
+//     auth: {
+//       user: "762c9d3ee85855",
+//       pass: "4dd0310bcf807f",
+//     },
+//     tls: {
+//       rejectUnauthorized: false,
+//     },
+//   });
+
+//   let mailOptions = {
+//     from: sendingEmail,
+//     to: clientEmail,
+//     subject: "Changing Password",
+//     text: body,
+//   };
+
+//   transport.sendMail(mailOptions, function (error, info) {
+//     if (error) {
+//       console.log(error);
+//     } else {
+//       console.log("Email sent: " + info.response);
+//       res.status(200).send("email sent!");
+//     }
+//   });
+// };
 
 const getUser = async (req, res) => {
   const userId = req.params.userId;

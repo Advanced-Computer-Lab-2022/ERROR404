@@ -27,9 +27,9 @@ import { AppContext } from "./AppContext";
 export default function MainApp() {
   const [userName, setUserName] = useState("alighieth");
   const [userEmail, setUserEmail] = useState("alighieth2709@gmail.com");
-  const [userType, setUserType] = useState("student");
+  const [userType, setUserType] = useState("admin");
   const [userPassword, setUserPassword] = useState("123");
-  const [userMongoId, setUserMongoId] = useState("");
+  const [userMongoId, setUserMongoId] = useState("635da1ab0d1a4a14753e1aa0");
 
   const values = {
     userName: [userName, setUserName],
