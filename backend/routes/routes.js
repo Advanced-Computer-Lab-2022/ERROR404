@@ -23,6 +23,14 @@ const createUser = (req, res) => {
   });
 };
 
+const getUser = (req, res) => {
+  const userId = req.params.userId;
+  const userType = req.params.userType;
+
+  if (String.valueOf(userType).toLowerCase() == "instructor") {
+  }
+};
+
 const createCourse = async (req, res) => {
   const instructorUsername = req.body.username;
   const instructor = Instructor.find({ username: req.body.username });

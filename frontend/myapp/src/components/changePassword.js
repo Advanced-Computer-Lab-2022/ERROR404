@@ -1,15 +1,21 @@
-import React from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
-import { Button, Checkbox, Form, Input, message } from "antd";
+import { Button, Checkbox, Form, Input, message, Avatar } from "antd";
+import { AppContext } from "../AppContext";
 
 const ChangePasswordPage = () => {
+  const { userEmail } = useContext(AppContext);
+  const [useremail, setUserEmail] = userEmail;
+
   const onFinish = (values) => {
     console.log("Received values of form: ", values);
   };
   return (
     <div className="changePasswordWrapper">
-      <h3>Change Password</h3>
-      <h6>We will be sending you an email to change the password</h6>
+      <h4>
+        We will be sending you an email to {useremail} to change the password
+      </h4>
+
       <Form
         name="normal_login"
         className="login-form"
@@ -18,20 +24,6 @@ const ChangePasswordPage = () => {
         }}
         onFinish={onFinish}
       >
-        <Form.Item
-          name="username"
-          rules={[
-            {
-              required: true,
-              message: "Please input your Username!",
-            },
-          ]}
-        >
-          <Input
-            prefix={<UserOutlined className="site-form-item-icon" />}
-            placeholder="Email"
-          />
-        </Form.Item>
         <Form.Item>
           <Button
             type="primary"
