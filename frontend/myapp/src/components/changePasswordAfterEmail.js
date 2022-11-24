@@ -6,6 +6,8 @@ import axios from "axios";
 const ChangingPaswword = () => {
   const [userId, setUserId] = useState("");
   const [email, setEmail] = useState("");
+  const [userType, setUserType] = useState("");
+  const [oldpassword, setoldpassword] = useState("");
 
   useEffect(() => {
     const idSearch = window.location.search;
@@ -14,19 +16,37 @@ const ChangingPaswword = () => {
     const urlParams = new URLSearchParams(idSearch);
     const userId = urlParams.get("userId");
     const email = urlParams.get("email");
+    const userType = urlParams.get("userType");
+    setUserType(userType);
     setEmail(email);
     setUserId(userId);
-    console.log(userId, " ", email);
+
+    let url = `http://localhost:2020/getUser/${userId}/${userType}`;
+    console.log(url);
+    fetch(url)
+      .then((response) => response.json())
+      .then((response) => {
+        console.log("res=>>> ", response);
+        response.map((user) => {
+          setoldpassword(user.password);
+        });
+      });
+    console.log(userId, " ", email, " ", oldpassword);
   }, []);
   const onFinish = (values) => {
     const oldPassword = values.oldPassword;
     const newPassword = values.newPassword;
-    const confirmNewPassword = values.confirmNewPassword;
 
-    axios.get()
+    console.log("old ", oldpassword);
+    if (oldPassword == oldpassword) {
+      // add fetch to change the password
+      message.success("you have changed your password successfully", 5);
+      message.info("you can now close this tab", 10);
+    } else {
+      message.error("You have entered a wrong old password", 5);
+    }
 
     console.log("Received values of form: ", values);
-    message.info("Hello world", 5);
   };
 
   return (
@@ -41,48 +61,48 @@ const ChangingPaswword = () => {
         }}
       >
         <Avatar size={"medium"} icon={<UserOutlined />} />
-        <span>alighieth</span>
+        <span>{email}</span>
       </div>
       <Form
-        name="normal_login"
-        className="login-form"
+        name="changingpassword"
+        className="changingpassword-form"
         initialValues={{ remember: true }}
         onFinish={onFinish}
       >
         <Form.Item
-          name="Old Password"
-          label="oldPassword"
+          name="oldPassword"
+          label="Old Password"
           rules={[
             { required: true, message: "Please input your Old Password!" },
           ]}
         >
           <Input.Password
             prefix={<LockOutlined className="site-form-item-icon" />}
-            placeholder="Username"
+            placeholder="Old password"
           />
         </Form.Item>
         <Form.Item
-          name="New Password"
-          label="newPassword"
+          name="newPassword"
+          label="New Password"
           rules={[
             { required: true, message: "Please input your New Password!" },
           ]}
         >
           <Input.Password
             prefix={<LockOutlined className="site-form-item-icon" />}
-            placeholder="Username"
+            placeholder="New Password"
           />
         </Form.Item>
         <Form.Item
-          name="Confirm New Password"
-          label="confirmNewPassword"
+          name="confirm"
+          label="Confirm New Password"
           dependencies={["password"]}
           hasFeedback
           rules={[
             { required: true, message: "Please Confirm New Password!" },
             ({ getFieldValue }) => ({
               validator(_, value) {
-                if (!value || getFieldValue("password") === value) {
+                if (!value || getFieldValue("newPassword") === value) {
                   return Promise.resolve();
                 }
                 return Promise.reject(
@@ -95,7 +115,7 @@ const ChangingPaswword = () => {
           <Input.Password
             prefix={<LockOutlined className="site-form-item-icon" />}
             type="password"
-            placeholder="Password"
+            placeholder="Confirm New Password"
           />
         </Form.Item>
 

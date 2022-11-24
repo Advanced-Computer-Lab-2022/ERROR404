@@ -23,12 +23,36 @@ const createUser = (req, res) => {
   });
 };
 
-const getUser = (req, res) => {
+const getUser = async (req, res) => {
   const userId = req.params.userId;
   const userType = req.params.userType;
 
-  if (String.valueOf(userType).toLowerCase() == "instructor") {
+  let query = { _id: userId };
+
+  if (userType == "instructor") {
+    await Instructor.find(query, function (err, data) {
+      if (err) {
+        res.status(400).send("An erorr has occured");
+      } else {
+        res.status(200).json(data);
+      }
+    }).clone();
+  } else if (userType == "admin") {
+    await admin
+      .find(query, function (err, data) {
+        if (err) {
+          res.status(400).send("An erorr has occured");
+        } else {
+          res.status(200).json(data);
+        }
+      })
+      .clone();
+    // } else if (userType == "corporate") {
+
+    // } else if (userType == "indivisual") {
   }
+
+  // we need to implement new schema
 };
 
 const createCourse = async (req, res) => {
@@ -419,6 +443,7 @@ const rateCourse = async (req, res) => {
   }
 };
 module.exports = {
+  getUser,
   search,
   createUser,
   createAdmin,
