@@ -2,6 +2,7 @@ const user = require("../models/User");
 const course = require("../models/Courses");
 const admin = require("../models/Admin");
 const Instructor = require("../models/instructor");
+const individualTrainee = require("../models/IndividualTrainee");
 //Methods
 const createUser = (req, res) => {
   const userData = {
@@ -22,7 +23,6 @@ const createUser = (req, res) => {
     res.status(200).send("user Created Successfully");
   });
 };
-
 const createCourse = async (req, res) => {
   const instructorUsername = req.body.username;
   const instructor = Instructor.find({ username: req.body.username });
@@ -410,6 +410,117 @@ const rateCourse = async (req, res) => {
       .clone();
   }
 };
+const viewRatingAndReviews = async (req, res) => {
+  const username = req.params.username;
+  await Instructor.find(
+    { username: username },
+    { review: 1, rating: 1 },
+    (err, result) => {
+      if (err) {
+        res.status(500).json(err);
+      } else {
+        res.status(200).json(result);
+      }
+    }
+  ).clone();
+};
+const uploadVideoForCourse = async (req, res) => {
+  const id = req.body.id;
+  const url = req.body.url;
+  course.updateOne({ _id: id }, { video: url }, (err, result) => {
+    if (err) {
+      res.status(500).json(err);
+    } else {
+      res.status(200).json(result);
+    }
+  });
+};
+const changePassword = async (req, res) => {
+  const id = req.body.id;
+  const newPassword = req.body.newPassword;
+  const usertype = req.body.usertype;
+  if (usertype == "corporate trainee") {
+    user.updateOne({ _id: id }, { password: newPassword }, (err, result) => {
+      if (err) {
+        res.status(404).json(err);
+      } else {
+        res.status(200).json(result);
+      }
+    });
+  } else if (usertype == "individual trainee") {
+    IndividualTrainee.updateOne(
+      { _id: id },
+      { password: newPassword },
+      (err, result) => {
+        if (err) {
+          res.status(404).json(err);
+        } else {
+          res.status(200).json(result);
+        }
+      }
+    );
+  } else if (usertype == "instructor") {
+    Instructor.updateOne(
+      { _id: id },
+      { password: newPassword },
+      (err, result) => {
+        if (err) {
+          res.status(404).json(err);
+        } else {
+          res.status(200).json(result);
+        }
+      }
+    );
+  }
+};
+
+const editEmailOrBio = async (req, res) => {
+  const username = req.body.username;
+  const email = req.body.email;
+  const bio = req.body.bio;
+  const usertype = req.body.usertype;
+  if (usertype == "corporate trainee") {
+    await user
+      .updateOne(
+        { username: username },
+        { $or: [{ email: email }, { biography: bio }] },
+        (err, result) => {
+          if (err) {
+            res.status(404).json(err);
+          } else {
+            res.status(200).json(result);
+          }
+        }
+      )
+      .clone();
+  } else if (usertype == "individual trainee") {
+    await individualTrainee
+      .updateOne(
+        { username: username },
+        { $or: [{ email: email }, { biography: bio }] },
+        (err, result) => {
+          if (err) {
+            res.status(404).json(err);
+          } else {
+            res.status(200).json(result);
+          }
+        }
+      )
+      .clone();
+  } else if (usertype == "instructor") {
+    await Instructor.updateOne(
+      { username: username },
+      { email: email, biography: bio },
+      (err, result) => {
+        if (err) {
+          res.status(404).json(err);
+        } else {
+          res.status(200).json(result);
+        }
+      }
+    ).clone();
+  }
+};
 module.exports = {
   search,
   createUser,
@@ -427,4 +538,8 @@ module.exports = {
   updateViews,
   rateInstructor,
   rateCourse,
+  viewRatingAndReviews,
+  uploadVideoForCourse,
+  editEmailOrBio,
+  changePassword,
 };

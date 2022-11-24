@@ -22,6 +22,10 @@ const {
   updateViews,
   rateInstructor,
   rateCourse,
+  viewRatingAndReviews,
+  uploadVideoForCourse,
+  editEmailOrBio,
+  changePassword,
 } = require("./routes/routes");
 
 //App variables
@@ -61,4 +65,8 @@ app.get("/filter/:filterType/:key", filterCourses);
 app.patch("/updateViews", updateViews);
 app.patch("/rateInstructor/:username/:rate", rateInstructor);
 app.patch("/rateCourse/:newRate", rateCourse);
+app.get("/viewRatingAndReviews/:username", viewRatingAndReviews);
+app.post("/uploadVideoForCourse", uploadVideoForCourse);
+app.put("/editEmailOrBio", editEmailOrBio);
+app.put("/changePassword", changePassword);
 // app.get("/view", view);

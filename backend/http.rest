@@ -1,7 +1,8 @@
-PATCH http://localhost:2020/rateInstructor/abdelrahman/3
-# Content-Type: application/json
-
-# {
-#    "username":"abdelrahman",
-#    "password":"123"
-# }
+PUT http://localhost:2020/changePassword
+Content-Type: application/json
+   
+{
+"id":"6366d3ddd79a066bc2b74106",
+"newPassword":"aman ya raby aman",
+"usertype":"instructor"
+}
