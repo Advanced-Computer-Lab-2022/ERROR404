@@ -1,7 +1,7 @@
 import "./App.css";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Layout, Select, Breadcrumb, Menu, Image } from "antd";
+import { Layout, Select, Breadcrumb, Menu, Image, Space } from "antd";
 import {
   DesktopOutlined,
   FileOutlined,
@@ -18,6 +18,8 @@ import {
   LoginOutlined,
 } from "@ant-design/icons";
 import MainHeader from "./components/MainHeader";
+import PrimarySearchAppBar from "./components/searchBarHeader";
+import ReviewNavigation from "./components/reviewComponents";
 const { Header, Footer, Sider, Content } = Layout;
 const { Option } = Select;
 
@@ -48,7 +50,8 @@ function App({ children }) {
   const [collapsed, setCollapsed] = useState(false);
   return (
     <Layout>
-      <MainHeader />
+      {/* <MainHeader /> */}
+      <PrimarySearchAppBar />
       <Layout style={{ minHeight: "90vh" }} theme="light">
         <Sider
           width={300}

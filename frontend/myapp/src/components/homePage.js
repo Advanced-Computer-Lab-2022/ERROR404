@@ -2,6 +2,7 @@ import App from "../App";
 import { Layout, Image, Menu, Input } from "antd";
 import Categories from "./viewByCategory";
 import TopCourses from "./topCourses";
+import ReviewNavigation from "./reviewComponents";
 
 const HomePageWrapper = () => {
   return (
@@ -23,6 +24,7 @@ const HomePage = () => {
     >
       <TopCourses />
       <TopCourses />
+      {/* <ReviewNavigation /> */}
     </div>
   );
 };

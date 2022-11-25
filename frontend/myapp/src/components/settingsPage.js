@@ -13,6 +13,9 @@ import { SettingTwoTone } from "@ant-design/icons";
 import { Space, Image, Input, Button } from "antd";
 import TextField from "@mui/material/TextField";
 import { Link } from "react-router-dom";
+import VpnKeyIcon from "@mui/icons-material/VpnKey";
+import PersonIcon from "@mui/icons-material/Person";
+import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 
 const SettingsPageWrapper = () => {
   return (
@@ -41,19 +44,19 @@ const SettingsPageSider = () => {
       >
         <ListItemButton>
           <ListItemIcon>
-            <SendIcon />
+            <PersonIcon />
           </ListItemIcon>
           <ListItemText primary="Personal Information" />
         </ListItemButton>
         <ListItemButton>
           <ListItemIcon>
-            <DraftsIcon />
+            <VpnKeyIcon />
           </ListItemIcon>
           <ListItemText primary="Password" />
         </ListItemButton>
         <ListItemButton>
           <ListItemIcon>
-            <DraftsIcon />
+            <NotificationsActiveIcon />
           </ListItemIcon>
           <ListItemText primary="Notifications" />
         </ListItemButton>
