@@ -6,7 +6,6 @@ const individualTrainee = require("../models/IndividualTrainee");
 const { response } = require("express");
 const IndividualTrainee = require("../models/IndividualTrainee");
 //Methods
-//create corporateTrainee
 const createIndividualTrainee = (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
@@ -73,7 +72,6 @@ const createCourse = async (req, res) => {
     });
   }
 };
-//view the price of each course
 const coursePrice = async (req, res) => {
   console.log(req.params);
   const c = await course.find({}, { title: 1, price: 1, _id: 0 });
@@ -83,7 +81,6 @@ const coursePrice = async (req, res) => {
     res.json(c);
   }
 };
-//Admin creation
 const createAdmin = (req, res) => {
   const reqBody = req.body;
   // const fName = reqBody.firstname;
@@ -128,7 +125,6 @@ const createAdmin = (req, res) => {
     res.status(200).send("admin " + username + " created Successfully");
   });
 };
-//search the courses given by him/her based on a subject or price
 const search = async (req, res) => {
   let query = {};
   if (req.params.key.valueOf().toLowerCase() == "free") {
@@ -168,7 +164,6 @@ const search = async (req, res) => {
     })
     .clone();
 };
-//instructor searches for his courses validation based on user
 const instructorSearch = async (req, res) => {
   let query = {};
   if (req.params.key.valueOf().toLowerCase() == "free") {
@@ -205,8 +200,6 @@ const instructorSearch = async (req, res) => {
     })
     .clone();
 };
-
-//admin creates instructor
 const createInstructor = async (req, res) => {
   const currentUser = req.body.currentUser;
   const username = req.body.username;
@@ -239,7 +232,6 @@ const createInstructor = async (req, res) => {
       .clone();
   }
 };
-//create corporate
 const createCorporateTrainee = async (req, res) => {
   const corpData = {
     firstname: req.body.firstname,
@@ -261,7 +253,6 @@ const createCorporateTrainee = async (req, res) => {
   });
   // }
 };
-//
 const viewCourses = async (req, res) => {
   const a = await course.find({}, { _id: 0 });
   if (a == null) {
@@ -270,7 +261,6 @@ const viewCourses = async (req, res) => {
     res.json(a);
   }
 };
-//choose country
 const chooseCountry = async (req, res) => {
   const { username, country } = req.body;
   if (username == "" || country == "") {
@@ -328,7 +318,6 @@ const instViewCourses = async (req, res) => {
     res.json(a);
   }
 };
-//filter
 const filterCourses = async (req, res) => {
   const filterType = req.params.filterType;
   const key = req.params.key;
@@ -347,7 +336,6 @@ const filterCourses = async (req, res) => {
       });
   }
 };
-
 const updateViews = async (req, res) => {
   const id = req.body.id;
   await course
@@ -360,7 +348,6 @@ const updateViews = async (req, res) => {
     })
     .clone();
 };
-
 const rateInstructor = async (req, res) => {
   const username = req.params.username;
   const rate = req.params.rate;
@@ -423,7 +410,6 @@ const viewRatingAndReviews = async (req, res) => {
     }
   ).clone();
 };
-
 const changePassword = async (req, res) => {
   const id = req.body.id;
   const newPassword = req.body.newPassword;
@@ -466,7 +452,6 @@ const changePassword = async (req, res) => {
     );
   }
 };
-
 const editEmail = async (req, res) => {
   const username = req.body.username;
   const email = req.body.email;
@@ -614,6 +599,7 @@ const addCreditCardInfo = async (req, res) => {
     }
   ).clone();
 };
+
 module.exports = {
   search,
   createCorporateTrainee,
