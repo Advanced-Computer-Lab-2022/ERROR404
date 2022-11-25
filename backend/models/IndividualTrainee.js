@@ -29,7 +29,7 @@ const individualTrainee = new Schema(
     },
     gender: {
       type: String,
-      enum: ["Male", "Female", "Not Defined"],
+      enum: ["male", "female", "Not Defined"],
       default: "Not Defined",
     },
     password: { type: String, required: true },
@@ -61,13 +61,14 @@ const individualTrainee = new Schema(
         },
         cardNumber: {
           type: String,
-          default: 0,
+          default: "000000000000",
+          minlength: 14,
+          maxlength: 14,
         },
         cvv: {
           type: Number,
-          validator: (value) => {
-            value.toString().length == 3;
-          },
+          minlength: 3,
+          maxlength: 3,
           default: 000,
         },
         expirationDate: {

@@ -1,8 +1,10 @@
-GET http://localhost:2020/viewReviewAndRating/abdoAli
-# Content-Type: application/json
+PUT http://localhost:2020/addCreditCardInfo
+Content-Type: application/json
    
-# {
-# "id":"6366d3ddd79a066bc2b74106",
-# "newPassword":"aman ya raby aman",
-# "usertype":"instructor"
-# }
+ {
+   "username": "bruno",
+    "holderName":"abdo" ,
+    "cardNumber": "111144443432",
+    "cvv": "123",
+    "expirationDate": "2015-5-4"
+ }
