@@ -10,8 +10,7 @@ const individualTrainee = new Schema(
         validator: (value) => /^[A-Za-z]+$/.test(value),
         message: "firstname is not a valid name!",
       },
-      default: "UnNamed",
-      //required: [true, "Name is required"],
+      required: [true, "Name is required"],
     },
     lastname: {
       type: String,
@@ -20,30 +19,31 @@ const individualTrainee = new Schema(
         validator: (value) => /^[A-Za-z]+$/.test(value),
         message: "lastname not a valid name!",
       },
-      //required: [true, "Name is required"],
-      default: "UnNamed",
+      required: [true, "Name is required"],
     },
     age: {
       type: Number,
-      default: 0,
+      required: [true, "Age is required"],
     },
     gender: {
       type: String,
       enum: ["male", "female", "Not Defined"],
       default: "Not Defined",
     },
-    password: { type: String, required: true },
 
     username: {
       type: String,
       unique: true,
-      required: true,
+      required: [true, "Username is required"],
+    },
+    password: {
+      type: String,
+      required: [true, "Password is required"],
     },
     email: {
       type: String,
-      //unique: true,
-      // required: true
-      default: "",
+      unique: true,
+      required: [true, "Vaild email is required"],
     },
     country: {
       type: String,

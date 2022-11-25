@@ -3,8 +3,8 @@ Content-Type: application/json
    
  {
    "username": "bruno",
-    "holderName":"abdo" ,
-    "cardNumber": "111144443432",
+    "holderName":"ali" ,
+    "cardNumber": "111143432",
     "cvv": "123",
     "expirationDate": "2015-5-4"
  }

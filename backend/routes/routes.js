@@ -7,15 +7,17 @@ const { response } = require("express");
 const IndividualTrainee = require("../models/IndividualTrainee");
 //Methods
 const createIndividualTrainee = (req, res) => {
-  const username = req.body.username;
-  const password = req.body.password;
+  // const username = req.body.username;
+  // const password = req.body.password;
   const userData = {
     firstname: req.body.firstname,
     lastname: req.body.lastname,
-    email: req.body.email,
-    username: username,
-    password: password,
+    age: req.body.age,
     gender: req.body.gender,
+    username: req.body.username,
+    password: req.body.password,
+    email: req.body.email,
+    country: req.body.country,
   };
   // if (username == null || password == null) {
   //   return res.status(400).json("Enter a valid data ");
@@ -24,7 +26,7 @@ const createIndividualTrainee = (req, res) => {
     if (err) {
       res.status(500).send("Database not responding  => " + err);
     } else {
-      res.status(200).send("user Created Successfully");
+      res.status(200).send("Individual Trainee Created Successfully");
     }
   });
   // }
@@ -40,7 +42,8 @@ const createCourse = async (req, res) => {
     req.body.instructor == null ||
     req.body.subtitle == null ||
     req.body.price == null ||
-    req.body.summary == null
+    req.body.summary == null ||
+    req.body.totalHours == null
   ) {
     res.status(400).send("Required fields were not submitted");
   } else if (req.body.summary.length < 5) {
@@ -48,26 +51,27 @@ const createCourse = async (req, res) => {
   } else {
     const courseDetails = {
       title: req.body.title,
-      subtitles: req.body.subtitle,
       subject: req.body.subject,
-      price: req.body.price,
       instructor: instructorUsername,
-      totalHours: req.body.totalHours == null ? 0 : req.body.totalHours,
-      image: req.body.image == null ? "" : req.body.image,
-      exercises: req.body.exercises == null ? [] : req.body.exercises,
-      video: req.body.video == null ? [] : req.body.video,
-      prerequisite: req.body.prerequisite == null ? "" : req.body.prerequisite,
-      preview: req.body.preview == null ? "" : req.body.preview,
-      category: req.body.category == null ? "" : req.body.category,
+      totalHours: req.body.totalHours,
+      rating: req.body.rating,
+      price: req.body.price,
+      subtitles: req.body.subtitle,
+      exercises: req.body.exercises,
       summary: req.body.summary,
-      rating: 5.0,
-      discount: req.body.discount == null ? 0 : req.body.discount,
+      discount: req.body.discount,
+      image: req.body.image,
+      video: req.body.video,
+      prerequisite: req.body.prerequisite,
+      preview: req.body.preview,
+      category: req.body.category,
+      //views reviews noOfSubscribers approved
     };
     await course.create(courseDetails, (err, small) => {
       if (err) {
         console.log("error with course ", err.message);
       } else {
-        res.status(200);
+        res.status(200).send();
       }
     });
   }
@@ -82,39 +86,15 @@ const coursePrice = async (req, res) => {
   }
 };
 const createAdmin = (req, res) => {
-  const reqBody = req.body;
-  // const fName = reqBody.firstname;
-  // const lName = reqBody.lastname;
-  // const email = reqBody.email;
-  // const role = "Admin";
-  const password = reqBody.password;
-  const username = reqBody.username;
-  if (
-    // fName == null ||
-    // lName == null ||
-    // email == null ||
-    password == null ||
-    username == null
-  ) {
+  const password = req.body.password;
+  const username = req.body.username;
+  if (password == null || username == null) {
     return res.status(400).send("Required fields are not submitted");
   }
-  // if (req.body.userRole != "admin") {
-  //   return res.status(401).send("User Not authorized for this action");
-  // }
-  // if (role != "admin") {
-  //   return res.status(401).send("User Not authorized for this action");
-  // }
   const adminData = {
-    // firstname: fName,
-    // lastname: lName,
-    // age: req.body.age == undefined ? "" : req.body.age,
-    // gender: req.body.gender == undefined ? "" : req.body.gender,
     password: password,
     username: username,
-    //email: email,
-    // role: "admin",
   };
-
   admin.create(adminData, function (err, small) {
     if (err) {
       res.status(500).send("Database not responding  => " + err.message);
@@ -202,19 +182,23 @@ const instructorSearch = async (req, res) => {
 };
 const createInstructor = async (req, res) => {
   const currentUser = req.body.currentUser;
-  const username = req.body.username;
-  const password = req.body.password;
   const instData = {
-    username: username,
-    password: password,
-    country: req.body.country == null ? "" : req.body.country,
+    firstname: req.body.firstname,
+    lastname: req.body.lastname,
+    age: req.body.age,
+    gender: req.body.gender,
+    username: req.body.username,
+    password: req.body.password,
+    email: req.body.email,
+    country: req.body.country,
+    biography: req.body.biography,
+    //courses wallet rating review
   };
   if (username == "" || password == "") {
     res.status(400).json("Enter a valid data ");
   } else {
-    console.log(currentUser);
     await admin
-      .find({ username: [currentUser] }, {}, (err, result) => {
+      .find({ username: currentUser }, {}, (err, result) => {
         if (err) {
           res.status(500).send(err.message);
         } else if (result == "") {
@@ -236,10 +220,12 @@ const createCorporateTrainee = async (req, res) => {
   const corpData = {
     firstname: req.body.firstname,
     lastname: req.body.lastname,
-    email: req.body.email,
+    age: req.body.age,
+    gender: req.body.gender,
     username: req.body.username,
     password: req.body.password,
-    gender: req.body.gender,
+    email: req.body.email,
+    country: req.body.country,
   };
   // if (username == null || password == null) {
   //   res.status(400).json("Enter a valid data ");
