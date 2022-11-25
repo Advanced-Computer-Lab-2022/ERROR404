@@ -13,6 +13,7 @@ import {
   PieChartOutlined,
   TeamOutlined,
   UserOutlined,
+  SettingFilled,
   FontColorsOutlined,
   LoginOutlined,
 } from "@ant-design/icons";
@@ -40,6 +41,7 @@ const items = [
     getItem("Dina Tamer", "10"),
     getItem("Malak Amr ", "11"),
   ]),
+  getItem(<Link to="/settings">Settings</Link>, "15", <SettingFilled />),
 ];
 
 function App({ children }) {

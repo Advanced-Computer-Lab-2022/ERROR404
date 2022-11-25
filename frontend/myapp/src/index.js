@@ -23,6 +23,10 @@ import {
 import ChangePasswordPage from "./components/changePassword";
 import ChangingPaswword from "./components/changePasswordAfterEmail";
 import { AppContext } from "./AppContext";
+import UploadLink from "./components/uploudYoutubeVid";
+import CoursePage from "./components/CoursePage";
+import CoreCirWrapper from "./components/coreCirriculum";
+import SettingsPageWrapper from "./components/settingsPage";
 
 export default function MainApp() {
   const [userName, setUserName] = useState("alighieth");
@@ -65,6 +69,9 @@ export default function MainApp() {
           <Route path="/instViewCourses" element={<InstViewCoursesWrapper />} />
           <Route path="/changePassword" element={<ChangePasswordPage />} />
           <Route path="/changingPasswordEmail" element={<ChangingPaswword />} />
+          <Route path="/submitlink" element={<UploadLink />} />
+          <Route path="/coursePage" element={<CoreCirWrapper />} />
+          <Route path="/settings" element={<SettingsPageWrapper />} />
         </Routes>
       </Router>
     </AppContext.Provider>
