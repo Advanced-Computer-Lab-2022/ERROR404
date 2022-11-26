@@ -3,6 +3,18 @@ import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Form, Input, message, Avatar } from "antd";
 import { AppContext } from "../AppContext";
 import emailjs from "@emailjs/browser";
+import { UserSettingPage } from "../pages/settingsPage";
+import App from "../App";
+
+const ChangePasswordPageWrapper = () => {
+  return (
+    <App>
+      <UserSettingPage>
+        <ChangePasswordPage />
+      </UserSettingPage>
+    </App>
+  );
+};
 
 const ChangePasswordPage = () => {
   const { userEmail, userMongoId, userType, userName } = useContext(AppContext);
@@ -35,7 +47,15 @@ const ChangePasswordPage = () => {
       );
   };
   return (
-    <div className="changePasswordWrapper">
+    <div
+      style={{
+        textAlign: "center",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
       <h4>
         We will be sending you an email to {useremail} to change the password
       </h4>
@@ -65,4 +85,4 @@ const ChangePasswordPage = () => {
   );
 };
 
-export default ChangePasswordPage;
+export default ChangePasswordPageWrapper;

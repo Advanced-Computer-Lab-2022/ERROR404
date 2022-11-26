@@ -4,7 +4,7 @@ import "./index.css";
 import App from "./App";
 import "antd/dist/antd.css";
 import GetCoursesByPrice from "./components/getCourses";
-import GetAllInstructorCoursesWrapper from "./components/getAllInstructorCourses";
+import GetAllInstructorCoursesWrapper from "./components/instructorComponents/getAllInstructorCourses";
 import ViewAllCoursesPriceWrapper from "./components/viewallCoursesPrice";
 import CreateAdminWrapper from "./components/createAdmin";
 import CreateInstructorWrapper from "./components/createInst";
@@ -20,13 +20,20 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import ChangePasswordPage from "./components/changePassword";
+import ChangePasswordPageWrapper from "./components/changePassword";
 import ChangingPaswword from "./components/changePasswordAfterEmail";
 import { AppContext } from "./AppContext";
-import UploadLink from "./components/uploudYoutubeVid";
+import UploadLink from "./components/instructorComponents/uploudYoutubeVid";
 import CoursePage from "./components/CoursePage";
 import CoreCirWrapper from "./components/coreCirriculum";
-import SettingsPageWrapper from "./components/settingsPage";
+import InstructorDashboard from "./pages/InstructorDashboard";
+import ReviewNavigation from "./components/reviewComponents";
+import InstructorReviewWrapper from "./components/instructorComponents/instructorReviews";
+import InstructorBalanceWrapper from "./components/instructorComponents/instructorBalance";
+import InstructorSettingsWrapper from "./components/instructorComponents/instructorSettings";
+import InstructorMainDashboard from "./components/instructorComponents/instructorMainDashboard";
+import InsertCreditCardInfoWrapper from "./components/insertCreditCardinfo";
+import SettingsPageWrapper from "./pages/settingsPage";
 
 export default function MainApp() {
   const [userName, setUserName] = useState("alighieth");
@@ -67,11 +74,31 @@ export default function MainApp() {
           <Route path="/SelectCountry1" element={<SelectCountryWrapper />} />
           <Route path="/viewAllCourses" element={<ViewAllCoursesWrapper />} />
           <Route path="/instViewCourses" element={<InstViewCoursesWrapper />} />
-          <Route path="/changePassword" element={<ChangePasswordPage />} />
+          <Route
+            path="/changePassword"
+            element={<ChangePasswordPageWrapper />}
+          />
           <Route path="/changingPasswordEmail" element={<ChangingPaswword />} />
           <Route path="/submitlink" element={<UploadLink />} />
           <Route path="/coursePage" element={<CoreCirWrapper />} />
           <Route path="/settings" element={<SettingsPageWrapper />} />
+          <Route path="/insertCard" element={<InsertCreditCardInfoWrapper />} />
+          <Route
+            path="/instructorDashBoard"
+            element={<InstructorMainDashboard />}
+          />
+          <Route
+            path="/instructorDashBoard/reviews"
+            element={<InstructorReviewWrapper />}
+          />
+          <Route
+            path="/instructorDashBoard/balance"
+            element={<InstructorBalanceWrapper />}
+          />
+          <Route
+            path="/instructorDashBoard/settings"
+            element={<InstructorSettingsWrapper />}
+          />
         </Routes>
       </Router>
     </AppContext.Provider>

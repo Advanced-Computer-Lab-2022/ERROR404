@@ -16,15 +16,8 @@ import { Link } from "react-router-dom";
 import VpnKeyIcon from "@mui/icons-material/VpnKey";
 import PersonIcon from "@mui/icons-material/Person";
 import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
-
-const SettingsPageWrapper = () => {
-  return (
-    <App>
-      <SettingsPageSider />
-      <PersonalInformationTab />
-    </App>
-  );
-};
+import LanguageIcon from "@mui/icons-material/Language";
+import PaymentsIcon from "@mui/icons-material/Payments";
 
 const SettingsPageSider = () => {
   return (
@@ -42,24 +35,38 @@ const SettingsPageSider = () => {
           </ListSubheader>
         }
       >
-        <ListItemButton>
-          <ListItemIcon>
-            <PersonIcon />
-          </ListItemIcon>
-          <ListItemText primary="Personal Information" />
-        </ListItemButton>
-        <ListItemButton>
-          <ListItemIcon>
-            <VpnKeyIcon />
-          </ListItemIcon>
-          <ListItemText primary="Password" />
-        </ListItemButton>
-        <ListItemButton>
-          <ListItemIcon>
-            <NotificationsActiveIcon />
-          </ListItemIcon>
-          <ListItemText primary="Notifications" />
-        </ListItemButton>
+        <Link to="/settings">
+          <ListItemButton>
+            <ListItemIcon>
+              <PersonIcon />
+            </ListItemIcon>
+            <ListItemText primary="Personal Information" />
+          </ListItemButton>
+        </Link>
+        <Link to="/changePassword">
+          <ListItemButton>
+            <ListItemIcon>
+              <VpnKeyIcon />
+            </ListItemIcon>
+            <ListItemText primary="Password" />
+          </ListItemButton>
+        </Link>
+        <Link to="/SelectCountry1">
+          <ListItemButton>
+            <ListItemIcon>
+              <LanguageIcon />
+            </ListItemIcon>
+            <ListItemText primary="Country" />
+          </ListItemButton>
+        </Link>
+        <Link to="/insertCard">
+          <ListItemButton>
+            <ListItemIcon>
+              <PaymentsIcon />
+            </ListItemIcon>
+            <ListItemText primary="Payment Methods" />
+          </ListItemButton>
+        </Link>
       </List>
     </>
   );
@@ -101,9 +108,12 @@ const PersonalInformationTab = () => {
         <Link to="/SelectCountry1">
           <Button type="primary">Change Country</Button>
         </Link>
+        <Link to="/insertCard">
+          <Button type="primary">Insert Credit Card</Button>
+        </Link>
       </Space>
     </div>
   );
 };
 
-export default SettingsPageWrapper;
+export { SettingsPageSider, PersonalInformationTab };
