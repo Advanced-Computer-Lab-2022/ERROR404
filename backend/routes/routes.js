@@ -32,8 +32,8 @@ const createIndividualTrainee = (req, res) => {
   // }
 };
 const createCourse = async (req, res) => {
-  const instructorUsername = req.body.username;
-  const instructor = Instructor.find({ username: req.body.username });
+  const instructorId = req.body.id;
+  const instructor = await Instructor.findOne({ _id: instructorId });
   if (instructor == null) {
     res.status(401).send("Username is not found, or unauthorized");
   } else if (
@@ -52,7 +52,7 @@ const createCourse = async (req, res) => {
     const courseDetails = {
       title: req.body.title,
       subject: req.body.subject,
-      instructor: instructorUsername,
+      instructor: instructorId,
       totalHours: req.body.totalHours,
       rating: req.body.rating,
       price: req.body.price,
@@ -65,9 +65,8 @@ const createCourse = async (req, res) => {
       prerequisite: req.body.prerequisite,
       preview: req.body.preview,
       category: req.body.category,
-      //views reviews noOfSubscribers approved
     };
-    await course.create(courseDetails, (err, small) => {
+    course.create(courseDetails, (err, small) => {
       if (err) {
         console.log("error with course ", err.message);
       } else {
@@ -192,7 +191,6 @@ const createInstructor = async (req, res) => {
     email: req.body.email,
     country: req.body.country,
     biography: req.body.biography,
-    //courses wallet rating review
   };
   if (username == "" || password == "") {
     res.status(400).json("Enter a valid data ");
@@ -585,7 +583,7 @@ const addCreditCardInfo = async (req, res) => {
     }
   ).clone();
 };
-
+//route to inc no of subs
 module.exports = {
   search,
   createCorporateTrainee,
