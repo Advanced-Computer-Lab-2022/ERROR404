@@ -1,6 +1,5 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import App from "../App";
 import {
   Layout,
   Button,
@@ -12,13 +11,14 @@ import {
   Menu,
   message,
 } from "antd";
+import InstructorDashboard from "../pages/InstructorDashboard";
 const { Option } = Select;
 
 const WrapperCreateCourses = () => {
   return (
-    <App>
+    <InstructorDashboard>
       <CreateCourse />
-    </App>
+    </InstructorDashboard>
   );
 };
 
@@ -31,8 +31,17 @@ const CreateCourse = () => {
     const summary = event.summary;
     const subject = event.subject;
     const totalHours = event.totalHours;
+    const previewURL = event.previewURL;
 
-    await createCourse(title, subtitles, price, summary, subject, totalHours);
+    await createCourse(
+      title,
+      subtitles,
+      price,
+      summary,
+      subject,
+      totalHours,
+      previewURL
+    );
   };
 
   const createCourse = async (
@@ -41,7 +50,8 @@ const CreateCourse = () => {
     price,
     summary,
     subject,
-    totalHours
+    totalHours,
+    previewURL
   ) => {
     const requestBody = {
       username: "abdoAli",
@@ -72,12 +82,6 @@ const CreateCourse = () => {
       <span>Create New Course</span>
       <Form
         name="basic"
-        labelCol={{
-          span: 15,
-        }}
-        wrapperCol={{
-          span: 25,
-        }}
         initialValues={{
           remember: true,
         }}
@@ -163,11 +167,19 @@ const CreateCourse = () => {
         </Form.Item>
 
         <Form.Item
-          wrapperCol={{
-            offset: 15,
-            span: 25,
-          }}
+          label="Course Preview Video"
+          name="previewURL"
+          rules={[
+            {
+              required: true,
+              message: "Please enter a Course Preview Video",
+            },
+          ]}
         >
+          <Input addonBefore="https://" />
+        </Form.Item>
+
+        <Form.Item>
           <Button type="primary" htmlType="submit">
             Create Course
           </Button>

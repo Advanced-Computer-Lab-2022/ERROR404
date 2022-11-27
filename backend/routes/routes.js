@@ -4,6 +4,7 @@ const admin = require("../models/Admin");
 const Instructor = require("../models/instructor");
 const individualTrainee = require("../models/IndividualTrainee");
 const IndividualTrainee = require("../models/IndividualTrainee");
+
 //Methods
 const createIndividualTrainee = (req, res) => {
   // const username = req.body.username;
@@ -30,6 +31,40 @@ const createIndividualTrainee = (req, res) => {
   });
   // }
 };
+
+const getUser = async (req, res) => {
+  const userId = req.params.userId;
+  const userType = req.params.userType;
+
+  let query = { _id: userId };
+
+  if (userType == "instructor") {
+    await Instructor.find(query, function (err, data) {
+      if (err) {
+        res.status(400).send("An erorr has occured");
+      } else {
+        res.status(200).json(data);
+      }
+    }).clone();
+  } else if (userType == "admin") {
+    await admin
+      .find(query, function (err, data) {
+        if (err) {
+          res.status(400).send("An erorr has occured");
+        } else {
+          res.status(200).json(data);
+        }
+      })
+      .clone();
+    // } else if (userType == "corporate") {
+
+    // } else if (userType == "indivisual") {
+  }
+
+  // we need to implement new schema
+};
+
+
 const createCourse = async (req, res) => {
   const instructorId = req.body.id;
   const instructor = await Instructor.findOne({ _id: instructorId });
@@ -288,17 +323,20 @@ const view = async (req, res) => {
     .clone();
 };
 const instViewCourses = async (req, res) => {
-  const a = await course.find(
-    { instructor: req.params.user },
-    {
-      title: 1,
-      _id: 0,
-    }
+  const instructorCourses = await course.find(
+    { instructor: req.params.userId }
+    // {
+    //   title: 1,
+    //   description: 1,
+    //   image: 1,
+    //   summary: 1,
+    //   _id: 1,
+    // }
   );
-  if (a == null) {
+  if (instructorCourses == null) {
     res.status(404).send("no courses available");
   } else {
-    res.json(a);
+    res.json(instructorCourses);
   }
 };
 const filterCourses = async (req, res) => {
@@ -596,6 +634,7 @@ const noOfSubscribers = async (req, res) => {
     .clone();
 };
 module.exports = {
+  getUser,
   search,
   createCorporateTrainee,
   createAdmin,

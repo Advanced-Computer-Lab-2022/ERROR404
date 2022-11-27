@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import "antd/dist/antd.css";
 import GetCoursesByPrice from "./components/getCourses";
-import GetAllInstructorCoursesWrapper from "./components/getAllInstructorCourses";
+import GetAllInstructorCoursesWrapper from "./components/instructorComponents/getAllInstructorCourses";
 import ViewAllCoursesPriceWrapper from "./components/viewallCoursesPrice";
 import CreateAdminWrapper from "./components/createAdmin";
 import CreateInstructorWrapper from "./components/createInst";
@@ -20,33 +20,114 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
+import ChangePasswordPageWrapper from "./components/changePassword";
+import ChangingPaswword from "./components/changePasswordAfterEmail";
+import { AppContext } from "./AppContext";
+import UploadLink from "./components/instructorComponents/uploudYoutubeVid";
+import CoursePage from "./components/CoursePage";
+import CoreCirWrapper from "./components/coreCirriculum";
+import InstructorDashboard from "./pages/InstructorDashboard";
+import ReviewNavigation from "./components/reviewComponents";
+import InstructorReviewWrapper from "./components/instructorComponents/instructorReviews";
+import InstructorBalanceWrapper from "./components/instructorComponents/instructorBalance";
+import InstructorSettingsWrapper from "./components/instructorComponents/instructorSettings";
+import InstructorMainDashboard from "./components/instructorComponents/instructorMainDashboard";
+import InsertCreditCardInfoWrapper from "./components/insertCreditCardinfo";
+import SettingsPageWrapper from "./pages/settingsPage";
+import InstructorViewAllTitlesWrapper from "./components/instructorComponents/instructorCourses";
+import {
+  ChangeBio,
+  ChangeEmail,
+} from "./components/instructorComponents/instructorChangeSetting";
 
 export default function MainApp() {
+  const [userName, setUserName] = useState("alighieth");
+  const [userEmail, setUserEmail] = useState("alighieth2709@gmail.com");
+  const [userType, setUserType] = useState("instructor");
+  const [userPassword, setUserPassword] = useState("123");
+  const [userMongoId, setUserMongoId] = useState("635da1ab0d1a4a14753e1aa0");
+  const [userPhoneNum, setUserPhoneNum] = useState("+20 1211399151");
+  const [region, setRegion] = useState("EG");
+
+  const values = {
+    userName: [userName, setUserName],
+    userEmail: [userEmail, setUserEmail],
+    userType: [userType, setUserType],
+    userPassword: [userPassword, setUserPassword],
+    userMongoId: [userMongoId, setUserMongoId],
+    userPhone: [userPhoneNum, setUserPhoneNum],
+    userRegion: [region, setRegion],
+  };
+
   return (
-    <Router>
-      <Routes>
-        <Route exact path="/" element={<HomePageWrapper />} />
-        <Route path="/courses" element={<GetCoursesByPrice />} />
-        <Route path="/adminCreateAdmin" element={<CreateAdminWrapper />} />
-        <Route
-          path="/adminCreateInstructor"
-          element={<CreateInstructorWrapper />}
-        />
-        <Route path="/createCourse" element={<WrapperCreateCourses />} />
-        <Route
-          path="/getAllInstructorCourses"
-          element={<GetAllInstructorCoursesWrapper />}
-        />
-        <Route
-          path="/viewallCoursesPrice"
-          element={<ViewAllCoursesPriceWrapper />}
-        />
-        <Route path="/createCorp" element={<CreateCorporateWrapper />} />
-        <Route path="/SelectCountry1" element={<SelectCountryWrapper />} />
-        <Route path="/viewAllCourses" element={<ViewAllCoursesWrapper />} />
-        <Route path="/instViewCourses" element={<InstViewCoursesWrapper />} />
-      </Routes>
-    </Router>
+    <AppContext.Provider value={values}>
+      <Router>
+        <Routes>
+          <Route exact path="/" element={<HomePageWrapper />} />
+          <Route path="/courses" element={<GetCoursesByPrice />} />
+          <Route path="/adminCreateAdmin" element={<CreateAdminWrapper />} />
+          <Route
+            path="/adminCreateInstructor"
+            element={<CreateInstructorWrapper />}
+          />
+          <Route path="/createCourse" element={<WrapperCreateCourses />} />
+          <Route
+            path="/getAllInstructorCourses"
+            element={<GetAllInstructorCoursesWrapper />}
+          />
+          <Route
+            path="/viewallCoursesPrice"
+            element={<ViewAllCoursesPriceWrapper />}
+          />
+          <Route path="/createCorp" element={<CreateCorporateWrapper />} />
+          <Route path="/SelectCountry1" element={<SelectCountryWrapper />} />
+          <Route path="/viewAllCourses" element={<ViewAllCoursesWrapper />} />
+          <Route path="/instViewCourses" element={<InstViewCoursesWrapper />} />
+          <Route
+            path="/changePassword"
+            element={<ChangePasswordPageWrapper />}
+          />
+          <Route path="/changingPasswordEmail" element={<ChangingPaswword />} />
+          <Route path="/submitlink" element={<UploadLink />} />
+          <Route path="/coursePage" element={<CoreCirWrapper />} />
+          <Route path="/settings" element={<SettingsPageWrapper />} />
+          <Route path="/insertCard" element={<InsertCreditCardInfoWrapper />} />
+          <Route
+            path="/instructorDashBoard"
+            element={<InstructorMainDashboard />}
+          />
+          <Route
+            path="/instructorDashBoard/reviews"
+            element={<InstructorReviewWrapper />}
+          />
+          <Route
+            path="/instructorDashBoard/balance"
+            element={<InstructorBalanceWrapper />}
+          />
+          <Route
+            path="/instructorDashBoard/settings"
+            element={<InstructorSettingsWrapper />}
+          />
+          <Route
+            path="/instructorDashBoard/allMyCourses"
+            element={<InstructorViewAllTitlesWrapper />}
+          />
+          <Route
+            path="/instructorDashBoard/createCourse"
+            element={<WrapperCreateCourses />}
+          />
+          <Route
+            path="/instructorDashBoard/createQuiz"
+            element={<WrapperCreateCourses />}
+          />
+          <Route
+            path="/instructorDashBoard/editEmail"
+            element={<ChangeEmail />}
+          />
+          <Route path="/instructorDashBoard/editBio" element={<ChangeBio />} />
+        </Routes>
+      </Router>
+    </AppContext.Provider>
   );
 }
 
