@@ -3,7 +3,6 @@ const course = require("../models/Courses");
 const admin = require("../models/Admin");
 const Instructor = require("../models/instructor");
 const individualTrainee = require("../models/IndividualTrainee");
-const { response } = require("express");
 const IndividualTrainee = require("../models/IndividualTrainee");
 //Methods
 const createIndividualTrainee = (req, res) => {
@@ -583,7 +582,19 @@ const addCreditCardInfo = async (req, res) => {
     }
   ).clone();
 };
-//route to inc no of subs
+//route to inc no of subs'
+const noOfSubscribers = async (req, res) => {
+  const id = req.body.id;
+  await course
+    .updateOne({ _id: id }, { $inc: { noOfSubscribers: 1 } }, (err, result) => {
+      if (err) {
+        res.status(500).send();
+      } else {
+        res.status(200).send(result);
+      }
+    })
+    .clone();
+};
 module.exports = {
   search,
   createCorporateTrainee,
@@ -609,4 +620,5 @@ module.exports = {
   viewReviewAndRatingForInstructor,
   insertVideoLinkToCourse,
   addCreditCardInfo,
+  noOfSubscribers,
 };

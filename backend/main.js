@@ -30,6 +30,7 @@ const {
   viewReviewAndRatingForInstructor,
   insertVideoLinkToCourse,
   addCreditCardInfo,
+  noOfSubscribers,
 } = require("./routes/routes");
 
 //App variables
@@ -66,7 +67,7 @@ app.post("/createIndividualTrainee", createIndividualTrainee);
 app.patch("/country", chooseCountry);
 app.get("/instViewCourses/:user", instViewCourses);
 app.get("/filter/:filterType/:key", filterCourses);
-app.patch("/updateViews", updateViews);
+app.put("/updateViews", updateViews);
 app.patch("/rateInstructor/:username/:rate", rateInstructor);
 app.patch("/rateCourse/:newRate", rateCourse);
 app.get("/viewRatingAndReviews/:username", viewRatingAndReviews);
@@ -77,4 +78,5 @@ app.put("/changePassword", changePassword);
 app.get("/viewReviewAndRating/:username", viewReviewAndRatingForInstructor);
 app.patch("/insertVideoLinkToCourse", insertVideoLinkToCourse);
 app.put("/addCreditCardInfo", addCreditCardInfo);
+app.put("/noOfSubscribers", noOfSubscribers);
 // app.get("/view", view);
