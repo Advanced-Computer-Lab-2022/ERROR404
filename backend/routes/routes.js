@@ -4,6 +4,7 @@ const admin = require("../models/Admin");
 const Instructor = require("../models/instructor");
 const individualTrainee = require("../models/IndividualTrainee");
 const IndividualTrainee = require("../models/IndividualTrainee");
+const Courses = require("../models/Courses");
 
 //Methods
 const createIndividualTrainee = (req, res) => {
@@ -335,7 +336,7 @@ const instViewCourses = async (req, res) => {
   if (instructorCourses == null) {
     res.status(404).send("no courses available");
   } else {
-    res.json(instructorCourses);
+    res.status(200).json(instructorCourses);
   }
 };
 const filterCourses = async (req, res) => {
@@ -636,6 +637,44 @@ const noOfSubscribers = async (req, res) => {
     })
     .clone();
 };
+
+const topCourses = async (req, res) => {
+  const topCourses = await Courses.find({}).sort({ views: -1 }).limit(5);
+  res.status(200).json(topCourses);
+};
+
+const salary = async (req, res) => {
+  const courseId = req.body.courseId;
+  const x = await course.findOne(
+    { _id: courseId },
+    { instructor: 1, price: 1 }
+  );
+  if (x == null || []) {
+    res.status(404).json("course not found");
+  } else {
+    let username = x.instructor;
+    let price = x.price * 0.8;
+    const y = await Instructor.findOne({ username: username }, { wallet: 1 });
+    let newWallet = y.wallet + price;
+    await Instructor.updateOne({ username: username }, { wallet: newWallet });
+  }
+};
+const reviewInstructor = async (req, res) => {
+  const username = req.body.username;
+  const review = req.body.review;
+  await Instructor.updateOne(
+    { username: username },
+    { $addToSet: { review: review } },
+    (err, result) => {
+      if (err) {
+        res.status(500).send();
+      } else {
+        res.status(200).send();
+      }
+    }
+  );
+};
+
 module.exports = {
   getUser,
   search,
@@ -663,4 +702,6 @@ module.exports = {
   insertVideoLinkToCourse,
   addCreditCardInfo,
   noOfSubscribers,
+  topCourses,
+  reviewInstructor,
 };

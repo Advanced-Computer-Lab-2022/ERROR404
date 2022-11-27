@@ -1,6 +1,7 @@
 import { Carousel } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { RiseOutlined } from "@ant-design/icons";
+import axios from "axios";
 
 const contentStyle = {
   height: "30vh",
@@ -11,6 +12,18 @@ const contentStyle = {
 
 const TopCourses = () => {
   const [topCourses, setTopCourses] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:2020/getTopCourses")
+      .then((courses) => {
+        console.log(courses.data);
+        setTopCourses(courses.data);
+      })
+      .catch((err) => {
+        console.log("error getting top courses ", JSON.stringify(err));
+      });
+  }, []);
   return (
     <div
       style={{
@@ -20,30 +33,19 @@ const TopCourses = () => {
     >
       <div sty>
         <h1>
-          Top Categories <RiseOutlined />
+          Most Popular Courses <RiseOutlined />
         </h1>
       </div>
       <Carousel autoplay>
-        <div>
-          <h3 className="dataScience" style={contentStyle}>
-            Data Science
-          </h3>
-        </div>
-        <div>
-          <h3 className="dataScience" style={contentStyle}>
-            Computer Engineering
-          </h3>
-        </div>
-        <div>
-          <h3 className="dataScience" style={contentStyle}>
-            UX/UI
-          </h3>
-        </div>
-        <div>
-          <h3 className="dataScience" style={contentStyle}>
-            Web Development
-          </h3>
-        </div>
+        {topCourses.map((course) => {
+          return (
+            <div>
+              <h1 className="dataScience" style={contentStyle}>
+                {course.title} by {course.instructor}
+              </h1>
+            </div>
+          );
+        })}
       </Carousel>
     </div>
   );

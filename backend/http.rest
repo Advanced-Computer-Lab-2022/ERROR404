@@ -1,10 +1,10 @@
 
-PUT http://localhost:2020/editEmail
-Content-Type: application/json
+GET http://localhost:2020/getTopCourses
+# Content-Type: application/json
    
- {
-    "email": "bruno@example.com",
-    "usertype": "instructor",
-    "username": "abdelrahman"
- }
+#  {
+#     "email": "bruno@example.com",
+#     "usertype": "instructor",
+#     "username": "abdelrahman"
+#  }
 

@@ -20,6 +20,8 @@ import DialpadIcon from "@mui/icons-material/Dialpad";
 import App from "../App";
 import { UserSettingPage } from "../pages/settingsPage";
 
+const monthFormat = "YYYY/MM";
+
 const config = {
   rules: [
     {
@@ -114,7 +116,7 @@ const InsertCreditCardInfo = () => {
           />
         </Form.Item>
         <Form.Item name="expDate" label="Expiry Date" {...config}>
-          <DatePicker format="YYYY-MM" />
+          <DatePicker format={monthFormat} picker="month" />
         </Form.Item>
 
         <Form.Item>

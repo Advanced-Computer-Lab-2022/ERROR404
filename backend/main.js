@@ -27,11 +27,13 @@ const {
   uploadPreviewVideoForCourse,
   editEmail,
   editBio,
+  topCourses,
   changePassword,
   viewReviewAndRatingForInstructor,
   insertVideoLinkToCourse,
   addCreditCardInfo,
   noOfSubscribers,
+  reviewInstructor,
 } = require("./routes/routes");
 
 //App variables
@@ -57,6 +59,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/getUser/:userId/:userType", getUser);
+app.get("/getTopCourses", topCourses);
 app.get("/search/:key/:max", search);
 app.get("/coursePrice", coursePrice);
 app.get("/searchmycourses/:user/:key", instructorSearch);
@@ -81,3 +84,4 @@ app.get("/viewReviewAndRating/:username", viewReviewAndRatingForInstructor);
 app.patch("/insertVideoLinkToCourse", insertVideoLinkToCourse);
 app.patch("/addCreditCardInfo", addCreditCardInfo);
 app.put("/noOfSubscribers", noOfSubscribers);
+app.put("/reviewInstructor", reviewInstructor);

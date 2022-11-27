@@ -43,7 +43,7 @@ import {
 export default function MainApp() {
   const [username, setUsername] = useState("abdelrahman");
   const [userEmail, setUserEmail] = useState("alighieth2709@gmail.com");
-  const [userType, setUserType] = useState("instructor");
+  const [userType, setUserType] = useState("indivisual");
   const [userPassword, setUserPassword] = useState("aman ya raby aman");
   const [userMongoId, setUserMongoId] = useState("6366d3ddd79a066bc2b74106");
   const [userPhoneNum, setUserPhoneNum] = useState("+20 1211399151");

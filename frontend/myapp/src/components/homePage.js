@@ -23,7 +23,7 @@ const HomePage = () => {
       }}
     >
       <TopCourses />
-      <TopCourses />
+      {/* <TopCourses /> */}
       {/* <ReviewNavigation /> */}
     </div>
   );
