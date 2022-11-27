@@ -81,6 +81,11 @@ export default function PrimarySearchAppBar() {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
+  const handleChange = (event) => {
+    const searchValue = event.target.value;
+    console.log("=>>>>>> ", searchValue);
+  };
+
   const menuId = "primary-search-account-menu";
   const renderMenu = (
     <Menu
@@ -176,6 +181,7 @@ export default function PrimarySearchAppBar() {
               <SearchIcon />
             </SearchIconWrapper>
             <StyledInputBase
+              onChange={handleChange}
               placeholder="Search…"
               inputProps={{ "aria-label": "search" }}
             />

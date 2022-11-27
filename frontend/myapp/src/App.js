@@ -33,7 +33,7 @@ function getItem(label, key, icon, children) {
 }
 
 const items = [
-  getItem(<Link to="/">Home</Link>, "12", <HomeOutlined />),
+  getItem(<Link to="/">Home</Link>, "17", <HomeOutlined />),
   getItem(<Link to="/">Sigin | Login</Link>, "12", <LoginOutlined />),
 
   getItem("Team", "sub2", <TeamOutlined />, [

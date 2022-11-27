@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import App from "../App";
 import ListSubheader from "@mui/material/ListSubheader";
 import List from "@mui/material/List";
@@ -18,6 +18,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 import LanguageIcon from "@mui/icons-material/Language";
 import PaymentsIcon from "@mui/icons-material/Payments";
+import { AppContext } from "../AppContext";
 
 const SettingsPageSider = () => {
   return (
@@ -73,6 +74,13 @@ const SettingsPageSider = () => {
 };
 
 const PersonalInformationTab = () => {
+  const { userType, userMongoId, userPhone, userEmail, userRegion } =
+    useContext(AppContext);
+  const [user, setUser] = userType;
+  const [userId, setUserId] = userMongoId;
+  const [email, setEmail] = userEmail;
+  const [phone, setPhone] = userPhone;
+  const [region, setRegion] = userRegion;
   return (
     <div>
       <h1>Basic Information</h1>
@@ -80,27 +88,39 @@ const PersonalInformationTab = () => {
         width={200}
         src="https://thumbor.forbes.com/thumbor/fit-in/x/https://www.forbes.com/advisor/in/wp-content/uploads/2022/03/monkey-g412399084_1280.jpg"
       />
+      {user == "instructor" ? (
+        <TextField
+          disabled
+          id="outlined-disabled"
+          label="Bio"
+          value="I am ali ghieth"
+        />
+      ) : null}
       <TextField
         disabled
         id="outlined-disabled"
         label="Username"
         value="alighieth"
       />
-      <TextField
-        disabled
-        id="outlined-disabled"
-        label="Email"
-        value="alighieth2709@gmail.com"
-      />
+      <TextField disabled id="outlined-disabled" label="Email" value={email} />
       <TextField
         disabled
         id="outlined-disabled"
         label="Phone number"
-        value="+201211399151"
+        value={phone}
       />
-      <TextField disabled id="outlined-disabled" label="Country" value="EG" />
+
+      <TextField
+        disabled
+        id="outlined-disabled"
+        label="Country"
+        value={region}
+      />
       <Space>
-        <Button type="primary">Change Email</Button>
+        <Link to="/instructorDashboard/editEmail">
+          <Button type="primary">Change Email</Button>
+        </Link>
+
         <Link to="/changePassword">
           {" "}
           <Button type="primary">Change Password</Button>
@@ -111,6 +131,11 @@ const PersonalInformationTab = () => {
         <Link to="/insertCard">
           <Button type="primary">Insert Credit Card</Button>
         </Link>
+        {user == "instructor" ? (
+          <Link to="/instructorDashboard/editBio">
+            <Button type="primary">Change Bio</Button>
+          </Link>
+        ) : null}
       </Space>
     </div>
   );

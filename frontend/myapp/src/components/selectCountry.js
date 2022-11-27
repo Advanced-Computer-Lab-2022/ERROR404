@@ -1,21 +1,33 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, useContext } from "react";
 import axios from "axios";
 import { message, Select, Form, Item, Button, Input } from "antd";
 import App from "../App";
 // import Select from 'react-select';
 import countryList from "react-select-country-list";
 import { UserSettingPage } from "../pages/settingsPage";
+import InstructorDashboard from "../pages/InstructorDashboard";
+import { AppContext } from "../AppContext";
 
 const SelectCountryWrapper = () => {
-  return (
-    <>
+  const { userType } = useContext(AppContext);
+  const [user, setUser] = userType;
+  if (user == "instructor") {
+    return (
+      <InstructorDashboard>
+        <UserSettingPage>
+          <SelectCountry1 />
+        </UserSettingPage>
+      </InstructorDashboard>
+    );
+  } else {
+    return (
       <App>
         <UserSettingPage>
           <SelectCountry1 />
         </UserSettingPage>
       </App>
-    </>
-  );
+    );
+  }
 };
 
 const SelectCountry1 = () => {

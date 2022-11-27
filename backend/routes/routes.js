@@ -389,17 +389,20 @@ const view = async (req, res) => {
     .clone();
 };
 const instViewCourses = async (req, res) => {
-  const a = await course.find(
-    { instructor: req.params.user },
-    {
-      title: 1,
-      _id: 0,
-    }
+  const instructorCourses = await course.find(
+    { instructor: req.params.userId }
+    // {
+    //   title: 1,
+    //   description: 1,
+    //   image: 1,
+    //   summary: 1,
+    //   _id: 1,
+    // }
   );
-  if (a == null) {
+  if (instructorCourses == null) {
     res.status(404).send("no courses available");
   } else {
-    res.json(a);
+    res.json(instructorCourses);
   }
 };
 //filter

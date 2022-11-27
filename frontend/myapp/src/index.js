@@ -34,13 +34,20 @@ import InstructorSettingsWrapper from "./components/instructorComponents/instruc
 import InstructorMainDashboard from "./components/instructorComponents/instructorMainDashboard";
 import InsertCreditCardInfoWrapper from "./components/insertCreditCardinfo";
 import SettingsPageWrapper from "./pages/settingsPage";
+import InstructorViewAllTitlesWrapper from "./components/instructorComponents/instructorCourses";
+import {
+  ChangeBio,
+  ChangeEmail,
+} from "./components/instructorComponents/instructorChangeSetting";
 
 export default function MainApp() {
   const [userName, setUserName] = useState("alighieth");
   const [userEmail, setUserEmail] = useState("alighieth2709@gmail.com");
-  const [userType, setUserType] = useState("admin");
+  const [userType, setUserType] = useState("instructor");
   const [userPassword, setUserPassword] = useState("123");
   const [userMongoId, setUserMongoId] = useState("635da1ab0d1a4a14753e1aa0");
+  const [userPhoneNum, setUserPhoneNum] = useState("+20 1211399151");
+  const [region, setRegion] = useState("EG");
 
   const values = {
     userName: [userName, setUserName],
@@ -48,6 +55,8 @@ export default function MainApp() {
     userType: [userType, setUserType],
     userPassword: [userPassword, setUserPassword],
     userMongoId: [userMongoId, setUserMongoId],
+    userPhone: [userPhoneNum, setUserPhoneNum],
+    userRegion: [region, setRegion],
   };
 
   return (
@@ -99,6 +108,23 @@ export default function MainApp() {
             path="/instructorDashBoard/settings"
             element={<InstructorSettingsWrapper />}
           />
+          <Route
+            path="/instructorDashBoard/allMyCourses"
+            element={<InstructorViewAllTitlesWrapper />}
+          />
+          <Route
+            path="/instructorDashBoard/createCourse"
+            element={<WrapperCreateCourses />}
+          />
+          <Route
+            path="/instructorDashBoard/createQuiz"
+            element={<WrapperCreateCourses />}
+          />
+          <Route
+            path="/instructorDashBoard/editEmail"
+            element={<ChangeEmail />}
+          />
+          <Route path="/instructorDashBoard/editBio" element={<ChangeBio />} />
         </Routes>
       </Router>
     </AppContext.Provider>

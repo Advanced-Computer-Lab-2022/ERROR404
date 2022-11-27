@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import App from "../App";
 import {
   LaptopOutlined,
@@ -13,14 +13,26 @@ import {
   SettingsPageSider,
 } from "../components/settingsPage";
 import { Link } from "react-router-dom";
+import InstructorDashboard from "./InstructorDashboard";
+import { AppContext } from "../AppContext";
 const { Header, Content, Footer, Sider } = Layout;
 
 const SettingsPageWrapper = () => {
-  return (
-    <App>
-      <UserSettingPageMain />
-    </App>
-  );
+  const { userType } = useContext(AppContext);
+  const [user, setUser] = userType;
+  if (user == "instructor") {
+    return (
+      <InstructorDashboard>
+        <UserSettingPageMain />
+      </InstructorDashboard>
+    );
+  } else {
+    return (
+      <App>
+        <UserSettingPageMain />
+      </App>
+    );
+  }
 };
 
 const UserSettingPageMain = () => {

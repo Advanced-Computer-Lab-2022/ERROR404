@@ -58,7 +58,7 @@ app.post("/createCourse", createCourse);
 app.post("/createInstructor", createInstructor);
 app.post("/createCorporate", createCorporate);
 app.patch("/country", chooseCountry);
-app.get("/instViewCourses/:user", instViewCourses);
+app.get("/instViewCourses/:userId", instViewCourses);
 app.get("/filter/:filterType/:key", filterCourses);
 app.patch("/updateViews", updateViews);
 app.patch("/rateInstructor/:username/:rate", rateInstructor);

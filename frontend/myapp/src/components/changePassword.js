@@ -5,15 +5,28 @@ import { AppContext } from "../AppContext";
 import emailjs from "@emailjs/browser";
 import { UserSettingPage } from "../pages/settingsPage";
 import App from "../App";
+import InstructorDashboard from "../pages/InstructorDashboard";
 
 const ChangePasswordPageWrapper = () => {
-  return (
-    <App>
-      <UserSettingPage>
-        <ChangePasswordPage />
-      </UserSettingPage>
-    </App>
-  );
+  const { userType } = useContext(AppContext);
+  const [user, setUser] = userType;
+  if (user == "instructor") {
+    return (
+      <InstructorDashboard>
+        <UserSettingPage>
+          <ChangePasswordPage />
+        </UserSettingPage>
+      </InstructorDashboard>
+    );
+  } else {
+    return (
+      <App>
+        <UserSettingPage>
+          <ChangePasswordPage />
+        </UserSettingPage>
+      </App>
+    );
+  }
 };
 
 const ChangePasswordPage = () => {
