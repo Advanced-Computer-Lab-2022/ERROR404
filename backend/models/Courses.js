@@ -11,12 +11,13 @@ const courses = new Schema(
       required: true,
     },
     instructor: {
-      type: String,
+      type: Schema.Types.ObjectId,
+      ref: "instructor",
       required: true,
     },
     totalHours: {
       type: Number,
-      default: 0,
+      required: true,
     },
     rating: {
       type: Number,
@@ -24,10 +25,8 @@ const courses = new Schema(
     },
     price: {
       type: Number,
-      default: 0,
       required: true,
     },
-
     subtitles: {
       type: String,
       required: true,
@@ -37,9 +36,8 @@ const courses = new Schema(
     },
 
     exercises: {
-      type: String,
-      required: false,
-      default: "",
+      type: Array,
+      default: [],
     },
 
     summary: {
@@ -47,7 +45,6 @@ const courses = new Schema(
       required: [true, "Summary Required"],
       minLength: 5,
       maxLength: 100,
-      default: "",
     },
     discount: {
       type: Number,
@@ -55,6 +52,7 @@ const courses = new Schema(
     },
     image: {
       type: String,
+      default: "",
     },
     video: {
       type: Array,
@@ -75,6 +73,18 @@ const courses = new Schema(
     numberOfSubscribers: {
       type: Number,
       default: 0,
+    },
+    preview: {
+      type: String,
+      default: "",
+    },
+    category: {
+      type: String,
+      default: "",
+    },
+    approved: {
+      type: Boolean,
+      default: false,
     },
   },
   { timestamps: true }

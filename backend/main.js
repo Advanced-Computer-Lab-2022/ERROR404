@@ -8,14 +8,14 @@ const MongoURI = "mongodb+srv://admin:admin@cluster0.vm6qaas.mongodb.net/test";
 const {
   getUser,
   search,
-  createUser,
+  createCorporateTrainee,
   createAdmin,
   coursePrice,
   createCourse,
   instructorSearch,
   viewCourses,
   createInstructor,
-  createCorporate,
+  createIndividualTrainee,
   chooseCountry,
   instViewCourses,
   view,
@@ -23,6 +23,15 @@ const {
   updateViews,
   rateInstructor,
   rateCourse,
+  viewRatingAndReviews,
+  uploadPreviewVideoForCourse,
+  editEmail,
+  editBio,
+  changePassword,
+  viewReviewAndRatingForInstructor,
+  insertVideoLinkToCourse,
+  addCreditCardInfo,
+  noOfSubscribers,
 } = require("./routes/routes");
 
 //App variables
@@ -52,16 +61,23 @@ app.get("/search/:key/:max", search);
 app.get("/coursePrice", coursePrice);
 app.get("/searchmycourses/:user/:key", instructorSearch);
 app.get("/viewCourses", viewCourses);
-app.post("/createUser", createUser);
+app.post("/createCorporateTrainee", createCorporateTrainee);
 app.post("/createAdmin", createAdmin);
 app.post("/createCourse", createCourse);
 app.post("/createInstructor", createInstructor);
-app.post("/createCorporate", createCorporate);
+app.post("/createIndividualTrainee", createIndividualTrainee);
 app.patch("/country", chooseCountry);
 app.get("/instViewCourses/:userId", instViewCourses);
 app.get("/filter/:filterType/:key", filterCourses);
-app.patch("/updateViews", updateViews);
+app.put("/updateViews", updateViews);
 app.patch("/rateInstructor/:username/:rate", rateInstructor);
 app.patch("/rateCourse/:newRate", rateCourse);
-
-// app.get("/view", view);
+app.get("/viewRatingAndReviews/:username", viewRatingAndReviews);
+app.put("/uploadPreviewVideoForCourse", uploadPreviewVideoForCourse);
+app.put("/editEmail", editEmail);
+app.put("/ediBio", editBio);
+app.put("/changePassword", changePassword);
+app.get("/viewReviewAndRating/:username", viewReviewAndRatingForInstructor);
+app.patch("/insertVideoLinkToCourse", insertVideoLinkToCourse);
+app.put("/addCreditCardInfo", addCreditCardInfo);
+app.put("/noOfSubscribers", noOfSubscribers);

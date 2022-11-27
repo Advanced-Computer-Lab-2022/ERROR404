@@ -1,7 +1,12 @@
-GET http://localhost:2020/sendEmail/alighieth2709@gmail.com/635c38db0c427063b50f9f09/admin
-# Content-Type: application/json
 
-# {
-#    "username":"abdelrahman",
-#    "password":"123"
-# }
+PUT http://localhost:2020/addCreditCardInfo
+Content-Type: application/json
+   
+ {
+   "username": "bruno",
+    "holderName":"ali" ,
+    "cardNumber": "111143432",
+    "cvv": "123",
+    "expirationDate": "2015-5-4"
+ }
+

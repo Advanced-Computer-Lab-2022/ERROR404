@@ -1,68 +1,36 @@
-const user = require("../models/User");
+const corporateTrainee = require("../models/corporateTrainee");
 const course = require("../models/Courses");
 const admin = require("../models/Admin");
 const Instructor = require("../models/instructor");
-const nodemailer = require("nodemailer");
+const individualTrainee = require("../models/IndividualTrainee");
+const IndividualTrainee = require("../models/IndividualTrainee");
 
 //Methods
-const createUser = (req, res) => {
+const createIndividualTrainee = (req, res) => {
+  // const username = req.body.username;
+  // const password = req.body.password;
   const userData = {
     firstname: req.body.firstname,
     lastname: req.body.lastname,
-    email: req.body.email,
+    age: req.body.age,
+    gender: req.body.gender,
     username: req.body.username,
     password: req.body.password,
-    role: req.body.role,
-    gender: req.body.gender,
+    email: req.body.email,
+    country: req.body.country,
   };
-  user.create(userData, function (err, small) {
+  // if (username == null || password == null) {
+  //   return res.status(400).json("Enter a valid data ");
+  // } else {
+  individualTrainee.create(userData, function (err, small) {
     if (err) {
-      res.status(500).send("Database not responding  => " + err.message);
-      return;
+      res.status(500).send("Database not responding  => " + err);
+    } else {
+      res.status(200).send("Individual Trainee Created Successfully");
     }
-    // this means record created
-    res.status(200).send("user Created Successfully");
   });
+  // }
 };
-
-// const sendEmail = async (req, res) => {
-//   const clientEmail = req.params.email;
-//   const userId = req.params.userId;
-//   const userType = req.params.userType;
-
-//   const body =
-//     "We are sendiog you this email because you have asked to change your password, Press the below link to be redircted to the changing password page." +
-//     `http://localhost:3000/changingPasswordEmail?userId=${userId}&email=alilolo&userType=${userType}`;
-
-//   const sendingEmail = "gucacllab@gmail.com";
-//   const transport = nodemailer.createTransport({
-//     host: "smtp.mailtrap.io",
-//     port: 2525,
-//     auth: {
-//       user: "762c9d3ee85855",
-//       pass: "4dd0310bcf807f",
-//     },
-//     tls: {
-//       rejectUnauthorized: false,
-//     },
-//   });
-
-//   let mailOptions = {
-//     from: sendingEmail,
-//     to: clientEmail,
-//     subject: "Changing Password",
-//     text: body,
-//   };
-
-//   transport.sendMail(mailOptions, function (error, info) {
-//     if (error) {
-//       console.log(error);
-//     } else {
-//       console.log("Email sent: " + info.response);
-//       res.status(200).send("email sent!");
-//     }
-//   });
-// };
 
 const getUser = async (req, res) => {
   const userId = req.params.userId;
@@ -96,49 +64,51 @@ const getUser = async (req, res) => {
   // we need to implement new schema
 };
 
+
 const createCourse = async (req, res) => {
-  const instructorUsername = req.body.username;
-  const instructor = Instructor.find({ username: req.body.username });
-  if (instructor == null && instructor.role != "instructor") {
+  const instructorId = req.body.id;
+  const instructor = await Instructor.findOne({ _id: instructorId });
+  if (instructor == null) {
     res.status(401).send("Username is not found, or unauthorized");
   } else if (
     req.body.title == null ||
+    req.body.subject == null ||
+    req.body.instructor == null ||
     req.body.subtitle == null ||
     req.body.price == null ||
-    req.body.summary == null
+    req.body.summary == null ||
+    req.body.totalHours == null
   ) {
     res.status(400).send("Required fields were not submitted");
   } else if (req.body.summary.length < 5) {
     res.status(400).send("Summary should be atleast 5 words long");
   } else {
     const courseDetails = {
-      title: req.body.title == null ? "" : req.body.title,
-      subtitles: req.body.subtitle == null ? "" : req.body.subtitle,
-      subject: req.body.subject == null ? "" : req.body.subject,
-      price: req.body.price == null ? 0 : req.body.price,
-      instructor: instructorUsername,
-      totalHours: req.body.totalHours == null ? "" : req.body.totalHours,
-      image: req.body.image == null ? "" : req.body.image,
-      video: req.body.video == null ? "" : req.body.video,
-      prerequisite: req.body.prerequisite == null ? "" : req.body.prerequisite,
-      summary: req.body.summary == null ? "" : req.body.summary,
-      rating: 5.0,
+      title: req.body.title,
+      subject: req.body.subject,
+      instructor: instructorId,
+      totalHours: req.body.totalHours,
+      rating: req.body.rating,
+      price: req.body.price,
+      subtitles: req.body.subtitle,
+      exercises: req.body.exercises,
+      summary: req.body.summary,
+      discount: req.body.discount,
+      image: req.body.image,
+      video: req.body.video,
+      prerequisite: req.body.prerequisite,
+      preview: req.body.preview,
+      category: req.body.category,
     };
-
-    console.log(courseDetails);
-
-    await course.create(courseDetails, (err, small) => {
-      console.log("hello ", small);
+    course.create(courseDetails, (err, small) => {
       if (err) {
         console.log("error with course ", err.message);
       } else {
-        res.status(200).json(small);
+        res.status(200).send();
       }
     });
   }
 };
-
-//view the price of each course
 const coursePrice = async (req, res) => {
   console.log(req.params);
   const c = await course.find({}, { title: 1, price: 1, _id: 0 });
@@ -148,41 +118,16 @@ const coursePrice = async (req, res) => {
     res.json(c);
   }
 };
-//Admin creation
 const createAdmin = (req, res) => {
-  const reqBody = req.body;
-  // const fName = reqBody.firstname;
-  // const lName = reqBody.lastname;
-  // const email = reqBody.email;
-  // const role = "Admin";
-  const password = reqBody.password;
-  const username = reqBody.username;
-  if (
-    // fName == null ||
-    // lName == null ||
-    // email == null ||
-    password == null ||
-    username == null
-  ) {
+  const password = req.body.password;
+  const username = req.body.username;
+  if (password == null || username == null) {
     return res.status(400).send("Required fields are not submitted");
   }
-  // if (req.body.userRole != "admin") {
-  //   return res.status(401).send("User Not authorized for this action");
-  // }
-  // if (role != "admin") {
-  //   return res.status(401).send("User Not authorized for this action");
-  // }
   const adminData = {
-    // firstname: fName,
-    // lastname: lName,
-    // age: req.body.age == undefined ? "" : req.body.age,
-    // gender: req.body.gender == undefined ? "" : req.body.gender,
     password: password,
     username: username,
-    //email: email,
-    // role: "admin",
   };
-
   admin.create(adminData, function (err, small) {
     if (err) {
       res.status(500).send("Database not responding  => " + err.message);
@@ -193,7 +138,6 @@ const createAdmin = (req, res) => {
     res.status(200).send("admin " + username + " created Successfully");
   });
 };
-//search the courses given by him/her based on a subject or price
 const search = async (req, res) => {
   let query = {};
   if (req.params.key.valueOf().toLowerCase() == "free") {
@@ -233,7 +177,6 @@ const search = async (req, res) => {
     })
     .clone();
 };
-//instructor searches for his courses validation based on user
 const instructorSearch = async (req, res) => {
   let query = {};
   if (req.params.key.valueOf().toLowerCase() == "free") {
@@ -270,23 +213,24 @@ const instructorSearch = async (req, res) => {
     })
     .clone();
 };
-
-//admin creates instructor
 const createInstructor = async (req, res) => {
   const currentUser = req.body.currentUser;
-  const username = req.body.username;
-  const password = req.body.password;
   const instData = {
-    username: username,
-    password: password,
-    country: req.body.country == null ? "" : req.body.country,
+    firstname: req.body.firstname,
+    lastname: req.body.lastname,
+    age: req.body.age,
+    gender: req.body.gender,
+    username: req.body.username,
+    password: req.body.password,
+    email: req.body.email,
+    country: req.body.country,
+    biography: req.body.biography,
   };
   if (username == "" || password == "") {
     res.status(400).json("Enter a valid data ");
   } else {
-    console.log(currentUser);
     await admin
-      .find({ username: [currentUser] }, {}, (err, result) => {
+      .find({ username: currentUser }, {}, (err, result) => {
         if (err) {
           res.status(500).send(err.message);
         } else if (result == "") {
@@ -304,38 +248,29 @@ const createInstructor = async (req, res) => {
       .clone();
   }
 };
-//admin creates cooprate
-const createCorporate = async (req, res) => {
-  const currentUser = req.body.currentUser;
-  const username = req.body.username;
-  const password = req.body.password;
-  const coopData = {
-    username: username,
-    password: password,
+const createCorporateTrainee = async (req, res) => {
+  const corpData = {
+    firstname: req.body.firstname,
+    lastname: req.body.lastname,
+    age: req.body.age,
+    gender: req.body.gender,
+    username: req.body.username,
+    password: req.body.password,
+    email: req.body.email,
+    country: req.body.country,
   };
-  if (username == null || password == null) {
-    res.status(400).json("Enter a valid data ");
-    return;
-  }
-  const x = await admin
-    .find({ username: currentUser }, (err, result) => {
-      if (err) {
-        res.status(500).send(err.message);
-      } else if (result == null) {
-        res.status(400).send("not an admin");
-      } else {
-        user.create(coopData, (error, small) => {
-          if (error) {
-            res.status(400).send(error.message);
-          } else {
-            res.status(200).send("user is created");
-          }
-        });
-      }
-    })
-    .clone();
+  // if (username == null || password == null) {
+  //   res.status(400).json("Enter a valid data ");
+  // } else {
+  corporateTrainee.create(corpData, (error, small) => {
+    if (error) {
+      res.status(400).send(error.message);
+    } else {
+      res.status(200).send("user is created");
+    }
+  });
+  // }
 };
-//
 const viewCourses = async (req, res) => {
   const a = await course.find({}, { _id: 0 });
   if (a == null) {
@@ -344,7 +279,6 @@ const viewCourses = async (req, res) => {
     res.json(a);
   }
 };
-//choose country
 const chooseCountry = async (req, res) => {
   const { username, country } = req.body;
   if (username == "" || country == "") {
@@ -405,7 +339,6 @@ const instViewCourses = async (req, res) => {
     res.json(instructorCourses);
   }
 };
-//filter
 const filterCourses = async (req, res) => {
   const filterType = req.params.filterType;
   const key = req.params.key;
@@ -424,7 +357,6 @@ const filterCourses = async (req, res) => {
       });
   }
 };
-
 const updateViews = async (req, res) => {
   const id = req.body.id;
   await course
@@ -437,7 +369,6 @@ const updateViews = async (req, res) => {
     })
     .clone();
 };
-
 const rateInstructor = async (req, res) => {
   const username = req.params.username;
   const rate = req.params.rate;
@@ -486,17 +417,233 @@ const rateCourse = async (req, res) => {
       .clone();
   }
 };
+const viewRatingAndReviews = async (req, res) => {
+  const username = req.params.username;
+  await Instructor.find(
+    { username: username },
+    { review: 1, rating: 1 },
+    (err, result) => {
+      if (err) {
+        res.status(500).json(err);
+      } else {
+        res.status(200).json(result);
+      }
+    }
+  ).clone();
+};
+const changePassword = async (req, res) => {
+  const id = req.body.id;
+  const newPassword = req.body.newPassword;
+  const usertype = req.body.usertype;
+  if (usertype == "corporate trainee") {
+    corporateTrainee.updateOne(
+      { _id: id },
+      { password: newPassword },
+      (err, result) => {
+        if (err) {
+          res.status(404).json(err);
+        } else {
+          res.status(200);
+        }
+      }
+    );
+  } else if (usertype == "individual trainee") {
+    individualTrainee.updateOne(
+      { _id: id },
+      { password: newPassword },
+      (err, result) => {
+        if (err) {
+          res.status(404).json(err);
+        } else {
+          res.status(200);
+        }
+      }
+    );
+  } else if (usertype == "instructor") {
+    Instructor.updateOne(
+      { _id: id },
+      { password: newPassword },
+      (err, result) => {
+        if (err) {
+          res.status(404).json(err);
+        } else {
+          res.status(200);
+        }
+      }
+    );
+  }
+};
+const editEmail = async (req, res) => {
+  const username = req.body.username;
+  const email = req.body.email;
+  const usertype = req.body.usertype;
+  if (usertype == "corporate trainee") {
+    await user
+      .updateOne({ username: username }, { email: email }, (err, result) => {
+        if (err) {
+          res.status(404).json(err);
+        } else {
+          res.status(200);
+        }
+      })
+      .clone();
+  } else if (usertype == "individual trainee") {
+    await individualTrainee
+      .updateOne({ username: username }, { email: email }, (err, result) => {
+        if (err) {
+          res.status(404).json(err);
+        } else {
+          res.status(200);
+        }
+      })
+      .clone();
+  } else if (usertype == "instructor") {
+    await Instructor.updateOne(
+      { username: username },
+      { email: email },
+      (err, result) => {
+        if (err) {
+          res.status(404).json(err);
+        } else {
+          res.status(200);
+        }
+      }
+    ).clone();
+  }
+};
+const editBio = async (req, res) => {
+  const username = req.body.username;
+  const bio = req.body.bio;
+  const usertype = req.body.usertype;
+  if (usertype == "corporate trainee") {
+    await user
+      .updateOne({ username: username }, { biography: bio }, (err, result) => {
+        if (err) {
+          res.status(404).json(err);
+        } else {
+          res.status(200);
+        }
+      })
+      .clone();
+  } else if (usertype == "individual trainee") {
+    await individualTrainee
+      .updateOne({ username: username }, { biography: bio }, (err, result) => {
+        if (err) {
+          res.status(404).json(err);
+        } else {
+          res.status(200);
+        }
+      })
+      .clone();
+  } else if (usertype == "instructor") {
+    await Instructor.updateOne(
+      { username: username },
+      { biography: bio },
+      (err, result) => {
+        if (err) {
+          res.status(404).json(err);
+        } else {
+          res.status(200);
+        }
+      }
+    ).clone();
+  }
+};
+const viewReviewAndRatingForInstructor = async (req, res) => {
+  const username = req.params.username;
+  await course
+    .find(
+      { instructor: username },
+      { _id: 0, title: 1, rating: 1, review: 1 },
+      (err, result) => {
+        if (err) {
+          res.status(500).json(err);
+        } else {
+          res.status(200).json(result);
+        }
+      }
+    )
+    .clone();
+};
+const uploadPreviewVideoForCourse = async (req, res) => {
+  const id = req.body.id;
+  const url = req.body.url;
+  course.updateOne({ _id: id }, { preview: url }, (err, result) => {
+    if (err) {
+      res.status(500).json(err);
+    } else {
+      res.status(200);
+    }
+  });
+};
+const insertVideoLinkToCourse = async (req, res) => {
+  const courseId = req.body.courseId;
+  const instructorId = req.body.instructorId;
+  const link = req.body.link;
+  const x = await Instructor.findOne({ _id: instructorId });
+  if (instructorId == x._id) {
+    await course
+      .updateOne(
+        { _id: courseId },
+        { $addToSet: { video: link } },
+        (err, result) => {
+          if (err) {
+            res.status(500).json(err);
+          } else {
+            res.status(200).json(result);
+          }
+        }
+      )
+      .clone();
+  } else {
+    res.status(404).json("instructor not found");
+  }
+};
+const addCreditCardInfo = async (req, res) => {
+  const username = req.body.username;
+  const creditCard = {
+    holderName: req.body.holderName,
+    cardNumber: req.body.cardNumber,
+    cvv: req.body.cvv,
+    expirationDate: req.body.expirationDate,
+  };
+  console.log(creditCard);
+  await IndividualTrainee.findOneAndUpdate(
+    { username: username },
+    { $addToSet: { creditCardInfo: creditCard } },
+    (err, result) => {
+      if (err) {
+        res.status(500).json(err);
+      } else {
+        res.status(200).send();
+      }
+    }
+  ).clone();
+};
+//route to inc no of subs'
+const noOfSubscribers = async (req, res) => {
+  const id = req.body.id;
+  await course
+    .updateOne({ _id: id }, { $inc: { noOfSubscribers: 1 } }, (err, result) => {
+      if (err) {
+        res.status(500).send();
+      } else {
+        res.status(200).send(result);
+      }
+    })
+    .clone();
+};
 module.exports = {
   getUser,
   search,
-  createUser,
+  createCorporateTrainee,
   createAdmin,
   coursePrice,
   createCourse,
   instructorSearch,
   viewCourses,
   createInstructor,
-  createCorporate,
+  createIndividualTrainee,
   chooseCountry,
   instViewCourses,
   view,
@@ -504,4 +651,13 @@ module.exports = {
   updateViews,
   rateInstructor,
   rateCourse,
+  viewRatingAndReviews,
+  uploadPreviewVideoForCourse,
+  editEmail,
+  editBio,
+  changePassword,
+  viewReviewAndRatingForInstructor,
+  insertVideoLinkToCourse,
+  addCreditCardInfo,
+  noOfSubscribers,
 };
