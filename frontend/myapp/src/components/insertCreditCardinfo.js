@@ -41,21 +41,33 @@ const InsertCreditCardInfoWrapper = () => {
 };
 
 const InsertCreditCardInfo = () => {
-  const { userEmail } = useContext(AppContext);
+  const { userEmail, username } = useContext(AppContext);
   const [email, setEmail] = userEmail;
-  const [holderName, setHolderName] = useState("");
-  const [cardNumber, setCardNumber] = useState("");
-  const [cvv, setCVV] = useState("");
-  const [expDate, setExpDate] = useState("");
+  const [user, setUsername] = username;
 
   const onFinish = (values) => {
     const holderName = values.holderName;
     const cardNumber = values.cardNumber;
     const expDate = values.expDate;
     const cvv = values.cvv;
+    let body = {
+      holderName: holderName,
+      cardNumber: cardNumber,
+      expirationDate: expDate,
+      cvv: cvv,
+      username: user,
+    };
 
     // insert axios/fetch callout to api
-
+    axios
+      .patch("http://localhost:2020/addCreditCardInfo", body)
+      .then(() => {
+        message.success("Credit card info has been saved successfully", 5);
+      })
+      .catch((error) => {
+        message.error("An unexpected error has occured", 5);
+        console.log("error at credit card info ", JSON.stringify(error));
+      });
     console.log("Received values of form: ", values);
   };
 

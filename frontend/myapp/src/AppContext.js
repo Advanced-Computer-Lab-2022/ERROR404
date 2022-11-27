@@ -1,7 +1,7 @@
 import React from "react";
 
 export const AppContext = React.createContext({
-  userName: null,
+  username: null,
   userEmail: null,
   userType: "",
   userPassword: null,

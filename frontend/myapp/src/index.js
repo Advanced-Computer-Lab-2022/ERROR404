@@ -41,7 +41,7 @@ import {
 } from "./components/instructorComponents/instructorChangeSetting";
 
 export default function MainApp() {
-  const [username, setUsername] = useState("abdelrahman");
+  const [username, setUsername] = useState("bruno");
   const [userEmail, setUserEmail] = useState("abdelrahman@example.com");
   const [userType, setUserType] = useState("instructor");
   const [userPassword, setUserPassword] = useState("aman ya raby aman");

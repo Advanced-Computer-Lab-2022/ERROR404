@@ -79,5 +79,5 @@ app.put("/editBio", editBio);
 app.put("/changePassword", changePassword);
 app.get("/viewReviewAndRating/:username", viewReviewAndRatingForInstructor);
 app.patch("/insertVideoLinkToCourse", insertVideoLinkToCourse);
-app.put("/addCreditCardInfo", addCreditCardInfo);
+app.patch("/addCreditCardInfo", addCreditCardInfo);
 app.put("/noOfSubscribers", noOfSubscribers);
