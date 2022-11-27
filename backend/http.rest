@@ -1,12 +1,10 @@
 
-PUT http://localhost:2020/addCreditCardInfo
+PUT http://localhost:2020/editEmail
 Content-Type: application/json
    
  {
-   "username": "bruno",
-    "holderName":"ali" ,
-    "cardNumber": "111143432",
-    "cvv": "123",
-    "expirationDate": "2015-5-4"
+    "email": "bruno@example.com",
+    "userType": "instructor",
+    "username": "abdelrahman"
  }
 

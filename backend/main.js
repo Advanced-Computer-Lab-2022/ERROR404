@@ -75,7 +75,7 @@ app.patch("/rateCourse/:newRate", rateCourse);
 app.get("/viewRatingAndReviews/:username", viewRatingAndReviews);
 app.put("/uploadPreviewVideoForCourse", uploadPreviewVideoForCourse);
 app.put("/editEmail", editEmail);
-app.put("/ediBio", editBio);
+app.put("/editBio", editBio);
 app.put("/changePassword", changePassword);
 app.get("/viewReviewAndRating/:username", viewReviewAndRatingForInstructor);
 app.patch("/insertVideoLinkToCourse", insertVideoLinkToCourse);

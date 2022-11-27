@@ -64,7 +64,6 @@ const getUser = async (req, res) => {
   // we need to implement new schema
 };
 
-
 const createCourse = async (req, res) => {
   const instructorId = req.body.id;
   const instructor = await Instructor.findOne({ _id: instructorId });
@@ -225,6 +224,7 @@ const createInstructor = async (req, res) => {
     email: req.body.email,
     country: req.body.country,
     biography: req.body.biography,
+    phoneNumber: req.body.phoneNumber,
   };
   if (username == "" || password == "") {
     res.status(400).json("Enter a valid data ");
@@ -443,7 +443,7 @@ const changePassword = async (req, res) => {
         if (err) {
           res.status(404).json(err);
         } else {
-          res.status(200);
+          res.status(200).send();
         }
       }
     );
@@ -455,7 +455,7 @@ const changePassword = async (req, res) => {
         if (err) {
           res.status(404).json(err);
         } else {
-          res.status(200);
+          res.status(200).send();
         }
       }
     );
@@ -467,7 +467,7 @@ const changePassword = async (req, res) => {
         if (err) {
           res.status(404).json(err);
         } else {
-          res.status(200);
+          res.status(200).send();
         }
       }
     );
@@ -478,12 +478,12 @@ const editEmail = async (req, res) => {
   const email = req.body.email;
   const usertype = req.body.usertype;
   if (usertype == "corporate trainee") {
-    await user
+    await corporateTrainee
       .updateOne({ username: username }, { email: email }, (err, result) => {
         if (err) {
           res.status(404).json(err);
         } else {
-          res.status(200);
+          res.status(200).send();
         }
       })
       .clone();
@@ -493,11 +493,12 @@ const editEmail = async (req, res) => {
         if (err) {
           res.status(404).json(err);
         } else {
-          res.status(200);
+          res.status(200).send();
         }
       })
       .clone();
   } else if (usertype == "instructor") {
+    console.log(req.body);
     await Instructor.updateOne(
       { username: username },
       { email: email },
@@ -505,7 +506,7 @@ const editEmail = async (req, res) => {
         if (err) {
           res.status(404).json(err);
         } else {
-          res.status(200);
+          res.status(200).send();
         }
       }
     ).clone();
@@ -521,7 +522,7 @@ const editBio = async (req, res) => {
         if (err) {
           res.status(404).json(err);
         } else {
-          res.status(200);
+          res.status(200).send();
         }
       })
       .clone();
@@ -531,7 +532,7 @@ const editBio = async (req, res) => {
         if (err) {
           res.status(404).json(err);
         } else {
-          res.status(200);
+          res.status(200).send();
         }
       })
       .clone();
@@ -543,7 +544,7 @@ const editBio = async (req, res) => {
         if (err) {
           res.status(404).json(err);
         } else {
-          res.status(200);
+          res.status(200).send();
         }
       }
     ).clone();
@@ -572,7 +573,7 @@ const uploadPreviewVideoForCourse = async (req, res) => {
     if (err) {
       res.status(500).json(err);
     } else {
-      res.status(200);
+      res.status(200).send();
     }
   });
 };

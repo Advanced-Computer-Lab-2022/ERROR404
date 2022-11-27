@@ -72,6 +72,11 @@ const instructor = new Schema(
       type: String,
       default: "",
     },
+    phoneNumber: {
+      type: Number,
+      default: 0,
+      maxLength: 15,
+    },
   },
   { timestamps: true }
 );
