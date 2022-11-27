@@ -79,7 +79,6 @@ const UserSettingPage = ({ children }) => (
             minHeight: 280,
           }}
         >
-          {/* <PersonalInformationTab /> */}
           {children}
         </Content>
       </Layout>

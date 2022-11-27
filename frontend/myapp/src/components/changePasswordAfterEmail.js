@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useId, useState } from "react";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Form, Input, Avatar, message } from "antd";
 import axios from "axios";
+import { AppContext } from "../AppContext";
 
 const ChangingPaswword = () => {
   const [userId, setUserId] = useState("");
@@ -21,30 +22,43 @@ const ChangingPaswword = () => {
     setEmail(email);
     setUserId(userId);
 
-    let url = `http://localhost:2020/getUser/${userId}/${userType}`;
-    console.log(url);
-    fetch(url)
-      .then((response) => response.json())
-      .then((response) => {
-        console.log("res=>>> ", response);
-        response.map((user) => {
-          setoldpassword(user.password);
-        });
-      });
-    console.log(userId, " ", email, " ", oldpassword);
+    // let url = `http://localhost:2020/getUser/${userId}/${userType}`;
+    // console.log(url);
+    // fetch(url)
+    //   .then((response) => response.json())
+    //   .then((response) => {
+    //     console.log("res=>>> ", response);
+    //     response.map((user) => {
+    //       setoldpassword(user.password);
+    //     });
+    //   });
+    console.log("query params ", userId, " ", email, " ", userType);
   }, []);
   const onFinish = (values) => {
     const oldPassword = values.oldPassword;
     const newPassword = values.newPassword;
 
     console.log("old ", oldpassword);
-    if (oldPassword == oldpassword) {
-      // add fetch to change the password
-      message.success("you have changed your password successfully", 5);
-      message.info("you can now close this tab", 10);
-    } else {
-      message.error("You have entered a wrong old password", 5);
-    }
+    //if (oldPassword == oldpassword) {
+    let body = {
+      id: userId,
+      newPassword: newPassword,
+      usertype: userType,
+    };
+    // add fetch to change the password
+    axios
+      .put("http://localhost:2020/changePassword", body)
+      .then(() => {
+        message.success("you have changed your password successfully", 3);
+        message.info("you can now close this tab", 5);
+      })
+      .catch((err) => {
+        message.error("An unexpected error has occurred", 3);
+        console.log("error at change password ", JSON.stringify(err));
+      });
+    // } else {
+    //   message.error("You have entered a wrong old password", 5);
+    // }
 
     console.log("Received values of form: ", values);
   };
@@ -69,7 +83,7 @@ const ChangingPaswword = () => {
         initialValues={{ remember: true }}
         onFinish={onFinish}
       >
-        <Form.Item
+        {/* <Form.Item
           name="oldPassword"
           label="Old Password"
           rules={[
@@ -80,7 +94,7 @@ const ChangingPaswword = () => {
             prefix={<LockOutlined className="site-form-item-icon" />}
             placeholder="Old password"
           />
-        </Form.Item>
+        </Form.Item> */}
         <Form.Item
           name="newPassword"
           label="New Password"

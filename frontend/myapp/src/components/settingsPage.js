@@ -21,6 +21,8 @@ import PaymentsIcon from "@mui/icons-material/Payments";
 import { AppContext } from "../AppContext";
 
 const SettingsPageSider = () => {
+  const { userType } = useContext(AppContext);
+  const [usertype, setUser] = userType;
   return (
     <>
       <List
@@ -60,22 +62,25 @@ const SettingsPageSider = () => {
             <ListItemText primary="Country" />
           </ListItemButton>
         </Link>
-        <Link to="/insertCard">
-          <ListItemButton>
-            <ListItemIcon>
-              <PaymentsIcon />
-            </ListItemIcon>
-            <ListItemText primary="Payment Methods" />
-          </ListItemButton>
-        </Link>
+        {usertype == "indivisual" ? (
+          <Link to="/insertCard">
+            <ListItemButton>
+              <ListItemIcon>
+                <PaymentsIcon />
+              </ListItemIcon>
+              <ListItemText primary="Payment Methods" />
+            </ListItemButton>
+          </Link>
+        ) : null}
       </List>
     </>
   );
 };
 
 const PersonalInformationTab = () => {
-  const { userType, userMongoId, userPhone, userEmail, userRegion } =
+  const { userType, userMongoId, userPhone, userEmail, userRegion, username } =
     useContext(AppContext);
+  const [userName, setUserName] = username;
   const [user, setUser] = userType;
   const [userId, setUserId] = userMongoId;
   const [email, setEmail] = userEmail;
@@ -100,7 +105,7 @@ const PersonalInformationTab = () => {
         disabled
         id="outlined-disabled"
         label="Username"
-        value="alighieth"
+        value={userName}
       />
       <TextField disabled id="outlined-disabled" label="Email" value={email} />
       <TextField

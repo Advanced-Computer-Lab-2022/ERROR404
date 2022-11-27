@@ -465,9 +465,11 @@ const changePassword = async (req, res) => {
       { password: newPassword },
       (err, result) => {
         if (err) {
-          res.status(404).json(err);
+          res.status(500).json(err);
+          console.log(err);
         } else {
-          res.status(200).send();
+          console.log(result);
+          res.status(200).send(result);
         }
       }
     );

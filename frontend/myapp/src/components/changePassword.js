@@ -30,18 +30,22 @@ const ChangePasswordPageWrapper = () => {
 };
 
 const ChangePasswordPage = () => {
-  const { userEmail, userMongoId, userType, userName } = useContext(AppContext);
+  const { userEmail, userMongoId, userType, username } = useContext(AppContext);
   const [useremail, setUserEmail] = userEmail;
   const [userId, setId] = userMongoId;
   const [typeUser, setUserType] = userType;
-  const [name, setName] = userName;
+  const [name, setName] = username;
 
   const onFinish = (values) => {
     console.log("Received values of form: ", values);
 
-    let body =
-      "We are sending you this email because you have asked to change your password, Press the below link to be redircted to the changing password page." +
-      `http://localhost:3000/changingPasswordEmail?userId=${userId}&email=alilolo&userType=${typeUser}`;
+    // let body =
+    //   "We are sending you this email because you have asked to change your password, Press the below link to be redircted to the changing password page. http://localhost:3000/changingPasswordEmail?userId=" +
+    //   userId +
+    //   "&email=" +
+    //   useremail +
+    //   "&userType=" +
+    //   typeUser;
 
     var data = {
       name: name,

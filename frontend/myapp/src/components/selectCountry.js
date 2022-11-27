@@ -98,8 +98,6 @@ const SelectCountry1 = () => {
           }}
           onChange={changeHandler}
           placeholder="Select a country"
-          onFinish={onFinish}
-          onFinishFailed={onFinishFailed}
           options={options}
           value={value}
         />
