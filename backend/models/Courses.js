@@ -11,7 +11,8 @@ const courses = new Schema(
       required: true,
     },
     instructor: {
-      type: Schema.Types.ObjectId,
+      // type: Schema.Types.ObjectId,
+      type: String,
       ref: "instructor",
       required: true,
     },
@@ -27,13 +28,20 @@ const courses = new Schema(
       type: Number,
       required: true,
     },
-    subtitles: {
-      type: String,
-      required: true,
-      minLength: 5,
-      maxLength: 200,
-      default: "",
-    },
+    subtitles: [
+      {
+        description: {
+          type: String,
+          required: true,
+          default: "",
+        },
+        video: {
+          type: String,
+          default: "",
+          required: true,
+        },
+      },
+    ],
 
     exercises: {
       type: Array,
@@ -53,10 +61,6 @@ const courses = new Schema(
     image: {
       type: String,
       default: "",
-    },
-    video: {
-      type: Array,
-      default: [],
     },
     prerequisite: {
       type: String,

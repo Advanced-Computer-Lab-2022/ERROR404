@@ -94,7 +94,6 @@ const createCourse = async (req, res) => {
       summary: req.body.summary,
       discount: req.body.discount,
       image: req.body.image,
-      video: req.body.video,
       prerequisite: req.body.prerequisite,
       preview: req.body.preview,
       category: req.body.category,
@@ -579,6 +578,7 @@ const uploadPreviewVideoForCourse = async (req, res) => {
     }
   });
 };
+//insert inside the subtitles in course
 const insertVideoLinkToCourse = async (req, res) => {
   const courseId = req.body.courseId;
   const instructorId = req.body.instructorId;
