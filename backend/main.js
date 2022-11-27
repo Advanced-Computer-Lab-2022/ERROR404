@@ -6,6 +6,7 @@ var cors = require("cors");
 //DB connections to be put in .env file
 const MongoURI = "mongodb+srv://admin:admin@cluster0.vm6qaas.mongodb.net/test";
 const {
+  getUser,
   search,
   createUser,
   createAdmin,
@@ -20,6 +21,8 @@ const {
   view,
   filterCourses,
   updateViews,
+  rateInstructor,
+  rateCourse,
 } = require("./routes/routes");
 
 //App variables
@@ -44,6 +47,7 @@ app.get("/", (req, res) => {
   res.status(200).send("Server is Running");
 });
 
+app.get("/getUser/:userId/:userType", getUser);
 app.get("/search/:key/:max", search);
 app.get("/coursePrice", coursePrice);
 app.get("/searchmycourses/:user/:key", instructorSearch);
@@ -54,7 +58,10 @@ app.post("/createCourse", createCourse);
 app.post("/createInstructor", createInstructor);
 app.post("/createCorporate", createCorporate);
 app.patch("/country", chooseCountry);
-app.get("/instViewCourses/:user", instViewCourses);
+app.get("/instViewCourses/:userId", instViewCourses);
 app.get("/filter/:filterType/:key", filterCourses);
 app.patch("/updateViews", updateViews);
+app.patch("/rateInstructor/:username/:rate", rateInstructor);
+app.patch("/rateCourse/:newRate", rateCourse);
+
 // app.get("/view", view);

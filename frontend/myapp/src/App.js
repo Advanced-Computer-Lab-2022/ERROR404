@@ -1,7 +1,7 @@
 import "./App.css";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Layout, Select, Breadcrumb, Menu, Image } from "antd";
+import { Layout, Select, Breadcrumb, Menu, Image, Space } from "antd";
 import {
   DesktopOutlined,
   FileOutlined,
@@ -13,10 +13,13 @@ import {
   PieChartOutlined,
   TeamOutlined,
   UserOutlined,
+  SettingFilled,
   FontColorsOutlined,
   LoginOutlined,
 } from "@ant-design/icons";
 import MainHeader from "./components/MainHeader";
+import PrimarySearchAppBar from "./components/searchBarHeader";
+import ReviewNavigation from "./components/reviewComponents";
 const { Header, Footer, Sider, Content } = Layout;
 const { Option } = Select;
 
@@ -30,7 +33,7 @@ function getItem(label, key, icon, children) {
 }
 
 const items = [
-  getItem(<Link to="/">Home</Link>, "12", <HomeOutlined />),
+  getItem(<Link to="/">Home</Link>, "17", <HomeOutlined />),
   getItem(<Link to="/">Sigin | Login</Link>, "12", <LoginOutlined />),
 
   getItem("Team", "sub2", <TeamOutlined />, [
@@ -40,13 +43,15 @@ const items = [
     getItem("Dina Tamer", "10"),
     getItem("Malak Amr ", "11"),
   ]),
+  getItem(<Link to="/settings">Settings</Link>, "15", <SettingFilled />),
 ];
 
 function App({ children }) {
   const [collapsed, setCollapsed] = useState(false);
   return (
     <Layout>
-      <MainHeader />
+      {/* <MainHeader /> */}
+      <PrimarySearchAppBar />
       <Layout style={{ minHeight: "90vh" }} theme="light">
         <Sider
           width={300}

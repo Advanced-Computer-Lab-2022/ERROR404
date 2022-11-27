@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Button, Modal, Form, Input, Select } from "antd";
 import { Collapse } from "antd";
-import App from "../App";
+import App from "../../App";
 
 const { Panel } = Collapse;
 

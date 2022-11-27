@@ -1,3 +1,7 @@
-GET http://localhost:2020/filter/price/125
+GET http://localhost:2020/sendEmail/alighieth2709@gmail.com/635c38db0c427063b50f9f09/admin
+# Content-Type: application/json
 
- 
+# {
+#    "username":"abdelrahman",
+#    "password":"123"
+# }

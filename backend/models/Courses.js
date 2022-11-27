@@ -57,7 +57,8 @@ const courses = new Schema(
       type: String,
     },
     video: {
-      type: String,
+      type: Array,
+      default: [],
     },
     prerequisite: {
       type: String,
@@ -66,6 +67,10 @@ const courses = new Schema(
     views: {
       type: Number,
       default: 0,
+    },
+    review: {
+      type: Array,
+      default: [],
     },
     numberOfSubscribers: {
       type: Number,

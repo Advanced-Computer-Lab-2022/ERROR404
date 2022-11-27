@@ -96,7 +96,6 @@ const SearchByForm = () => {
         onCancel={handleCancel}
       >
         <Collapse defaultActiveKey={["1"]}>
-          {console.log(data.length)}
           {data.map((course) => {
             console.log("here");
             return (

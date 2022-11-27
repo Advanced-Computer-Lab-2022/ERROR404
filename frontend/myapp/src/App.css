@@ -54,3 +54,14 @@
   background-repeat: no-repeat;
   background-size: cover;
 }
+
+.changePasswordWrapper {
+  width: 100vw;
+  height: 100vh;
+  background-color: #61dafb;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5%;
+}
