@@ -147,19 +147,14 @@ const search = async (req, res) => {
     query = isNaN(req.params.key)
       ? {
           $or: [
-            { title: { $regex: req.params.key } },
-            { subject: { $regex: req.params.key } },
-            { instructor: { $regex: req.params.key } },
+            { title: { $regex: req.params.key, $options: "i" } },
+            { subject: { $regex: req.params.key }, $options: "i" },
+            { instructor: { $regex: req.params.key, $options: "i" } },
           ],
         }
       : {
           $or: [
-            {
-              $and: [
-                { price: { $gte: parseInt(req.params.key) } },
-                { price: { $lte: parseInt(req.params.max) } },
-              ],
-            },
+            { price: parseInt(req.params.key) },
             { rating: req.params.key },
           ],
         };

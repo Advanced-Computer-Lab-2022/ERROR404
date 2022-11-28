@@ -18,7 +18,7 @@ const MainHeader = () => {
           <HomeOutlined />
         </Link>
       ),
-      key: "explore",
+      key: "home",
     }, // remember to pass the key prop
     {
       label: <Link to="/viewAllCourses">Explore All Courses</Link>,

@@ -41,6 +41,7 @@ import {
 } from "./components/instructorComponents/instructorChangeSetting";
 import RateComponent from "./components/studentRateInstructor";
 import ReviewComponent from "./components/studentReviewInstructor";
+import LoadSearchedCourses from "./components/loadSearchedCoursesComp";
 export default function MainApp() {
   const [username, setUsername] = useState("abdelrahman");
   const [userEmail, setUserEmail] = useState("alighieth2709@gmail.com");
@@ -131,6 +132,7 @@ export default function MainApp() {
             path="/studentReviewInstructor"
             element={<ReviewComponent />}
           />
+          <Route path="/searchedItems" element={<LoadSearchedCourses />} />
         </Routes>
       </Router>
     </AppContext.Provider>
