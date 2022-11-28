@@ -1,10 +1,10 @@
-
-GET http://localhost:2020/getTopCourses
-# Content-Type: application/json
+PUT http://localhost:2020/salary
+Content-Type: application/json
    
-#  {
-#     "email": "bruno@example.com",
-#     "usertype": "instructor",
-#     "username": "abdelrahman"
-#  }
+    {
+    "courseId":"6385033679d2f9c049db1606"
+    }
 
+
+
+   

@@ -73,8 +73,8 @@ const createCourse = async (req, res) => {
   } else if (
     req.body.title == null ||
     req.body.subject == null ||
-    req.body.instructor == null ||
-    req.body.subtitle == null ||
+    // req.body.instructor == null ||
+    // req.body.subtitle == null ||
     req.body.price == null ||
     req.body.summary == null ||
     req.body.totalHours == null
@@ -83,10 +83,11 @@ const createCourse = async (req, res) => {
   } else if (req.body.summary.length < 5) {
     res.status(400).send("Summary should be atleast 5 words long");
   } else {
+    const name = instructor.username;
     const courseDetails = {
       title: req.body.title,
       subject: req.body.subject,
-      instructor: instructorId,
+      instructor: name,
       totalHours: req.body.totalHours,
       rating: req.body.rating,
       price: req.body.price,
@@ -649,14 +650,28 @@ const salary = async (req, res) => {
     { _id: courseId },
     { instructor: 1, price: 1 }
   );
-  if (x == null || []) {
+  if (x == null) {
     res.status(404).json("course not found");
   } else {
     let username = x.instructor;
-    let price = x.price * 0.8;
+    let price = x.price;
+    price *= 0.8;
+    console.log(username + " " + price);
     const y = await Instructor.findOne({ username: username }, { wallet: 1 });
-    let newWallet = y.wallet + price;
-    await Instructor.updateOne({ username: username }, { wallet: newWallet });
+    let newWallet = y.wallet;
+    newWallet += price;
+    console.log(newWallet);
+    await Instructor.updateOne(
+      { username: username },
+      { wallet: newWallet },
+      (err, result) => {
+        if (err) {
+          res.status(500).send();
+        } else {
+          res.status(200).send(result);
+        }
+      }
+    ).clone();
   }
 };
 const reviewInstructor = async (req, res) => {
@@ -704,4 +719,5 @@ module.exports = {
   noOfSubscribers,
   topCourses,
   reviewInstructor,
+  salary,
 };

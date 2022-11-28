@@ -34,6 +34,7 @@ const {
   addCreditCardInfo,
   noOfSubscribers,
   reviewInstructor,
+  salary,
 } = require("./routes/routes");
 
 //App variables
@@ -85,3 +86,4 @@ app.patch("/insertVideoLinkToCourse", insertVideoLinkToCourse);
 app.patch("/addCreditCardInfo", addCreditCardInfo);
 app.put("/noOfSubscribers", noOfSubscribers);
 app.put("/reviewInstructor", reviewInstructor);
+app.put("/salary", salary);

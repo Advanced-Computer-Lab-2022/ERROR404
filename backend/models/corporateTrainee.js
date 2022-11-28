@@ -53,6 +53,10 @@ const corporateTrainee = new Schema(
       type: String,
       default: "Corporate-trainee",
     },
+    Regcourses: {
+      type: Array,
+      default: [],
+    },
   },
 
   { timestamps: true }
