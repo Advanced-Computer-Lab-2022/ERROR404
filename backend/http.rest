@@ -1,5 +1,6 @@
 
-GET http://localhost:2020/getTopCourses
+GET http://localhost:2020/search/csen
+
 # Content-Type: application/json
    
 #  {
