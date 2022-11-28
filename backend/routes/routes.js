@@ -370,8 +370,8 @@ const updateViews = async (req, res) => {
     .clone();
 };
 const rateInstructor = async (req, res) => {
-  const username = req.params.username;
-  const rate = req.params.rate;
+  const username = req.body.username;
+  const rate = req.body.rate;
   let oldrate = 0;
   if (isNaN(rate)) {
     res.status(400).send("invalid rate");
@@ -396,7 +396,7 @@ const rateInstructor = async (req, res) => {
 };
 const rateCourse = async (req, res) => {
   const courseId = req.body.id;
-  const newRate = req.params.newRate;
+  const newRate = req.body.newRate;
   let oldRate = 0;
   if (isNaN(newRate)) {
     res.status(400).send("invalid rate");
@@ -672,7 +672,7 @@ const reviewInstructor = async (req, res) => {
         res.status(200).send();
       }
     }
-  );
+  ).clone();
 };
 
 module.exports = {
