@@ -1,11 +1,11 @@
-Put http://localhost:2020/addCourseToStudent
-Content-Type: application/json
+GET http://localhost:2020/getCourse/638501f2a9b064e47ee7e0ed
+# Content-Type: application/json
    
-    {   
-        "username":"bruno",
-        "courseId":"6385033679d2f9c049db1606",
-        "usertype":"individual trainee"
-    }
+#     {   
+#         "username":"bruno",
+#         "courseId":"6385033679d2f9c049db1606",
+#         "usertype":"individual trainee"
+#     }
 
 
 

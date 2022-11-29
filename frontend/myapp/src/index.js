@@ -44,14 +44,14 @@ import ReviewComponent from "./components/studentReviewInstructor";
 import LoadSearchedCourses from "./components/loadSearchedCoursesComp";
 import CreateExamWrapper from "./components/createExam";
 import SolveExamWrapper from "./components/solveExam";
-import PreviewCourseWrapper from "./components/previewCourse";
+import PreviewCourseWrapper from "./components/courseComponents/previewCourse";
 import CourseReview from "./components/courseComponents/courseReview";
 import CourseSyllabus from "./components/courseComponents/courseSyllabes";
 
 export default function MainApp() {
   const [username, setUsername] = useState("abdelrahman");
   const [userEmail, setUserEmail] = useState("alighieth2709@gmail.com");
-  const [userType, setUserType] = useState("instructor");
+  const [userType, setUserType] = useState("i");
   const [userPassword, setUserPassword] = useState("aman ya raby aman");
   const [userMongoId, setUserMongoId] = useState("6366d3ddd79a066bc2b74106");
   const [userPhoneNum, setUserPhoneNum] = useState("+20 1211399151");

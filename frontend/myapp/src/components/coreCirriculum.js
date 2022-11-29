@@ -7,7 +7,7 @@ import {
   RocketOutlined,
 } from "@ant-design/icons";
 import { Card, Col, Row, Space, Statistic, Timeline } from "antd";
-import PreviewCourse from "./previewCourse";
+import PreviewCourse from "./courseComponents/previewCourse";
 
 const CoreCirWrapper = () => {
   return (

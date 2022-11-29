@@ -16,7 +16,7 @@ const InstructorViewAllTitlesWrapper = () => {
   const [courses, setCourses] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:2020/instViewCourses/abdoAli")
+    fetch("http://localhost:2020/instViewCourses/abdelrahman")
       .then((responce) => responce.json())
       .then((data) => {
         console.log(data);

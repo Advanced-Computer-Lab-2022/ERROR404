@@ -867,6 +867,20 @@ const addCourseToStudent = async (req, res) => {
     res.status(404).send("Student not found");
   }
 };
+
+const getCourseById = async (req, res) => {
+  let courseId = req.params.id;
+
+  Courses.findOne({ _id: courseId }, (err, result) => {
+    if (err) {
+      console.log(err);
+      req.status(500).send(err);
+    } else {
+      res.status(200).json(result);
+    }
+  });
+};
+
 module.exports = {
   getUser,
   search,
@@ -900,4 +914,5 @@ module.exports = {
   createQuestions,
   createQuiz,
   addCourseToStudent,
+  getCourseById,
 };
