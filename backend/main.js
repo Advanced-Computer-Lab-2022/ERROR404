@@ -37,6 +37,7 @@ const {
   salary,
   createQuestions,
   createQuiz,
+  addQuizToCourse,
 } = require("./routes/routes");
 
 //App variables

@@ -799,6 +799,7 @@ const createQuestions = async (req, res) => {
 };
 const createQuiz = async (req, res) => {
   const username = req.body.username;
+  const courseId = req.body.courseId;
   const x = await Instructor.findOne({ username: username });
   if (x == [] || null) {
     res.status(404).json("instructor not found or not authorized");
@@ -808,31 +809,35 @@ const createQuiz = async (req, res) => {
     const question3 = mongoose.Types.ObjectId(req.body.question3);
     const question4 = mongoose.Types.ObjectId(req.body.question4);
 
-    const list = { question1, question2, question3, question4 };
-
     const query = {
       questions: [question1, question2, question3, question4],
     };
-    const x = Quizzes.create(query, (err, result) => {
+    Quizzes.create(query, (err, result) => {
       if (err) {
         res.status(500).send();
       } else {
-        console.log("=> ", result);
-        res.status(200).send(result);
+        Courses.findOneAndUpdate(
+          { _id: courseId },
+          { $addToSet: { exercises: result._id } },
+          (err, result) => {
+            if (err) {
+              res.status(500).send();
+            } else {
+              res.status(200).send(result);
+            }
+          }
+        ).clone();
       }
     });
-
-    // await Quizzes.updateOne(
-    //   { _id: x.id },
-    //   { $addToSet: { questions: list } },
-    //   (err, result) => {
-    //     if (err) {
-    //       res.status(500).send();
-    //     } else {
-    //       res.status(200).send();
-    //     }
-    //   }
-    // ).clone();
+  }
+};
+const addQuizToCourse = async (req, res) => {
+  const courseId = req.body.courseId;
+  const quizId = req.body.quizId;
+  const x = await Quizzes.findOne({ _id: quizId });
+  if (x == [] || null) {
+    res.status(404).send();
+  } else {
   }
 };
 module.exports = {
@@ -867,4 +872,5 @@ module.exports = {
   salary,
   createQuestions,
   createQuiz,
+  addQuizToCourse,
 };
