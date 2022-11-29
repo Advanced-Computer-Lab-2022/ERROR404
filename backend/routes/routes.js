@@ -5,6 +5,9 @@ const Instructor = require("../models/instructor");
 const individualTrainee = require("../models/IndividualTrainee");
 const IndividualTrainee = require("../models/IndividualTrainee");
 const Courses = require("../models/Courses");
+const Questions = require("../models/questions");
+const Quizzes = require("../models/quizzes");
+const { default: mongoose } = require("mongoose");
 
 //Methods
 const createIndividualTrainee = (req, res) => {
@@ -73,8 +76,8 @@ const createCourse = async (req, res) => {
   } else if (
     req.body.title == null ||
     req.body.subject == null ||
-    req.body.instructor == null ||
-    req.body.subtitle == null ||
+    // req.body.instructor == null ||
+    // req.body.subtitle == null ||
     req.body.price == null ||
     req.body.summary == null ||
     req.body.totalHours == null
@@ -83,10 +86,11 @@ const createCourse = async (req, res) => {
   } else if (req.body.summary.length < 5) {
     res.status(400).send("Summary should be atleast 5 words long");
   } else {
+    const name = instructor.username;
     const courseDetails = {
       title: req.body.title,
       subject: req.body.subject,
-      instructor: instructorId,
+      instructor: name,
       totalHours: req.body.totalHours,
       rating: req.body.rating,
       price: req.body.price,
@@ -644,14 +648,28 @@ const salary = async (req, res) => {
     { _id: courseId },
     { instructor: 1, price: 1 }
   );
-  if (x == null || []) {
+  if (x == null) {
     res.status(404).json("course not found");
   } else {
     let username = x.instructor;
-    let price = x.price * 0.8;
+    let price = x.price;
+    price *= 0.8;
+    console.log(username + " " + price);
     const y = await Instructor.findOne({ username: username }, { wallet: 1 });
-    let newWallet = y.wallet + price;
-    await Instructor.updateOne({ username: username }, { wallet: newWallet });
+    let newWallet = y.wallet;
+    newWallet += price;
+    console.log(newWallet);
+    await Instructor.updateOne(
+      { username: username },
+      { wallet: newWallet },
+      (err, result) => {
+        if (err) {
+          res.status(500).send();
+        } else {
+          res.status(200).send(result);
+        }
+      }
+    ).clone();
   }
 };
 const reviewInstructor = async (req, res) => {
@@ -669,7 +687,154 @@ const reviewInstructor = async (req, res) => {
     }
   ).clone();
 };
+const createQuestions = async (req, res) => {
+  const username = req.body.username;
+  const question1 = req.body.question1;
+  const answer1 = req.body.answer1;
+  const answer2 = req.body.answer2;
+  const answer3 = req.body.answer3;
+  const answer4 = req.body.answer4;
+  const answerQes1 = req.body.answerQes1;
+  //
+  const question2 = req.body.question2;
+  const answer21 = req.body.answer21;
+  const answer22 = req.body.answer22;
+  const answer23 = req.body.answer23;
+  const answer24 = req.body.answer24;
+  const answerQes2 = req.body.answerQes2;
+  //
+  const question3 = req.body.question3;
+  const answer31 = req.body.answer31;
+  const answer32 = req.body.answer32;
+  const answer33 = req.body.answer33;
+  const answer34 = req.body.answer34;
+  const answerQes3 = req.body.answerQes3;
+  //
+  const question4 = req.body.question4;
+  const answer41 = req.body.answer41;
+  const answer42 = req.body.answer42;
+  const answer43 = req.body.answer43;
+  const answer44 = req.body.answer44;
+  const answerQes4 = req.body.answerQes4;
+  const x = await Instructor.findOne({ username: username });
+  if (x == [] || null) {
+    res.status(404).json("instructor not found or not authorized");
+  } else {
+    const options1 = {
+      a: answer1,
+      b: answer2,
+      c: answer3,
+      d: answer4,
+    };
+    const body1 = {
+      description: question1,
+      answer: answerQes1,
+      options: options1,
+    };
+    //
+    const options2 = {
+      a: answer21,
+      b: answer22,
+      c: answer23,
+      d: answer24,
+    };
+    const body2 = {
+      description: question2,
+      answer: answerQes2,
+      options: options2,
+    };
+    //
+    const options3 = {
+      a: answer31,
+      b: answer32,
+      c: answer33,
+      d: answer34,
+    };
+    const body3 = {
+      description: question3,
+      answer: answerQes3,
+      options: options3,
+    };
+    //
+    const options4 = {
+      a: answer41,
+      b: answer42,
+      c: answer43,
+      d: answer44,
+    };
+    const body4 = {
+      description: question4,
+      answer: answerQes4,
+      options: options4,
+    };
+    Questions.create(body1, (err, result) => {
+      if (err) {
+        res.status(500).send(err);
+      } else {
+        res.status(200).send();
+      }
+    });
+    Questions.create(body2, (err, result) => {
+      if (err) {
+        res.status(500).send(err);
+      } else {
+        res.status(200).send();
+      }
+    });
+    Questions.create(body3, (err, result) => {
+      if (err) {
+        res.status(500).send(err);
+      } else {
+        res.status(200).send();
+      }
+    });
+    Questions.create(body4, (err, result) => {
+      if (err) {
+        res.status(500).send(err);
+      } else {
+        res.status(200).send();
+      }
+    });
+  }
+};
+const createQuiz = async (req, res) => {
+  const username = req.body.username;
+  const x = await Instructor.findOne({ username: username });
+  if (x == [] || null) {
+    res.status(404).json("instructor not found or not authorized");
+  } else {
+    const question1 = mongoose.Types.ObjectId(req.body.question1);
+    const question2 = mongoose.Types.ObjectId(req.body.question2);
+    const question3 = mongoose.Types.ObjectId(req.body.question3);
+    const question4 = mongoose.Types.ObjectId(req.body.question4);
 
+    const list = { question1, question2, question3, question4 };
+
+    const query = {
+      questions: [question1, question2, question3, question4],
+    };
+    const x = Quizzes.create(query, (err, result) => {
+      if (err) {
+        res.status(500).send();
+      } else {
+        console.log("=> ", result);
+        res.status(200).send(result);
+      }
+    });
+
+    // await Quizzes.updateOne(
+    //   { _id: x.id },
+    //   { $addToSet: { questions: list } },
+    //   (err, result) => {
+    //     if (err) {
+    //       res.status(500).send();
+    //     } else {
+    //       res.status(200).send();
+    //     }
+    //   }
+    // ).clone();
+  }
+};
 module.exports = {
   getUser,
   search,
@@ -699,4 +864,7 @@ module.exports = {
   noOfSubscribers,
   topCourses,
   reviewInstructor,
+  salary,
+  createQuestions,
+  createQuiz,
 };

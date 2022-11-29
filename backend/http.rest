@@ -1,11 +1,15 @@
-
 GET http://localhost:2020/search/csen
 
 # Content-Type: application/json
    
-#  {
-#     "email": "bruno@example.com",
-#     "usertype": "instructor",
-#     "username": "abdelrahman"
-#  }
+    {
+        "username":"abdelrahman",
+        "question1":"63863b878c6a5b1c0d53ad20",
+        "question2":"63863b878c6a5b1c0d53ad22",
+        "question3":"63863b878c6a5b1c0d53ad21",
+        "question4":"63863b878c6a5b1c0d53ad23"
+    }
 
+
+
+   
