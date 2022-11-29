@@ -53,6 +53,10 @@ const individualTrainee = new Schema(
       type: String,
       default: "Individual-trainee",
     },
+    grades: {
+      type: Map,
+      default: "",
+    },
     creditCardInfo: [
       {
         holderName: {

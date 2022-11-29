@@ -53,6 +53,10 @@ const corporateTrainee = new Schema(
       type: String,
       default: "Corporate-trainee",
     },
+    grades: {
+      type: Map,
+      default: "",
+    },
   },
 
   { timestamps: true }
