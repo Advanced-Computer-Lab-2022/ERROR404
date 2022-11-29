@@ -56,6 +56,10 @@ const individualTrainee = new Schema(
     Regcourses: {
       type: Array,
       default: [],
+  },
+    grades: {
+      type: Map,
+      default: "",
     },
     creditCardInfo: [
       {

@@ -41,10 +41,15 @@ import {
 } from "./components/instructorComponents/instructorChangeSetting";
 import RateComponent from "./components/studentRateInstructor";
 import ReviewComponent from "./components/studentReviewInstructor";
+import LoadSearchedCourses from "./components/loadSearchedCoursesComp";
+import PreviewCourse from "./components/previewCourse";
+import WrapperCreateExam from "./components/createExam";
+import SolveExam from "./components/solveExam";
+
 export default function MainApp() {
   const [username, setUsername] = useState("abdelrahman");
   const [userEmail, setUserEmail] = useState("alighieth2709@gmail.com");
-  const [userType, setUserType] = useState("indivisual");
+  const [userType, setUserType] = useState("instructor");
   const [userPassword, setUserPassword] = useState("aman ya raby aman");
   const [userMongoId, setUserMongoId] = useState("6366d3ddd79a066bc2b74106");
   const [userPhoneNum, setUserPhoneNum] = useState("+20 1211399151");
@@ -131,6 +136,10 @@ export default function MainApp() {
             path="/studentReviewInstructor"
             element={<ReviewComponent />}
           />
+          <Route path="/searchedItems" element={<LoadSearchedCourses />} />
+          <Route path="/PreviewCourse" element={<PreviewCourse />} />
+          <Route path="/CreateExam" element={<WrapperCreateExam />} />
+          <Route path="/SolveExam" element={<SolveExam />} />
         </Routes>
       </Router>
     </AppContext.Provider>

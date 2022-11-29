@@ -26,11 +26,12 @@ const SearchByForm = () => {
     console.log("data =>  ", data);
   }, [data]);
 
-  const getCourses = (value) => {
+  const getCourses = (filterType, value) => {
     setIsModalOpen(true);
+    console.log("filename ", filterType);
     axios({
       method: "get",
-      url: "http://localhost:2020/search/" + value,
+      url: "http://localhost:2020/filter/" + filterType + "/" + value,
     })
       .then((response) => {
         setData(response.data);
@@ -44,9 +45,10 @@ const SearchByForm = () => {
   const onFinish = async (event) => {
     console.log(" => ", event);
     const value = event.value;
+    const filterType = event.filterType;
     console.log(value);
 
-    await getCourses(value);
+    await getCourses(filterType, value);
   };
 
   const onReset = () => {
@@ -56,21 +58,21 @@ const SearchByForm = () => {
   return (
     <>
       <Form onFinish={onFinish} form={form} name="control-hooks">
-        <Form.Item name="Filter By: " label="filterType">
+        <Form.Item label="Filter By:" name="filterType">
           <Select
             placeholder="Select a option and change input text above"
             allowClear
           >
-            <Option value="Ttitle" key="Ttitle">
-              By Ttitle
+            <Option value="title" key="Title">
+              By Title
             </Option>
-            <Option value="Price" key="Price">
+            <Option value="price" key="Price">
               By Price
             </Option>
-            <Option value="Subject" key="Subject">
+            <Option value="subject" key="Subject">
               By Subject
             </Option>
-            <Option value="Instructor" key="Instructor">
+            <Option value="instructor" key="Instructor">
               By Instructor
             </Option>
           </Select>
@@ -107,6 +109,7 @@ const SearchByForm = () => {
                 <p>rating: {course.rating}</p>
                 <p>Total Hours: {course.totalHours}</p>
                 <p>Subject: {course.subject}</p>
+                <p>Discount: {course.discount}</p>
               </Panel>
             );
           })}

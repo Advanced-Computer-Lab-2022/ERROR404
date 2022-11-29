@@ -49,19 +49,19 @@ const items = [
 function App({ children }) {
   const [collapsed, setCollapsed] = useState(false);
   return (
-    <Layout>
-      {/* <MainHeader /> */}
-      <PrimarySearchAppBar />
-      <Layout style={{ minHeight: "90vh" }} theme="light">
+    <Layout className="layout">
+      <MainHeader />
+      {/* <PrimarySearchAppBar /> */}
+      <Layout style={{ minHeight: "90vh" }} theme="dark">
         <Sider
           width={300}
-          theme="light"
+          theme="dark"
           collapsible
           collapsed={collapsed}
           onCollapse={(value) => setCollapsed(value)}
         >
           <div className="logo" />
-          <Menu mode="inline" items={items} />
+          <Menu theme="dark" mode="inline" items={items} />
         </Sider>
         <Content style={{ padding: "5%" }}>{children}</Content>
       </Layout>

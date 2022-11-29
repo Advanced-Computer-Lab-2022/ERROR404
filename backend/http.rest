@@ -1,5 +1,6 @@
-POST http://localhost:2020/createQuiz
-Content-Type: application/json
+GET http://localhost:2020/search/csen
+
+# Content-Type: application/json
    
     {
         "username":"abdelrahman",

@@ -63,7 +63,7 @@ app.get("/", (req, res) => {
 
 app.get("/getUser/:userId/:userType", getUser);
 app.get("/getTopCourses", topCourses);
-app.get("/search/:key/:max", search);
+app.get("/search/:key", search);
 app.get("/coursePrice", coursePrice);
 app.get("/searchmycourses/:user/:key", instructorSearch);
 app.get("/viewCourses", viewCourses);
