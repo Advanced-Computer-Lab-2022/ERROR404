@@ -1,8 +1,12 @@
-PUT http://localhost:2020/salary
+POST http://localhost:2020/createQuiz
 Content-Type: application/json
    
     {
-    "courseId":"6385033679d2f9c049db1606"
+        "username":"abdelrahman",
+        "question1":"63863b878c6a5b1c0d53ad20",
+        "question2":"63863b878c6a5b1c0d53ad22",
+        "question3":"63863b878c6a5b1c0d53ad21",
+        "question4":"63863b878c6a5b1c0d53ad23"
     }
 
 

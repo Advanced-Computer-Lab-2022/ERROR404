@@ -35,6 +35,8 @@ const {
   noOfSubscribers,
   reviewInstructor,
   salary,
+  createQuestions,
+  createQuiz,
 } = require("./routes/routes");
 
 //App variables
@@ -87,3 +89,5 @@ app.patch("/addCreditCardInfo", addCreditCardInfo);
 app.put("/noOfSubscribers", noOfSubscribers);
 app.put("/reviewInstructor", reviewInstructor);
 app.put("/salary", salary);
+app.post("/createQuestions", createQuestions);
+app.post("/createQuiz", createQuiz);
