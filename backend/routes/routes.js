@@ -831,13 +831,40 @@ const createQuiz = async (req, res) => {
     });
   }
 };
-const addQuizToCourse = async (req, res) => {
+const addCourseToStudent = async (req, res) => {
+  const username = req.body.username;
   const courseId = req.body.courseId;
-  const quizId = req.body.quizId;
-  const x = await Quizzes.findOne({ _id: quizId });
-  if (x == [] || null) {
-    res.status(404).send();
+  const usertype = req.body.usertype;
+  if (usertype == "corporate trainee") {
+    corporateTrainee
+      .updateOne(
+        { username: username },
+        { $addToSet: { Regcourses: courseId } },
+        (err, result) => {
+          if (err) {
+            res.status(500).send();
+          } else {
+            res.status(200).send();
+          }
+        }
+      )
+      .clone();
+  } else if (usertype == "individual trainee") {
+    individualTrainee
+      .updateOne(
+        { username: username },
+        { $addToSet: { Regcourses: courseId } },
+        (err, result) => {
+          if (err) {
+            res.status(500).send();
+          } else {
+            res.status(200).send();
+          }
+        }
+      )
+      .clone();
   } else {
+    res.status(404).send("Student not found");
   }
 };
 module.exports = {
@@ -872,5 +899,5 @@ module.exports = {
   salary,
   createQuestions,
   createQuiz,
-  addQuizToCourse,
+  addCourseToStudent,
 };

@@ -1,9 +1,10 @@
-POST http://localhost:2020/createQuiz
+Put http://localhost:2020/addCourseToStudent
 Content-Type: application/json
    
     {   
-        "username":"abdelrahman",
-        "courseId":"6385033679d2f9c049db1606"
+        "username":"bruno",
+        "courseId":"6385033679d2f9c049db1606",
+        "usertype":"individual trainee"
     }
 
 
