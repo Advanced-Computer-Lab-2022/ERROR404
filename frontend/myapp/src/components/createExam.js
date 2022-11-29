@@ -18,10 +18,19 @@ import {
 
 import { Header, Container } from "semantic-ui-react";
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
+import InstructorDashboard from "../pages/InstructorDashboard";
 
 const { Option } = Select;
 
-const WrapperCreateExam = () => {
+const CreateExamWrapper = () => {
+  return (
+    <InstructorDashboard>
+      <CreateExam />
+    </InstructorDashboard>
+  );
+};
+
+const CreateExam = () => {
   const onFinish = async (event) => {
     console.log("Success:", event);
   };
@@ -449,4 +458,4 @@ const WrapperCreateExam = () => {
   );
 };
 
-export default WrapperCreateExam;
+export default CreateExamWrapper;

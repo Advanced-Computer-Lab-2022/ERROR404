@@ -122,14 +122,18 @@ const InstructorDashboard = ({ children }) => {
               padding: "24px 0",
             }}
           >
-            <Sider className="site-layout-background" width={200}>
+            <Sider
+              className="site-layout-background"
+              width={200}
+              style={{
+                maxHeight: "500px",
+              }}
+            >
               <Menu
                 mode="inline"
+                theme="dark"
                 defaultSelectedKeys={["1"]}
                 defaultOpenKeys={["sub1"]}
-                style={{
-                  height: "100%",
-                }}
                 items={items}
               />
             </Sider>

@@ -42,9 +42,9 @@ import {
 import RateComponent from "./components/studentRateInstructor";
 import ReviewComponent from "./components/studentReviewInstructor";
 import LoadSearchedCourses from "./components/loadSearchedCoursesComp";
-import PreviewCourse from "./components/previewCourse";
-import WrapperCreateExam from "./components/createExam";
-import SolveExam from "./components/solveExam";
+import CreateExamWrapper from "./components/createExam";
+import SolveExamWrapper from "./components/solveExam";
+import PreviewCourse from "./components/CheckCourse";
 
 export default function MainApp() {
   const [username, setUsername] = useState("abdelrahman");
@@ -124,7 +124,7 @@ export default function MainApp() {
           />
           <Route
             path="/instructorDashBoard/createQuiz"
-            element={<WrapperCreateCourses />}
+            element={<CreateExamWrapper />}
           />
           <Route
             path="/instructorDashBoard/editEmail"
@@ -137,9 +137,8 @@ export default function MainApp() {
             element={<ReviewComponent />}
           />
           <Route path="/searchedItems" element={<LoadSearchedCourses />} />
-          <Route path="/PreviewCourse" element={<PreviewCourse />} />
-          <Route path="/CreateExam" element={<WrapperCreateExam />} />
-          <Route path="/SolveExam" element={<SolveExam />} />
+          <Route path="/previewCourse" element={<PreviewCourse />} />
+          <Route path="/SolveExam" element={<SolveExamWrapper />} />
         </Routes>
       </Router>
     </AppContext.Provider>

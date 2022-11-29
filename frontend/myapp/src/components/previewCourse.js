@@ -23,10 +23,17 @@ const PreviewCourse = () => {
       {/* <semanticHeader>
         preview course:
     </semanticHeader> */}
-      <div centered class="ui centered card">
+      <div
+        centered
+        class="ui centered card"
+        style={{
+          width: "100%",
+          fontSize: "14px",
+        }}
+      >
         <div class="video">
           <iframe
-            width="290"
+            width="100%"
             height="300"
             src="https://www.youtube.com/embed/dNo_BVzNb28"
             title="YouTube video player"
@@ -37,7 +44,6 @@ const PreviewCourse = () => {
         </div>
         <div class="content">
           <a class="price" size="100">
-            {" "}
             E£390.99
           </a>
           <a> </a>

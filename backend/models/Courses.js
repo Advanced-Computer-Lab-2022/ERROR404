@@ -43,7 +43,7 @@ const courses = new Schema(
       },
     ],
 
-    exercises: {
+    quiz: {
       type: Array,
       default: [],
     },

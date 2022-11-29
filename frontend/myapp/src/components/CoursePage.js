@@ -84,12 +84,12 @@ const CoursePage = ({ children }) => {
               gap: "20px",
             }}
           >
-            <Image
+            {/* <Image
               width={"100%"}
               height={"80%"}
               preview={false}
               src="https://freetutsdownload.com/wp-content/uploads/2021/10/UDACITY-Machine-Learning-Engineer-Nanodegree-v4.0.0.jpg"
-            />
+            /> */}
             {children}
           </Content>
         </Layout>

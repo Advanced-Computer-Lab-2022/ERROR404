@@ -1,24 +1,15 @@
-import axios from "axios";
-import { useState, useEffect } from "react";
-import App from "../App";
-import {
-  Layout,
-  Button,
-  Checkbox,
-  Dropdown,
-  Form,
-  Input,
-  Select,
-  Breadcrumb,
-  Menu,
-  message,
-  Space,
-} from "antd";
-
-import { Header, Container } from "semantic-ui-react";
-import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
+import { Select } from "antd";
+import CoursePage from "./CoursePage";
 
 const { Option } = Select;
+
+const SolveExamWrapper = () => {
+  return (
+    <CoursePage>
+      <SolveExam />
+    </CoursePage>
+  );
+};
 
 const SolveExam = () => {
   const solve = async () => {
@@ -258,4 +249,4 @@ const SolveExam = () => {
   );
 };
 
-export default SolveExam;
+export default SolveExamWrapper;
