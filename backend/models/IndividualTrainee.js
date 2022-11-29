@@ -53,7 +53,7 @@ const individualTrainee = new Schema(
       type: String,
       default: "Individual-trainee",
     },
-    courses: {
+    Regcourses: {
       type: Array,
       default: [],
     },
