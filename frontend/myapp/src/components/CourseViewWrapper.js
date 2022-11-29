@@ -14,9 +14,12 @@ import ViewWeekIcon from "@mui/icons-material/ViewWeek";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import ReviewsIcon from "@mui/icons-material/Reviews";
 import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
+import PreviewIcon from "@mui/icons-material/Preview";
 import Alert from "@mui/material/Alert";
 import AddBoxIcon from "@mui/icons-material/AddBox";
-import { Breadcrumb, Layout, Menu } from "antd";
+import ViewTimelineIcon from "@mui/icons-material/ViewTimeline";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import { Breadcrumb, Button, Layout, Menu, Rate } from "antd";
 import { Link } from "react-router-dom";
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -33,49 +36,34 @@ function getItem(label, key, icon, children) {
 const items = [
   getItem(<Link to="/">Home</Link>, "1", <HomeOutlined />),
   getItem(
-    <Link to="/checkCourse/about">About this Course</Link>,
+    <Link to="/course/about">Course Overview</Link>,
     "2",
-    <LoginOutlined />
+    <PreviewIcon />
   ),
   getItem(
-    <Link to="/instructorDashBoard/allMyCourses">View all my courses</Link>,
-    "16",
-    <ViewWeekIcon />
+    <Link to="/course/syllabus">Syllabus</Link>,
+    "3",
+    <ViewTimelineIcon />
   ),
 
   getItem(
-    <Link to="/instructorDashBoard/balance">My Balance</Link>,
-    "17",
-    <AccountBalanceWalletIcon />
-  ),
-  getItem(
-    <Link to="/instructorDashBoard/reviews">My Reviews</Link>,
-    "18",
+    <Link to="/course/reviews">Course Reviews</Link>,
+    "5",
     <ReviewsIcon />
   ),
   getItem(
-    <Link to="/instructorDashBoard/createCourse">Create New Course</Link>,
-    "19",
-    <AddBoxIcon />
+    <Link to="/course/pay">
+      <Button ghost>BUY NOW!!</Button>
+    </Link>,
+    "6",
+    <ShoppingCartIcon />
   ),
-  getItem(
-    <Link to="/instructorDashBoard/createQuiz">Create New Quiz</Link>,
-    "20",
-    <AddBoxIcon />
-  ),
-  getItem(<Link to="/settings">Settings</Link>, "15", <SettingFilled />),
-  //   getItem(<InstructorBalance />, "16", <SettingFilled />),
+  getItem(<Rate disabled></Rate>, "7"),
 ];
-const PreviewCourse = () => (
+const PreviewCourses = ({ children }) => (
   <Layout>
     <Header className="header">
-      <div className="logo" />
-      <Menu
-        theme="dark"
-        mode="horizontal"
-        defaultSelectedKeys={["2"]}
-        items={items}
-      />
+      <Menu theme="dark" mode="horizontal" items={items} />
     </Header>
     <Content
       style={{
@@ -87,8 +75,12 @@ const PreviewCourse = () => (
           margin: "16px 0",
         }}
       >
-        <Breadcrumb.Item>Home</Breadcrumb.Item>
-        <Breadcrumb.Item>Courses</Breadcrumb.Item>
+        <Breadcrumb.Item>
+          <Link to="/">Home</Link>
+        </Breadcrumb.Item>
+        <Breadcrumb.Item>
+          <Link to="/viewAllCourses">Courses</Link>
+        </Breadcrumb.Item>
         <Breadcrumb.Item>Web Development</Breadcrumb.Item>
       </Breadcrumb>
       <Layout
@@ -113,7 +105,7 @@ const PreviewCourse = () => (
             minHeight: 280,
           }}
         >
-          Content
+          {children}
         </Content>
       </Layout>
     </Content>
@@ -122,8 +114,8 @@ const PreviewCourse = () => (
         textAlign: "center",
       }}
     >
-      Ant Design ©2018 Created by Ant UED
+      Ant Design ©2018 Created by ©alighieth
     </Footer>
   </Layout>
 );
-export default PreviewCourse;
+export default PreviewCourses;

@@ -271,7 +271,7 @@ const createCorporateTrainee = async (req, res) => {
   // }
 };
 const viewCourses = async (req, res) => {
-  const a = await course.find({}, { _id: 0 });
+  const a = await course.find({});
   if (a == null) {
     res.status(404).send("no courses available");
   } else {

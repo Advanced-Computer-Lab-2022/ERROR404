@@ -16,6 +16,15 @@ import "semantic-ui-css/semantic.min.css";
 import { Header, header as semanticHeader } from "semantic-ui-react";
 import React from "react";
 import { alignPropType } from "react-bootstrap/esm/types";
+import PreviewCourses from "./CourseViewWrapper";
+
+const PreviewCourseWrapper = () => {
+  return (
+    <PreviewCourses>
+      <PreviewCourse />
+    </PreviewCourses>
+  );
+};
 
 const PreviewCourse = () => {
   return (
@@ -138,4 +147,4 @@ const PreviewCourse = () => {
   );
 };
 
-export default PreviewCourse;
+export default PreviewCourseWrapper;

@@ -42,6 +42,7 @@ const ViewAllCourses = () => {
     })
       .then((response) => {
         setData(response.data);
+        console.log("dataaaaa ", response.data);
       })
       .catch((error) => {
         console.log("erorr ", error.message);

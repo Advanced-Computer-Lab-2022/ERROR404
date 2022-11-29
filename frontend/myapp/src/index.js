@@ -44,7 +44,9 @@ import ReviewComponent from "./components/studentReviewInstructor";
 import LoadSearchedCourses from "./components/loadSearchedCoursesComp";
 import CreateExamWrapper from "./components/createExam";
 import SolveExamWrapper from "./components/solveExam";
-import PreviewCourse from "./components/CheckCourse";
+import PreviewCourseWrapper from "./components/previewCourse";
+import CourseReview from "./components/courseComponents/courseReview";
+import CourseSyllabus from "./components/courseComponents/courseSyllabes";
 
 export default function MainApp() {
   const [username, setUsername] = useState("abdelrahman");
@@ -137,7 +139,9 @@ export default function MainApp() {
             element={<ReviewComponent />}
           />
           <Route path="/searchedItems" element={<LoadSearchedCourses />} />
-          <Route path="/previewCourse" element={<PreviewCourse />} />
+          <Route path="/course/about" element={<PreviewCourseWrapper />} />
+          <Route path="/course/reviews" element={<CourseReview />} />
+          <Route path="/course/syllabus" element={<CourseSyllabus />} />
           <Route path="/SolveExam" element={<SolveExamWrapper />} />
         </Routes>
       </Router>

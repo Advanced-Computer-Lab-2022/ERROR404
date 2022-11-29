@@ -107,5 +107,5 @@ const TimeLineComp = (props) => {
     </Timeline.Item>
   );
 };
-
+export { CoreCurricullum };
 export default CoreCirWrapper;

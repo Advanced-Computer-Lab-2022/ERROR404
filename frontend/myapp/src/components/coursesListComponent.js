@@ -21,6 +21,7 @@ import {
 } from "antd";
 import { AppContext } from "../AppContext";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const IconText = ({ icon, text }) => (
   <Space>
@@ -29,12 +30,18 @@ const IconText = ({ icon, text }) => (
   </Space>
 );
 
-const CourseComponent = ({ courses }) => {
+const CourseComponent = ({ courses, viewType }) => {
   const { userType } = useContext(AppContext);
   const [user, setUser] = userType;
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [courseTitle, setTitle] = useState("");
   const [id, setId] = useState("");
+
+  let navigation = useNavigate();
+
+  useEffect(() => {
+    console.log(courses);
+  }, []);
 
   const handleOk = () => {
     setIsModalOpen(false);
@@ -81,6 +88,9 @@ const CourseComponent = ({ courses }) => {
           <div>
             <List.Item
               key={item._id}
+              onClick={() => {
+                navigation("/course/about?courseId=" + item._id);
+              }}
               actions={[
                 <IconText
                   icon={StarOutlined}
