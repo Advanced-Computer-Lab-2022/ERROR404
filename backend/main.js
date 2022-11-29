@@ -37,6 +37,7 @@ const {
   salary,
   createQuestions,
   createQuiz,
+  addCourseToStudent,
 } = require("./routes/routes");
 
 //App variables
@@ -91,3 +92,4 @@ app.put("/reviewInstructor", reviewInstructor);
 app.put("/salary", salary);
 app.post("/createQuestions", createQuestions);
 app.post("/createQuiz", createQuiz);
+app.put("/addCourseToStudent", addCourseToStudent);
