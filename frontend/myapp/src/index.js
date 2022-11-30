@@ -38,6 +38,7 @@ import InstructorViewAllTitlesWrapper from "./components/instructorComponents/in
 import {
   ChangeBio,
   ChangeEmail,
+  UserChangeEmail,
 } from "./components/instructorComponents/instructorChangeSetting";
 import RateComponent from "./components/studentRateInstructor";
 import ReviewComponent from "./components/studentReviewInstructor";
@@ -132,6 +133,7 @@ export default function MainApp() {
             path="/instructorDashBoard/editEmail"
             element={<ChangeEmail />}
           />
+          <Route path="/user/editEmail" element={<UserChangeEmail />} />
           <Route path="/instructorDashBoard/editBio" element={<ChangeBio />} />
           <Route path="/studentRateInstructor" element={<RateComponent />} />
           <Route
