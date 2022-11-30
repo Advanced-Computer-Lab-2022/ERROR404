@@ -30,6 +30,11 @@ const courses = new Schema(
     },
     subtitles: [
       {
+        name: {
+          type: String,
+          required: true,
+          default: "",
+        },
         description: {
           type: String,
           required: true,
