@@ -1,71 +1,117 @@
-const user = require("../models/User");
+const corporateTrainee = require("../models/corporateTrainee");
 const course = require("../models/Courses");
 const admin = require("../models/Admin");
-const Admin = require("../models/Admin");
+const Instructor = require("../models/instructor");
+const individualTrainee = require("../models/IndividualTrainee");
+const IndividualTrainee = require("../models/IndividualTrainee");
+const Courses = require("../models/Courses");
+const Questions = require("../models/questions");
+const Quizzes = require("../models/quizzes");
+const { default: mongoose } = require("mongoose");
+
 //Methods
-const createUser = (req, res) => {
+const createIndividualTrainee = (req, res) => {
+  // const username = req.body.username;
+  // const password = req.body.password;
   const userData = {
     firstname: req.body.firstname,
     lastname: req.body.lastname,
-    email: req.body.email,
+    age: req.body.age,
+    gender: req.body.gender,
     username: req.body.username,
     password: req.body.password,
-    role: req.body.role,
-    gender: req.body.gender,
+    email: req.body.email,
+    country: req.body.country,
   };
-  user.create(userData, function (err, small) {
+  // if (username == null || password == null) {
+  //   return res.status(400).json("Enter a valid data ");
+  // } else {
+  individualTrainee.create(userData, function (err, small) {
     if (err) {
-      res.status(500).send("Database not responding  => " + err.message);
-      return;
+      res.status(500).send("Database not responding  => " + err);
+    } else {
+      res.status(200).send("Individual Trainee Created Successfully");
     }
-    // this means record created
-    res.status(200).send("user Created Successfully");
   });
+  // }
+};
+
+const getUser = async (req, res) => {
+  const userId = req.params.userId;
+  const userType = req.params.userType;
+
+  let query = { _id: userId };
+
+  if (userType == "instructor") {
+    await Instructor.find(query, function (err, data) {
+      if (err) {
+        res.status(400).send("An erorr has occured");
+      } else {
+        res.status(200).json(data);
+      }
+    }).clone();
+  } else if (userType == "admin") {
+    await admin
+      .find(query, function (err, data) {
+        if (err) {
+          res.status(400).send("An erorr has occured");
+        } else {
+          res.status(200).json(data);
+        }
+      })
+      .clone();
+    // } else if (userType == "corporate") {
+
+    // } else if (userType == "indivisual") {
+  }
+
+  // we need to implement new schema
 };
 
 const createCourse = async (req, res) => {
-  const instructor = user.find({ username: req.body.username });
-  const instructorUsername = req.body.username;
-  if (instructor == null && instructor.role == "instructor") {
+  const instructorId = req.body.id;
+  const instructor = await Instructor.findOne({ _id: instructorId });
+  if (instructor == null) {
     res.status(401).send("Username is not found, or unauthorized");
   } else if (
     req.body.title == null ||
-    req.body.subtitle == null ||
+    req.body.subject == null ||
+    // req.body.instructor == null ||
+    // req.body.subtitle == null ||
     req.body.price == null ||
-    req.body.summary == null
+    req.body.summary == null ||
+    req.body.totalHours == null
   ) {
     res.status(400).send("Required fields were not submitted");
   } else if (req.body.summary.length < 5) {
     res.status(400).send("Summary should be atleast 5 words long");
   } else {
+    const name = instructor.username;
     const courseDetails = {
-      title: req.body.title == null ? "" : req.body.title,
-      subtitles: req.body.subtitle == null ? "" : req.body.subtitle,
-      subject: req.body.subject == null ? "" : req.body.subject,
-      price: req.body.price == null ? 0 : req.body.price,
-      instructor: instructorUsername,
-      totalHours: req.body.totalHours == null ? "" : req.body.totalHours,
-      image: req.body.image == null ? "" : req.body.image,
-      video: req.body.video == null ? "" : req.body.video,
-      prerequisite: req.body.prerequisite == null ? "" : req.body.prerequisite,
-      summary: req.body.summary == null ? "" : req.body.summary,
-      rating: 5.0,
+      title: req.body.title,
+      subject: req.body.subject,
+      instructor: name,
+      totalHours: req.body.totalHours,
+      rating: req.body.rating,
+      price: req.body.price,
+      subtitles: req.body.subtitles,
+      exercises: req.body.exercises,
+      summary: req.body.summary,
+      discount: req.body.discount,
+      image: req.body.image,
+      prerequisite: req.body.prerequisite,
+      preview: req.body.preview,
+      category: req.body.category,
     };
-
-    console.log(courseDetails);
-
-    await course.create(courseDetails, (err, small) => {
-      console.log("hello ", small);
+    course.create(courseDetails, (err, small) => {
       if (err) {
         console.log("error with course ", err.message);
       } else {
-        res.status(200).json(small);
+        res.status(200).send();
       }
     });
   }
 };
-
-//view the price of each course
 const coursePrice = async (req, res) => {
   console.log(req.params);
   const c = await course.find({}, { title: 1, price: 1, _id: 0 });
@@ -75,42 +121,17 @@ const coursePrice = async (req, res) => {
     res.json(c);
   }
 };
-//Admin creation
 const createAdmin = (req, res) => {
-  const reqBody = req.body;
-  // const fName = reqBody.firstname;
-  // const lName = reqBody.lastname;
-  // const email = reqBody.email;
-  // const role = "Admin";
-  const password = reqBody.password;
-  const username = reqBody.username;
-  if (
-    // fName == null ||
-    // lName == null ||
-    // email == null ||
-    password == null ||
-    username == null
-  ) {
+  const password = req.body.password;
+  const username = req.body.username;
+  if (password == null || username == null) {
     return res.status(400).send("Required fields are not submitted");
   }
-  // if (req.body.userRole != "admin") {
-  //   return res.status(401).send("User Not authorized for this action");
-  // }
-  // if (role != "admin") {
-  //   return res.status(401).send("User Not authorized for this action");
-  // }
   const adminData = {
-    // firstname: fName,
-    // lastname: lName,
-    // age: req.body.age == undefined ? "" : req.body.age,
-    // gender: req.body.gender == undefined ? "" : req.body.gender,
     password: password,
     username: username,
-    //email: email,
-    // role: "admin",
   };
-
-  Admin.create(adminData, function (err, small) {
+  admin.create(adminData, function (err, small) {
     if (err) {
       res.status(500).send("Database not responding  => " + err.message);
       console.log(err.message);
@@ -120,8 +141,7 @@ const createAdmin = (req, res) => {
     res.status(200).send("admin " + username + " created Successfully");
   });
 };
-//search the courses given by him/her based on a subject or price
-let search = async (req, res) => {
+const search = async (req, res) => {
   let query = {};
   if (req.params.key.valueOf().toLowerCase() == "free") {
     query = {
@@ -131,19 +151,14 @@ let search = async (req, res) => {
     query = isNaN(req.params.key)
       ? {
           $or: [
-            { title: { $regex: req.params.key } },
-            { subject: { $regex: req.params.key } },
-            { instructor: { $regex: req.params.key } },
+            { title: { $regex: req.params.key, $options: "i" } },
+            { subject: { $regex: req.params.key }, $options: "i" },
+            { instructor: { $regex: req.params.key, $options: "i" } },
           ],
         }
       : {
           $or: [
-            {
-              $and: [
-                { price: { $gte: parseInt(req.params.key) } },
-                { price: { $lte: parseInt(req.params.max) } },
-              ],
-            },
+            { price: parseInt(req.params.key) },
             { rating: req.params.key },
           ],
         };
@@ -160,7 +175,6 @@ let search = async (req, res) => {
     })
     .clone();
 };
-//instructor searches for his courses validation based on user
 const instructorSearch = async (req, res) => {
   let query = {};
   if (req.params.key.valueOf().toLowerCase() == "free") {
@@ -197,32 +211,33 @@ const instructorSearch = async (req, res) => {
     })
     .clone();
 };
-
-//admin creates instructor
 const createInstructor = async (req, res) => {
   const currentUser = req.body.currentUser;
-  const username = req.body.username;
-  const password = req.body.password;
   const instData = {
-    username: username,
-    password: password,
-    country: req.body.country == null ? "" : req.body.country,
-    role: "Instructor",
+    firstname: req.body.firstname,
+    lastname: req.body.lastname,
+    age: req.body.age,
+    gender: req.body.gender,
+    username: req.body.username,
+    password: req.body.password,
+    email: req.body.email,
+    country: req.body.country,
+    biography: req.body.biography,
+    phoneNumber: req.body.phoneNumber,
   };
   if (username == "" || password == "") {
     res.status(400).json("Enter a valid data ");
   } else {
-    console.log(currentUser);
     await admin
-      .find({ username: [currentUser] }, {}, (err, result) => {
+      .find({ username: currentUser }, {}, (err, result) => {
         if (err) {
-          res.status(500).send(err.message + "eeeee");
+          res.status(500).send(err.message);
         } else if (result == "") {
           res.status(400).send("not an admin");
         } else {
-          user.create(instData, (error, small) => {
+          Instructor.create(instData, (error, small) => {
             if (error) {
-              res.status(400).send(error.message + "eeeeee");
+              res.status(400).send(error.message);
             } else {
               res.status(200).json(result);
             }
@@ -232,50 +247,37 @@ const createInstructor = async (req, res) => {
       .clone();
   }
 };
-
-//admin creates cooprate
-const createCorporate = async (req, res) => {
-  const currentUser = req.body.currentUser;
-  const username = req.body.username;
-  const password = req.body.password;
-  const coopData = {
-    username: username,
-    password: password,
-    role: "Corporate-trainee",
+const createCorporateTrainee = async (req, res) => {
+  const corpData = {
+    firstname: req.body.firstname,
+    lastname: req.body.lastname,
+    age: req.body.age,
+    gender: req.body.gender,
+    username: req.body.username,
+    password: req.body.password,
+    email: req.body.email,
+    country: req.body.country,
   };
-  if (username == null || password == null) {
-    res.status(400).json("Enter a valid data ");
-    return;
-  }
-  const x = await admin
-    .find({ username: currentUser }, (err, result) => {
-      if (err) {
-        res.status(500).send(err.message + "eeeee");
-      } else if (result == null) {
-        res.status(400).send("not an admin");
-      } else {
-        user.create(coopData, (error, small) => {
-          if (error) {
-            res.status(400).send(error.message + "eeeeee");
-          } else {
-            res.status(200).send("user is created");
-          }
-        });
-      }
-    })
-    .clone();
+  // if (username == null || password == null) {
+  //   res.status(400).json("Enter a valid data ");
+  // } else {
+  corporateTrainee.create(corpData, (error, small) => {
+    if (error) {
+      res.status(400).send(error.message);
+    } else {
+      res.status(200).send("user is created");
+    }
+  });
+  // }
 };
-
-//
 const viewCourses = async (req, res) => {
-  const a = await course.find({}, { _id: 0 });
+  const a = await course.find({});
   if (a == null) {
     res.status(404).send("no courses available");
   } else {
     res.json(a);
   }
 };
-//choose country
 const chooseCountry = async (req, res) => {
   const { username, country } = req.body;
   if (username == "" || country == "") {
@@ -289,8 +291,18 @@ const chooseCountry = async (req, res) => {
           if (error) {
             res.status(400).send(error);
           } else if (docs == null) {
-            res.status(404).send("error not found");
-          } else {
+            Instructor.updateOne(
+              { username: username },
+              { country: country },
+              (err, result) => {
+                if (err) {
+                  res.status(400).send(err.message);
+                } else {
+                  res.status(200).json(result);
+                }
+              }
+            );
+          } else if (docs) {
             res.status(200).json(docs);
           }
         }
@@ -310,27 +322,29 @@ const view = async (req, res) => {
     .clone();
 };
 const instViewCourses = async (req, res) => {
-  const a = await course.find(
-    { instructor: req.params.user },
-    {
-      title: 1,
-      _id: 0,
-    }
+  const instructorCourses = await course.find(
+    { instructor: req.params.userId }
+    // {
+    //   title: 1,
+    //   description: 1,
+    //   image: 1,
+    //   summary: 1,
+    //   _id: 1,
+    // }
   );
-  if (a == null) {
+  if (instructorCourses == null) {
     res.status(404).send("no courses available");
   } else {
-    res.json(a);
+    res.status(200).json(instructorCourses);
   }
 };
-//filter
 const filterCourses = async (req, res) => {
   const filterType = req.params.filterType;
   const key = req.params.key;
   if (filterType == null || key == null) {
     res.status(404).send("enter a filter type");
   } else {
-    const data = await course
+    await course
       .find()
       .where(filterType, key)
       .exec((err, result) => {
@@ -344,7 +358,6 @@ const filterCourses = async (req, res) => {
 };
 const updateViews = async (req, res) => {
   const id = req.body.id;
-  const x = 0;
   await course
     .updateOne({ _id: id }, { $inc: { views: 1 } }, (err, result) => {
       if (err) {
@@ -355,20 +368,551 @@ const updateViews = async (req, res) => {
     })
     .clone();
 };
+const rateInstructor = async (req, res) => {
+  const username = req.body.username;
+  const rate = req.body.rate;
+  let oldrate = 0;
+  if (isNaN(rate)) {
+    res.status(400).send("invalid rate");
+  } else if (rate > 5 || rate < 0) {
+    res.status(400).send("invalid rate, the rate must be between 0 and 5");
+  } else {
+    const x = await Instructor.findOne({ username: username }, { rating: 1 });
+    oldrate = x.rating;
+    let newRating = rate / 2 + oldrate / 2;
+    await Instructor.updateOne(
+      { username: username },
+      { rating: newRating },
+      (err, result) => {
+        if (err) {
+          res.status(500).send(err.message);
+        } else {
+          res.status(200).json(result);
+        }
+      }
+    ).clone();
+  }
+};
+const rateCourse = async (req, res) => {
+  const courseId = req.body.id;
+  const newRate = req.body.newRate;
+  let oldRate = 0;
+  if (isNaN(newRate)) {
+    res.status(400).send("invalid rate");
+  } else if (newRate > 5 || newRate < 0) {
+    res.status(400).send("invalid rate, the rate must be between 0 and 5");
+  } else {
+    const x = await course.findOne({ _id: courseId }, { rating: 1 });
+    oldRate = x.rating;
+    let rate = oldRate / 2 + newRate / 2;
+    await course
+      .updateOne({ _id: courseId }, { rating: rate }, (err, result) => {
+        if (err) {
+          res.status(500).send(err.message);
+        } else {
+          res.status(200).json(result);
+        }
+      })
+      .clone();
+  }
+};
+const viewRatingAndReviews = async (req, res) => {
+  const username = req.params.username;
+  await Instructor.find(
+    { username: username },
+    { review: 1, rating: 1 },
+    (err, result) => {
+      if (err) {
+        res.status(500).json(err);
+      } else {
+        res.status(200).json(result);
+      }
+    }
+  ).clone();
+};
+const changePassword = async (req, res) => {
+  const id = req.body.id;
+  const newPassword = req.body.newPassword;
+  const usertype = req.body.usertype;
+  if (usertype == "corporate trainee") {
+    corporateTrainee.updateOne(
+      { _id: id },
+      { password: newPassword },
+      (err, result) => {
+        if (err) {
+          res.status(404).json(err);
+        } else {
+          res.status(200).send();
+        }
+      }
+    );
+  } else if (usertype == "individual trainee") {
+    individualTrainee.updateOne(
+      { _id: id },
+      { password: newPassword },
+      (err, result) => {
+        if (err) {
+          res.status(404).json(err);
+        } else {
+          res.status(200).send();
+        }
+      }
+    );
+  } else if (usertype == "instructor") {
+    Instructor.updateOne(
+      { _id: id },
+      { password: newPassword },
+      (err, result) => {
+        if (err) {
+          res.status(500).json(err);
+          console.log(err);
+        } else {
+          console.log(result);
+          res.status(200).send(result);
+        }
+      }
+    );
+  }
+};
+const editEmail = async (req, res) => {
+  const username = req.body.username;
+  const email = req.body.email;
+  const usertype = req.body.usertype;
+  if (usertype == "corporate trainee") {
+    await corporateTrainee
+      .updateOne({ username: username }, { email: email }, (err, result) => {
+        if (err) {
+          res.status(404).json(err);
+        } else {
+          res.status(200).send();
+        }
+      })
+      .clone();
+  } else if (usertype == "individual trainee") {
+    await individualTrainee
+      .updateOne({ username: username }, { email: email }, (err, result) => {
+        if (err) {
+          res.status(404).json(err);
+        } else {
+          res.status(200).send();
+        }
+      })
+      .clone();
+  } else if (usertype == "instructor") {
+    console.log(req.body);
+    await Instructor.updateOne(
+      { username: username },
+      { email: email },
+      (err, result) => {
+        if (err) {
+          res.status(404).json(err);
+        } else {
+          res.status(200).send();
+        }
+      }
+    ).clone();
+  }
+};
+const editBio = async (req, res) => {
+  const username = req.body.username;
+  const bio = req.body.bio;
+  const usertype = req.body.usertype;
+  if (usertype == "corporate trainee") {
+    await user
+      .updateOne({ username: username }, { biography: bio }, (err, result) => {
+        if (err) {
+          res.status(404).json(err);
+        } else {
+          res.status(200).send();
+        }
+      })
+      .clone();
+  } else if (usertype == "individual trainee") {
+    await individualTrainee
+      .updateOne({ username: username }, { biography: bio }, (err, result) => {
+        if (err) {
+          res.status(404).json(err);
+        } else {
+          res.status(200).send();
+        }
+      })
+      .clone();
+  } else if (usertype == "instructor") {
+    await Instructor.updateOne(
+      { username: username },
+      { biography: bio },
+      (err, result) => {
+        if (err) {
+          res.status(404).json(err);
+        } else {
+          res.status(200).send();
+        }
+      }
+    ).clone();
+  }
+};
+const viewReviewAndRatingForInstructor = async (req, res) => {
+  const username = req.params.username;
+  await course
+    .find(
+      { instructor: username },
+      { _id: 0, title: 1, rating: 1, review: 1 },
+      (err, result) => {
+        if (err) {
+          res.status(500).json(err);
+        } else {
+          res.status(200).json(result);
+        }
+      }
+    )
+    .clone();
+};
+const uploadPreviewVideoForCourse = async (req, res) => {
+  const id = req.body.id;
+  const url = req.body.url;
+  course.updateOne({ _id: id }, { preview: url }, (err, result) => {
+    if (err) {
+      res.status(500).json(err);
+    } else {
+      res.status(200).send();
+    }
+  });
+};
+//insert inside the subtitles in course
+const insertVideoLinkToCourse = async (req, res) => {
+  const courseId = req.body.courseId;
+  const instructorId = req.body.instructorId;
+  const link = req.body.link;
+  const x = await Instructor.findOne({ _id: instructorId });
+  if (instructorId == x._id) {
+    await course
+      .updateOne(
+        { _id: courseId },
+        { $addToSet: { video: link } },
+        (err, result) => {
+          if (err) {
+            res.status(500).json(err);
+          } else {
+            res.status(200).json(result);
+          }
+        }
+      )
+      .clone();
+  } else {
+    res.status(404).json("instructor not found");
+  }
+};
+const addCreditCardInfo = async (req, res) => {
+  const username = req.body.username;
+  const creditCard = {
+    holderName: req.body.holderName,
+    cardNumber: req.body.cardNumber,
+    cvv: req.body.cvv,
+    expirationDate: req.body.expirationDate,
+  };
+  console.log(creditCard);
+  await IndividualTrainee.findOneAndUpdate(
+    { username: username },
+    { $addToSet: { creditCardInfo: creditCard } },
+    (err, result) => {
+      if (err) {
+        res.status(500).json(err);
+      } else {
+        res.status(200).send();
+      }
+    }
+  ).clone();
+};
+//route to inc no of subs'
+const noOfSubscribers = async (req, res) => {
+  const id = req.body.id;
+  await course
+    .updateOne({ _id: id }, { $inc: { noOfSubscribers: 1 } }, (err, result) => {
+      if (err) {
+        res.status(500).send();
+      } else {
+        res.status(200).send(result);
+      }
+    })
+    .clone();
+};
+
+const topCourses = async (req, res) => {
+  const topCourses = await Courses.find({}).sort({ views: -1 }).limit(5);
+  res.status(200).json(topCourses);
+};
+
+const salary = async (req, res) => {
+  const courseId = req.body.courseId;
+  const x = await course.findOne(
+    { _id: courseId },
+    { instructor: 1, price: 1 }
+  );
+  if (x == null) {
+    res.status(404).json("course not found");
+  } else {
+    let username = x.instructor;
+    let price = x.price;
+    price *= 0.8;
+    console.log(username + " " + price);
+    const y = await Instructor.findOne({ username: username }, { wallet: 1 });
+    let newWallet = y.wallet;
+    newWallet += price;
+    console.log(newWallet);
+    await Instructor.updateOne(
+      { username: username },
+      { wallet: newWallet },
+      (err, result) => {
+        if (err) {
+          res.status(500).send();
+        } else {
+          res.status(200).send(result);
+        }
+      }
+    ).clone();
+  }
+};
+const reviewInstructor = async (req, res) => {
+  const username = req.body.username;
+  const review = req.body.review;
+  await Instructor.updateOne(
+    { username: username },
+    { $addToSet: { review: review } },
+    (err, result) => {
+      if (err) {
+        res.status(500).send();
+      } else {
+        res.status(200).send();
+      }
+    }
+  ).clone();
+};
+const createQuestions = async (req, res) => {
+  const username = req.body.username;
+  const question1 = req.body.question1;
+  const answer1 = req.body.answer1;
+  const answer2 = req.body.answer2;
+  const answer3 = req.body.answer3;
+  const answer4 = req.body.answer4;
+  const answerQes1 = req.body.answerQes1;
+  //
+  const question2 = req.body.question2;
+  const answer21 = req.body.answer21;
+  const answer22 = req.body.answer22;
+  const answer23 = req.body.answer23;
+  const answer24 = req.body.answer24;
+  const answerQes2 = req.body.answerQes2;
+  //
+  const question3 = req.body.question3;
+  const answer31 = req.body.answer31;
+  const answer32 = req.body.answer32;
+  const answer33 = req.body.answer33;
+  const answer34 = req.body.answer34;
+  const answerQes3 = req.body.answerQes3;
+  //
+  const question4 = req.body.question4;
+  const answer41 = req.body.answer41;
+  const answer42 = req.body.answer42;
+  const answer43 = req.body.answer43;
+  const answer44 = req.body.answer44;
+  const answerQes4 = req.body.answerQes4;
+  const x = await Instructor.findOne({ username: username });
+  if (x == [] || null) {
+    res.status(404).json("instructor not found or not authorized");
+  } else {
+    const options1 = {
+      a: answer1,
+      b: answer2,
+      c: answer3,
+      d: answer4,
+    };
+    const body1 = {
+      description: question1,
+      answer: answerQes1,
+      options: options1,
+    };
+    //
+    const options2 = {
+      a: answer21,
+      b: answer22,
+      c: answer23,
+      d: answer24,
+    };
+    const body2 = {
+      description: question2,
+      answer: answerQes2,
+      options: options2,
+    };
+    //
+    const options3 = {
+      a: answer31,
+      b: answer32,
+      c: answer33,
+      d: answer34,
+    };
+    const body3 = {
+      description: question3,
+      answer: answerQes3,
+      options: options3,
+    };
+    //
+    const options4 = {
+      a: answer41,
+      b: answer42,
+      c: answer43,
+      d: answer44,
+    };
+    const body4 = {
+      description: question4,
+      answer: answerQes4,
+      options: options4,
+    };
+    Questions.create(body1, (err, result) => {
+      if (err) {
+        res.status(500).send(err);
+      } else {
+        res.status(200).send();
+      }
+    });
+    Questions.create(body2, (err, result) => {
+      if (err) {
+        res.status(500).send(err);
+      } else {
+        res.status(200).send();
+      }
+    });
+    Questions.create(body3, (err, result) => {
+      if (err) {
+        res.status(500).send(err);
+      } else {
+        res.status(200).send();
+      }
+    });
+    Questions.create(body4, (err, result) => {
+      if (err) {
+        res.status(500).send(err);
+      } else {
+        res.status(200).send();
+      }
+    });
+  }
+};
+const createQuiz = async (req, res) => {
+  const username = req.body.username;
+  const courseId = req.body.courseId;
+  const x = await Instructor.findOne({ username: username });
+  if (x == [] || null) {
+    res.status(404).json("instructor not found or not authorized");
+  } else {
+    const question1 = mongoose.Types.ObjectId(req.body.question1);
+    const question2 = mongoose.Types.ObjectId(req.body.question2);
+    const question3 = mongoose.Types.ObjectId(req.body.question3);
+    const question4 = mongoose.Types.ObjectId(req.body.question4);
+
+    const query = {
+      questions: [question1, question2, question3, question4],
+    };
+    Quizzes.create(query, (err, result) => {
+      if (err) {
+        res.status(500).send();
+      } else {
+        Courses.findOneAndUpdate(
+          { _id: courseId },
+          { $addToSet: { exercises: result._id } },
+          (err, result) => {
+            if (err) {
+              res.status(500).send();
+            } else {
+              res.status(200).send(result);
+            }
+          }
+        ).clone();
+      }
+    });
+  }
+};
+const addCourseToStudent = async (req, res) => {
+  const username = req.body.username;
+  const courseId = req.body.courseId;
+  const usertype = req.body.usertype;
+  if (usertype == "corporate trainee") {
+    corporateTrainee
+      .updateOne(
+        { username: username },
+        { $addToSet: { Regcourses: courseId } },
+        (err, result) => {
+          if (err) {
+            res.status(500).send();
+          } else {
+            res.status(200).send();
+          }
+        }
+      )
+      .clone();
+  } else if (usertype == "individual trainee") {
+    individualTrainee
+      .updateOne(
+        { username: username },
+        { $addToSet: { Regcourses: courseId } },
+        (err, result) => {
+          if (err) {
+            res.status(500).send();
+          } else {
+            res.status(200).send();
+          }
+        }
+      )
+      .clone();
+  } else {
+    res.status(404).send("Student not found");
+  }
+};
+
+const getCourseById = async (req, res) => {
+  let courseId = req.params.id;
+
+  Courses.findOne({ _id: courseId }, (err, result) => {
+    if (err) {
+      console.log(err);
+      req.status(500).send(err);
+    } else {
+      res.status(200).json(result);
+    }
+  });
+};
 
 module.exports = {
+  getUser,
   search,
-  createUser,
+  createCorporateTrainee,
   createAdmin,
   coursePrice,
   createCourse,
   instructorSearch,
   viewCourses,
   createInstructor,
-  createCorporate,
+  createIndividualTrainee,
   chooseCountry,
   instViewCourses,
   view,
   filterCourses,
   updateViews,
+  rateInstructor,
+  rateCourse,
+  viewRatingAndReviews,
+  uploadPreviewVideoForCourse,
+  editEmail,
+  editBio,
+  changePassword,
+  viewReviewAndRatingForInstructor,
+  insertVideoLinkToCourse,
+  addCreditCardInfo,
+  noOfSubscribers,
+  topCourses,
+  reviewInstructor,
+  salary,
+  createQuestions,
+  createQuiz,
+  addCourseToStudent,
+  getCourseById,
 };

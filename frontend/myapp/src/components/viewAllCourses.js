@@ -5,6 +5,7 @@ import { Collapse } from "antd";
 import App from "../App";
 import { FilterOutlined } from "@ant-design/icons";
 import SearchByForm from "./getCourses";
+import CourseComponent from "./coursesListComponent";
 const { Option } = Select;
 
 const { Panel } = Collapse;
@@ -41,6 +42,7 @@ const ViewAllCourses = () => {
     })
       .then((response) => {
         setData(response.data);
+        console.log("dataaaaa ", response.data);
       })
       .catch((error) => {
         console.log("erorr ", error.message);
@@ -72,29 +74,9 @@ const ViewAllCourses = () => {
         onOk={handleOk}
         onCancel={handleCancel}
       >
-        <SearchByForm />
+        <SearchByForm dataState={setData} />
       </Modal>
-
-      {console.log(data.length)}
-      {data.map((course) => {
-        console.log("here");
-        return (
-          <Card
-            title={course.title}
-            bordered={true}
-            key={course._id}
-            style={{ width: "100%" }}
-          >
-            <p>Title: {course.title}</p>
-            <p>Summary: {course.summary}</p>
-            <p>Instructor: {course.instructor}</p>
-            <p>Price: {course.price}</p>
-            <p>Total Hours: {course.totalHours}</p>
-            <p>Subject: {course.subject}</p>
-            <Rate allowHalf defaultValue={course.rating} disabled={true} />
-          </Card>
-        );
-      })}
+      <CourseComponent courses={data} />
     </>
   );
 };

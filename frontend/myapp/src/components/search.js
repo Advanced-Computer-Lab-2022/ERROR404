@@ -3,6 +3,8 @@ import axios from "axios";
 import { Button, Modal, Form, Input, Select } from "antd";
 import { Collapse } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
+import LoadSearchedCourses from "./loadSearchedCoursesComp";
+import { useNavigate } from "react-router-dom";
 
 const { Search } = Input;
 const { Panel } = Collapse;
@@ -10,6 +12,7 @@ const { Panel } = Collapse;
 const SearchByForm = () => {
   const [data, setData] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const navigate = useNavigate();
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -27,27 +30,10 @@ const SearchByForm = () => {
     console.log("data =>  ", data);
   }, [data]);
 
-  const getCourses = (value) => {
-    setIsModalOpen(true);
-    axios({
-      method: "get",
-      url: "http://localhost:2020/search/" + value,
-    })
-      .then((response) => {
-        setData(response.data);
-      })
-      .catch((error) => {
-        console.log("erorr ", error.message);
-      });
-  };
-
   const [form] = Form.useForm();
   const onSearch = async (event) => {
     console.log(" => ", event);
-    const value = event;
-    console.log(value);
-
-    await getCourses(value);
+    navigate("/searchedItems?value=" + event);
   };
 
   const onReset = () => {
@@ -65,9 +51,8 @@ const SearchByForm = () => {
         style={{
           maxWidth: "20vw",
         }}
-      />
-
-      <Modal
+      />{" "}
+      {/* <Modal
         title="Basic Modal"
         open={isModalOpen}
         onOk={handleOk}
@@ -89,7 +74,7 @@ const SearchByForm = () => {
             );
           })}
         </Collapse>
-      </Modal>
+      </Modal> */}
     </>
   );
 };
