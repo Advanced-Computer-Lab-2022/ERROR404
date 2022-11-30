@@ -94,7 +94,7 @@ const createCourse = async (req, res) => {
       totalHours: req.body.totalHours,
       rating: req.body.rating,
       price: req.body.price,
-      subtitles: req.body.subtitle,
+      subtitles: req.body.subtitles,
       exercises: req.body.exercises,
       summary: req.body.summary,
       discount: req.body.discount,
