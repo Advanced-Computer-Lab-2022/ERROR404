@@ -77,7 +77,7 @@ const createCourse = async (req, res) => {
     req.body.title == null ||
     req.body.subject == null ||
     // req.body.instructor == null ||
-    // req.body.subtitle == null ||
+    req.body.subtitle == null ||
     req.body.price == null ||
     req.body.summary == null ||
     req.body.totalHours == null
