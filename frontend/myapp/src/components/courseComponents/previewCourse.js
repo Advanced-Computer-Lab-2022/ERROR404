@@ -14,9 +14,10 @@ import button from "react-bootstrap/Button";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "semantic-ui-css/semantic.min.css";
 import { Header, header as semanticHeader } from "semantic-ui-react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { alignPropType } from "react-bootstrap/esm/types";
-import PreviewCourses from "./CourseViewWrapper";
+import PreviewCourses from "../CourseViewWrapper";
+import axios from "axios";
 
 const PreviewCourseWrapper = () => {
   return (
@@ -27,6 +28,28 @@ const PreviewCourseWrapper = () => {
 };
 
 const PreviewCourse = () => {
+  const [courseId, setCourseId] = useState("");
+  const [courseData, setCourseData] = useState("");
+
+  useEffect(() => {
+    const idSearch = window.location.search;
+    console.log(idSearch);
+
+    const urlParams = new URLSearchParams(idSearch);
+    const courseId = urlParams.get("courseId");
+
+    setCourseId(courseId);
+
+    axios
+      .get("http://localhost:2020/getCourse/" + courseId)
+      .then((response) => {
+        setCourseData(response.data);
+        console.log(response.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
   return (
     <grid centered>
       {/* <semanticHeader>
@@ -44,7 +67,7 @@ const PreviewCourse = () => {
           <iframe
             width="100%"
             height="300"
-            src="https://www.youtube.com/embed/dNo_BVzNb28"
+            src={"https://" + courseData.preview}
             title="YouTube video player"
             frameborder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -53,7 +76,7 @@ const PreviewCourse = () => {
         </div>
         <div class="content">
           <a class="price" size="100">
-            E£390.99
+            E£{courseData.price}
           </a>
           <a> </a>
           <s>
@@ -79,7 +102,7 @@ const PreviewCourse = () => {
           <p></p>
           <div class="ui blue animated button">
             <div class="visible content">Buy now!</div>
-            <div class="hidden content">pay E£390.99</div>
+            <div class="hidden content">PAY E£{courseData.price}</div>
           </div>
           <div class="description">30-Day Money-Back Guarantee.</div>
         </div>
@@ -90,7 +113,7 @@ const PreviewCourse = () => {
           <a>
             <div class="three wide column">
               <i class="icon video play "></i>
-              44.5 hours on-demand video
+              {courseData.totalHours} hours on-demand video
             </div>
           </a>
         </div>

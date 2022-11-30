@@ -89,7 +89,11 @@ const CourseComponent = ({ courses, viewType }) => {
             <List.Item
               key={item._id}
               onClick={() => {
-                navigation("/course/about?courseId=" + item._id);
+                if (user == "instructor") {
+                  setIsModalOpen(true);
+                } else {
+                  navigation("/course/about?courseId=" + item._id);
+                }
               }}
               actions={[
                 <IconText

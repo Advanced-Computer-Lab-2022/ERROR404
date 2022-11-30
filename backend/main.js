@@ -38,6 +38,7 @@ const {
   createQuestions,
   createQuiz,
   addCourseToStudent,
+  getCourseById,
 } = require("./routes/routes");
 
 //App variables
@@ -68,6 +69,7 @@ app.get("/search/:key", search);
 app.get("/coursePrice", coursePrice);
 app.get("/searchmycourses/:user/:key", instructorSearch);
 app.get("/viewCourses", viewCourses);
+app.get("/getCourse/:id", getCourseById);
 app.post("/createCorporateTrainee", createCorporateTrainee);
 app.post("/createAdmin", createAdmin);
 app.post("/createCourse", createCourse);
