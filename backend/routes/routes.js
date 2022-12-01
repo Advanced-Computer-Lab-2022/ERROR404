@@ -886,16 +886,16 @@ const addCourseToStudent = async (req, res) => {
 };
 
 const getCourseById = async (req, res) => {
-  let courseId = req.params.id;
+  const courseId = req.params.id;
 
-  Courses.findOne({ _id: courseId }, (err, result) => {
+  await Courses.findOne({ _id: courseId }, (err, result) => {
     if (err) {
       console.log(err);
-      req.status(500).send(err);
+      req.status(500).send();
     } else {
       res.status(200).json(result);
     }
-  });
+  }).clone();
 };
 
 module.exports = {
