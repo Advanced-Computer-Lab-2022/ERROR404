@@ -1,23 +1,23 @@
-POST  http://localhost:2020/createCourse
-Content-Type: application/json
+POST  http://localhost:2020/getUser/
+# Content-Type: application/json
 
-  {
-    "id":"6366d3ddd79a066bc2b74106",
-    "title": "network",
-    "subject":"cisco packet tracer", 
-    "totalHours": "18",
-    "rating": "5",
-    "price": "300",
-    "subtitles":[{ "description": "description", "video": "video" },
-    { "description": "description1", "video": "video1" },
-    { "description": "description2", "video": "video2" }],
-    "exercises":"alot of exercises be aware",
-    "summary": "will provide you a good knowlage with packet tracing",
-    " discount":"", 
-    "image": "",
-    "prerequisite":"", 
-    "preview": "",
-    "category":""
-    }
+#   {
+#     "id":"6366d3ddd79a066bc2b74106",
+#     "title": "network",
+#     "subject":"cisco packet tracer", 
+#     "totalHours": "18",
+#     "rating": "5",
+#     "price": "300",
+#     "subtitles":[{ "description": "description", "video": "video" },
+#     { "description": "description1", "video": "video1" },
+#     { "description": "description2", "video": "video2" }],
+#     "exercises":"alot of exercises be aware",
+#     "summary": "will provide you a good knowlage with packet tracing",
+#     " discount":"", 
+#     "image": "",
+#     "prerequisite":"", 
+#     "preview": "",
+#     "category":""
+#     }
 
 

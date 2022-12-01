@@ -26,7 +26,11 @@ const MainHeader = () => {
     },
     { label: "My Grades", key: "grades" }, // which is required
     {
-      label: <Button ghost>My Classroom</Button>,
+      label: (
+        <Link to="/user/classroom">
+          <Button ghost>My Classroom</Button>
+        </Link>
+      ),
       key: "myClassroom",
     },
   ];

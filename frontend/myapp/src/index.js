@@ -48,6 +48,7 @@ import SolveExamWrapper from "./components/solveExam";
 import PreviewCourseWrapper from "./components/courseComponents/previewCourse";
 import CourseReview from "./components/courseComponents/courseReview";
 import CourseSyllabus from "./components/courseComponents/courseSyllabes";
+import UserCourses from "./components/courseComponents/userClassRoom";
 
 export default function MainApp() {
   const [username, setUsername] = useState("abdelrahman");
@@ -145,6 +146,7 @@ export default function MainApp() {
           <Route path="/course/reviews" element={<CourseReview />} />
           <Route path="/course/syllabus" element={<CourseSyllabus />} />
           <Route path="/SolveExam" element={<SolveExamWrapper />} />
+          <Route path="/user/classroom" element={<UserCourses />} />
         </Routes>
       </Router>
     </AppContext.Provider>
