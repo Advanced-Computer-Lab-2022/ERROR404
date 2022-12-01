@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import App from "../App";
+import "semantic-ui-css/semantic.min.css";
+
 import {
   Layout,
   Button,
