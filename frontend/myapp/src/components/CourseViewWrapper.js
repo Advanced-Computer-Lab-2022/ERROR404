@@ -58,7 +58,6 @@ const items = [
     "6",
     <ShoppingCartIcon />
   ),
-  getItem(<Rate disabled></Rate>, "7"),
 ];
 const PreviewCourses = ({ children }) => (
   <Layout>

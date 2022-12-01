@@ -8,6 +8,7 @@ import {
   Breadcrumb,
   Menu,
   Image,
+  Rate,
 } from "antd";
 
 import button from "react-bootstrap/Button";
@@ -158,9 +159,8 @@ const PreviewCourse = () => {
         <div>
           <div class="ui link list">
             <div>
-              <i class="icon share "></i>
               <a class="item">
-                <u>Share this course</u>
+                <Rate disabled allowHalf value={courseData.rating}></Rate>
               </a>
             </div>
           </div>
