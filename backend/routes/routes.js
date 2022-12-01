@@ -43,7 +43,7 @@ const getUser = async (req, res) => {
   let query = { _id: userId };
 
   if (userType == "instructor") {
-    await Instructor.find(query, function (err, data) {
+    await Instructor.findOne(query, function (err, data) {
       if (err) {
         res.status(400).send("An erorr has occured");
       } else {
@@ -52,7 +52,7 @@ const getUser = async (req, res) => {
     }).clone();
   } else if (userType == "admin") {
     await admin
-      .find(query, function (err, data) {
+      .findOne(query, function (err, data) {
         if (err) {
           res.status(400).send("An erorr has occured");
         } else {
@@ -60,9 +60,26 @@ const getUser = async (req, res) => {
         }
       })
       .clone();
-    // } else if (userType == "corporate") {
-
-    // } else if (userType == "indivisual") {
+  } else if (userType == "corporate") {
+    await corporateTrainee
+      .findOne(query, function (err, data) {
+        if (err) {
+          res.status(400).send("An erorr has occured");
+        } else {
+          res.status(200).json(data);
+        }
+      })
+      .clone();
+  } else if (userType == "indivisual") {
+    await individualTrainee
+      .findOne(query, function (err, data) {
+        if (err) {
+          res.status(400).send("An erorr has occured");
+        } else {
+          res.status(200).json(data);
+        }
+      })
+      .clone();
   }
 
   // we need to implement new schema
@@ -897,16 +914,16 @@ const addCourseToStudent = async (req, res) => {
 };
 
 const getCourseById = async (req, res) => {
-  let courseId = req.params.id;
+  const courseId = req.params.id;
 
-  Courses.findOne({ _id: courseId }, (err, result) => {
+  await Courses.findOne({ _id: courseId }, (err, result) => {
     if (err) {
       console.log(err);
-      req.status(500).send(err);
+      req.status(500).send();
     } else {
       res.status(200).json(result);
     }
-  });
+  }).clone();
 };
 
 module.exports = {
