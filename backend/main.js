@@ -21,8 +21,8 @@ const {
   view,
   filterCourses,
   updateViews,
-  rateInstructor,
-  rateCourse,
+  rateAndReviewInstructor,
+  rateAndReviewCourse,
   viewRatingAndReviews,
   uploadPreviewVideoForCourse,
   editEmail,
@@ -33,7 +33,7 @@ const {
   insertVideoLinkToCourse,
   addCreditCardInfo,
   // noOfSubscribers,
-  reviewInstructor,
+  //reviewInstructor,
   salary,
   createQuestions,
   createQuiz,
@@ -79,8 +79,8 @@ app.patch("/country", chooseCountry);
 app.get("/instViewCourses/:userId", instViewCourses);
 app.get("/filter/:filterType/:key", filterCourses);
 app.put("/updateViews", updateViews);
-app.patch("/rateInstructor", rateInstructor);
-app.patch("/rateCourse", rateCourse);
+app.patch("/rateAndReviewInstructor", rateAndReviewInstructor);
+app.patch("/rateAndReviewCourse", rateAndReviewCourse);
 app.get("/viewRatingAndReviews/:username", viewRatingAndReviews);
 app.put("/uploadPreviewVideoForCourse", uploadPreviewVideoForCourse);
 app.put("/editEmail", editEmail);
@@ -90,7 +90,7 @@ app.get("/viewReviewAndRating/:username", viewReviewAndRatingForInstructor);
 app.patch("/insertVideoLinkToCourse", insertVideoLinkToCourse);
 app.patch("/addCreditCardInfo", addCreditCardInfo);
 //app.put("/noOfSubscribers", noOfSubscribers);
-app.put("/reviewInstructor", reviewInstructor);
+//app.put("/reviewInstructor", reviewInstructor);
 app.put("/salary", salary);
 app.post("/createQuestions", createQuestions);
 app.post("/createQuiz", createQuiz);

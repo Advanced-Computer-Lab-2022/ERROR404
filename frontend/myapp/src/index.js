@@ -40,8 +40,7 @@ import {
   ChangeEmail,
   UserChangeEmail,
 } from "./components/instructorComponents/instructorChangeSetting";
-import RateComponent from "./components/studentRateInstructor";
-import ReviewComponent from "./components/studentReviewInstructor";
+import ReviewComponent from "./components/StudentrateAndReviewInstructor";
 import LoadSearchedCourses from "./components/loadSearchedCoursesComp";
 import CreateExamWrapper from "./components/createExam";
 import SolveExamWrapper from "./components/solveExam";
@@ -49,7 +48,7 @@ import PreviewCourseWrapper from "./components/courseComponents/previewCourse";
 import CourseReview from "./components/courseComponents/courseReview";
 import CourseSyllabus from "./components/courseComponents/courseSyllabes";
 import UserCourses from "./components/courseComponents/userClassRoom";
-
+import ReviewCourseComponent from "./components/rateAndReviewCourse";
 export default function MainApp() {
   const [username, setUsername] = useState("abdelrahman");
   const [userEmail, setUserEmail] = useState("alighieth2709@gmail.com");
@@ -136,11 +135,15 @@ export default function MainApp() {
           />
           <Route path="/user/editEmail" element={<UserChangeEmail />} />
           <Route path="/instructorDashBoard/editBio" element={<ChangeBio />} />
-          <Route path="/studentRateInstructor" element={<RateComponent />} />
           <Route
-            path="/studentReviewInstructor"
+            path="/rateAndReviewInstructor"
             element={<ReviewComponent />}
           />
+          <Route
+            path="/rateAndReviewCourse"
+            element={<ReviewCourseComponent />}
+          />
+
           <Route path="/searchedItems" element={<LoadSearchedCourses />} />
           <Route path="/course/about" element={<PreviewCourseWrapper />} />
           <Route path="/course/reviews" element={<CourseReview />} />

@@ -398,54 +398,79 @@ const updateViews = async (req, res) => {
     })
     .clone();
 };
-const rateInstructor = async (req, res) => {
+const rateAndReviewInstructor = async (req, res) => {
   const username = req.body.username;
   const rate = req.body.rate;
+  const review = req.body.review;
+  console.log(req.body);
   let oldrate = 0;
   if (isNaN(rate)) {
     res.status(400).send("invalid rate");
   } else if (rate > 5 || rate < 0) {
     res.status(400).send("invalid rate, the rate must be between 0 and 5");
   } else {
-    const x = await Instructor.findOne({ username: username }, { rating: 1 });
-    oldrate = x.rating;
-    let newRating = rate / 2 + oldrate / 2;
-    await Instructor.updateOne(
+    await Instructor.findOne(
       { username: username },
-      { rating: newRating },
+      { rating: 1 },
       (err, result) => {
         if (err) {
-          res.status(500).send(err.message);
+          res.status(500).send();
         } else {
-          res.status(200).json(result);
+          oldrate = result.rating;
+          let newRating = rate / 2 + oldrate / 2;
+          Instructor.updateOne(
+            { username: username },
+            { rating: newRating, $push: { review: review } },
+            (err, result) => {
+              if (err) {
+                res.status(500).send(err.message);
+              } else {
+                res.status(200).json(result);
+              }
+            }
+          ).clone();
         }
       }
     ).clone();
   }
 };
-const rateCourse = async (req, res) => {
+const rateAndReviewCourse = async (req, res) => {
   const courseId = req.body.id;
+  const review = req.body.review;
   const newRate = req.body.newRate;
+  console.log(req.body);
   let oldRate = 0;
   if (isNaN(newRate)) {
     res.status(400).send("invalid rate");
   } else if (newRate > 5 || newRate < 0) {
     res.status(400).send("invalid rate, the rate must be between 0 and 5");
   } else {
-    const x = await course.findOne({ _id: courseId }, { rating: 1 });
-    oldRate = x.rating;
-    let rate = oldRate / 2 + newRate / 2;
     await course
-      .updateOne({ _id: courseId }, { rating: rate }, (err, result) => {
+      .findById({ _id: courseId }, { rating: 1 }, (err, result) => {
         if (err) {
-          res.status(500).send(err.message);
+          res.status(500).send();
         } else {
-          res.status(200).json(result);
+          oldRate = result.rating;
+          let newRating = newRate / 2 + oldRate / 2;
+          course
+            .updateOne(
+              { _id: courseId },
+              { rating: newRating, $push: { review: review } },
+              (err, result) => {
+                if (err) {
+                  res.status(500).send(err.message);
+                } else {
+                  res.status(200).json(result);
+                }
+              }
+            )
+            .clone();
         }
       })
       .clone();
   }
 };
+
 const viewRatingAndReviews = async (req, res) => {
   const username = req.params.username;
   await Instructor.find(
@@ -706,21 +731,21 @@ const salary = async (req, res) => {
     ).clone();
   }
 };
-const reviewInstructor = async (req, res) => {
-  const username = req.body.username;
-  const review = req.body.review;
-  await Instructor.updateOne(
-    { username: username },
-    { $addToSet: { review: review } },
-    (err, result) => {
-      if (err) {
-        res.status(500).send();
-      } else {
-        res.status(200).send();
-      }
-    }
-  ).clone();
-};
+// const reviewInstructor = async (req, res) => {
+//   const username = req.body.username;
+//   const review = req.body.review;
+//   await Instructor.updateOne(
+//     { username: username },
+//     { $addToSet: { review: review } },
+//     (err, result) => {
+//       if (err) {
+//         res.status(500).send();
+//       } else {
+//         res.status(200).send();
+//       }
+//     }
+//   ).clone();
+// };
 const createQuestions = async (req, res) => {
   const username = req.body.username;
   const question1 = req.body.question1;
@@ -955,8 +980,8 @@ module.exports = {
   view,
   filterCourses,
   updateViews,
-  rateInstructor,
-  rateCourse,
+  rateAndReviewInstructor,
+  rateAndReviewCourse,
   viewRatingAndReviews,
   uploadPreviewVideoForCourse,
   editEmail,
@@ -967,7 +992,7 @@ module.exports = {
   addCreditCardInfo,
   // noOfSubscribers,
   topCourses,
-  reviewInstructor,
+  //reviewInstructor,
   salary,
   createQuestions,
   createQuiz,
