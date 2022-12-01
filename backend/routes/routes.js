@@ -623,19 +623,23 @@ const addCreditCardInfo = async (req, res) => {
     }
   ).clone();
 };
-//route to inc no of subs'
-const noOfSubscribers = async (req, res) => {
-  const id = req.body.id;
-  await course
-    .updateOne({ _id: id }, { $inc: { noOfSubscribers: 1 } }, (err, result) => {
-      if (err) {
-        res.status(500).send();
-      } else {
-        res.status(200).send(result);
-      }
-    })
-    .clone();
-};
+// //route to inc no of subs'
+// const noOfSubscribers = async (req, res) => {
+//   const id = req.body.id;
+//   await course
+//     .updateOne(
+//       { _id: id },
+//       { $inc: { numberOfSubscribers: 1 } },
+//       (err, result) => {
+//         if (err) {
+//           res.status(500).send();
+//         } else {
+//           res.status(200).send(result);
+//         }
+//       }
+//     )
+//     .clone();
+// };
 
 const topCourses = async (req, res) => {
   const topCourses = await Courses.find({}).sort({ views: -1 }).limit(5);
@@ -844,7 +848,19 @@ const addCourseToStudent = async (req, res) => {
           if (err) {
             res.status(500).send();
           } else {
-            res.status(200).send();
+            course
+              .updateOne(
+                { _id: courseId },
+                { $inc: { numberOfSubscribers: 1 } },
+                (err, result) => {
+                  if (err) {
+                    res.status(500).send();
+                  } else {
+                    res.status(200).send(result);
+                  }
+                }
+              )
+              .clone();
           }
         }
       )
@@ -858,7 +874,19 @@ const addCourseToStudent = async (req, res) => {
           if (err) {
             res.status(500).send();
           } else {
-            res.status(200).send();
+            course
+              .updateOne(
+                { _id: courseId },
+                { $inc: { numberOfSubscribers: 1 } },
+                (err, result) => {
+                  if (err) {
+                    res.status(500).send();
+                  } else {
+                    res.status(200).send(result);
+                  }
+                }
+              )
+              .clone();
           }
         }
       )
@@ -907,7 +935,7 @@ module.exports = {
   viewReviewAndRatingForInstructor,
   insertVideoLinkToCourse,
   addCreditCardInfo,
-  noOfSubscribers,
+  // noOfSubscribers,
   topCourses,
   reviewInstructor,
   salary,

@@ -32,7 +32,7 @@ const {
   viewReviewAndRatingForInstructor,
   insertVideoLinkToCourse,
   addCreditCardInfo,
-  noOfSubscribers,
+  // noOfSubscribers,
   reviewInstructor,
   salary,
   createQuestions,
@@ -89,7 +89,7 @@ app.put("/changePassword", changePassword);
 app.get("/viewReviewAndRating/:username", viewReviewAndRatingForInstructor);
 app.patch("/insertVideoLinkToCourse", insertVideoLinkToCourse);
 app.patch("/addCreditCardInfo", addCreditCardInfo);
-app.put("/noOfSubscribers", noOfSubscribers);
+//app.put("/noOfSubscribers", noOfSubscribers);
 app.put("/reviewInstructor", reviewInstructor);
 app.put("/salary", salary);
 app.post("/createQuestions", createQuestions);
