@@ -34,6 +34,10 @@ const SelectCountry1 = () => {
   const [value, setValue] = useState("");
   const options = useMemo(() => countryList().getData(), []);
 
+  const { userType, username } = useContext(AppContext);
+  const [usertype, setUserType] = userType;
+  const [userName, setUserName] = username;
+
   const changeHandler = (value) => {
     setValue(value);
     console.log("iocnwen ", value);
@@ -41,7 +45,6 @@ const SelectCountry1 = () => {
 
   const onFinish = async (event) => {
     console.log("Success:", event);
-    const username = event.username;
     const country = event.country;
 
     await selectCountry(username, country);
@@ -50,8 +53,9 @@ const SelectCountry1 = () => {
   const selectCountry = async (username, country) => {
     const requestBody = {
       //currentUser: currentUser,
-      username: username,
+      username: userName,
       country: country,
+      usertype: usertype,
     };
     axios
       .patch("http://localhost:2020/country", requestBody)
@@ -78,14 +82,6 @@ const SelectCountry1 = () => {
       onFinishFailed={onFinishFailed}
       autoComplete="off"
     >
-      <Form.Item
-        label="username"
-        name="username"
-        rules={[{ required: true, message: "Please input your username!" }]}
-      >
-        <Input />
-      </Form.Item>
-
       <Form.Item
         label="Country"
         name="country"
