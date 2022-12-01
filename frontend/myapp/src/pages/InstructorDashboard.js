@@ -73,6 +73,11 @@ const items = [
     "20",
     <AddBoxIcon />
   ),
+  getItem(
+    <Link to="/instructorDashBoard/addDiscount">Add Discount</Link>,
+    "20",
+    <AddBoxIcon />
+  ),
   getItem(<Link to="/settings">Settings</Link>, "15", <SettingFilled />),
   //   getItem(<InstructorBalance />, "16", <SettingFilled />),
 ];

@@ -60,8 +60,16 @@ const courses = new Schema(
       maxLength: 100,
     },
     discount: {
-      type: Number,
-      default: 0,
+      value: {
+        type: Number,
+        required: true,
+        default: 0,
+      },
+      endDate: {
+        type: String,
+        required: true,
+        default: "",
+      },
     },
     image: {
       type: String,

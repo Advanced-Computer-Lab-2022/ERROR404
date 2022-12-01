@@ -76,7 +76,7 @@ const ViewAllCourses = () => {
       >
         <SearchByForm dataState={setData} />
       </Modal>
-      <CourseComponent courses={data} />
+      <CourseComponent courses={data} viewType="view" />
     </>
   );
 };

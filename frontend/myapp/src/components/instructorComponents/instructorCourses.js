@@ -25,7 +25,7 @@ const InstructorViewAllTitlesWrapper = () => {
   }, []);
   return (
     <InstructorDashboard>
-      <CourseComponent courses={courses} />
+      <CourseComponent courses={courses} viewType="instructor" />
     </InstructorDashboard>
   );
 };

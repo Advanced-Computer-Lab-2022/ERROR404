@@ -115,7 +115,10 @@ const createCourse = async (req, res) => {
       subtitles: req.body.subtitles,
       exercises: req.body.exercises,
       summary: req.body.summary,
-      discount: req.body.discount,
+      discount: {
+        value: req.body.discount,
+        endDate: req.body.date,
+      },
       image: req.body.image,
       prerequisite: req.body.prerequisite,
       preview: req.body.preview,
@@ -340,6 +343,30 @@ const chooseCountry = async (req, res) => {
     }
   }
 };
+
+const submitDiscount = (req, res) => {
+  const courseId = req.body.courseId;
+  const discount = req.body.discount;
+  const date = req.body.date;
+
+  const discountBody = {
+    value: discount,
+    endDate: date,
+  };
+
+  Courses.updateOne(
+    { _id: courseId },
+    { discount: discountBody },
+    (err, response) => {
+      if (err) {
+        res.status(500).send();
+      } else {
+        res.status(200).send();
+      }
+    }
+  );
+};
+
 const view = async (req, res) => {
   const data = await user
     .find({}, {}, (err, result) => {
@@ -998,4 +1025,5 @@ module.exports = {
   createQuiz,
   addCourseToStudent,
   getCourseById,
+  submitDiscount,
 };

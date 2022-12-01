@@ -89,7 +89,7 @@ const CourseComponent = ({ courses, viewType }) => {
             <List.Item
               key={item._id}
               onClick={() => {
-                if (user == "instructor") {
+                if (user == "instructor" && viewType == "instructor") {
                   setIsModalOpen(true);
                 } else {
                   navigation("/course/about?courseId=" + item._id);
@@ -124,7 +124,7 @@ const CourseComponent = ({ courses, viewType }) => {
               ]}
               extra={
                 <Space>
-                  {user == "instructor" ? (
+                  {user == "instructor" && viewType == "instructor" ? (
                     <Button
                       type="dashed"
                       icon={<PlusOutlined />}

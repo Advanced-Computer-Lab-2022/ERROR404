@@ -49,6 +49,8 @@ import CourseReview from "./components/courseComponents/courseReview";
 import CourseSyllabus from "./components/courseComponents/courseSyllabes";
 import UserCourses from "./components/courseComponents/userClassRoom";
 import ReviewCourseComponent from "./components/rateAndReviewCourse";
+import SubmitDiscount from "./components/instructorSubmitDiscount";
+
 export default function MainApp() {
   const [username, setUsername] = useState("abdelrahman");
   const [userEmail, setUserEmail] = useState("alighieth2709@gmail.com");
@@ -150,6 +152,10 @@ export default function MainApp() {
           <Route path="/course/syllabus" element={<CourseSyllabus />} />
           <Route path="/SolveExam" element={<SolveExamWrapper />} />
           <Route path="/user/classroom" element={<UserCourses />} />
+          <Route
+            path="/instructorDashBoard/addDiscount"
+            element={<SubmitDiscount />}
+          />
         </Routes>
       </Router>
     </AppContext.Provider>

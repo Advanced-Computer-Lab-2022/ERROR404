@@ -39,6 +39,7 @@ const {
   createQuiz,
   addCourseToStudent,
   getCourseById,
+  submitDiscount,
 } = require("./routes/routes");
 
 //App variables
@@ -95,3 +96,4 @@ app.put("/salary", salary);
 app.post("/createQuestions", createQuestions);
 app.post("/createQuiz", createQuiz);
 app.put("/addCourseToStudent", addCourseToStudent);
+app.put("/submitDiscount", submitDiscount);
