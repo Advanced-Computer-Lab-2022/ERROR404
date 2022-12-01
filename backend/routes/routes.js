@@ -8,6 +8,7 @@ const Courses = require("../models/Courses");
 const Questions = require("../models/questions");
 const Quizzes = require("../models/quizzes");
 const { default: mongoose } = require("mongoose");
+const CorporateTrainee = require("../models/corporateTrainee");
 
 //Methods
 const createIndividualTrainee = (req, res) => {
@@ -296,35 +297,47 @@ const viewCourses = async (req, res) => {
   }
 };
 const chooseCountry = async (req, res) => {
-  const { username, country } = req.body;
+  const { username, country, usertype } = req.body;
   if (username == "" || country == "") {
     res.status(400).send("valid data required");
   } else {
-    await user
-      .updateOne(
+    if (usertype == "instructor") {
+      Instructor.updateOne(
         { username: username },
         { country: country },
-        (error, docs) => {
-          if (error) {
-            res.status(400).send(error);
-          } else if (docs == null) {
-            Instructor.updateOne(
-              { username: username },
-              { country: country },
-              (err, result) => {
-                if (err) {
-                  res.status(400).send(err.message);
-                } else {
-                  res.status(200).json(result);
-                }
-              }
-            );
-          } else if (docs) {
-            res.status(200).json(docs);
+        (err, result) => {
+          if (err) {
+            res.status(400).send(err.message);
+          } else {
+            res.status(200).json(result);
           }
         }
-      )
-      .clone();
+      );
+    } else if (usertype == "individual trainee") {
+      IndividualTrainee.updateOne(
+        { username: username },
+        { country: country },
+        (err, result) => {
+          if (err) {
+            res.status(400).send(err.message);
+          } else {
+            res.status(200).json(result);
+          }
+        }
+      );
+    } else if (usertype == "corporate trainee") {
+      CorporateTrainee.updateOne(
+        { username: username },
+        { country: country },
+        (err, result) => {
+          if (err) {
+            res.status(400).send(err.message);
+          } else {
+            res.status(200).json(result);
+          }
+        }
+      );
+    }
   }
 };
 const view = async (req, res) => {
