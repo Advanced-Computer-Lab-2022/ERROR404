@@ -21,7 +21,7 @@ import {
 } from "antd";
 import { AppContext } from "../AppContext";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const IconText = ({ icon, text }) => (
   <Space>
@@ -125,17 +125,32 @@ const CourseComponent = ({ courses, viewType }) => {
               extra={
                 <Space>
                   {user == "instructor" && viewType == "instructor" ? (
-                    <Button
-                      type="dashed"
-                      icon={<PlusOutlined />}
-                      onClick={() => {
-                        setTitle(item.title);
-                        setId(item._id);
-                        setIsModalOpen(true);
-                      }}
-                    >
-                      Add preview video
-                    </Button>
+                    <>
+                      <Button
+                        type="dashed"
+                        icon={<PlusOutlined />}
+                        onClick={() => {
+                          setTitle(item.title);
+                          setId(item._id);
+                          setIsModalOpen(true);
+                        }}
+                      >
+                        Add preview video
+                      </Button>
+                      <Link to={"reviews?courseId=" + item._id}>
+                        <Button
+                          type="dashed"
+                          icon={<PlusOutlined />}
+                          onClick={() => {
+                            setTitle(item.title);
+                            setId(item._id);
+                            setIsModalOpen(true);
+                          }}
+                        >
+                          View Reviews
+                        </Button>
+                      </Link>
+                    </>
                   ) : null}
                   <img
                     width={250}

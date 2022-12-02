@@ -984,7 +984,7 @@ const getCourseById = async (req, res) => {
   await Courses.findOne({ _id: courseId }, (err, result) => {
     if (err) {
       console.log(err);
-      req.status(500).send();
+      res.status(500).send();
     } else {
       res.status(200).json(result);
     }

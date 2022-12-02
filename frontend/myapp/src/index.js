@@ -50,6 +50,7 @@ import CourseSyllabus from "./components/courseComponents/courseSyllabes";
 import UserCourses from "./components/courseComponents/userClassRoom";
 import ReviewCourseComponent from "./components/rateAndReviewCourse";
 import SubmitDiscount from "./components/instructorSubmitDiscount";
+import InstructorCourseReview from "./components/instructorComponents/instructorCourseReviews";
 
 export default function MainApp() {
   const [username, setUsername] = useState("abdelrahman");
@@ -155,6 +156,10 @@ export default function MainApp() {
           <Route
             path="/instructorDashBoard/addDiscount"
             element={<SubmitDiscount />}
+          />
+          <Route
+            path="instructorDashboard/allMyCourses/reviews"
+            element={<InstructorCourseReview />}
           />
         </Routes>
       </Router>
