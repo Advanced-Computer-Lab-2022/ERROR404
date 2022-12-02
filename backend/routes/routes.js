@@ -991,6 +991,60 @@ const getCourseById = async (req, res) => {
   }).clone();
 };
 
+const getMyCoursesTrainee = (req, res) => {
+  const usertype = req.params.usertype;
+  const username = req.params.username;
+
+  let ids = [];
+  if (usertype == "corporate") {
+    corporateTrainee.findOne(
+      { username: username },
+      { Regcourses: 1 },
+      (err, data) => {
+        if (err) {
+          res.status(500).send();
+        } else {
+          if (data == null) {
+            return res.status(200).send("no courses found");
+          }
+          ids = data.Regcourses;
+          course.find({ _id: ids }, (err, data) => {
+            if (err) {
+              res.status(500).send();
+            } else {
+              res.status(200).json(data);
+            }
+          });
+        }
+      }
+    );
+  } else if (usertype == "indivisual") {
+    individualTrainee.findOne(
+      { username: username },
+      { Regcourses: 1 },
+      (err, data) => {
+        if (err) {
+          res.status(500).send();
+        } else {
+          if (data == null) {
+            return res.status(200).send("no courses found");
+          }
+          ids = data.Regcourses;
+          course.find({ _id: ids }, (err, data) => {
+            if (err) {
+              res.status(500).send();
+            } else {
+              res.status(200).json(data);
+            }
+          });
+        }
+      }
+    );
+  } else {
+    res.status(404).send("user type not found");
+  }
+};
+
 module.exports = {
   getUser,
   search,
@@ -1026,4 +1080,5 @@ module.exports = {
   addCourseToStudent,
   getCourseById,
   submitDiscount,
+  getMyCoursesTrainee,
 };

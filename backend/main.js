@@ -14,6 +14,7 @@ const {
   createCourse,
   instructorSearch,
   viewCourses,
+  getMyCoursesTrainee,
   createInstructor,
   createIndividualTrainee,
   chooseCountry,
@@ -69,6 +70,7 @@ app.get("/getTopCourses", topCourses);
 app.get("/search/:key", search);
 app.get("/coursePrice", coursePrice);
 app.get("/searchmycourses/:user/:key", instructorSearch);
+app.get("/getMyCourses/:usertype/:username", getMyCoursesTrainee);
 app.get("/viewCourses", viewCourses);
 app.get("/getCourse/:id", getCourseById);
 app.post("/createCorporateTrainee", createCorporateTrainee);
