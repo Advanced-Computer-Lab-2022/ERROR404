@@ -75,7 +75,7 @@ const items = [
   ),
   getItem(
     <Link to="/instructorDashBoard/addDiscount">Add Discount</Link>,
-    "20",
+    "21",
     <AddBoxIcon />
   ),
   getItem(<Link to="/settings">Settings</Link>, "15", <SettingFilled />),
