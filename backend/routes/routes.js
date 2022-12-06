@@ -1045,6 +1045,28 @@ const getMyCoursesTrainee = (req, res) => {
   }
 };
 
+const getmyGrade = async (req, res) => {
+  const id = req.params.id;
+  const usertype = req.params.usertype;
+  if (usertype == "corporate trainee") {
+    corporateTrainee.findOne({ _id: id }, (err, result) => {
+      if (err) {
+        req.status(500).send();
+      } else {
+        res.status(200).json(result);
+      }
+    });
+  } else if (usertype == "individual trainee") {
+    IndividualTrainee.findOne({ _id: id }, (err, result) => {
+      if (err) {
+        req.status(500).send();
+      } else {
+        res.status(200).json(result);
+      }
+    });
+  }
+};
+
 module.exports = {
   getUser,
   search,
@@ -1081,4 +1103,5 @@ module.exports = {
   getCourseById,
   submitDiscount,
   getMyCoursesTrainee,
+  getmyGrade,
 };

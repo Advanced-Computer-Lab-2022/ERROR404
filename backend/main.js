@@ -33,6 +33,7 @@ const {
   viewReviewAndRatingForInstructor,
   insertVideoLinkToCourse,
   addCreditCardInfo,
+
   // noOfSubscribers,
   //reviewInstructor,
   salary,
@@ -41,6 +42,7 @@ const {
   addCourseToStudent,
   getCourseById,
   submitDiscount,
+  getmyGrade,
 } = require("./routes/routes");
 
 //App variables
@@ -99,3 +101,4 @@ app.post("/createQuestions", createQuestions);
 app.post("/createQuiz", createQuiz);
 app.put("/addCourseToStudent", addCourseToStudent);
 app.put("/submitDiscount", submitDiscount);
+app.get("/getmygrade/:id/:usertype", getmyGrade);

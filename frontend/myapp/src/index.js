@@ -51,13 +51,14 @@ import UserCourses from "./components/courseComponents/userClassRoom";
 import ReviewCourseComponent from "./components/rateAndReviewCourse";
 import SubmitDiscount from "./components/instructorSubmitDiscount";
 import InstructorCourseReview from "./components/instructorComponents/instructorCourseReviews";
+import ViewGradeWrapper from "./components/traineeComponents/viewGrade";
 
 export default function MainApp() {
   const [username, setUsername] = useState("abdelrahman");
   const [userEmail, setUserEmail] = useState("alighieth2709@gmail.com");
   const [userType, setUserType] = useState("instructor");
   const [userPassword, setUserPassword] = useState("aman ya raby aman");
-  const [userMongoId, setUserMongoId] = useState("6366d3ddd79a066bc2b74106");
+  const [userMongoId, setUserMongoId] = useState("638115fe09ea76e1d42b67f9");
   const [userPhoneNum, setUserPhoneNum] = useState("+20 1211399151");
   const [region, setRegion] = useState("EG");
 
@@ -146,7 +147,7 @@ export default function MainApp() {
             path="/rateAndReviewCourse"
             element={<ReviewCourseComponent />}
           />
-
+          <Route path="/viewMyGrades" element={<ViewGradeWrapper />} />
           <Route path="/searchedItems" element={<LoadSearchedCourses />} />
           <Route path="/course/about" element={<PreviewCourseWrapper />} />
           <Route path="/course/reviews" element={<CourseReview />} />

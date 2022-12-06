@@ -24,7 +24,7 @@ const MainHeader = () => {
       label: <Link to="/viewAllCourses">Explore All Courses</Link>,
       key: "explore",
     },
-    { label: "My Grades", key: "grades" }, // which is required
+    { label: <Link to="/viewMyGrades">My Grades</Link>, key: "grades" }, // which is required
     {
       label: (
         <Link to="/user/classroom">
