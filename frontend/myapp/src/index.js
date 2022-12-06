@@ -52,6 +52,7 @@ import ReviewCourseComponent from "./components/rateAndReviewCourse";
 import SubmitDiscount from "./components/instructorSubmitDiscount";
 import InstructorCourseReview from "./components/instructorComponents/instructorCourseReviews";
 import ViewGradeWrapper from "./components/traineeComponents/viewGrade";
+import AcceptAgreWrapper from "./components/instructorComponents/AcceptAgreement";
 
 export default function MainApp() {
   const [username, setUsername] = useState("abdelrahman");
@@ -162,6 +163,7 @@ export default function MainApp() {
             path="instructorDashboard/allMyCourses/reviews"
             element={<InstructorCourseReview />}
           />
+          <Route path="Acceptagreement" element={<AcceptAgreWrapper />} />
         </Routes>
       </Router>
     </AppContext.Provider>
