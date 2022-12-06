@@ -853,34 +853,16 @@ const createQuestions = async (req, res) => {
       answer: answerQes4,
       options: options4,
     };
-    Questions.create(body1, (err, result) => {
-      if (err) {
-        res.status(500).send(err);
-      } else {
-        res.status(200).send();
-      }
-    });
-    Questions.create(body2, (err, result) => {
-      if (err) {
-        res.status(500).send(err);
-      } else {
-        res.status(200).send();
-      }
-    });
-    Questions.create(body3, (err, result) => {
-      if (err) {
-        res.status(500).send(err);
-      } else {
-        res.status(200).send();
-      }
-    });
-    Questions.create(body4, (err, result) => {
-      if (err) {
-        res.status(500).send(err);
-      } else {
-        res.status(200).send();
-      }
-    });
+
+    const array = [body1, body2, body3, body4];
+
+    Questions.insertMany(array)
+      .then((docs) => {
+        res.status(200).json(docs);
+      })
+      .catch((err) => {
+        res.status(500).send();
+      });
   }
 };
 const createQuiz = async (req, res) => {
@@ -996,7 +978,7 @@ const getMyCoursesTrainee = (req, res) => {
   const username = req.params.username;
 
   let ids = [];
-  if (usertype == "corporate") {
+  if (usertype == "corporate trainee") {
     corporateTrainee.findOne(
       { username: username },
       { Regcourses: 1 },
@@ -1018,7 +1000,7 @@ const getMyCoursesTrainee = (req, res) => {
         }
       }
     );
-  } else if (usertype == "indivisual") {
+  } else if (usertype == "individual trainee") {
     individualTrainee.findOne(
       { username: username },
       { Regcourses: 1 },
