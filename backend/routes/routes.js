@@ -1,40 +1,37 @@
 const corporateTrainee = require("../models/corporateTrainee");
-const course = require("../models/Courses");
-const admin = require("../models/Admin");
-const Instructor = require("../models/instructor");
+const courses = require("../models/courses");
+const admin = require("../models/admin");
+const instructor = require("../models/instructor");
 const individualTrainee = require("../models/IndividualTrainee");
-const IndividualTrainee = require("../models/IndividualTrainee");
-const Courses = require("../models/Courses");
-const Questions = require("../models/questions");
-const Quizzes = require("../models/quizzes");
+const questions = require("../models/questions");
+const quizzes = require("../models/quizzes");
 const { default: mongoose } = require("mongoose");
-const CorporateTrainee = require("../models/corporateTrainee");
 
 //Methods
 const createIndividualTrainee = (req, res) => {
-  // const username = req.body.username;
-  // const password = req.body.password;
+  const username = req.body.username;
+  const password = req.body.password;
   const userData = {
     firstname: req.body.firstname,
     lastname: req.body.lastname,
     age: req.body.age,
     gender: req.body.gender,
-    username: req.body.username,
-    password: req.body.password,
+    username: username,
+    password: password,
     email: req.body.email,
     country: req.body.country,
   };
-  // if (username == null || password == null) {
-  //   return res.status(400).json("Enter a valid data ");
-  // } else {
-  individualTrainee.create(userData, function (err, small) {
-    if (err) {
-      res.status(500).send("Database not responding  => " + err);
-    } else {
-      res.status(200).send("Individual Trainee Created Successfully");
-    }
-  });
-  // }
+  if (username == null || password == null) {
+    return res.status(400).json("Enter a valid data ");
+  } else {
+    individualTrainee.create(userData, function (err, small) {
+      if (err) {
+        res.status(500).send("Database not responding  => " + err);
+      } else {
+        res.status(200).send("Individual Trainee Created Successfully");
+      }
+    });
+  }
 };
 
 const getUser = async (req, res) => {
@@ -44,13 +41,15 @@ const getUser = async (req, res) => {
   let query = { _id: userId };
 
   if (userType == "instructor") {
-    await Instructor.findOne(query, function (err, data) {
-      if (err) {
-        res.status(400).send("An erorr has occured");
-      } else {
-        res.status(200).json(data);
-      }
-    }).clone();
+    await instructor
+      .findOne(query, function (err, data) {
+        if (err) {
+          res.status(400).send("An erorr has occured");
+        } else {
+          res.status(200).json(data);
+        }
+      })
+      .clone();
   } else if (userType == "admin") {
     await admin
       .findOne(query, function (err, data) {
@@ -88,7 +87,7 @@ const getUser = async (req, res) => {
 
 const createCourse = async (req, res) => {
   const instructorId = req.body.id;
-  const instructor = await Instructor.findOne({ _id: instructorId });
+  const instructor = await instructor.findOne({ _id: instructorId });
   if (instructor == null) {
     res.status(401).send("Username is not found, or unauthorized");
   } else if (
@@ -124,7 +123,7 @@ const createCourse = async (req, res) => {
       preview: req.body.preview,
       category: req.body.category,
     };
-    course.create(courseDetails, (err, small) => {
+    courses.create(courseDetails, (err, small) => {
       if (err) {
         console.log("error with course ", err.message);
       } else {
@@ -135,7 +134,7 @@ const createCourse = async (req, res) => {
 };
 const coursePrice = async (req, res) => {
   console.log(req.params);
-  const c = await course.find({}, { title: 1, price: 1, _id: 0 });
+  const c = await courses.find({}, { title: 1, price: 1, _id: 0 });
   if (c == null) {
     res.status(404).send("no course found");
   } else {
@@ -184,7 +183,7 @@ const search = async (req, res) => {
           ],
         };
   }
-  await course
+  await courses
     .find(query, function (err, results) {
       if (err) {
         res.status(500).send("Server not responding " + err.message);
@@ -220,7 +219,7 @@ const instructorSearch = async (req, res) => {
         };
   }
 
-  await course
+  await courses
     .find(query, (err, data) => {
       if (err) {
         res.status(500).send("Server Error");
@@ -256,7 +255,7 @@ const createInstructor = async (req, res) => {
         } else if (result == "") {
           res.status(400).send("not an admin");
         } else {
-          Instructor.create(instData, (error, small) => {
+          instructor.create(instData, (error, small) => {
             if (error) {
               res.status(400).send(error.message);
             } else {
@@ -292,7 +291,7 @@ const createCorporateTrainee = async (req, res) => {
   // }
 };
 const viewCourses = async (req, res) => {
-  const a = await course.find({});
+  const a = await courses.find({});
   if (a == null) {
     res.status(404).send("no courses available");
   } else {
@@ -305,7 +304,7 @@ const chooseCountry = async (req, res) => {
     res.status(400).send("valid data required");
   } else {
     if (usertype == "instructor") {
-      Instructor.updateOne(
+      instructor.updateOne(
         { username: username },
         { country: country },
         (err, result) => {
@@ -317,7 +316,7 @@ const chooseCountry = async (req, res) => {
         }
       );
     } else if (usertype == "individual trainee") {
-      IndividualTrainee.updateOne(
+      individualTrainee.updateOne(
         { username: username },
         { country: country },
         (err, result) => {
@@ -329,7 +328,7 @@ const chooseCountry = async (req, res) => {
         }
       );
     } else if (usertype == "corporate trainee") {
-      CorporateTrainee.updateOne(
+      corporateTrainee.updateOne(
         { username: username },
         { country: country },
         (err, result) => {
@@ -354,7 +353,7 @@ const submitDiscount = (req, res) => {
     endDate: date,
   };
 
-  Courses.updateOne(
+  courses.updateOne(
     { _id: courseId },
     { discount: discountBody },
     (err, response) => {
@@ -379,7 +378,7 @@ const view = async (req, res) => {
     .clone();
 };
 const instViewCourses = async (req, res) => {
-  const instructorCourses = await course.find(
+  const instructorCourses = await courses.find(
     { instructor: req.params.userId }
     // {
     //   title: 1,
@@ -401,7 +400,7 @@ const filterCourses = async (req, res) => {
   if (filterType == null || key == null) {
     res.status(404).send("enter a filter type");
   } else {
-    await course
+    await courses
       .find()
       .where(filterType, key)
       .exec((err, result) => {
@@ -415,7 +414,7 @@ const filterCourses = async (req, res) => {
 };
 const updateViews = async (req, res) => {
   const id = req.body.id;
-  await course
+  await courses
     .updateOne({ _id: id }, { $inc: { views: 1 } }, (err, result) => {
       if (err) {
         res.status(500).send(err.message);
@@ -436,29 +435,29 @@ const rateAndReviewInstructor = async (req, res) => {
   } else if (rate > 5 || rate < 0) {
     res.status(400).send("invalid rate, the rate must be between 0 and 5");
   } else {
-    await Instructor.findOne(
-      { username: username },
-      { rating: 1 },
-      (err, result) => {
+    await instructor
+      .findOne({ username: username }, { rating: 1 }, (err, result) => {
         if (err) {
           res.status(500).send();
         } else {
           oldrate = result.rating;
           let newRating = rate / 2 + oldrate / 2;
-          Instructor.updateOne(
-            { username: username },
-            { rating: newRating, $push: { review: review } },
-            (err, result) => {
-              if (err) {
-                res.status(500).send(err.message);
-              } else {
-                res.status(200).json(result);
+          instructor
+            .updateOne(
+              { username: username },
+              { rating: newRating, $push: { review: review } },
+              (err, result) => {
+                if (err) {
+                  res.status(500).send(err.message);
+                } else {
+                  res.status(200).json(result);
+                }
               }
-            }
-          ).clone();
+            )
+            .clone();
         }
-      }
-    ).clone();
+      })
+      .clone();
   }
 };
 const rateAndReviewCourse = async (req, res) => {
@@ -472,14 +471,14 @@ const rateAndReviewCourse = async (req, res) => {
   } else if (newRate > 5 || newRate < 0) {
     res.status(400).send("invalid rate, the rate must be between 0 and 5");
   } else {
-    await course
+    await courses
       .findById({ _id: courseId }, { rating: 1 }, (err, result) => {
         if (err) {
           res.status(500).send();
         } else {
           oldRate = result.rating;
           let newRating = newRate / 2 + oldRate / 2;
-          course
+          courses
             .updateOne(
               { _id: courseId },
               { rating: newRating, $push: { review: review } },
@@ -500,17 +499,15 @@ const rateAndReviewCourse = async (req, res) => {
 
 const viewRatingAndReviews = async (req, res) => {
   const username = req.params.username;
-  await Instructor.find(
-    { username: username },
-    { review: 1, rating: 1 },
-    (err, result) => {
+  await instructor
+    .find({ username: username }, { review: 1, rating: 1 }, (err, result) => {
       if (err) {
         res.status(500).json(err);
       } else {
         res.status(200).json(result);
       }
-    }
-  ).clone();
+    })
+    .clone();
 };
 const changePassword = async (req, res) => {
   const id = req.body.id;
@@ -541,7 +538,7 @@ const changePassword = async (req, res) => {
       }
     );
   } else if (usertype == "instructor") {
-    Instructor.updateOne(
+    instructor.updateOne(
       { _id: id },
       { password: newPassword },
       (err, result) => {
@@ -582,17 +579,15 @@ const editEmail = async (req, res) => {
       .clone();
   } else if (usertype == "instructor") {
     console.log(req.body);
-    await Instructor.updateOne(
-      { username: username },
-      { email: email },
-      (err, result) => {
+    await instructor
+      .updateOne({ username: username }, { email: email }, (err, result) => {
         if (err) {
           res.status(404).json(err);
         } else {
           res.status(200).send();
         }
-      }
-    ).clone();
+      })
+      .clone();
   }
 };
 const editBio = async (req, res) => {
@@ -620,22 +615,20 @@ const editBio = async (req, res) => {
       })
       .clone();
   } else if (usertype == "instructor") {
-    await Instructor.updateOne(
-      { username: username },
-      { biography: bio },
-      (err, result) => {
+    await instructor
+      .updateOne({ username: username }, { biography: bio }, (err, result) => {
         if (err) {
           res.status(404).json(err);
         } else {
           res.status(200).send();
         }
-      }
-    ).clone();
+      })
+      .clone();
   }
 };
 const viewReviewAndRatingForInstructor = async (req, res) => {
   const username = req.params.username;
-  await course
+  await courses
     .find(
       { instructor: username },
       { _id: 0, title: 1, rating: 1, review: 1 },
@@ -652,7 +645,7 @@ const viewReviewAndRatingForInstructor = async (req, res) => {
 const uploadPreviewVideoForCourse = async (req, res) => {
   const id = req.body.id;
   const url = req.body.url;
-  course.updateOne({ _id: id }, { preview: url }, (err, result) => {
+  courses.updateOne({ _id: id }, { preview: url }, (err, result) => {
     if (err) {
       res.status(500).json(err);
     } else {
@@ -665,9 +658,9 @@ const insertVideoLinkToCourse = async (req, res) => {
   const courseId = req.body.courseId;
   const instructorId = req.body.instructorId;
   const link = req.body.link;
-  const x = await Instructor.findOne({ _id: instructorId });
+  const x = await instructor.findOne({ _id: instructorId });
   if (instructorId == x._id) {
-    await course
+    await courses
       .updateOne(
         { _id: courseId },
         { $addToSet: { video: link } },
@@ -692,18 +685,19 @@ const addCreditCardInfo = async (req, res) => {
     cvv: req.body.cvv,
     expirationDate: req.body.expirationDate,
   };
-  console.log(creditCard);
-  await IndividualTrainee.findOneAndUpdate(
-    { username: username },
-    { $addToSet: { creditCardInfo: creditCard } },
-    (err, result) => {
-      if (err) {
-        res.status(500).json(err);
-      } else {
-        res.status(200).send();
+  await individualTrainee
+    .findOneAndUpdate(
+      { username: username },
+      { $addToSet: { creditCardInfo: creditCard } },
+      (err, result) => {
+        if (err) {
+          res.status(500).json(err);
+        } else {
+          res.status(200).send();
+        }
       }
-    }
-  ).clone();
+    )
+    .clone();
 };
 // //route to inc no of subs'
 // const noOfSubscribers = async (req, res) => {
@@ -724,13 +718,13 @@ const addCreditCardInfo = async (req, res) => {
 // };
 
 const topCourses = async (req, res) => {
-  const topCourses = await Courses.find({}).sort({ views: -1 }).limit(5);
+  const topCourses = await courses.find({}).sort({ views: -1 }).limit(5);
   res.status(200).json(topCourses);
 };
 
 const salary = async (req, res) => {
   const courseId = req.body.courseId;
-  const x = await course.findOne(
+  const x = await courses.findOne(
     { _id: courseId },
     { instructor: 1, price: 1 }
   );
@@ -741,38 +735,25 @@ const salary = async (req, res) => {
     let price = x.price;
     price *= 0.8;
     console.log(username + " " + price);
-    const y = await Instructor.findOne({ username: username }, { wallet: 1 });
+    const y = await instructor.findOne({ username: username }, { wallet: 1 });
     let newWallet = y.wallet;
     newWallet += price;
     console.log(newWallet);
-    await Instructor.updateOne(
-      { username: username },
-      { wallet: newWallet },
-      (err, result) => {
-        if (err) {
-          res.status(500).send();
-        } else {
-          res.status(200).send(result);
+    await instructor
+      .updateOne(
+        { username: username },
+        { wallet: newWallet },
+        (err, result) => {
+          if (err) {
+            res.status(500).send();
+          } else {
+            res.status(200).send(result);
+          }
         }
-      }
-    ).clone();
+      )
+      .clone();
   }
 };
-// const reviewInstructor = async (req, res) => {
-//   const username = req.body.username;
-//   const review = req.body.review;
-//   await Instructor.updateOne(
-//     { username: username },
-//     { $addToSet: { review: review } },
-//     (err, result) => {
-//       if (err) {
-//         res.status(500).send();
-//       } else {
-//         res.status(200).send();
-//       }
-//     }
-//   ).clone();
-// };
 const createQuestions = async (req, res) => {
   const username = req.body.username;
   const question1 = req.body.question1;
@@ -802,7 +783,7 @@ const createQuestions = async (req, res) => {
   const answer43 = req.body.answer43;
   const answer44 = req.body.answer44;
   const answerQes4 = req.body.answerQes4;
-  const x = await Instructor.findOne({ username: username });
+  const x = await instructor.findOne({ username: username });
   if (x == [] || null) {
     res.status(404).json("instructor not found or not authorized");
   } else {
@@ -856,7 +837,8 @@ const createQuestions = async (req, res) => {
 
     const array = [body1, body2, body3, body4];
 
-    Questions.insertMany(array)
+    questions
+      .insertMany(array)
       .then((docs) => {
         res.status(200).json(docs);
       })
@@ -868,7 +850,7 @@ const createQuestions = async (req, res) => {
 const createQuiz = async (req, res) => {
   const username = req.body.username;
   const courseId = req.body.courseId;
-  const x = await Instructor.findOne({ username: username });
+  const x = await instructor.findOne({ username: username });
   if (x == [] || null) {
     res.status(404).json("instructor not found or not authorized");
   } else {
@@ -880,21 +862,23 @@ const createQuiz = async (req, res) => {
     const query = {
       questions: [question1, question2, question3, question4],
     };
-    Quizzes.create(query, (err, result) => {
+    quizzes.create(query, (err, result) => {
       if (err) {
         res.status(500).send();
       } else {
-        Courses.findOneAndUpdate(
-          { _id: courseId },
-          { $addToSet: { exercises: result._id } },
-          (err, result) => {
-            if (err) {
-              res.status(500).send();
-            } else {
-              res.status(200).send(result);
+        courses
+          .findOneAndUpdate(
+            { _id: courseId },
+            { $addToSet: { exercises: result._id } },
+            (err, result) => {
+              if (err) {
+                res.status(500).send();
+              } else {
+                res.status(200).send(result);
+              }
             }
-          }
-        ).clone();
+          )
+          .clone();
       }
     });
   }
@@ -912,7 +896,7 @@ const addCourseToStudent = async (req, res) => {
           if (err) {
             res.status(500).send();
           } else {
-            course
+            courses
               .updateOne(
                 { _id: courseId },
                 { $inc: { numberOfSubscribers: 1 } },
@@ -938,7 +922,7 @@ const addCourseToStudent = async (req, res) => {
           if (err) {
             res.status(500).send();
           } else {
-            course
+            courses
               .updateOne(
                 { _id: courseId },
                 { $inc: { numberOfSubscribers: 1 } },
@@ -963,14 +947,16 @@ const addCourseToStudent = async (req, res) => {
 const getCourseById = async (req, res) => {
   const courseId = req.params.id;
 
-  await Courses.findOne({ _id: courseId }, (err, result) => {
-    if (err) {
-      console.log(err);
-      res.status(500).send();
-    } else {
-      res.status(200).json(result);
-    }
-  }).clone();
+  await courses
+    .findOne({ _id: courseId }, (err, result) => {
+      if (err) {
+        console.log(err);
+        res.status(500).send();
+      } else {
+        res.status(200).json(result);
+      }
+    })
+    .clone();
 };
 
 const getMyCoursesTrainee = (req, res) => {
@@ -990,7 +976,7 @@ const getMyCoursesTrainee = (req, res) => {
             return res.status(200).send("no courses found");
           }
           ids = data.Regcourses;
-          course.find({ _id: ids }, (err, data) => {
+          courses.find({ _id: ids }, (err, data) => {
             if (err) {
               res.status(500).send();
             } else {
@@ -1012,7 +998,7 @@ const getMyCoursesTrainee = (req, res) => {
             return res.status(200).send("no courses found");
           }
           ids = data.Regcourses;
-          course.find({ _id: ids }, (err, data) => {
+          courses.find({ _id: ids }, (err, data) => {
             if (err) {
               res.status(500).send();
             } else {
@@ -1039,7 +1025,7 @@ const getmyGrade = async (req, res) => {
       }
     });
   } else if (usertype == "individual trainee") {
-    IndividualTrainee.findOne({ _id: id }, (err, result) => {
+    individualTrainee.findOne({ _id: id }, (err, result) => {
       if (err) {
         req.status(500).send();
       } else {
@@ -1048,7 +1034,20 @@ const getmyGrade = async (req, res) => {
     });
   }
 };
-
+// const approveInstructor = async (req, res) => {
+//   const username = req.body.username;
+//   instructor.findOneAndUpdate(
+//     { username: username },
+//     { approved: true },
+//     (err, result) => {
+//       if (err) {
+//         res.status(500).json();
+//       } else {
+//         res.status(200).json();
+//       }
+//     }
+//   );
+// };
 module.exports = {
   getUser,
   search,
@@ -1077,7 +1076,6 @@ module.exports = {
   addCreditCardInfo,
   // noOfSubscribers,
   topCourses,
-  //reviewInstructor,
   salary,
   createQuestions,
   createQuiz,

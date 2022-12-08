@@ -53,7 +53,7 @@ import SubmitDiscount from "./components/instructorSubmitDiscount";
 import InstructorCourseReview from "./components/instructorComponents/instructorCourseReviews";
 import ViewGradeWrapper from "./components/traineeComponents/viewGrade";
 import AcceptAgreWrapper from "./components/instructorComponents/AcceptAgreement";
-
+import Filter from "./components/filter";
 export default function MainApp() {
   const [username, setUsername] = useState("abdelrahman");
   const [userEmail, setUserEmail] = useState("alighieth2709@gmail.com");
@@ -164,6 +164,7 @@ export default function MainApp() {
             element={<InstructorCourseReview />}
           />
           <Route path="Acceptagreement" element={<AcceptAgreWrapper />} />
+          <Route path="filter" element={<Filter />} />
         </Routes>
       </Router>
     </AppContext.Provider>
