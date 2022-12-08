@@ -1,23 +1,61 @@
-POST  http://localhost:2020/createCourse
+POST http://localhost:2020/createQuestions
 Content-Type: application/json
 
-  {
-    "id":"6366d3ddd79a066bc2b74106",
-    "title": "network",
-    "subject":"cisco packet tracer", 
-    "totalHours": "18",
-    "rating": "5",
-    "price": "300",
-    "subtitles":[{ "description": "description", "video": "video" },
-    { "description": "description1", "video": "video1" },
-    { "description": "description2", "video": "video2" }],
-    "exercises":"alot of exercises be aware",
-    "summary": "will provide you a good knowlage with packet tracing",
-    " discount":"", 
-    "image": "",
-    "prerequisite":"", 
-    "preview": "",
-    "category":""
-    }
+{
+   "username" :"abdelrahman", 
+   "question1" :"worldcup 2002?",
+   "answer1" :"brazil",
+   "answer2" :"german",
+   "answer3" :"france",
+   "answer4" :"england",
+   "answerQes1" :"a",
+   "question2" :"euro 2002",
+   "answer21" :"portugal",
+   "answer22" :"greece",
+   "answer23" :"spain",
+   "answer24" :"italy",
+   "answerQes2" :"b",
+   "question3" :"ballon dor 2018",
+   "answer31" :"ronaldo",
+   "answer32" :"messi",
+   "answer33" :"lewa",
+   "answer34" :"modic",
+   "answerQes3" :"d",
+   "question4" :"worldcup 2006",
+   "answer41" :"italy",
+   "answer42" :"spain",
+   "answer43" :"argentina",
+   "answer44" :"england",
+   "answerQes4" :"a"
+}
+ 
+
+
+
+# {
+#   "id":"638501f2a9b064e47ee7e0ed",
+#   "review":"good",
+#   "newRate":"3"
+# }
+
+
+  # # {
+  # #   "id":"6366d3ddd79a066bc2b74106",
+  # #   "title": "network",
+  # #   "subject":"cisco packet tracer", 
+  # #   "totalHours": "18",
+  # #   "rating": "5",
+  # #   "price": "300",
+  # #   "subtitles":[{ "description": "description", "video": "video" },
+  # #   { "description": "description1", "video": "video1" },
+  # #   { "description": "description2", "video": "video2" }],
+  # #   "exercises":"alot of exercises be aware",
+  # #   "summary": "will provide you a good knowlage with packet tracing",
+  # #   " discount":"", 
+  # #   "image": "",
+  # #   "prerequisite":"", 
+  # #   "preview": "",
+  # #   "category":""
+  # #   }
 
 

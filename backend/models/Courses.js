@@ -22,7 +22,7 @@ const courses = new Schema(
     },
     rating: {
       type: Number,
-      default: 5,
+      default: 0,
     },
     price: {
       type: Number,
@@ -60,8 +60,16 @@ const courses = new Schema(
       maxLength: 100,
     },
     discount: {
-      type: Number,
-      default: 0,
+      value: {
+        type: Number,
+        required: true,
+        default: 0,
+      },
+      endDate: {
+        type: String,
+        required: true,
+        default: "",
+      },
     },
     image: {
       type: String,

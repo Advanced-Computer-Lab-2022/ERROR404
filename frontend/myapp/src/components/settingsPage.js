@@ -122,9 +122,15 @@ const PersonalInformationTab = () => {
         value={region}
       />
       <Space>
-        <Link to="/instructorDashboard/editEmail">
-          <Button type="primary">Change Email</Button>
-        </Link>
+        {user == "instructor" ? (
+          <Link to="/instructorDashboard/editEmail">
+            <Button type="primary">Change Email</Button>
+          </Link>
+        ) : (
+          <Link to="/user/editEmail">
+            <Button type="primary">Change Email</Button>
+          </Link>
+        )}
 
         <Link to="/changePassword">
           {" "}

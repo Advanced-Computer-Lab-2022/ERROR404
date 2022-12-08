@@ -14,6 +14,7 @@ const {
   createCourse,
   instructorSearch,
   viewCourses,
+  getMyCoursesTrainee,
   createInstructor,
   createIndividualTrainee,
   chooseCountry,
@@ -21,8 +22,8 @@ const {
   view,
   filterCourses,
   updateViews,
-  rateInstructor,
-  rateCourse,
+  rateAndReviewInstructor,
+  rateAndReviewCourse,
   viewRatingAndReviews,
   uploadPreviewVideoForCourse,
   editEmail,
@@ -32,13 +33,16 @@ const {
   viewReviewAndRatingForInstructor,
   insertVideoLinkToCourse,
   addCreditCardInfo,
-  noOfSubscribers,
-  reviewInstructor,
+
+  // noOfSubscribers,
+  //reviewInstructor,
   salary,
   createQuestions,
   createQuiz,
   addCourseToStudent,
   getCourseById,
+  submitDiscount,
+  getmyGrade,
 } = require("./routes/routes");
 
 //App variables
@@ -68,6 +72,7 @@ app.get("/getTopCourses", topCourses);
 app.get("/search/:key", search);
 app.get("/coursePrice", coursePrice);
 app.get("/searchmycourses/:user/:key", instructorSearch);
+app.get("/getMyCourses/:usertype/:username", getMyCoursesTrainee);
 app.get("/viewCourses", viewCourses);
 app.get("/getCourse/:id", getCourseById);
 app.post("/createCorporateTrainee", createCorporateTrainee);
@@ -79,8 +84,8 @@ app.patch("/country", chooseCountry);
 app.get("/instViewCourses/:userId", instViewCourses);
 app.get("/filter/:filterType/:key", filterCourses);
 app.put("/updateViews", updateViews);
-app.patch("/rateInstructor", rateInstructor);
-app.patch("/rateCourse", rateCourse);
+app.patch("/rateAndReviewInstructor", rateAndReviewInstructor);
+app.patch("/rateAndReviewCourse", rateAndReviewCourse);
 app.get("/viewRatingAndReviews/:username", viewRatingAndReviews);
 app.put("/uploadPreviewVideoForCourse", uploadPreviewVideoForCourse);
 app.put("/editEmail", editEmail);
@@ -89,9 +94,10 @@ app.put("/changePassword", changePassword);
 app.get("/viewReviewAndRating/:username", viewReviewAndRatingForInstructor);
 app.patch("/insertVideoLinkToCourse", insertVideoLinkToCourse);
 app.patch("/addCreditCardInfo", addCreditCardInfo);
-app.put("/noOfSubscribers", noOfSubscribers);
-app.put("/reviewInstructor", reviewInstructor);
+//app.put("/noOfSubscribers", noOfSubscribers);
 app.put("/salary", salary);
 app.post("/createQuestions", createQuestions);
 app.post("/createQuiz", createQuiz);
 app.put("/addCourseToStudent", addCourseToStudent);
+app.put("/submitDiscount", submitDiscount);
+app.get("/getmygrade/:id/:usertype", getmyGrade);

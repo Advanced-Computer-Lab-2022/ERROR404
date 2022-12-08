@@ -2,15 +2,25 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Button, Modal, Form, Input, Select } from "antd";
 import { Collapse } from "antd";
-import { useNavigate } from "react-router-dom";
 const { Option } = Select;
 
 const { Panel } = Collapse;
 
-const SearchByForm = () => {
+const InstructorFilter = () => {
   const [data, setData] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const navigate = useNavigate();
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
 
   useEffect(() => {
     console.log("data =>  ", data);
@@ -36,13 +46,15 @@ const SearchByForm = () => {
     console.log(" => ", event);
     const value = event.value;
     const filterType = event.filterType;
-    navigate("/filter?filterType=" + filterType + "&value=" + value);
+    console.log(value);
+
     await getCourses(filterType, value);
   };
 
   const onReset = () => {
     form.resetFields();
   };
+
   return (
     <>
       <Form onFinish={onFinish} form={form} name="control-hooks">
@@ -60,9 +72,6 @@ const SearchByForm = () => {
             <Option value="subject" key="Subject">
               By Subject
             </Option>
-            <Option value="instructor" key="Instructor">
-              By Instructor
-            </Option>
           </Select>
         </Form.Item>
         <Form.Item name="value" label="value" rules={[{ required: true }]}>
@@ -78,8 +87,33 @@ const SearchByForm = () => {
           </Button>
         </Form.Item>
       </Form>
+
+      <Modal
+        title="Basic Modal"
+        open={isModalOpen}
+        onOk={handleOk}
+        onCancel={handleCancel}
+      >
+        <Collapse defaultActiveKey={["1"]}>
+          {data.map((course) => {
+            console.log("here");
+            return (
+              <Panel header={course.title} key={course._id}>
+                <p>Title: {course.title}</p>
+                <p>Summary: {course.summary}</p>
+                <p>Instructor: {course.instructor}</p>
+                <p>Price: {course.price}</p>
+                <p>rating: {course.rating}</p>
+                <p>Total Hours: {course.totalHours}</p>
+                <p>Subject: {course.subject}</p>
+                <p>Discount: {course.discount}</p>
+              </Panel>
+            );
+          })}
+        </Collapse>
+      </Modal>
     </>
   );
 };
 
-export default SearchByForm;
+export default InstructorFilter;

@@ -1,5 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
+import "semantic-ui-css/semantic.min.css";
+
 import {
   Layout,
   Button,
@@ -54,7 +56,7 @@ const CreateCourse = () => {
     previewURL
   ) => {
     const requestBody = {
-      username: "abdoAli",
+      username: "abdelrahman",
       title: title,
       subtitle: subtitle,
       price: price,

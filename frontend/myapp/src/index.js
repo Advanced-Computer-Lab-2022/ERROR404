@@ -38,22 +38,28 @@ import InstructorViewAllTitlesWrapper from "./components/instructorComponents/in
 import {
   ChangeBio,
   ChangeEmail,
+  UserChangeEmail,
 } from "./components/instructorComponents/instructorChangeSetting";
-import RateComponent from "./components/studentRateInstructor";
-import ReviewComponent from "./components/studentReviewInstructor";
+import ReviewComponent from "./components/StudentrateAndReviewInstructor";
 import LoadSearchedCourses from "./components/loadSearchedCoursesComp";
 import CreateExamWrapper from "./components/createExam";
 import SolveExamWrapper from "./components/solveExam";
 import PreviewCourseWrapper from "./components/courseComponents/previewCourse";
 import CourseReview from "./components/courseComponents/courseReview";
 import CourseSyllabus from "./components/courseComponents/courseSyllabes";
-
+import UserCourses from "./components/courseComponents/userClassRoom";
+import ReviewCourseComponent from "./components/rateAndReviewCourse";
+import SubmitDiscount from "./components/instructorSubmitDiscount";
+import InstructorCourseReview from "./components/instructorComponents/instructorCourseReviews";
+import ViewGradeWrapper from "./components/traineeComponents/viewGrade";
+import AcceptAgreWrapper from "./components/instructorComponents/AcceptAgreement";
+import Filter from "./components/filter";
 export default function MainApp() {
   const [username, setUsername] = useState("abdelrahman");
   const [userEmail, setUserEmail] = useState("alighieth2709@gmail.com");
-  const [userType, setUserType] = useState("i");
+  const [userType, setUserType] = useState("instructor");
   const [userPassword, setUserPassword] = useState("aman ya raby aman");
-  const [userMongoId, setUserMongoId] = useState("6366d3ddd79a066bc2b74106");
+  const [userMongoId, setUserMongoId] = useState("638115fe09ea76e1d42b67f9");
   const [userPhoneNum, setUserPhoneNum] = useState("+20 1211399151");
   const [region, setRegion] = useState("EG");
 
@@ -132,17 +138,33 @@ export default function MainApp() {
             path="/instructorDashBoard/editEmail"
             element={<ChangeEmail />}
           />
+          <Route path="/user/editEmail" element={<UserChangeEmail />} />
           <Route path="/instructorDashBoard/editBio" element={<ChangeBio />} />
-          <Route path="/studentRateInstructor" element={<RateComponent />} />
           <Route
-            path="/studentReviewInstructor"
+            path="/rateAndReviewInstructor"
             element={<ReviewComponent />}
           />
+          <Route
+            path="/rateAndReviewCourse"
+            element={<ReviewCourseComponent />}
+          />
+          <Route path="/viewMyGrades" element={<ViewGradeWrapper />} />
           <Route path="/searchedItems" element={<LoadSearchedCourses />} />
           <Route path="/course/about" element={<PreviewCourseWrapper />} />
           <Route path="/course/reviews" element={<CourseReview />} />
           <Route path="/course/syllabus" element={<CourseSyllabus />} />
           <Route path="/SolveExam" element={<SolveExamWrapper />} />
+          <Route path="/user/classroom" element={<UserCourses />} />
+          <Route
+            path="/instructorDashBoard/addDiscount"
+            element={<SubmitDiscount />}
+          />
+          <Route
+            path="instructorDashboard/allMyCourses/reviews"
+            element={<InstructorCourseReview />}
+          />
+          <Route path="Acceptagreement" element={<AcceptAgreWrapper />} />
+          <Route path="filter" element={<Filter />} />
         </Routes>
       </Router>
     </AppContext.Provider>

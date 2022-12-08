@@ -9,22 +9,23 @@ import { UserSettingPage } from "../../pages/settingsPage";
 const ChangeEmail = () => {
   const { userType } = useContext(AppContext);
   const [user, setUser] = userType;
-  if (user == "instructor") {
-    return (
-      <InstructorDashboard>
-        <UserSettingPage>
-          <ChangeSomethingComponent changeWhat="Email" />
-        </UserSettingPage>
-      </InstructorDashboard>
-    );
-  } else {
-    return (
-      <App>
+  return (
+    <InstructorDashboard>
+      <UserSettingPage>
         <ChangeSomethingComponent changeWhat="Email" />
-      </App>
-    );
-  }
-  return;
+      </UserSettingPage>
+    </InstructorDashboard>
+  );
+};
+
+const UserChangeEmail = () => {
+  return (
+    <App>
+      <UserSettingPage>
+        <ChangeSomethingComponent changeWhat="Email" />
+      </UserSettingPage>
+    </App>
+  );
 };
 
 const ChangeBio = () => {
@@ -99,3 +100,5 @@ const ChangeSomethingComponent = ({ changeWhat }) => {
     </Form>
   );
 };
+
+export { UserChangeEmail };

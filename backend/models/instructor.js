@@ -77,6 +77,10 @@ const instructor = new Schema(
       default: 0,
       maxLength: 15,
     },
+    approved: {
+      type: Boolean,
+      default: false,
+    },
   },
   { timestamps: true }
 );

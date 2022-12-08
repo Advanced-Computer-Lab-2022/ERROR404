@@ -21,7 +21,7 @@ import {
 } from "antd";
 import { AppContext } from "../AppContext";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const IconText = ({ icon, text }) => (
   <Space>
@@ -89,7 +89,7 @@ const CourseComponent = ({ courses, viewType }) => {
             <List.Item
               key={item._id}
               onClick={() => {
-                if (user == "instructor") {
+                if (user == "instructor" && viewType == "instructor") {
                   setIsModalOpen(true);
                 } else {
                   navigation("/course/about?courseId=" + item._id);
@@ -124,18 +124,33 @@ const CourseComponent = ({ courses, viewType }) => {
               ]}
               extra={
                 <Space>
-                  {user == "instructor" ? (
-                    <Button
-                      type="dashed"
-                      icon={<PlusOutlined />}
-                      onClick={() => {
-                        setTitle(item.title);
-                        setId(item._id);
-                        setIsModalOpen(true);
-                      }}
-                    >
-                      Add preview video
-                    </Button>
+                  {user == "instructor" && viewType == "instructor" ? (
+                    <>
+                      <Button
+                        type="dashed"
+                        icon={<PlusOutlined />}
+                        onClick={() => {
+                          setTitle(item.title);
+                          setId(item._id);
+                          setIsModalOpen(true);
+                        }}
+                      >
+                        Add preview video
+                      </Button>
+                      <Link to={"reviews?courseId=" + item._id}>
+                        <Button
+                          type="dashed"
+                          icon={<PlusOutlined />}
+                          onClick={() => {
+                            setTitle(item.title);
+                            setId(item._id);
+                            setIsModalOpen(true);
+                          }}
+                        >
+                          View Reviews
+                        </Button>
+                      </Link>
+                    </>
                   ) : null}
                   <img
                     width={250}
