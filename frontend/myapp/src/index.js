@@ -55,8 +55,7 @@ import ViewGradeWrapper from "./components/traineeComponents/viewGrade";
 import AcceptAgreWrapper from "./components/instructorComponents/AcceptAgreement";
 import Filter from "./components/filter";
 import MainHome from "./components/loginComponents/mainHome";
-import SignInForm from "./components/loginComponents/SignInForm";
-import SignUpForm from "./components/loginComponents/SignUpForm";
+
 export default function MainApp() {
   const [username, setUsername] = useState("abdelrahman");
   const [userEmail, setUserEmail] = useState("alighieth2709@gmail.com");
@@ -171,8 +170,6 @@ export default function MainApp() {
           <Route path="Acceptagreement" element={<AcceptAgreWrapper />} />
           <Route path="filter" element={<Filter />} />
           <Route path="login" element={<MainHome />} />
-          <Route path="/sign-in" element={<SignInForm />} />
-          <Route path="/sign-up" element={<SignUpForm />} />
         </Routes>
       </Router>
     </AppContext.Provider>
