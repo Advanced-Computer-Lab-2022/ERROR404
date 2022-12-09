@@ -58,10 +58,11 @@ export default function MainApp() {
   const [username, setUsername] = useState("abdelrahman");
   const [userEmail, setUserEmail] = useState("alighieth2709@gmail.com");
   const [userType, setUserType] = useState("instructor");
-  const [userPassword, setUserPassword] = useState("aman ya raby aman");
-  const [userMongoId, setUserMongoId] = useState("638115fe09ea76e1d42b67f9");
+  const [userPassword, setUserPassword] = useState("123456");
+  const [userMongoId, setUserMongoId] = useState("6366d3ddd79a066bc2b74106");
   const [userPhoneNum, setUserPhoneNum] = useState("+20 1211399151");
   const [region, setRegion] = useState("EG");
+  const [instructorBio, setInstructorBio] = useState("");
 
   const values = {
     username: [username, setUsername],
@@ -71,6 +72,7 @@ export default function MainApp() {
     userMongoId: [userMongoId, setUserMongoId],
     userPhone: [userPhoneNum, setUserPhoneNum],
     userRegion: [region, setRegion],
+    instructorBio: [instructorBio, setInstructorBio],
   };
 
   return (
@@ -94,7 +96,7 @@ export default function MainApp() {
             element={<ViewAllCoursesPriceWrapper />}
           />
           <Route path="/createCorp" element={<CreateCorporateWrapper />} />
-          <Route path="/SelectCountry1" element={<SelectCountryWrapper />} />
+          <Route path="/SelectCountry" element={<SelectCountryWrapper />} />
           <Route path="/viewAllCourses" element={<ViewAllCoursesWrapper />} />
           <Route path="/instViewCourses" element={<InstViewCoursesWrapper />} />
           <Route

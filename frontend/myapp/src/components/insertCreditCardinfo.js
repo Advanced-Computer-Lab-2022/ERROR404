@@ -35,7 +35,7 @@ const config = {
 const InsertCreditCardInfoWrapper = () => {
   return (
     <App>
-      <UserSettingPage>
+      <UserSettingPage Settings="Insert Credit Card">
         <InsertCreditCardInfo />
       </UserSettingPage>
     </App>

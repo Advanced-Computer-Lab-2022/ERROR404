@@ -6,6 +6,7 @@ import emailjs from "@emailjs/browser";
 import { UserSettingPage } from "../pages/settingsPage";
 import App from "../App";
 import InstructorDashboard from "../pages/InstructorDashboard";
+import axios from "axios";
 
 const ChangePasswordPageWrapper = () => {
   const { userType } = useContext(AppContext);
@@ -13,7 +14,7 @@ const ChangePasswordPageWrapper = () => {
   if (user == "instructor") {
     return (
       <InstructorDashboard>
-        <UserSettingPage>
+        <UserSettingPage Settings="Change Password">
           <ChangePasswordPage />
         </UserSettingPage>
       </InstructorDashboard>
@@ -30,38 +31,41 @@ const ChangePasswordPageWrapper = () => {
 };
 
 const ChangePasswordPage = () => {
-  const { userEmail, userMongoId, userType, username } = useContext(AppContext);
+  const { userEmail, userMongoId, userType, username, userPassword } =
+    useContext(AppContext);
   const [useremail, setUserEmail] = userEmail;
   const [userId, setId] = userMongoId;
   const [typeUser, setUserType] = userType;
   const [name, setName] = username;
+  const [oldPassword, setOldPassword] = userPassword;
+
+  const [form] = Form.useForm();
+  const [, forceUpdate] = useState({});
 
   const onFinish = (values) => {
     console.log("Received values of form: ", values);
-
-    // let body =
-    //   "We are sending you this email because you have asked to change your password, Press the below link to be redircted to the changing password page. http://localhost:3000/changingPasswordEmail?userId=" +
-    //   userId +
-    //   "&email=" +
-    //   useremail +
-    //   "&userType=" +
-    //   typeUser;
-
-    var data = {
-      name: name,
-      userId: userId,
-      userType: typeUser,
-      recepientEmail: useremail,
+    const newPassword = values.newPassword;
+    let body = {
+      id: userId,
+      newPassword: newPassword,
+      usertype: typeUser,
     };
-    emailjs
-      .send("service_5di6lsf", "template_mo9m7xe", data, "hIXXOv4x76p3JXKWU")
-      .then(
-        (result) => message.success("An Email has been sent successfully!! "),
-        (error) => {
-          message.error("Oops... " + JSON.stringify(error));
-          console.log(JSON.stringify(error));
-        }
-      );
+    if (oldPassword === values.oldPassword) {
+      console.log("hello");
+      axios
+        .put("http://localhost:2020/changePassword", body)
+        .then(() => {
+          message.success("you have changed your password successfully", 3);
+          setOldPassword(newPassword);
+          console.log("hello2");
+        })
+        .catch((err) => {
+          message.error("An unexpected error has occurred", 3);
+          console.log("error at change password ", JSON.stringify(err));
+        });
+    } else {
+      message.error("You have entered a wrong old password", 3);
+    }
   };
   return (
     <div
@@ -73,29 +77,84 @@ const ChangePasswordPage = () => {
         alignItems: "center",
       }}
     >
-      <h4>
-        We will be sending you an email to {useremail} to change the password
-      </h4>
+      <h4>Change Password</h4>
 
       <Form
-        name="normal_login"
-        className="login-form"
-        initialValues={{
-          remember: true,
-        }}
+        form={form}
+        name="horizontal_login"
+        layout="inline"
         onFinish={onFinish}
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          gap: "10px",
+        }}
       >
-        <Form.Item>
-          <Button
-            type="primary"
-            htmlType="submit"
-            className="login-form-button"
-            style={{
-              width: "100%",
-            }}
-          >
-            Change Password
-          </Button>
+        <Form.Item
+          name="oldPassword"
+          rules={[
+            { required: true, message: "Please input your old password!" },
+          ]}
+          hasFeedback
+        >
+          <Input.Password
+            prefix={<LockOutlined className="site-form-item-icon" />}
+            type="password"
+            placeholder="Old Password"
+          />
+        </Form.Item>
+        <Form.Item
+          name="newPassword"
+          rules={[
+            { required: true, message: "Please input your new password!" },
+          ]}
+          hasFeedback
+        >
+          <Input.Password
+            prefix={<LockOutlined className="site-form-item-icon" />}
+            type="password"
+            placeholder="New Password"
+          />
+        </Form.Item>
+        <Form.Item
+          name="confirmPassword"
+          rules={[
+            { required: true, message: "Please Confirm New Password!" },
+            ({ getFieldValue }) => ({
+              validator(_, value) {
+                if (!value || getFieldValue("newPassword") === value) {
+                  return Promise.resolve();
+                }
+                return Promise.reject(
+                  new Error("The two passwords that you entered do not match!")
+                );
+              },
+            }),
+          ]}
+          hasFeedback
+        >
+          <Input.Password
+            prefix={<LockOutlined className="site-form-item-icon" />}
+            type="password"
+            placeholder="Confirm New Password"
+          />
+        </Form.Item>
+        <Form.Item shouldUpdate>
+          {() => (
+            <Button
+              type="primary"
+              htmlType="submit"
+              disabled={
+                !form.isFieldsTouched(true) ||
+                !!form.getFieldsError().filter(({ errors }) => errors.length)
+                  .length
+              }
+            >
+              Change Password
+            </Button>
+          )}
         </Form.Item>
       </Form>
     </div>

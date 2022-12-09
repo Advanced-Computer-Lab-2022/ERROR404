@@ -11,7 +11,7 @@ const ChangeEmail = () => {
   const [user, setUser] = userType;
   return (
     <InstructorDashboard>
-      <UserSettingPage>
+      <UserSettingPage Settings="Change Email">
         <ChangeSomethingComponent changeWhat="Email" />
       </UserSettingPage>
     </InstructorDashboard>
@@ -21,7 +21,7 @@ const ChangeEmail = () => {
 const UserChangeEmail = () => {
   return (
     <App>
-      <UserSettingPage>
+      <UserSettingPage Settings="Change Email">
         <ChangeSomethingComponent changeWhat="Email" />
       </UserSettingPage>
     </App>
@@ -41,9 +41,10 @@ const ChangeBio = () => {
 export { ChangeEmail, ChangeBio };
 
 const ChangeSomethingComponent = ({ changeWhat }) => {
-  const { username, userType } = useContext(AppContext);
+  const { username, userType, userEmail } = useContext(AppContext);
   const [userName, setUserName] = username;
   const [type, setType] = userType;
+  const [email, setEmail] = userEmail;
 
   const onFinish = (values) => {
     const textValue = values.text;
@@ -72,7 +73,12 @@ const ChangeSomethingComponent = ({ changeWhat }) => {
 
     axios
       .put(`http://localhost:2020${url}`, body)
-      .then((data) => message.success("Changes has been made!!"))
+      .then((data) => {
+        message.success("Changes has been made!!");
+        if (changeWhat == "Email") {
+          setEmail(textValue);
+        }
+      })
       .catch((err) => {
         message.error("An unexpected error has occured", 5);
         console.log("error at change ", JSON.stringify(err));

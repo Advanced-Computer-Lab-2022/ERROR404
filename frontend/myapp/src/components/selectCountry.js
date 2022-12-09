@@ -14,23 +14,25 @@ const SelectCountryWrapper = () => {
   if (user == "instructor") {
     return (
       <InstructorDashboard>
-        <UserSettingPage>
-          <SelectCountry1 />
+        <UserSettingPage Settings="Select Country">
+          <SelectCountry />
         </UserSettingPage>
       </InstructorDashboard>
     );
   } else {
     return (
       <App>
-        <UserSettingPage>
-          <SelectCountry1 />
+        <UserSettingPage Settings="Select Country">
+          <SelectCountry />
         </UserSettingPage>
       </App>
     );
   }
 };
 
-const SelectCountry1 = () => {
+const SelectCountry = () => {
+  const { userRegion } = useContext(AppContext);
+  const [country, setCountry] = userRegion;
   const [value, setValue] = useState("");
   const options = useMemo(() => countryList().getData(), []);
 
@@ -61,6 +63,7 @@ const SelectCountry1 = () => {
       .patch("http://localhost:2020/country", requestBody)
       .then((response) => {
         message.success("Country " + country + " has been selected", 5);
+        setCountry(country);
       })
       .catch((error) => {
         console.log("erorr ", error.message);

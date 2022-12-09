@@ -78,14 +78,22 @@ const SettingsPageSider = () => {
 };
 
 const PersonalInformationTab = () => {
-  const { userType, userMongoId, userPhone, userEmail, userRegion, username } =
-    useContext(AppContext);
+  const {
+    userType,
+    userMongoId,
+    userPhone,
+    userEmail,
+    userRegion,
+    username,
+    instructorBio,
+  } = useContext(AppContext);
   const [userName, setUserName] = username;
   const [user, setUser] = userType;
   const [userId, setUserId] = userMongoId;
   const [email, setEmail] = userEmail;
   const [phone, setPhone] = userPhone;
   const [region, setRegion] = userRegion;
+  const [bio, setInstructorBio] = instructorBio;
   return (
     <div>
       <h1>Basic Information</h1>
@@ -94,12 +102,7 @@ const PersonalInformationTab = () => {
         src="https://thumbor.forbes.com/thumbor/fit-in/x/https://www.forbes.com/advisor/in/wp-content/uploads/2022/03/monkey-g412399084_1280.jpg"
       />
       {user == "instructor" ? (
-        <TextField
-          disabled
-          id="outlined-disabled"
-          label="Bio"
-          value="I am ali ghieth"
-        />
+        <TextField disabled id="outlined-disabled" label="Bio" value={bio} />
       ) : null}
       <TextField
         disabled

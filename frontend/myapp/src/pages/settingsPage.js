@@ -43,7 +43,7 @@ const UserSettingPageMain = () => {
   );
 };
 
-const UserSettingPage = ({ children }) => (
+const UserSettingPage = ({ children, Settings }) => (
   <Layout>
     <Header className="header">
       <div className="logo" />
@@ -61,8 +61,10 @@ const UserSettingPage = ({ children }) => (
         <Breadcrumb.Item>
           <Link to="/">Home</Link>
         </Breadcrumb.Item>
-        <Breadcrumb.Item>Account</Breadcrumb.Item>
-        <Breadcrumb.Item>Settings</Breadcrumb.Item>
+        <Breadcrumb.Item>
+          <Link to="/settings">Account</Link>
+        </Breadcrumb.Item>
+        <Breadcrumb.Item>{Settings}</Breadcrumb.Item>
       </Breadcrumb>
       <Layout
         className="site-layout-background"
