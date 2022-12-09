@@ -35,10 +35,10 @@ const createIndividualTrainee = (req, res) => {
 };
 
 const getUser = async (req, res) => {
-  const userId = req.params.userId;
+  const username = req.params.username;
   const userType = req.params.userType;
 
-  let query = { _id: userId };
+  let query = { username: username };
 
   if (userType == "instructor") {
     await instructor

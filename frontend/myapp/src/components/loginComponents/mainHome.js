@@ -18,12 +18,12 @@ import Button from "@mui/material/Button";
 import Fingerprint from "@mui/icons-material/Fingerprint";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
+import axios from "axios";
 
 const MainHome = () => {
   const [values, setValues] = useState({
     username: "",
     password: "",
-    usertype: "",
     showPassword: true,
   });
   const [userType, setUser] = useState("");
@@ -45,6 +45,19 @@ const MainHome = () => {
 
   const handleUserChange = (event) => {
     setUser(event.target.value);
+  };
+
+  const handleClick = (event) => {
+    event.preventDefault();
+    console.log(values);
+    console.log(userType);
+
+    axios
+      .get(`http://localhost:2020/getUser/${values.username}/${userType}`)
+      .then((data) => {
+        console.log(data);
+      })
+      .catch();
   };
   return (
     <div className="App">
@@ -97,6 +110,7 @@ const MainHome = () => {
                 ),
               }}
               variant="standard"
+              onChange={handleChange("username")}
             />
           </FormControl>
           <FormControl sx={{ m: 1, width: "50%" }} variant="standard">
@@ -130,13 +144,19 @@ const MainHome = () => {
               label="User Type"
               onChange={handleUserChange}
             >
-              <MenuItem value={10}>Instructor</MenuItem>
-              <MenuItem value={20}>Individual Trainee</MenuItem>
-              <MenuItem value={30}>Administrator</MenuItem>
-              <MenuItem value={40}>Corporate Trainee</MenuItem>
+              <MenuItem value={"instructor"}>Instructor</MenuItem>
+              <MenuItem value={"individual trainee"}>
+                Individual Trainee
+              </MenuItem>
+              <MenuItem value={"admin"}>Administrator</MenuItem>
+              <MenuItem value={"corporate trainee"}>Corporate Trainee</MenuItem>
             </Select>
           </FormControl>
-          <Button variant="contained" startIcon={<Fingerprint />}>
+          <Button
+            variant="contained"
+            startIcon={<Fingerprint />}
+            onClick={handleClick}
+          >
             Login
           </Button>
           <Button variant="text">Or Register</Button>
