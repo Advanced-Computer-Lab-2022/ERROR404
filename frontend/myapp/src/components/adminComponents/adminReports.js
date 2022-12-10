@@ -23,6 +23,19 @@ const columns = [
   {
     title: <Badge status="success" text="Status" />,
     dataIndex: "status",
+    render: (status) => {
+      let type = "default";
+      if (status == "resolved") {
+        type = "success";
+      } else if (status == "pending") {
+        type = "processing";
+      }
+      return (
+        <span>
+          <Badge status={type} text={status} />
+        </span>
+      );
+    },
     filters: [
       {
         text: "unseen",
@@ -63,7 +76,7 @@ const AdminReports = () => {
       console.log(results.data);
       let data = [];
       results.data.map((item) => {
-        if (filter.length > 0) {
+        if (filter != null && filter.length > 0) {
           if (filter.includes(item.status)) {
             data.push(item);
           }
