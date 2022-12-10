@@ -23,7 +23,7 @@ import LoginIcon from "@mui/icons-material/Login";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import { Button, message, Space, notification } from "antd";
 
-const LoginComponent = () => {
+const LoginComponent = ({ values }) => {
   const {
     loggedIn,
     username,
@@ -45,20 +45,21 @@ const LoginComponent = () => {
   const [instructorbio, setInstructorBio] = instructorBio;
   const [isLoggedIn, setIsLoggedIn] = loggedIn;
   const [user, setUser] = useState("");
-  const [values, setValues] = useState({
+  const [value, setValues] = useState({
     username: "",
     password: "",
     showPassword: true,
   });
+  const [isModalOpen, setIsModalOpen] = values;
   const navigate = useNavigate();
 
   const handleChange = (prop) => (event) => {
-    setValues({ ...values, [prop]: event.target.value });
+    setValues({ ...value, [prop]: event.target.value });
   };
 
   const handleClickShowPassword = () => {
     setValues({
-      ...values,
+      ...value,
       showPassword: !values.showPassword,
     });
   };
@@ -69,16 +70,16 @@ const LoginComponent = () => {
 
   const handleUserChange = (event) => {
     setUser(event.target.value);
-    console.log(values);
+    console.log(value);
   };
 
   const handleClick = (event) => {
     event.preventDefault();
-    console.log(values);
+    console.log(value);
     console.log("user " + user);
 
     axios
-      .get(`http://localhost:2020/getUser/${values.username}/${user}`)
+      .get(`http://localhost:2020/getUser/${value.username}/${user}`)
       .then((response) => {
         console.log(response);
         if (response.data == null) {
@@ -86,7 +87,7 @@ const LoginComponent = () => {
         } else {
           console.log(response.data);
           let data = response.data;
-          if (values.password == response.data.password) {
+          if (value.password == response.data.password) {
             message.success(`Welcome Back ${response.data.username}`, 2);
             // setting up context
             setIsLoggedIn(true);
@@ -98,8 +99,8 @@ const LoginComponent = () => {
             setUserType(user);
             if (user == "instructor") {
               setInstructorBio(data.biography);
-              navigate("instructorDashboard");
             }
+            setIsModalOpen(false);
           } else {
             message.error("You have entered a wrong password, or username", 3);
           }
@@ -162,8 +163,8 @@ const LoginComponent = () => {
           </InputLabel>
           <Input
             id="standard-adornment-password"
-            type={values.showPassword ? "text" : "password"}
-            value={values.password}
+            type={value.showPassword ? "text" : "password"}
+            value={value.password}
             onChange={handleChange("password")}
             endAdornment={
               <InputAdornment position="end">
@@ -172,7 +173,7 @@ const LoginComponent = () => {
                   onClick={handleClickShowPassword}
                   onMouseDown={handleMouseDownPassword}
                 >
-                  {values.showPassword ? <VisibilityOff /> : <Visibility />}
+                  {value.showPassword ? <VisibilityOff /> : <Visibility />}
                 </IconButton>
               </InputAdornment>
             }
@@ -188,9 +189,9 @@ const LoginComponent = () => {
             onChange={handleUserChange}
           >
             <MenuItem value={"instructor"}>Instructor</MenuItem>
-            <MenuItem value={"individual trainee"}>Individual Trainee</MenuItem>
+            <MenuItem value={"individual"}>Individual Trainee</MenuItem>
             <MenuItem value={"admin"}>Administrator</MenuItem>
-            <MenuItem value={"corporate trainee"}>Corporate Trainee</MenuItem>
+            <MenuItem value={"corporate"}>Corporate Trainee</MenuItem>
           </Select>
         </FormControl>
         <Button type="primary" icon={<Fingerprint />} onClick={handleClick}>

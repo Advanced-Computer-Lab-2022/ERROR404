@@ -1,29 +1,12 @@
 import "./App.css";
 import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import { Layout, Select, Breadcrumb, Menu, Modal, Button, Avatar } from "antd";
 import {
-  Layout,
-  Select,
-  Breadcrumb,
-  Menu,
-  Image,
-  Space,
-  Modal,
-  Button,
-} from "antd";
-import {
-  DesktopOutlined,
-  FileOutlined,
-  SelectOutlined,
-  FolderViewOutlined,
-  PlusSquareOutlined,
-  SearchOutlined,
   HomeOutlined,
-  PieChartOutlined,
   TeamOutlined,
-  UserOutlined,
   SettingFilled,
-  FontColorsOutlined,
+  LogoutOutlined,
   LoginOutlined,
 } from "@ant-design/icons";
 import MainHeader from "./components/MainHeader";
@@ -36,8 +19,15 @@ const { Header, Footer, Sider, Content } = Layout;
 const { Option } = Select;
 
 const App = ({ children }) => {
-  const { userType } = useContext(AppContext);
+  const { userType, username } = useContext(AppContext);
   const [user, setUser] = userType;
+  const [userName, setUserName] = username;
+
+  const logout = () => {
+    setUserName("");
+    setUser("");
+  };
+
   function getItem(label, key, icon, children) {
     return {
       key,
@@ -52,26 +42,37 @@ const App = ({ children }) => {
     items = [
       getItem(<Link to="/">Home</Link>, "1", <HomeOutlined />),
       getItem(
-        <Link to="/instructorDahboard">My Dahboard</Link>,
+        <Link to="instructorDashboard">My Dashboard</Link>,
         "2",
         <HomeOutlined />
       ),
       getItem(
-        <Button
-          style={{ color: "white" }}
-          type="link"
-          onClick={() => setIsModalOpen(true)}
+        <Link
+          to="/"
+          onClick={() => {
+            logout();
+          }}
         >
-          Login
-        </Button>,
+          Log Out
+        </Link>,
         "3",
-        <LoginOutlined />
+        <LogoutOutlined />
       ),
-
+    ];
+  } else if (user == "individual") {
+    items = [
+      getItem(<Link to="/">Home</Link>, "1", <HomeOutlined />),
+      getItem(<Link to="/settings">Settings</Link>, "3", <SettingFilled />),
       getItem(
-        <Link to="/instructorDashBoard/settings">Settings</Link>,
-        "4",
-        <SettingFilled />
+        <Link
+          onClick={() => {
+            logout();
+          }}
+        >
+          Logout
+        </Link>,
+        "2",
+        <LogoutOutlined />
       ),
     ];
   } else {
@@ -83,7 +84,7 @@ const App = ({ children }) => {
           type="link"
           onClick={() => setIsModalOpen(true)}
         >
-          Login
+          Login | Sign Up
         </Button>,
         "2",
         <LoginOutlined />
@@ -96,7 +97,6 @@ const App = ({ children }) => {
         getItem("Dina Tamer", "10"),
         getItem("Malak Amr ", "11"),
       ]),
-      getItem(<Link to="/settings">Settings</Link>, "3", <SettingFilled />),
     ];
   }
 
@@ -114,9 +114,10 @@ const App = ({ children }) => {
   const handleCancel = () => {
     setIsModalOpen(false);
   };
+
   return (
     <Layout className="layout">
-      <MainHeader />
+      <MainHeader values={[isModalOpen, setIsModalOpen]} />
       {/* <PrimarySearchAppBar /> */}
       <Layout style={{ minHeight: "90vh" }} theme="dark">
         <Sider
@@ -140,7 +141,7 @@ const App = ({ children }) => {
               </Button>,
             ]}
           >
-            <LoginComponent />
+            <LoginComponent values={[isModalOpen, setIsModalOpen]} />
           </Modal>
         </Content>
       </Layout>

@@ -54,7 +54,7 @@ const SettingsPageSider = () => {
             <ListItemText primary="Password" />
           </ListItemButton>
         </Link>
-        <Link to="/SelectCountry1">
+        <Link to="/SelectCountry">
           <ListItemButton>
             <ListItemIcon>
               <LanguageIcon />
