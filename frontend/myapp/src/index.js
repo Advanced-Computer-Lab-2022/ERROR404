@@ -55,6 +55,8 @@ import ViewGradeWrapper from "./components/traineeComponents/viewGrade";
 import AcceptAgreWrapper from "./components/instructorComponents/AcceptAgreement";
 import Filter from "./components/filter";
 import LoginPageWrapper from "./components/loginComponents/mainHome";
+import AdminDashboard from "./components/adminComponents/adminDashboard";
+import AdminReportsWrapper from "./components/adminComponents/adminReports";
 
 export default function MainApp() {
   const [username, setUsername] = useState("");
@@ -175,6 +177,11 @@ export default function MainApp() {
           <Route path="Acceptagreement" element={<AcceptAgreWrapper />} />
           <Route path="filter" element={<Filter />} />
           <Route path="login" element={<LoginPageWrapper />} />
+          <Route path="/adminDashboard" element={<AdminDashboard />} />
+          <Route
+            path="/adminDashboard/reports"
+            element={<AdminReportsWrapper />}
+          />
         </Routes>
       </Router>
     </AppContext.Provider>

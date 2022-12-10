@@ -1,10 +1,9 @@
-PATCH  http://localhost:2020/country
+PUT http://localhost:2020/updateReportStatus
 Content-Type: application/json
 
 {
-      "username": "bruno",
-      "country": "egypt",
-      "usertype": "individual"
+      "id": "6394ef63ed2668205c0fb722",
+      "status": "f"
 }
 
 # {

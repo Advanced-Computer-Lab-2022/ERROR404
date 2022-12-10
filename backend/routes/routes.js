@@ -5,6 +5,7 @@ const instructor = require("../models/instructor");
 const individualTrainee = require("../models/IndividualTrainee");
 const questions = require("../models/questions");
 const quizzes = require("../models/quizzes");
+const Reports = require("../models/reports");
 const { default: mongoose } = require("mongoose");
 
 //Methods
@@ -1049,6 +1050,67 @@ const getmyGrade = async (req, res) => {
 //     }
 //   );
 // };
+
+const getAllReports = async (req, res) => {
+  await Reports.find({}, (err, data) => {
+    if (err) {
+      res.status(500).json(err);
+    } else if (data) {
+      res.status(200).json(data);
+    } else {
+      res.status(404).send();
+    }
+  });
+};
+
+const createReport = (req, res) => {
+  console.log(req.body);
+  const username = req.body.username;
+  const usertype = req.body.usertype;
+  const description = req.body.description;
+  if (username == null || username.length == 0) {
+    return res.status(400).send("username not sent");
+  } else if (usertype == null || usertype.length == 0) {
+    return res.status(400).send("usertype not sent");
+  } else if (description == null || description.length == 0) {
+    return res.status(400).send("description not sent");
+  } else {
+    const body = {
+      user: username,
+      usertype: usertype,
+      description: description,
+    };
+    Reports.create(body, (err, data) => {
+      if (err) {
+        res.status(500).json(err);
+      } else {
+        res.status(200).send(data);
+      }
+    });
+  }
+};
+
+const updateReportStatus = (req, res) => {
+  const reportId = req.body.id;
+
+  if (reportId == null || reportId.length == 0) {
+    return res.status(400).send("Id not provided");
+  } else {
+    Reports.findByIdAndUpdate(
+      { _id: reportId },
+      { $set: { status: req.body.status } },
+      { runValidators: true },
+      (err, data) => {
+        if (err) {
+          res.status(500).json(err);
+        } else {
+          res.status(200).send();
+        }
+      }
+    );
+  }
+};
+
 module.exports = {
   getUser,
   search,
@@ -1085,4 +1147,7 @@ module.exports = {
   submitDiscount,
   getMyCoursesTrainee,
   getmyGrade,
+  getAllReports,
+  createReport,
+  updateReportStatus,
 };
