@@ -1,12 +1,23 @@
 import React from "react";
-import { Button, Space } from "antd";
+import { Button, Space, message, Form } from "antd";
 import App from "../../App";
 
-const onChange = (e) => {
-  console.log(e);
-};
 
 const AcceptAgreWrapper = () => {
+  // const onChange = (e) => {
+  //   console.log(e);
+  // };
+  // function terms_changed(termsCheckBox){
+  //   //If the checkbox has been checked
+  //   if(termsCheckBox.checked){
+  //       //Set the disabled property to FALSE and enable the button.
+  //       document.getElementById("submit_button").disabled = false;
+  //   } else{
+  //       //Otherwise, disable the submit button.
+  //       document.getElementById("submit_button").disabled = true;
+  //   }
+  // }
+
   return (
     <App>
       <div
@@ -27,11 +38,20 @@ const AcceptAgreWrapper = () => {
             Click Here
           </a>
         </p>
-        <input type="checkbox" class="larger" onChange={onChange} />
-        <p> Accept Agreement</p>
-        <Space wrap>
-          <Button type="primary">Done</Button>
+        <Form method="post">
+    <div>
+        <label for="terms_and_conditions">I agree to the Terms of Service:</label>
+        <input type="checkbox" id="terms_and_conditions" value="1" onClick={ () => {
+                  document.getElementById("submit_button").disabled = !document.getElementById("submit_button").disabled ;                  ;
+        }}/>
+    </div>
+    <div>
+    <Space wrap>
+          <Button id="submit_button" disabled={true} onClick={
+                        message.success("Your request has been sent", 3)}>Sign Up</Button>
         </Space>
+    </div>
+</Form>
       </div>
     </App>
   );
