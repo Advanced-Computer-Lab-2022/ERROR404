@@ -9,6 +9,7 @@ import {
   DislikeOutlined,
   LikeOutlined,
   UsergroupDeleteOutlined,
+  LogoutOutlined,
 } from "@ant-design/icons";
 import ViewWeekIcon from "@mui/icons-material/ViewWeek";
 import DashboardIcon from "@mui/icons-material/Dashboard";
@@ -40,52 +41,71 @@ function getItem(label, key, icon, children) {
   };
 }
 
-const items = [
-  getItem(
-    <Link to="/instructorDashBoard">My Dashboard</Link>,
-    "13",
-    <DashboardIcon />
-  ),
-  getItem(<Link to="/">Sigin | Login</Link>, "12", <LoginOutlined />),
-  getItem(
-    <Link to="/instructorDashBoard/allMyCourses">View all my courses</Link>,
-    "16",
-    <ViewWeekIcon />
-  ),
-
-  getItem(
-    <Link to="/instructorDashBoard/balance">My Balance</Link>,
-    "17",
-    <AccountBalanceWalletIcon />
-  ),
-  getItem(
-    <Link to="/instructorDashBoard/reviews">My Reviews</Link>,
-    "18",
-    <ReviewsIcon />
-  ),
-  getItem(
-    <Link to="/instructorDashBoard/createCourse">Create New Course</Link>,
-    "19",
-    <AddBoxIcon />
-  ),
-  getItem(
-    <Link to="/instructorDashBoard/createQuiz">Create New Quiz</Link>,
-    "20",
-    <AddBoxIcon />
-  ),
-  getItem(
-    <Link to="/instructorDashBoard/addDiscount">Add Discount</Link>,
-    "21",
-    <AddBoxIcon />
-  ),
-  getItem(<Link to="/settings">Settings</Link>, "15", <SettingFilled />),
-  //   getItem(<InstructorBalance />, "16", <SettingFilled />),
-];
-
 const InstructorDashboard = ({ children }) => {
-  const { userType } = useContext(AppContext);
+  const { userType, username } = useContext(AppContext);
+  const [userName, setUserName] = username;
   const [user, setUser] = userType;
   const [visible, setVisibility] = useState(false);
+
+  const items = [
+    getItem(<Link to="/">Home</Link>, "1", <HomeOutlined />),
+    getItem(
+      <Link to="/instructorDashBoard">My Dashboard</Link>,
+      "2",
+      <DashboardIcon />
+    ),
+    getItem(
+      <Link to="/instructorDashBoard/allMyCourses">View all my courses</Link>,
+      "4",
+      <ViewWeekIcon />
+    ),
+
+    getItem(
+      <Link to="/instructorDashBoard/balance">My Balance</Link>,
+      "17",
+      <AccountBalanceWalletIcon />
+    ),
+    getItem(
+      <Link to="/instructorDashBoard/reviews">My Reviews</Link>,
+      "18",
+      <ReviewsIcon />
+    ),
+    getItem(
+      <Link to="/instructorDashBoard/createCourse">Create New Course</Link>,
+      "19",
+      <AddBoxIcon />
+    ),
+    getItem(
+      <Link to="/instructorDashBoard/createQuiz">Create New Quiz</Link>,
+      "20",
+      <AddBoxIcon />
+    ),
+    getItem(
+      <Link to="/instructorDashBoard/addDiscount">Add Discount</Link>,
+      "21",
+      <AddBoxIcon />
+    ),
+    getItem(<Link to="/settings">Settings</Link>, "15", <SettingFilled />),
+    getItem(
+      <Link
+        to="/"
+        onClick={() => {
+          logout();
+        }}
+      >
+        Log Out
+      </Link>,
+      "3",
+      <LogoutOutlined />
+    ),
+
+    //   getItem(<InstructorBalance />, "16", <SettingFilled />),
+  ];
+
+  const logout = () => {
+    setUserName("");
+    setUser("");
+  };
 
   useEffect(() => {
     if (user != "instructor") {
@@ -118,7 +138,7 @@ const InstructorDashboard = ({ children }) => {
             }}
           >
             <Breadcrumb.Item>Home</Breadcrumb.Item>
-            <Breadcrumb.Item>Instructor</Breadcrumb.Item>
+            <Breadcrumb.Item>{userName}</Breadcrumb.Item>
             <Breadcrumb.Item>Dashboard</Breadcrumb.Item>
           </Breadcrumb>
           <Layout

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
@@ -18,7 +18,7 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  Navigate,
+  useNavigate,
 } from "react-router-dom";
 import ChangePasswordPageWrapper from "./components/changePassword";
 import ChangingPaswword from "./components/changePasswordAfterEmail";
@@ -54,15 +54,18 @@ import InstructorCourseReview from "./components/instructorComponents/instructor
 import ViewGradeWrapper from "./components/traineeComponents/viewGrade";
 import AcceptAgreWrapper from "./components/instructorComponents/AcceptAgreement";
 import Filter from "./components/filter";
+import LoginPageWrapper from "./components/loginComponents/mainHome";
+
 export default function MainApp() {
-  const [username, setUsername] = useState("abdelrahman");
-  const [userEmail, setUserEmail] = useState("alighieth2709@gmail.com");
-  const [userType, setUserType] = useState("instructor");
-  const [userPassword, setUserPassword] = useState("123456");
-  const [userMongoId, setUserMongoId] = useState("6366d3ddd79a066bc2b74106");
-  const [userPhoneNum, setUserPhoneNum] = useState("+20 1211399151");
-  const [region, setRegion] = useState("EG");
+  const [username, setUsername] = useState("");
+  const [userEmail, setUserEmail] = useState("");
+  const [userType, setUserType] = useState("");
+  const [userPassword, setUserPassword] = useState("");
+  const [userMongoId, setUserMongoId] = useState("");
+  const [userPhoneNum, setUserPhoneNum] = useState("");
+  const [region, setRegion] = useState("");
   const [instructorBio, setInstructorBio] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const values = {
     username: [username, setUsername],
@@ -73,6 +76,7 @@ export default function MainApp() {
     userPhone: [userPhoneNum, setUserPhoneNum],
     userRegion: [region, setRegion],
     instructorBio: [instructorBio, setInstructorBio],
+    loggedIn: [isLoggedIn, setIsLoggedIn],
   };
 
   return (
@@ -80,36 +84,8 @@ export default function MainApp() {
       <Router>
         <Routes>
           <Route exact path="/" element={<HomePageWrapper />} />
-          <Route path="/courses" element={<GetCoursesByPrice />} />
-          <Route path="/adminCreateAdmin" element={<CreateAdminWrapper />} />
           <Route
-            path="/adminCreateInstructor"
-            element={<CreateInstructorWrapper />}
-          />
-          <Route path="/createCourse" element={<WrapperCreateCourses />} />
-          <Route
-            path="/getAllInstructorCourses"
-            element={<GetAllInstructorCoursesWrapper />}
-          />
-          <Route
-            path="/viewallCoursesPrice"
-            element={<ViewAllCoursesPriceWrapper />}
-          />
-          <Route path="/createCorp" element={<CreateCorporateWrapper />} />
-          <Route path="/SelectCountry" element={<SelectCountryWrapper />} />
-          <Route path="/viewAllCourses" element={<ViewAllCoursesWrapper />} />
-          <Route path="/instViewCourses" element={<InstViewCoursesWrapper />} />
-          <Route
-            path="/changePassword"
-            element={<ChangePasswordPageWrapper />}
-          />
-          <Route path="/changingPasswordEmail" element={<ChangingPaswword />} />
-          <Route path="/submitlink" element={<UploadLink />} />
-          <Route path="/coursePage" element={<CoreCirWrapper />} />
-          <Route path="/settings" element={<SettingsPageWrapper />} />
-          <Route path="/insertCard" element={<InsertCreditCardInfoWrapper />} />
-          <Route
-            path="/instructorDashBoard"
+            path="instructorDashBoard"
             element={<InstructorMainDashboard />}
           />
           <Route
@@ -140,6 +116,37 @@ export default function MainApp() {
             path="/instructorDashBoard/editEmail"
             element={<ChangeEmail />}
           />
+
+          <Route exact path="/" element={<HomePageWrapper />} />
+          <Route path="/courses" element={<GetCoursesByPrice />} />
+          <Route path="/adminCreateAdmin" element={<CreateAdminWrapper />} />
+          <Route
+            path="/adminCreateInstructor"
+            element={<CreateInstructorWrapper />}
+          />
+          <Route path="/createCourse" element={<WrapperCreateCourses />} />
+          <Route
+            path="/getAllInstructorCourses"
+            element={<GetAllInstructorCoursesWrapper />}
+          />
+          <Route
+            path="/viewallCoursesPrice"
+            element={<ViewAllCoursesPriceWrapper />}
+          />
+          <Route path="/createCorp" element={<CreateCorporateWrapper />} />
+          <Route path="/SelectCountry" element={<SelectCountryWrapper />} />
+          <Route path="/viewAllCourses" element={<ViewAllCoursesWrapper />} />
+          <Route path="/instViewCourses" element={<InstViewCoursesWrapper />} />
+          <Route
+            path="/changePassword"
+            element={<ChangePasswordPageWrapper />}
+          />
+          <Route path="/changingPasswordEmail" element={<ChangingPaswword />} />
+          <Route path="/submitlink" element={<UploadLink />} />
+          <Route path="/coursePage" element={<CoreCirWrapper />} />
+          <Route path="/settings" element={<SettingsPageWrapper />} />
+          <Route path="/insertCard" element={<InsertCreditCardInfoWrapper />} />
+
           <Route path="/user/editEmail" element={<UserChangeEmail />} />
           <Route path="/instructorDashBoard/editBio" element={<ChangeBio />} />
           <Route
@@ -167,6 +174,7 @@ export default function MainApp() {
           />
           <Route path="Acceptagreement" element={<AcceptAgreWrapper />} />
           <Route path="filter" element={<Filter />} />
+          <Route path="login" element={<LoginPageWrapper />} />
         </Routes>
       </Router>
     </AppContext.Provider>

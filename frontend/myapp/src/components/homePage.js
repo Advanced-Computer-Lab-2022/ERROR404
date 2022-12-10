@@ -3,6 +3,8 @@ import { Layout, Image, Menu, Input } from "antd";
 import Categories from "./viewByCategory";
 import TopCourses from "./topCourses";
 import ReviewNavigation from "./reviewComponents";
+import { useContext } from "react";
+import { AppContext } from "../AppContext";
 
 const HomePageWrapper = () => {
   return (
@@ -13,6 +15,8 @@ const HomePageWrapper = () => {
 };
 
 const HomePage = () => {
+  const { userType } = useContext(AppContext);
+  const [user, setUser] = userType;
   return (
     <div
       style={{

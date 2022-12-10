@@ -67,7 +67,7 @@ app.get("/", (req, res) => {
   res.status(200).send("Server is Running");
 });
 
-app.get("/getUser/:userId/:userType", getUser);
+app.get("/getUser/:username/:userType", getUser);
 app.get("/getTopCourses", topCourses);
 app.get("/search/:key", search);
 app.get("/coursePrice", coursePrice);

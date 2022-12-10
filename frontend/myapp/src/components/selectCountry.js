@@ -49,10 +49,10 @@ const SelectCountry = () => {
     console.log("Success:", event);
     const country = event.country;
 
-    await selectCountry(username, country);
+    await selectCountry(country);
   };
 
-  const selectCountry = async (username, country) => {
+  const selectCountry = async (country) => {
     const requestBody = {
       //currentUser: currentUser,
       username: userName,

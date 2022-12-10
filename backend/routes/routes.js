@@ -35,10 +35,10 @@ const createIndividualTrainee = (req, res) => {
 };
 
 const getUser = async (req, res) => {
-  const userId = req.params.userId;
+  const username = req.params.username;
   const userType = req.params.userType;
 
-  let query = { _id: userId };
+  let query = { username: username };
 
   if (userType == "instructor") {
     await instructor
@@ -70,7 +70,7 @@ const getUser = async (req, res) => {
         }
       })
       .clone();
-  } else if (userType == "indivisual") {
+  } else if (userType == "individual") {
     await individualTrainee
       .findOne(query, function (err, data) {
         if (err) {
@@ -299,6 +299,7 @@ const viewCourses = async (req, res) => {
   }
 };
 const chooseCountry = async (req, res) => {
+  console.log(req.body);
   const { username, country, usertype } = req.body;
   if (username == "" || country == "") {
     res.status(400).send("valid data required");
@@ -315,7 +316,7 @@ const chooseCountry = async (req, res) => {
           }
         }
       );
-    } else if (usertype == "individual trainee") {
+    } else if (usertype == "individual") {
       individualTrainee.updateOne(
         { username: username },
         { country: country },
@@ -327,7 +328,7 @@ const chooseCountry = async (req, res) => {
           }
         }
       );
-    } else if (usertype == "corporate trainee") {
+    } else if (usertype == "corporate") {
       corporateTrainee.updateOne(
         { username: username },
         { country: country },
@@ -513,7 +514,7 @@ const changePassword = async (req, res) => {
   const id = req.body.id;
   const newPassword = req.body.newPassword;
   const usertype = req.body.usertype;
-  if (usertype == "corporate trainee") {
+  if (usertype == "corporate") {
     corporateTrainee.updateOne(
       { _id: id },
       { password: newPassword },
@@ -525,7 +526,7 @@ const changePassword = async (req, res) => {
         }
       }
     );
-  } else if (usertype == "individual trainee") {
+  } else if (usertype == "individual") {
     individualTrainee.updateOne(
       { _id: id },
       { password: newPassword },
@@ -557,7 +558,7 @@ const editEmail = async (req, res) => {
   const username = req.body.username;
   const email = req.body.email;
   const usertype = req.body.usertype;
-  if (usertype == "corporate trainee") {
+  if (usertype == "corporate") {
     await corporateTrainee
       .updateOne({ username: username }, { email: email }, (err, result) => {
         if (err) {
@@ -567,7 +568,7 @@ const editEmail = async (req, res) => {
         }
       })
       .clone();
-  } else if (usertype == "individual trainee") {
+  } else if (usertype == "individual") {
     await individualTrainee
       .updateOne({ username: username }, { email: email }, (err, result) => {
         if (err) {
@@ -594,7 +595,7 @@ const editBio = async (req, res) => {
   const username = req.body.username;
   const bio = req.body.bio;
   const usertype = req.body.usertype;
-  if (usertype == "corporate trainee") {
+  if (usertype == "corporate") {
     await user
       .updateOne({ username: username }, { biography: bio }, (err, result) => {
         if (err) {
@@ -604,7 +605,7 @@ const editBio = async (req, res) => {
         }
       })
       .clone();
-  } else if (usertype == "individual trainee") {
+  } else if (usertype == "individual") {
     await individualTrainee
       .updateOne({ username: username }, { biography: bio }, (err, result) => {
         if (err) {
@@ -887,7 +888,7 @@ const addCourseToStudent = async (req, res) => {
   const username = req.body.username;
   const courseId = req.body.courseId;
   const usertype = req.body.usertype;
-  if (usertype == "corporate trainee") {
+  if (usertype == "corporate") {
     corporateTrainee
       .updateOne(
         { username: username },
@@ -913,7 +914,7 @@ const addCourseToStudent = async (req, res) => {
         }
       )
       .clone();
-  } else if (usertype == "individual trainee") {
+  } else if (usertype == "individual") {
     individualTrainee
       .updateOne(
         { username: username },
@@ -964,7 +965,7 @@ const getMyCoursesTrainee = (req, res) => {
   const username = req.params.username;
 
   let ids = [];
-  if (usertype == "corporate trainee") {
+  if (usertype == "corporate") {
     corporateTrainee.findOne(
       { username: username },
       { Regcourses: 1 },
@@ -986,7 +987,7 @@ const getMyCoursesTrainee = (req, res) => {
         }
       }
     );
-  } else if (usertype == "individual trainee") {
+  } else if (usertype == "individual") {
     individualTrainee.findOne(
       { username: username },
       { Regcourses: 1 },
@@ -1016,7 +1017,7 @@ const getMyCoursesTrainee = (req, res) => {
 const getmyGrade = async (req, res) => {
   const id = req.params.id;
   const usertype = req.params.usertype;
-  if (usertype == "corporate trainee") {
+  if (usertype == "corporate") {
     corporateTrainee.findOne({ _id: id }, (err, result) => {
       if (err) {
         req.status(500).send();
@@ -1024,7 +1025,7 @@ const getmyGrade = async (req, res) => {
         res.status(200).json(result);
       }
     });
-  } else if (usertype == "individual trainee") {
+  } else if (usertype == "individual") {
     individualTrainee.findOne({ _id: id }, (err, result) => {
       if (err) {
         req.status(500).send();
