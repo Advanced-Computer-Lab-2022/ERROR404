@@ -41,7 +41,7 @@ const MainHeader = ({ values }) => {
         key: "user",
       },
     ];
-  } else if (user == "indivisual trainee") {
+  } else if (user == "individual") {
     items = [
       {
         label: (
