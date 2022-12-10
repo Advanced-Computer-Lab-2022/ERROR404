@@ -427,7 +427,7 @@ const filterCourses = async (req, res) => {
   if (filterType == null || key == null) {
     res.status(404).send("enter a filter type");
   } else {
-    await courses
+     courses
       .find()
       .where(filterType, key)
       .exec((err, result) => {

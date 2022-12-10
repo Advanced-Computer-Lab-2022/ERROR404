@@ -15,6 +15,7 @@ const Filter = () => {
     const filterType = urlParams.get("filterType");
     const value = urlParams.get("value");
 
+    console.log(filterType);
     axios
       .get("http://localhost:2020/filter/" + filterType + "/" + value)
       .then((response) => {
