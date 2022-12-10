@@ -427,7 +427,7 @@ const filterCourses = async (req, res) => {
   if (filterType == null || key == null) {
     res.status(404).send("enter a filter type");
   } else {
-     courses
+    courses
       .find()
       .where(filterType, key)
       .exec((err, result) => {
@@ -455,7 +455,6 @@ const rateAndReviewInstructor = async (req, res) => {
   const username = req.body.username;
   const rate = req.body.rate;
   const review = req.body.review;
-  console.log(req.body);
   let oldrate = 0;
   if (isNaN(rate)) {
     res.status(400).send("invalid rate");
@@ -469,10 +468,11 @@ const rateAndReviewInstructor = async (req, res) => {
         } else {
           oldrate = result.rating;
           let newRating = rate / 2 + oldrate / 2;
+          let num = newRating.toFixed(2);
           instructor
             .updateOne(
               { username: username },
-              { rating: newRating, $push: { review: review } },
+              { rating: num, $push: { review: review } },
               (err, result) => {
                 if (err) {
                   res.status(500).send(err.message);
@@ -488,7 +488,7 @@ const rateAndReviewInstructor = async (req, res) => {
   }
 };
 const rateAndReviewCourse = async (req, res) => {
-  const courseId = req.body.id;
+  const courseId = req.body.courseId;
   const review = req.body.review;
   const newRate = req.body.newRate;
   console.log(req.body);
@@ -505,10 +505,12 @@ const rateAndReviewCourse = async (req, res) => {
         } else {
           oldRate = result.rating;
           let newRating = newRate / 2 + oldRate / 2;
+          let num = newRating.toFixed(2);
+          console.log(num);
           courses
             .updateOne(
               { _id: courseId },
-              { rating: newRating, $push: { review: review } },
+              { rating: num, $push: { review: review } },
               (err, result) => {
                 if (err) {
                   res.status(500).send(err.message);
