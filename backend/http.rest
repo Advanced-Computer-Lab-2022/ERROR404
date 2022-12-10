@@ -1,9 +1,10 @@
-PUT http://localhost:2020/updateReportStatus
+POST  http://localhost:2020/createReport
 Content-Type: application/json
 
 {
-      "id": "6394ef63ed2668205c0fb722",
-      "status": "f"
+      "username": "abdelrahman",
+      "description": "I am having problem withdrawing my money",
+      "usertype": "instructor"
 }
 
 # {

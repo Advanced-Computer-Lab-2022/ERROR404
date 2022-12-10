@@ -1060,7 +1060,7 @@ const getAllReports = async (req, res) => {
     } else {
       res.status(404).send();
     }
-  });
+  }).clone();
 };
 
 const createReport = (req, res) => {
@@ -1107,7 +1107,7 @@ const updateReportStatus = (req, res) => {
           res.status(200).send();
         }
       }
-    );
+    ).clone();
   }
 };
 

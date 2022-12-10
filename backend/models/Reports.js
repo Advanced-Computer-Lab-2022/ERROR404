@@ -5,7 +5,7 @@ const reports = new Schema(
   {
     status: {
       type: String,
-      enum: ["unseen", "pending", "finished"],
+      enum: ["unseen", "pending", "resolved"],
       default: "unseen",
     },
     description: {

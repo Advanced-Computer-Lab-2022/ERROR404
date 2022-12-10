@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Badge, Table } from "antd";
 import qs from "qs";
 import AdminDashboard from "./adminDashboard";
+import axios from "axios";
+
 const { Column, ColumnGroup } = Table;
 
 const AdminReportsWrapper = () => {
@@ -14,10 +16,8 @@ const AdminReportsWrapper = () => {
 
 const columns = [
   {
-    title: "Name",
-    dataIndex: "name",
-    sorter: true,
-    render: (name) => `${name.first} ${name.last}`,
+    title: "User",
+    dataIndex: "user",
     width: "20%",
   },
   {
@@ -25,15 +25,15 @@ const columns = [
     dataIndex: "status",
     filters: [
       {
-        text: "Unseen",
-        value: "Unseen",
+        text: "unseen",
+        value: "unseen",
       },
       {
-        text: "Pending",
+        text: "pending",
         value: "pending",
       },
       {
-        text: "Resolved",
+        text: "resolved",
         value: "resolved",
       },
     ],
@@ -45,70 +45,58 @@ const columns = [
   },
   {
     title: "Date Of Submission",
-    dataIndex: "dateOfSubmission",
+    dataIndex: "createdAt",
   },
   {
     title: "Last Update",
-    dataIndex: "lastUpdate",
+    dataIndex: "updatedAt",
   },
 ];
-const getRandomuserParams = (params) => ({
-  results: params.pagination?.pageSize,
-  page: params.pagination?.current,
-  ...params,
-});
 
 const AdminReports = () => {
   const [data, setData] = useState();
   const [loading, setLoading] = useState(false);
-  const [tableParams, setTableParams] = useState({
-    pagination: {
-      current: 1,
-      pageSize: 10,
-    },
-  });
+  const [filter, setFilter] = useState([]);
   const fetchData = () => {
     setLoading(true);
-    fetch(
-      `https://randomuser.me/api?${qs.stringify(
-        getRandomuserParams(tableParams)
-      )}`
-    )
-      .then((res) => res.json())
-      .then(({ results }) => {
-        setData(results);
-        setLoading(false);
-        setTableParams({
-          ...tableParams,
-          pagination: {
-            ...tableParams.pagination,
-            total: 200,
-            // 200 is mock data, you should read it from server
-            // total: data.totalCount,
-          },
-        });
+    axios.get("http://localhost:2020/getAllReports").then((results) => {
+      console.log(results.data);
+      let data = [];
+      results.data.map((item) => {
+        if (filter.length > 0) {
+          if (filter.includes(item.status)) {
+            data.push(item);
+          }
+        } else {
+          data.push(item);
+        }
       });
+
+      setData(data);
+      setLoading(false);
+    });
   };
 
   useEffect(() => {
     fetchData();
-  }, [JSON.stringify(tableParams)]);
+    console.log("--------> ", filter);
+  }, [filter]);
+
+  const handleChange = (event) => {
+    console.log(event);
+  };
   const handleTableChange = (pagination, filters, sorter) => {
-    setTableParams({
-      pagination,
-      filters,
-      ...sorter,
-    });
+    console.log(filters.status);
+    setFilter(filters.status);
   };
   return (
     <Table
-      columns={columns}
-      rowKey={(record) => record.login.uuid}
       dataSource={data}
-      pagination={tableParams.pagination}
+      columns={columns}
+      rowKey={(record) => record._id}
       loading={loading}
       onChange={handleTableChange}
-    />
+    ></Table>
   );
 };
 export default AdminReportsWrapper;
