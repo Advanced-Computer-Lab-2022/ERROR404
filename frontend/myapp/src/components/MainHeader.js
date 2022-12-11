@@ -5,9 +5,20 @@ import { Link } from "react-router-dom";
 import { HomeOutlined, UserOutlined } from "@ant-design/icons";
 import SchoolIcon from "@mui/icons-material/School";
 import { AppContext } from "../AppContext";
+import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
+import BugReportIcon from "@mui/icons-material/BugReport";
 
 const { Header, Footer, Sider, Content } = Layout;
 const { Search } = Input;
+
+function getItem(label, key, icon, children) {
+  return {
+    key,
+    icon,
+    children,
+    label,
+  };
+}
 
 const MainHeader = ({ values }) => {
   const { userType, username } = useContext(AppContext);
@@ -72,6 +83,20 @@ const MainHeader = ({ values }) => {
         ),
         key: "user",
       },
+    ];
+  } else if (user == "admin") {
+    items = [
+      getItem(<Link to="/">Home</Link>, "1", <HomeOutlined />),
+      getItem(
+        <Link to="/adminDashboard">My Dashboard</Link>,
+        "3",
+        <AdminPanelSettingsIcon />
+      ),
+      getItem(
+        <Link to="/adminDashboard/reports">All Reports</Link>,
+        "2",
+        <BugReportIcon />
+      ),
     ];
   } else {
     items = [

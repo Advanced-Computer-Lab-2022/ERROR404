@@ -1,20 +1,24 @@
 import axios from "axios";
-import { useState, useEffect } from "react";
-import App from "../App";
+import { useState, useEffect, useContext } from "react";
+import App from "../../App";
 import { Layout, Button, Form, Input, Select, message } from "antd";
+import AdminDashboard from "./adminDashboard";
+import { AppContext } from "../../AppContext";
 const { Option } = Select;
 
 const CreateAdminWrapper = () => {
   return (
     <>
-      <App>
+      <AdminDashboard>
         <CreateAdmin />
-      </App>
+      </AdminDashboard>
     </>
   );
 };
 
 const CreateAdmin = () => {
+  const { username } = useContext(AppContext);
+  const [userName, setUserName] = username;
   const onFinish = async (event) => {
     console.log("Success:", event);
     const password = event.password;

@@ -14,6 +14,8 @@ import PrimarySearchAppBar from "./components/searchBarHeader";
 import ReviewNavigation from "./components/reviewComponents";
 import LoginComponent from "./components/loginComponents/mainHome";
 import { AppContext } from "./AppContext";
+import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
+import BugReportIcon from "@mui/icons-material/BugReport";
 
 const { Header, Footer, Sider, Content } = Layout;
 const { Option } = Select;
@@ -63,6 +65,31 @@ const App = ({ children }) => {
     items = [
       getItem(<Link to="/">Home</Link>, "1", <HomeOutlined />),
       getItem(<Link to="/settings">Settings</Link>, "3", <SettingFilled />),
+      getItem(
+        <Link
+          onClick={() => {
+            logout();
+          }}
+        >
+          Logout
+        </Link>,
+        "2",
+        <LogoutOutlined />
+      ),
+    ];
+  } else if (user == "admin") {
+    items = [
+      getItem(<Link to="/">Home</Link>, "1", <HomeOutlined />),
+      getItem(
+        <Link to="/adminDashboard">My Dashboard</Link>,
+        "3",
+        <AdminPanelSettingsIcon />
+      ),
+      getItem(
+        <Link to="/adminDashboard/reports">All Reports</Link>,
+        "2",
+        <BugReportIcon />
+      ),
       getItem(
         <Link
           onClick={() => {

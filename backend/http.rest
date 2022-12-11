@@ -1,10 +1,10 @@
-POST  http://localhost:2020/createReport
+POST  http://localhost:2020/createAdmin
 Content-Type: application/json
 
 {
-      "username": "abdelrahman",
-      "description": "I am having problem withdrawing my money",
-      "usertype": "instructor"
+      "admin": "alighieth",
+      "username": "testUser1",
+      "password": "test"
 }
 
 # {

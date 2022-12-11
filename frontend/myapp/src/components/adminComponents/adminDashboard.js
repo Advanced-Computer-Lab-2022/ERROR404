@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { HomeOutlined, PlusCircleOutlined } from "@ant-design/icons";
-import { Breadcrumb, Layout, Menu, theme } from "antd";
+import { Breadcrumb, Layout, Menu, theme, Alert } from "antd";
 import { Link } from "react-router-dom";
 import BugReportIcon from "@mui/icons-material/BugReport";
+import { AppContext } from "../../AppContext";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -22,7 +23,11 @@ const items = [
     "2",
     <BugReportIcon />
   ),
-  getItem(<Link to="/">Create New Admin</Link>, "3", <PlusCircleOutlined />),
+  getItem(
+    <Link to="/adminCreateAdmin">Create New Admin</Link>,
+    "3",
+    <PlusCircleOutlined />
+  ),
   getItem(
     <Link to="/">Create New Instructor</Link>,
     "4",
@@ -38,6 +43,19 @@ const items = [
 ];
 
 const AdminDashboard = ({ children, pageName }) => {
+  const { userType } = useContext(AppContext);
+  const [user, setUser] = userType;
+
+  // if (user != "admin") {
+  //   return (
+  //     <Alert
+  //       message="Error Unauthorized "
+  //       description="You are not autherized to access this page, Only admins can have access"
+  //       type="error"
+  //       showIcon
+  //     />
+  //   );
+  // } else {
   return (
     <Layout>
       <Header className="header">
@@ -67,6 +85,7 @@ const AdminDashboard = ({ children, pageName }) => {
       <Footer style={{ textAlign: "center" }}>Footer</Footer>
     </Layout>
   );
+  // }
 };
 
 export default AdminDashboard;

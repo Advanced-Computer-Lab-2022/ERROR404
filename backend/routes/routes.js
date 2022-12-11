@@ -142,25 +142,49 @@ const coursePrice = async (req, res) => {
     res.json(c);
   }
 };
-const createAdmin = (req, res) => {
+const createAdmin = async (req, res) => {
+  const adminUserName = req.body.admin;
   const password = req.body.password;
   const username = req.body.username;
-  if (password == null || username == null) {
+
+  if (
+    password == null ||
+    username == null ||
+    adminUserName == null ||
+    adminUserName.length == 0 ||
+    password.length == 0 ||
+    username.length == 0
+  ) {
     return res.status(400).send("Required fields are not submitted");
   }
-  const adminData = {
-    password: password,
-    username: username,
-  };
-  admin.create(adminData, function (err, small) {
-    if (err) {
-      res.status(500).send("Database not responding  => " + err.message);
-      console.log(err.message);
-      return;
-    }
-    // this means record created
-    res.status(200).send("admin " + username + " created Successfully");
-  });
+  await admin
+    .find({ username: adminUserName }, (err, data) => {
+      if (err) {
+        return res.status(500).send(err);
+      } else {
+        console.log("data ", data.length);
+        if (data.length == 0) {
+          return res.status(401).send("Unautherized access");
+        } else {
+          const adminData = {
+            password: password,
+            username: username,
+          };
+          admin.create(adminData, function (err, small) {
+            if (err) {
+              res
+                .status(500)
+                .send("Database not responding  => " + err.message);
+              console.log(err.message);
+              return;
+            }
+            // this means record created
+            res.status(200).send("admin " + username + " created Successfully");
+          });
+        }
+      }
+    })
+    .clone();
 };
 const search = async (req, res) => {
   let query = {};
