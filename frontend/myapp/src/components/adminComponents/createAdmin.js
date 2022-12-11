@@ -19,16 +19,17 @@ const CreateAdminWrapper = () => {
 const CreateAdmin = () => {
   const { username } = useContext(AppContext);
   const [userName, setUserName] = username;
+
   const onFinish = async (event) => {
     console.log("Success:", event);
     const password = event.password;
-    const username = event.username;
 
-    await createAdmin(username, password);
+    await createAdmin(password);
   };
 
   const createAdmin = async (username, password) => {
     const requestBody = {
+      admin: userName,
       username: username,
       password: password,
     };
@@ -46,16 +47,14 @@ const CreateAdmin = () => {
     console.log("Failed:", errorInfo);
   };
   return (
-    <div style={{ textAlign: "center" }}>
+    <div
+      style={{
+        textAlign: "center",
+      }}
+    >
       <span>Create New User</span>
       <Form
         name="basic"
-        labelCol={{
-          span: 8,
-        }}
-        wrapperCol={{
-          span: 16,
-        }}
         initialValues={{
           remember: true,
         }}
@@ -63,19 +62,6 @@ const CreateAdmin = () => {
         onFinishFailed={onFinishFailed}
         autoComplete="off"
       >
-        <Form.Item
-          label="Parent Admin Username"
-          name="Parentusername"
-          rules={[
-            {
-              required: true,
-              message: "Please input your username!",
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
-
         <Form.Item
           label="Username"
           name="username"
@@ -98,72 +84,13 @@ const CreateAdmin = () => {
               message: "Please input new admin password!",
             },
           ]}
+          hasFeedback
         >
           <Input.Password />
         </Form.Item>
-        {/* <Form.Item
-          label="First Name"
-          name="firstName"
-          rules={[
-            {
-              required: true,
-              message: "Please input your first name!",
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          label="Last Name"
-          name="lastName"
-          rules={[
-            {
-              required: true,
-              message: "Please input your lastname!",
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
-        <Form.Item label="Age" name="age">
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          label="Email"
-          name="email"
-          rules={[
-            {
-              required: true,
-              message: "Please input your email!",
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item label="Gender" name="gender">
-          <Select
-            placeholder="Select a option and change input text above"
-            allowClear
-          >
-            <Option value="male">male</Option>
-            <Option value="female">female</Option>
-          </Select>
-        </Form.Item>
-        <Form.Item label="Country" name="country">
-          <Input />
-        </Form.Item> */}
-
-        <Form.Item
-          wrapperCol={{
-            offset: 8,
-            span: 16,
-          }}
-        >
+        <Form.Item>
           <Button type="primary" htmlType="submit">
-            Submit
+            Create
           </Button>
         </Form.Item>
       </Form>

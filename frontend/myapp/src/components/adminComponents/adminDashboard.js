@@ -29,12 +29,12 @@ const items = [
     <PlusCircleOutlined />
   ),
   getItem(
-    <Link to="/">Create New Instructor</Link>,
+    <Link to="/adminCreateInstructor">Create New Instructor</Link>,
     "4",
     <PlusCircleOutlined />
   ),
   getItem(
-    <Link to="/">Create New Instructor</Link>,
+    <Link to="/createCorp">Create New Instructor</Link>,
     "5",
     <PlusCircleOutlined />
   ),
