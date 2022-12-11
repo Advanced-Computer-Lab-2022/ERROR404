@@ -10,8 +10,6 @@ const LoadSearchedCourses = () => {
   let location = useLocation();
   useEffect(() => {
     const idSearch = window.location.search;
-    console.log(idSearch);
-
     const urlParams = new URLSearchParams(idSearch);
     const searchValue = urlParams.get("value");
 

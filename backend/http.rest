@@ -1,10 +1,10 @@
-POST  http://localhost:2020/createAdmin
+PATCH  http://localhost:2020/rateAndReviewCourse
 Content-Type: application/json
 
 {
-      "admin": "alighieth",
-      "username": "testUser1",
-      "password": "test"
+      "courseId": "638501f2a9b064e47ee7e0ed",
+      "newRate": "4",
+      "review": "goooooood"
 }
 
 # {

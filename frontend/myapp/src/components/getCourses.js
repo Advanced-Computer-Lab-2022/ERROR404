@@ -7,18 +7,14 @@ const { Option } = Select;
 
 const { Panel } = Collapse;
 
-const SearchByForm = () => {
+const SearchByForm = ({ values }) => {
   const [data, setData] = useState([]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = values;
   const navigate = useNavigate();
 
-  useEffect(() => {
-    console.log("data =>  ", data);
-  }, [data]);
+  useEffect(() => {}, [data]);
 
   const getCourses = (filterType, value) => {
-    setIsModalOpen(true);
-    console.log("filename ", filterType);
     axios({
       method: "get",
       url: "http://localhost:2020/filter/" + filterType + "/" + value,
@@ -36,8 +32,9 @@ const SearchByForm = () => {
     console.log(" => ", event);
     const value = event.value;
     const filterType = event.filterType;
+    setIsModalOpen(false);
     navigate("/filter?filterType=" + filterType + "&value=" + value);
-    await getCourses(filterType, value);
+    getCourses(filterType, value);
   };
 
   const onReset = () => {
