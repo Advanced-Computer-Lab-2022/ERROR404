@@ -1,10 +1,10 @@
-PATCH  http://localhost:2020/country
+POST  http://localhost:2020/createAdmin
 Content-Type: application/json
 
 {
-      "username": "bruno",
-      "country": "egypt",
-      "usertype": "individual"
+      "admin": "alighieth",
+      "username": "testUser1",
+      "password": "test"
 }
 
 # {

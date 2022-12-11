@@ -33,7 +33,7 @@ const {
   viewReviewAndRatingForInstructor,
   insertVideoLinkToCourse,
   addCreditCardInfo,
-
+  getAllReports,
   // noOfSubscribers,
   //reviewInstructor,
   salary,
@@ -43,6 +43,8 @@ const {
   getCourseById,
   submitDiscount,
   getmyGrade,
+  createReport,
+  updateReportStatus,
 } = require("./routes/routes");
 
 //App variables
@@ -67,37 +69,43 @@ app.get("/", (req, res) => {
   res.status(200).send("Server is Running");
 });
 
+app.get("/getAllReports", getAllReports);
 app.get("/getUser/:username/:userType", getUser);
 app.get("/getTopCourses", topCourses);
+app.get("/getmygrade/:id/:usertype", getmyGrade);
 app.get("/search/:key", search);
 app.get("/coursePrice", coursePrice);
 app.get("/searchmycourses/:user/:key", instructorSearch);
 app.get("/getMyCourses/:usertype/:username", getMyCoursesTrainee);
 app.get("/viewCourses", viewCourses);
 app.get("/getCourse/:id", getCourseById);
+app.get("/instViewCourses/:userId", instViewCourses);
+app.get("/filter/:filterType/:key", filterCourses);
+app.get("/viewReviewAndRating/:username", viewReviewAndRatingForInstructor);
+app.get("/viewRatingAndReviews/:username", viewRatingAndReviews);
+
 app.post("/createCorporateTrainee", createCorporateTrainee);
 app.post("/createAdmin", createAdmin);
 app.post("/createCourse", createCourse);
 app.post("/createInstructor", createInstructor);
 app.post("/createIndividualTrainee", createIndividualTrainee);
+app.post("/createQuestions", createQuestions);
+app.post("/createQuiz", createQuiz);
+app.post("/createReport", createReport);
+
 app.patch("/country", chooseCountry);
-app.get("/instViewCourses/:userId", instViewCourses);
-app.get("/filter/:filterType/:key", filterCourses);
-app.put("/updateViews", updateViews);
 app.patch("/rateAndReviewInstructor", rateAndReviewInstructor);
 app.patch("/rateAndReviewCourse", rateAndReviewCourse);
-app.get("/viewRatingAndReviews/:username", viewRatingAndReviews);
+app.patch("/insertVideoLinkToCourse", insertVideoLinkToCourse);
+app.patch("/addCreditCardInfo", addCreditCardInfo);
+
 app.put("/uploadPreviewVideoForCourse", uploadPreviewVideoForCourse);
 app.put("/editEmail", editEmail);
 app.put("/editBio", editBio);
 app.put("/changePassword", changePassword);
-app.get("/viewReviewAndRating/:username", viewReviewAndRatingForInstructor);
-app.patch("/insertVideoLinkToCourse", insertVideoLinkToCourse);
-app.patch("/addCreditCardInfo", addCreditCardInfo);
 //app.put("/noOfSubscribers", noOfSubscribers);
 app.put("/salary", salary);
-app.post("/createQuestions", createQuestions);
-app.post("/createQuiz", createQuiz);
 app.put("/addCourseToStudent", addCourseToStudent);
 app.put("/submitDiscount", submitDiscount);
-app.get("/getmygrade/:id/:usertype", getmyGrade);
+app.put("/updateReportStatus", updateReportStatus);
+app.put("/updateViews", updateViews);

@@ -6,7 +6,7 @@ import "antd/dist/antd.css";
 import GetCoursesByPrice from "./components/getCourses";
 import GetAllInstructorCoursesWrapper from "./components/instructorComponents/getAllInstructorCourses";
 import ViewAllCoursesPriceWrapper from "./components/viewallCoursesPrice";
-import CreateAdminWrapper from "./components/createAdmin";
+import CreateAdminWrapper from "./components/adminComponents/createAdmin";
 import CreateInstructorWrapper from "./components/createInst";
 import WrapperCreateCourses from "./components/createCourse";
 import SelectCountryWrapper from "./components/selectCountry";
@@ -55,6 +55,8 @@ import ViewGradeWrapper from "./components/traineeComponents/viewGrade";
 import AcceptAgreWrapper from "./components/instructorComponents/AcceptAgreement";
 import Filter from "./components/filter";
 import LoginPageWrapper from "./components/loginComponents/mainHome";
+import AdminReportsWrapper from "./components/adminComponents/adminReports";
+import AdminMainDashboardWrapper from "./components/adminComponents/adminMainDashboard";
 
 export default function MainApp() {
   const [username, setUsername] = useState("");
@@ -175,6 +177,14 @@ export default function MainApp() {
           <Route path="Acceptagreement" element={<AcceptAgreWrapper />} />
           <Route path="filter" element={<Filter />} />
           <Route path="login" element={<LoginPageWrapper />} />
+          <Route
+            path="/adminDashboard"
+            element={<AdminMainDashboardWrapper />}
+          />
+          <Route
+            path="/adminDashboard/reports"
+            element={<AdminReportsWrapper />}
+          />
         </Routes>
       </Router>
     </AppContext.Provider>

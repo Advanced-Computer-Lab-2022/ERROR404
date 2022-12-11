@@ -1,39 +1,42 @@
 import axios from "axios";
-import { useState, useEffect } from "react";
-import App from "../App";
+import { useState, useEffect, useContext } from "react";
+import App from "../../App";
 import { Layout, Button, Form, Input, Select, message } from "antd";
-import AdminDashboard from "./adminComponents/adminDashboard";
+import AdminDashboard from "./adminDashboard";
+import { AppContext } from "../../AppContext";
 const { Option } = Select;
 
-const CreateCorporateWrapper = () => {
+const CreateAdminWrapper = () => {
   return (
     <>
       <AdminDashboard>
-        <CreateCorporate />
+        <CreateAdmin />
       </AdminDashboard>
     </>
   );
 };
 
-const CreateCorporate = () => {
+const CreateAdmin = () => {
+  const { username } = useContext(AppContext);
+  const [userName, setUserName] = username;
+
   const onFinish = async (event) => {
     console.log("Success:", event);
     const password = event.password;
-    const username = event.username;
 
-    await createCorporate(username, password);
+    await createAdmin(password);
   };
 
-  const createCorporate = async (username, password) => {
+  const createAdmin = async (username, password) => {
     const requestBody = {
-      currentUser: "alighieth",
+      admin: userName,
       username: username,
       password: password,
     };
     axios
-      .post("http://localhost:2020/createCoop", requestBody)
+      .post("http://localhost:2020/createAdmin", requestBody)
       .then((response) => {
-        message.success("user " + username + " has been created", 5);
+        message.success("user " + username + "has been created", 5);
       })
       .catch((error) => {
         console.log("erorr ", error.message);
@@ -44,16 +47,14 @@ const CreateCorporate = () => {
     console.log("Failed:", errorInfo);
   };
   return (
-    <div style={{ textAlign: "center" }}>
+    <div
+      style={{
+        textAlign: "center",
+      }}
+    >
       <span>Create New User</span>
       <Form
         name="basic"
-        labelCol={{
-          span: 8,
-        }}
-        wrapperCol={{
-          span: 16,
-        }}
         initialValues={{
           remember: true,
         }}
@@ -61,10 +62,6 @@ const CreateCorporate = () => {
         onFinishFailed={onFinishFailed}
         autoComplete="off"
       >
-        <Form.Item label="Parent Admin Username" name="Parentusername">
-          <Input />
-        </Form.Item>
-
         <Form.Item
           label="Username"
           name="username"
@@ -87,17 +84,13 @@ const CreateCorporate = () => {
               message: "Please input new admin password!",
             },
           ]}
+          hasFeedback
         >
           <Input.Password />
         </Form.Item>
-        <Form.Item
-          wrapperCol={{
-            offset: 8,
-            span: 16,
-          }}
-        >
+        <Form.Item>
           <Button type="primary" htmlType="submit">
-            Submit
+            Create
           </Button>
         </Form.Item>
       </Form>
@@ -105,4 +98,4 @@ const CreateCorporate = () => {
   );
 };
 
-export default CreateCorporateWrapper;
+export default CreateAdminWrapper;

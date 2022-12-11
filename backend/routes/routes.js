@@ -5,6 +5,7 @@ const instructor = require("../models/instructor");
 const individualTrainee = require("../models/IndividualTrainee");
 const questions = require("../models/questions");
 const quizzes = require("../models/quizzes");
+const Reports = require("../models/reports");
 const { default: mongoose } = require("mongoose");
 
 //Methods
@@ -141,25 +142,49 @@ const coursePrice = async (req, res) => {
     res.json(c);
   }
 };
-const createAdmin = (req, res) => {
+const createAdmin = async (req, res) => {
+  const adminUserName = req.body.admin;
   const password = req.body.password;
   const username = req.body.username;
-  if (password == null || username == null) {
+
+  if (
+    password == null ||
+    username == null ||
+    adminUserName == null ||
+    adminUserName.length == 0 ||
+    password.length == 0 ||
+    username.length == 0
+  ) {
     return res.status(400).send("Required fields are not submitted");
   }
-  const adminData = {
-    password: password,
-    username: username,
-  };
-  admin.create(adminData, function (err, small) {
-    if (err) {
-      res.status(500).send("Database not responding  => " + err.message);
-      console.log(err.message);
-      return;
-    }
-    // this means record created
-    res.status(200).send("admin " + username + " created Successfully");
-  });
+  await admin
+    .find({ username: adminUserName }, (err, data) => {
+      if (err) {
+        return res.status(500).send(err);
+      } else {
+        console.log("data ", data.length);
+        if (data.length == 0) {
+          return res.status(401).send("Unautherized access");
+        } else {
+          const adminData = {
+            password: password,
+            username: username,
+          };
+          admin.create(adminData, function (err, small) {
+            if (err) {
+              res
+                .status(500)
+                .send("Database not responding  => " + err.message);
+              console.log(err.message);
+              return;
+            }
+            // this means record created
+            res.status(200).send("admin " + username + " created Successfully");
+          });
+        }
+      }
+    })
+    .clone();
 };
 const search = async (req, res) => {
   let query = {};
@@ -1049,6 +1074,67 @@ const getmyGrade = async (req, res) => {
 //     }
 //   );
 // };
+
+const getAllReports = async (req, res) => {
+  await Reports.find({}, (err, data) => {
+    if (err) {
+      res.status(500).json(err);
+    } else if (data) {
+      res.status(200).json(data);
+    } else {
+      res.status(404).send();
+    }
+  }).clone();
+};
+
+const createReport = (req, res) => {
+  console.log(req.body);
+  const username = req.body.username;
+  const usertype = req.body.usertype;
+  const description = req.body.description;
+  if (username == null || username.length == 0) {
+    return res.status(400).send("username not sent");
+  } else if (usertype == null || usertype.length == 0) {
+    return res.status(400).send("usertype not sent");
+  } else if (description == null || description.length == 0) {
+    return res.status(400).send("description not sent");
+  } else {
+    const body = {
+      user: username,
+      usertype: usertype,
+      description: description,
+    };
+    Reports.create(body, (err, data) => {
+      if (err) {
+        res.status(500).json(err);
+      } else {
+        res.status(200).send(data);
+      }
+    });
+  }
+};
+
+const updateReportStatus = (req, res) => {
+  const reportId = req.body.id;
+
+  if (reportId == null || reportId.length == 0) {
+    return res.status(400).send("Id not provided");
+  } else {
+    Reports.findByIdAndUpdate(
+      { _id: reportId },
+      { $set: { status: req.body.status } },
+      { runValidators: true },
+      (err, data) => {
+        if (err) {
+          res.status(500).json(err);
+        } else {
+          res.status(200).send();
+        }
+      }
+    ).clone();
+  }
+};
+
 module.exports = {
   getUser,
   search,
@@ -1085,4 +1171,7 @@ module.exports = {
   submitDiscount,
   getMyCoursesTrainee,
   getmyGrade,
+  getAllReports,
+  createReport,
+  updateReportStatus,
 };

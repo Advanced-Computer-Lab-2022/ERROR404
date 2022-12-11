@@ -2,14 +2,15 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import App from "../App";
 import { Layout, Button, Form, Input, Select, message } from "antd";
+import AdminDashboard from "./adminComponents/adminDashboard";
 const { Option } = Select;
 
 const CreateInstructorWrapper = () => {
   return (
     <>
-      <App>
+      <AdminDashboard>
         <CreateInstructor />
-      </App>
+      </AdminDashboard>
     </>
   );
 };
