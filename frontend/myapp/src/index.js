@@ -78,6 +78,9 @@ import TakeNotesWrapper from "./components/takeNotes";
 import CreateRequestWrapper from "./components/corporateCreateRequest";
 
 
+import TakeNotesWrapper from "./components/takeNotes";
+
+
 export default function MainApp() {
   const [username, setUsername] = useState("");
   const [userEmail, setUserEmail] = useState("");
@@ -236,6 +239,12 @@ export default function MainApp() {
            <Route path="/AdminFilterReports" element={<AdminFilterReports/>} />
            <Route path="/corporateCreateRequest" element={<CreateRequestWrapper/>} />
 
+
+          <Route path="*" element={<NoPage />} />
+
+
+
+           <Route path="/TakeNotes" element={<TakeNotesWrapper />} />
 
         </Routes>
       </Router>

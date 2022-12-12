@@ -18,6 +18,7 @@ import { Header, Container } from "semantic-ui-react";
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 import InstructorDashboard from "./instructorComponents/InstructorDashboard";
 
+import InstructorDashboard from "../pages/InstructorDashboard";
 
 const { Option } = Select;
 
@@ -77,23 +78,23 @@ const CreateExam = () => {
       .post("http://localhost:2020/createQuestions", requestBody)
       
       .then((response) => {
-        // axios
-        // .post("http://localhost:2020/createQuiz", 
-        // q1._id,
-        // q2._id,
-        // q3._id,
-        // q4._id, )
+        axios
+        .post("http://localhost:2020/createQuiz", 
+        q1._id,
+        q2._id,
+        q3._id,
+        q4._id, )
 
         
-        // .then((response) => {
-        //   message.success("Exam has been created", 5);
-        //  console.log("success");
-        //  console.log(q1._id);
-        // })
-        // .catch((error) => {
-        //   console.log("erorr ", error.message);
-        //   message.error("Unexpected Error occured" +" "+ error.response.message, 5);
-        // });
+        .then((response) => {
+          message.success("Exam has been created", 5);
+         console.log("success");
+         console.log(q1._id);
+        })
+        .catch((error) => {
+          console.log("erorr ", error.message);
+          message.error("Unexpected Error occured" +" "+ error.response.message, 5);
+        });
 
          
       })
