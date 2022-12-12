@@ -29,6 +29,7 @@ import InstructorMainDashboard from "./components/instructorComponents/instructo
 import InsertCreditCardInfoWrapper from "./components/insertCreditCardinfo";
 import SettingsPageWrapper from "./pages/settingsPage";
 import InstructorViewAllTitlesWrapper from "./components/instructorComponents/instructorCourses";
+import TraineeMainDashboard from "./components/traineeComponents/traineeMainDashboard";
 import {
   ChangeBio,
   ChangeEmail,
@@ -54,6 +55,9 @@ import AdminMainDashboardWrapper from "./components/adminComponents/adminMainDas
 import CreateUserWrapper from "./components/adminComponents/adminCreateUser";
 import NoPage from "./components/NoPage";
 import MyProgrmas from "./components/myPrograms";
+import WrapperLessonPage from "./components/lessonPage";
+import WrapperSignUp from "./components/signUp";
+
 export default function MainApp() {
   const [username, setUsername] = useState("");
   const [userEmail, setUserEmail] = useState("");
@@ -157,6 +161,8 @@ export default function MainApp() {
           <Route path="/course/syllabus" element={<CourseSyllabus />} />
           <Route path="/SolveExam" element={<SolveExamWrapper />} />
           <Route path="/user/myPrograms" element={<MyProgrmas />} />
+          <Route path="/user/classroom" element={<UserCourses />} />
+          <Route path="/lessonPage" element={<WrapperLessonPage/>} />
           <Route
             path="/instructorDashBoard/addDiscount"
             element={<SubmitDiscount />}
@@ -177,6 +183,14 @@ export default function MainApp() {
             element={<AdminReportsWrapper />}
           />
           <Route path="*" element={<NoPage />} />
+          <Route
+            path="/signUp"
+            element={<WrapperSignUp/>}
+          />
+          <Route
+            path="/traineeDashBoard"
+            element={<TraineeMainDashboard />}
+          />
         </Routes>
       </Router>
     </AppContext.Provider>

@@ -3,6 +3,13 @@ import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { Layout, Select, Breadcrumb, Menu, Modal, Button, Avatar } from "antd";
 import {
+  DesktopOutlined,
+  FileOutlined,
+  SelectOutlined,
+  FolderViewOutlined,
+  PlusSquareOutlined,
+  UserAddOutlined,
+  SearchOutlined,
   HomeOutlined,
   TeamOutlined,
   SettingFilled,
@@ -30,14 +37,18 @@ const App = ({ children }) => {
     setUser("");
   };
 
-  function getItem(label, key, icon, children) {
-    return {
-      key,
-      icon,
-      children,
-      label,
-    };
-  }
+//   function getItem(label, key, icon, children) {
+//     return {
+//       key,
+//       icon,
+//       children,
+//       label,
+//     };
+//   }
+// const items = [
+//   getItem(<Link to="/">Home</Link>, "17", <HomeOutlined />),
+//   getItem(<Link to="/">Sign in | Login</Link>, "12", <LoginOutlined />),
+//   getItem(<Link to="/signUp">Sign up </Link>, "12", <UserAddOutlined />),
 
   let items = [];
   if (user == "instructor") {
