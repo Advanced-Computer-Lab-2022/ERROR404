@@ -222,6 +222,7 @@ export default function MainApp() {
             path="/adminDashboard/reports"
             element={<AdminReportsWrapper />}
           />
+
           <Route
             path="/adminDashboard/requests"
             element={<AdminRequestsWrapper />}
