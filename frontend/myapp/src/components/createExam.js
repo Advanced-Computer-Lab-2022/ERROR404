@@ -18,6 +18,8 @@ import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 import InstructorDashboard from "./instructorComponents/InstructorDashboard";
 import { AppContext } from "../AppContext";
 
+import InstructorDashboard from "../pages/InstructorDashboard";
+
 const { Option } = Select;
 
 const CreateExamWrapper = () => {
@@ -102,7 +104,38 @@ const CreateExam = () => {
       .catch((err) => console.log(err));
   };
 
+  // const createQuiz = async () => {
+  //   const requestBody = {
+
+  //     username:"abdelrahman",
+  //     courseId: "638501f2a9b064e47ee7e0ed",
+  //     // question1: 
+
+  //   }
+
+  //   axios
+  //   .post("http://localhost:2020/createQuiz", requestBody)
+
+  //   .then((response) => {
+  //     message.success("Quiz has been created", 5);
+  //   })
+  //   .catch((error) => {
+  //     console.log("erorr ", error.message);
+  //     message.error("Unexpected Error occured" +" "+ error.response.message, 5);
+  //   });
+
+
+  // }
+
+
+    const onFinishFailed = (errorInfo) => {
+    console.log("Failed:", errorInfo);
+  };
+
+
+
   return (
+
     <div>
       <div
         id="q1-form"
@@ -307,6 +340,10 @@ const CreateExam = () => {
         Create Quiz
       </Button>
     </div>
+
+    
+
+
   );
 };
 

@@ -81,6 +81,9 @@ import AdminFilterReports from "./components/adminComponents/adminFilterReports"
 
 import TakeNotesWrapper from "./components/takeNotes";
 
+import TakeNotesWrapper from "./components/takeNotes";
+
+
 export default function MainApp() {
   const [username, setUsername] = useState("");
   const [userEmail, setUserEmail] = useState("");
@@ -247,6 +250,13 @@ export default function MainApp() {
 
           <Route path="/TakeNotes" element={<TakeNotesWrapper />} />
           <Route path="/AdminFilterReports" element={<AdminFilterReports />} />
+
+          <Route path="*" element={<NoPage />} />
+
+
+
+           <Route path="/TakeNotes" element={<TakeNotesWrapper />} />
+
         </Routes>
       </Router>
     </AppContext.Provider>
