@@ -8,12 +8,17 @@ import {
   Input,
   Descriptions,
   Card,
+  Tabs,
+  Checkbox,
+  Select,
+  Popconfirm,
+  message,
 } from "antd";
-import qs from "qs";
 import AdminDashboard from "./adminDashboard";
 import axios from "axios";
-import MenuItem from "@mui/material/MenuItem";
-import Select from "@mui/material/Select";
+import { Link } from "react-router-dom";
+
+const { Option } = Select;
 
 const AdminReportsWrapper = () => {
   return (
@@ -28,11 +33,30 @@ const AdminReports = () => {
   const [loading, setLoading] = useState(false);
   const [filter, setFilter] = useState([]);
   const [report, setReport] = useState({});
+  const [editReport, setEditReport] = useState(true);
 
   const [open, setOpen] = useState(false);
   const [user, setUser] = useState("");
   const [confirmLoading, setConfirmLoading] = useState(false);
   const [modalText, setModalText] = useState("Content of the modal");
+
+  const [form] = Form.useForm();
+
+  const confirm = (status, id) =>
+    new Promise((resolve) => {
+      console.log("sssssssss ", status);
+      const requestBody = {
+        id: id,
+        status: status,
+      };
+      axios
+        .put("http://localhost:2020/updateReportStatus", requestBody)
+        .then((res) => {
+          console.log(res);
+          message.success("status has been changed to " + status);
+        });
+      setTimeout(() => resolve(null), 3000);
+    });
 
   const columns = [
     {
@@ -85,24 +109,31 @@ const AdminReports = () => {
       dataIndex: "updatedAt",
     },
     {
-      title: "Edit",
+      title: "View Report",
       dataIndex: "_id",
       render: (id) => {
         return (
-          <Button
-            type="text"
+          <Link
             onClick={(event) => {
               showModal(id);
             }}
           >
-            Show More
-          </Button>
+            View
+          </Link>
         );
       },
     },
   ];
-  const handleUserChange = (event) => {
-    setUser(event.target.value);
+
+  const onChange = (key) => {
+    console.log(key);
+  };
+
+  const onFinish = (values) => {
+    console.log("Success:", values);
+  };
+  const onFinishFailed = (errorInfo) => {
+    console.log("Failed:", errorInfo);
   };
 
   const showModal = (reportId) => {
@@ -135,61 +166,130 @@ const AdminReports = () => {
 
           content: (
             <>
-              <Card>
-                <Descriptions title="Report Info">
-                  <Descriptions.Item label="Report Id">
-                    {reports._id}
-                  </Descriptions.Item>
-                  <Descriptions.Item label="Report Description">
-                    {reports.description}
-                  </Descriptions.Item>
-                  <Descriptions.Item label="Report Status">
-                    <Select
-                      labelId="demo-simple-select-label"
-                      id="demo-simple-select"
-                      value={user}
-                      label="User Type"
-                      onChange={handleUserChange}
-                      style={{
-                        width: "100%",
-                      }}
-                    >
-                      <MenuItem value={"pending"}>Pending</MenuItem>
-                      <MenuItem value={"resolved"}>Resolved</MenuItem>
-                    </Select>
-                  </Descriptions.Item>
-                </Descriptions>
-              </Card>
-              <Card>
-                <Descriptions title="User Info">
-                  <Descriptions.Item label="Username">
-                    {data.username}
-                  </Descriptions.Item>
-                  <Descriptions.Item label="Email">
-                    {data.email}
-                  </Descriptions.Item>
-                  <Descriptions.Item label="Role">
-                    {data.role}
-                  </Descriptions.Item>
-                </Descriptions>
-              </Card>
+              <Tabs
+                defaultActiveKey="1"
+                onChange={onChange}
+                items={[
+                  {
+                    label: `Report Information`,
+                    key: "1",
+                    children: (
+                      <Card>
+                        <Form
+                          onFinish={onFinish}
+                          onFinishFailed={onFinishFailed}
+                          autoComplete="off"
+                        >
+                          <Form.Item
+                            label="Report Id"
+                            name="reportId"
+                            initialValue={reports._id}
+                          >
+                            <Input disabled />
+                          </Form.Item>
+                          <Form.Item
+                            label="Description"
+                            name="description"
+                            initialValue={reports.description}
+                          >
+                            <Input.TextArea disabled />
+                          </Form.Item>
+
+                          <Form.Item
+                            wrapperCol={{
+                              offset: 8,
+                              span: 16,
+                            }}
+                          ></Form.Item>
+                        </Form>
+                        <Descriptions title="Extra Info">
+                          <Descriptions.Item label="Last Update">
+                            {reports.updatedAt}
+                          </Descriptions.Item>
+                        </Descriptions>
+                      </Card>
+                    ),
+                  },
+                  {
+                    label: `User Information`,
+                    key: "2",
+                    children: (
+                      <Card>
+                        <Descriptions title="User Info">
+                          <Descriptions.Item label="Username">
+                            {data.username}
+                          </Descriptions.Item>
+                          <Descriptions.Item label="Email">
+                            {data.email}
+                          </Descriptions.Item>
+                          <Descriptions.Item label="Role">
+                            {data.role}
+                          </Descriptions.Item>
+                        </Descriptions>
+                      </Card>
+                    ),
+                  },
+                  {
+                    label: `Change Report Status`,
+                    key: "3",
+                    children: (
+                      <Card>
+                        <Descriptions title="Updating Report.........">
+                          <Descriptions.Item label="Current Status">
+                            <span>
+                              <Badge status={type} text={reports.status} />
+                            </span>
+                          </Descriptions.Item>
+                        </Descriptions>
+                        <Form
+                          form={form}
+                          onFinish={(e) => {
+                            console.log("anaaaa", e);
+                          }}
+                        >
+                          <Form.Item
+                            name="status"
+                            label="Update Status to "
+                            rules={[
+                              {
+                                required: true,
+                              },
+                            ]}
+                          >
+                            <Select
+                              placeholder="Select a option and change input text above"
+                              allowClear
+                            >
+                              <Option value="resolved">Resolved</Option>
+                              <Option value="pending">Pending</Option>
+                            </Select>
+                          </Form.Item>
+                          <Form.Item>
+                            <Popconfirm
+                              title="Title"
+                              onConfirm={() =>
+                                confirm(
+                                  form.getFieldValue("status"),
+                                  reports._id
+                                )
+                              }
+                              onOpenChange={() => console.log("open change")}
+                            >
+                              <Button type="primary" htmlType="submit">
+                                Open Popconfirm with Promise
+                              </Button>
+                            </Popconfirm>
+                          </Form.Item>
+                        </Form>
+                      </Card>
+                    ),
+                  },
+                ]}
+              />
             </>
           ),
         });
       });
-  };
-
-  const handleOk = () => {
-    setModalText("Submitting Changes");
-    setConfirmLoading(true);
-    setTimeout(() => {
-      setOpen(false);
-      setConfirmLoading(false);
-    }, 2000);
-  };
-  const handleCancel = () => {
-    console.log("Clicked cancel button");
-    setOpen(false);
   };
 
   const fetchData = () => {
