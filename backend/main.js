@@ -113,3 +113,5 @@ app.put("/updateReportStatus", updateReportStatus);
 app.put("/updateViews", updateViews);
 app.get("/filterByPrice/:min/:max", filterByPrice);
 app.get("/getChats/:username/:usertype", getChats);
+//app.get("/getmygrade/:id/:usertype", getmyGrade);
+

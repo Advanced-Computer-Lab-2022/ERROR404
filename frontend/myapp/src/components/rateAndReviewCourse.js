@@ -14,7 +14,7 @@ const ReviewCourseComponent = () => {
     axios
       .patch("http://localhost:2020/rateAndReviewCourse", requestBody)
       .then((response) => {
-        message.success("your review has been submitted successfully", 5);
+        message.success("Your review has been submitted successfully", 5);
       })
       .catch((error) => {
         console.log("erorr ", error);
@@ -35,7 +35,7 @@ const ReviewCourseComponent = () => {
       >
         <Form.Item
           name="courseId"
-          label="enter your course id"
+          label="Enter your course id"
           rules={[{ required: true }]}
         >
           <Input placeholder="Enter your course id" />
@@ -43,7 +43,7 @@ const ReviewCourseComponent = () => {
 
         <Form.Item
           name="review"
-          label="enter your review"
+          label="Enter your review"
           rules={[
             { required: true, message: "Please enter your review" },
             { minLength: 5 },
@@ -65,10 +65,10 @@ const ReviewCourseComponent = () => {
             htmlType="submit"
             className="login-form-button"
             style={{
-              width: "50%",
+              width: "70%",
             }}
           >
-            submit
+            Submit Review
           </Button>
         </Form.Item>
       </Form>

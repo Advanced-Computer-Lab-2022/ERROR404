@@ -61,6 +61,10 @@ const individualTrainee = new Schema(
       type: Map,
       default: "",
     },
+    wallet: {
+      type: Number,
+      default: 0,
+    },
     creditCardInfo: [
       {
         holderName: {
