@@ -3,17 +3,20 @@ import { useState, useEffect } from "react";
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import "semantic-ui-css/semantic.min.css";
 
+import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import {
   Button,
   Form,
   Input,
   InputNumber,
-  Select,
   message,
   Space
 } from "antd";
-import InstructorDashboard from "./instructorComponents/InstructorDashboard";
-const { Option } = Select;
+
+// import InstructorDashboard from "./instructorComponents/InstructorDashboard";
+// const { Option } = Selec
+import InstructorDashboard from "../pages/InstructorDashboard";
+
 
 const WrapperCreateCourses = () => {
   return (
@@ -144,6 +147,7 @@ const CreateCourse = () => {
           <Input />
         </Form.Item>
 
+
         <Form.List label="Course subtitles" name="subtitles"  >
         {(fields, { add, remove }) => (
           <>
@@ -251,6 +255,26 @@ const CreateCourse = () => {
           ]}
         >
           <Input />
+        </Form.Item>
+
+        <Form.Item
+          label="Add image"
+          name="image"
+        >
+          <Input addonBefore="https://" />
+        </Form.Item>
+        
+        <Form.Item
+          label="Course summary"
+          name="summary"
+          rules={[
+            {
+              required: true,
+              message: "Please enter a summary for the course",
+            },
+          ]}
+        >
+          <Input addonBefore="https://" />
         </Form.Item>
 
         <Form.Item
