@@ -962,9 +962,7 @@ const createQuestions = async (req, res) => {
       answer: answerQes4,
       options: options4,
     };
-
     const array = [body1, body2, body3, body4];
-
     questions
       .insertMany(array)
       .then((docs) => {

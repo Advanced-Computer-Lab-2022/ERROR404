@@ -46,6 +46,7 @@ import UserCourses from "./components/courseComponents/userClassRoom";
 import ReviewCourseComponent from "./components/rateAndReviewCourse";
 import SubmitDiscount from "./components/instructorComponents/instructorSubmitDiscount";
 import InstructorCourseReview from "./components/instructorComponents/instructorCourseReviews";
+
 import ViewGradeWrapper from "./components/traineeComponents/viewGrade";
 import AcceptAgreWrapper from "./components/instructorComponents/AcceptAgreement";
 import Filter from "./components/filter";
@@ -68,6 +69,9 @@ import Terms from "./components/termsAndConditions";
 import TraineeInsideCourse from "./components/traineeComponents/traineeInsideCourse";
 import CourseConversation from "./components/courseComponents/courseConversation";
 import TraineeReportsWrapper from "./components/traineeComponents/reportsFollowUp";
+
+import TakeNotesWrapper from "./components/takeNotes";
+
 
 export default function MainApp() {
   const [username, setUsername] = useState("");
@@ -184,6 +188,7 @@ export default function MainApp() {
             path="instructorDashboard/allMyCourses/reviews"
             element={<InstructorCourseReview />}
           />
+
           <Route path="Acceptagreement" element={<AcceptAgreWrapper />} />
           <Route path="/user/reports" element={<TraineeReportsWrapper />} />
           <Route path="/terms" element={<Terms />} />
@@ -202,6 +207,7 @@ export default function MainApp() {
             path="/adminDashboard/reports"
             element={<AdminReportsWrapper />}
           />
+
           <Route path="*" element={<NoPage />} />
           <Route path="/signUp" element={<WrapperSignUp />} />
           <Route path="/traineeDashBoard" element={<TraineeMainDashboard />} />
@@ -217,6 +223,8 @@ export default function MainApp() {
             path="/traineeDashboard/traineeViewCourses"
             element={<TraineeViewCourses />}
           />
+           <Route path="/TakeNotes" element={<TakeNotesWrapper />} />
+
         </Routes>
       </Router>
     </AppContext.Provider>
