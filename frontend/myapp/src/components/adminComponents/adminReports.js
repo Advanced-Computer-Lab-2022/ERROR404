@@ -266,7 +266,7 @@ const AdminReports = () => {
                           </Form.Item>
                           <Form.Item>
                             <Popconfirm
-                              title="Title"
+                              title="Are you sure you want to submit this new status"
                               onConfirm={() =>
                                 confirm(
                                   form.getFieldValue("status"),
@@ -276,7 +276,7 @@ const AdminReports = () => {
                               onOpenChange={() => console.log("open change")}
                             >
                               <Button type="primary" htmlType="submit">
-                                Open Popconfirm with Promise
+                                Submit Statuss
                               </Button>
                             </Popconfirm>
                           </Form.Item>

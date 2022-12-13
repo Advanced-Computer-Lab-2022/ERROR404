@@ -7,9 +7,45 @@ import App from "../../App";
 const { Panel } = Collapse;
 
 const GetAllInstructorCoursesWrapper = () => {
+  const [open, setOpen] = useState(false);
+  const [confirmLoading, setConfirmLoading] = useState(false);
+  const [modalText, setModalText] = useState("Content of the modal");
+  const [courseId, setCourseId] = useState("");
+
+  const values = {
+    modal: [open, setOpen],
+    courseId: [courseId, setCourseId],
+  };
+
+  const showModal = () => {
+    setOpen(true);
+  };
+  const handleOk = () => {
+    setModalText("The modal will be closed after two seconds");
+    setConfirmLoading(true);
+    setTimeout(() => {
+      setOpen(false);
+      setConfirmLoading(false);
+    }, 2000);
+  };
+
+  const handleCancel = () => {
+    console.log("Clicked cancel button");
+    setOpen(false);
+  };
+
   return (
     <App>
-      <GetAllInstructorCourses />
+      <GetAllInstructorCourses values={values} />
+      <Modal
+        title="Add Discount"
+        open={open}
+        onOk={handleOk}
+        confirmLoading={confirmLoading}
+        onCancel={handleCancel}
+      >
+        <p>{modalText}</p>
+      </Modal>
     </App>
   );
 };
