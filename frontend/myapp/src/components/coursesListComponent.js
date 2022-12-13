@@ -137,6 +137,9 @@ const CourseComponent = ({ courses, viewType }) => {
                       >
                         Add preview video
                       </Button>
+                      <Button type="dashed" icon={<PlusOutlined />}>
+                        Add Dicount
+                      </Button>
                       <Link to={"reviews?courseId=" + item._id}>
                         <Button
                           type="dashed"
