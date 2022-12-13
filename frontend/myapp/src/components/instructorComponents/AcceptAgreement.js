@@ -1,5 +1,4 @@
-import { Space, message, Form } from "antd";
-import Button from "react-bootstrap/esm/Button";
+import { Space, message, Form, Button, Checkbox } from "antd";
 import App from "../../App";
 import {
  DownloadOutlined
@@ -118,14 +117,15 @@ to binding arbitration by the American Arbitration Association. Damages shall be
 damages only, punitive damages shall not be awarded.
       </p>
       </div>
-        <Form method="post">
-    <div>
-        <label for="terms_and_conditions"><h2>I agree to the Terms of Service </h2></label>
-        <input type="checkbox" id="terms_and_conditions" value="1" onClick={ () => {
-                  document.getElementById("submit_button").disabled = !document.getElementById("submit_button").disabled ;                  ;
-        }}/>
-    </div>
-</Form>
+        <Form onFinish={() => message.success("Your request has been sent",3)}>
+          <Form.Item name="accept" label="I agree to the Terms of Service">
+          <Checkbox  onChange={ () => {
+                  document.getElementById("submit_button").disabled = !document.getElementById("submit_button").disabled ;}} />
+          </Form.Item>
+            <Form.Item>
+            <Button id="submit_button" htmlType="subimt" disabled>Accept Agreement</Button>
+            </Form.Item>
+        </Form>
 <div
         style={{
           display: "flex",
@@ -136,8 +136,6 @@ damages only, punitive damages shall not be awarded.
         }}
       >
       
-       <Button htmlType="button" id="submit_button" disabled={true} onClick={
-                        message.success("Your request has been sent",5)}>Accept</Button>
 <div>
 <Box sx={{ height: 100,width:1100, transform: 'translateZ(100px)', flexGrow: 2 }}>
       <SpeedDial
