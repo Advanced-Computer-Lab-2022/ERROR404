@@ -1,18 +1,47 @@
 import App from "../App";
-import React from 'react';
+import axios from "axios";
+import React, { useContext } from 'react';
 import {
     ReadOutlined,
     FileSearchOutlined,
     DatabaseOutlined,
   } from '@ant-design/icons';
-import { Button , Space} from 'antd';
+import { Button , Space, message, Form} from 'antd';
 import { useState } from 'react';
 import { Input } from 'antd';
+import { AppContext } from "../AppContext";
 const { TextArea } = Input;
 const ReportaProblemWrapper = () => {
 
     const [value, setValue] = useState('');
+    const {username, userType} = useContext(AppContext);
+    const [UserName, setUserName] = username;
+    const [Usertype, setUserType] = userType;
+    const [description, setDescription] = useState("");
 
+
+    const handleChange = (event) =>{
+        console.log(event.target.value);
+        setDescription(event.target.value)
+    }
+    const report = () => {
+    let body = {
+        username: UserName,
+        usertype: Usertype,
+        description: description
+      };
+    
+      axios
+        .post("http://localhost:2020/createReport", body)
+        .then(() => {
+          message.success("you have created your report successfully", 3);
+          console.log("hello");
+        })
+        .catch((err) => {
+          message.error("An unexpected error has occurred", 3);
+          console.log("error at create report ", JSON.stringify(err));
+        });
+    };
 return (    
     <App>
         <div
@@ -82,20 +111,29 @@ return (
       />
       <h3>Description *</h3>
       <>
-    <TextArea rows={8} placeholder="To increase our ability to provide a fix, please thoroughly explain the issue and add clear reproduction steps" />
+      <Form
+      
+      >
+        <Form.Item>
+            <Input.TextArea onChange={handleChange} placeholder="To increase our ability to provide a fix, please thoroughly explain the issue and add clear reproduction steps"/>
+        </Form.Item>
+      </Form>
     
   </>
        </div>
        <div>
        <br />
        <Space wrap>
-    <Button type="primary">Submit</Button>
+    <Button type="primary" onClick={() => {
+        report()
+    }}>Submit </Button>
     <Button type="primary">Cancel</Button>
   </Space>
        </div>
       </div>
     </App>
     );
+    
 };
 
 export default ReportaProblemWrapper;

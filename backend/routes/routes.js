@@ -1205,11 +1205,11 @@ const createReport = async (req, res) => {
       usertype: usertype,
       description: description,
     };
-    Reports.create(body, (err, data) => {
+    Reports.create(body, (err, result) => {
       if (err) {
         res.status(500).json(err);
       } else {
-        res.status(200).send(data);
+        res.status(200).send(result);
       }
     });
   }

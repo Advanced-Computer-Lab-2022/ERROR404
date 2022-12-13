@@ -1,10 +1,10 @@
-POST  http://localhost:2020/
+POST  http://localhost:2020/createReport
 Content-Type: application/json
 
 {
-      "admin": "alighieth",
-      "username": "testUser1",
-      "password": "test"
+      "username": "bruno",
+      "usertype": "individual",
+      "description": "testdkfmldsmclkcmlskmdslkdscmlsd"
 }
 
 # {
