@@ -1,11 +1,11 @@
-GET http://localhost:2020/getMyCourses/individual/bruno
-# Content-Type: application/json
+POST  http://localhost:2020/
+Content-Type: application/json
 
-# {
-#       "courseId": "638501f2a9b064e47ee7e0ed",
-#       "newRate": "4",
-#       "review": "goooooood"
-# }
+{
+      "admin": "alighieth",
+      "username": "testUser1",
+      "password": "test"
+}
 
 # {
 #    "username" :"abdelrahman", 
