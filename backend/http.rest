@@ -1,11 +1,11 @@
-PATCH  http://localhost:2020/rateAndReviewCourse
-Content-Type: application/json
+GET http://localhost:2020/getChats/abdelrahman/instructor
+# Content-Type: application/json
 
-{
-      "courseId": "638501f2a9b064e47ee7e0ed",
-      "newRate": "4",
-      "review": "goooooood"
-}
+# {
+#       "courseId": "638501f2a9b064e47ee7e0ed",
+#       "newRate": "4",
+#       "review": "goooooood"
+# }
 
 # {
 #    "username" :"abdelrahman", 

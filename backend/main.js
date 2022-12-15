@@ -45,6 +45,8 @@ const {
   getmyGrade,
   createReport,
   updateReportStatus,
+  filterByPrice,
+  getChats,
 } = require("./routes/routes");
 
 //App variables
@@ -109,3 +111,5 @@ app.put("/addCourseToStudent", addCourseToStudent);
 app.put("/submitDiscount", submitDiscount);
 app.put("/updateReportStatus", updateReportStatus);
 app.put("/updateViews", updateViews);
+app.get("/filterByPrice/:min/:max", filterByPrice);
+app.get("/getChats/:username/:usertype", getChats);

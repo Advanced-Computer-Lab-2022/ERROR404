@@ -272,29 +272,21 @@ const instructorSearch = async (req, res) => {
 };
 const createInstructor = async (req, res) => {
   const admin = req.body.admin;
+  const username = req.body.username;
+  const password = req.body.password;
   const instData = {
-    firstname: req.body.firstname,
-    lastname: req.body.lastname,
-    age: req.body.age,
-    gender: req.body.gender,
-    username: req.body.username,
-    password: req.body.password,
-    email: req.body.email,
-    country: req.body.country,
-    biography: req.body.biography,
-    phoneNumber: req.body.phoneNumber,
+    // firstname: req.body.firstname,
+    // lastname: req.body.lastname,
+    // age: req.body.age,
+    // gender: req.body.gender,
+    username: username,
+    password: password,
+    // email: req.body.email,
+    // country: req.body.country,
+    // biography: req.body.biography,
+    // phoneNumber: req.body.phoneNumber,
   };
-  if (
-    firstname == null ||
-    lastname == null ||
-    age == null ||
-    gender == null ||
-    username == null ||
-    password == null ||
-    email == null ||
-    country == null ||
-    biography == null
-  ) {
+  if (username == null || password == null) {
     res.status(400).json("Enter a valid data ");
   } else {
     await admin
@@ -478,6 +470,19 @@ const filterCourses = async (req, res) => {
         }
       });
   }
+};
+const filterByPrice = async (req, res) => {
+  const { min, max } = req.params;
+  courses.find(
+    { $and: [{ price: { $lte: max } }, { price: { $gte: min } }] },
+    (err, result) => {
+      if (err) {
+        res.status(500).send();
+      } else {
+        res.status(200).json(result);
+      }
+    }
+  );
 };
 const updateViews = async (req, res) => {
   const id = req.body.id;
@@ -789,7 +794,6 @@ const topCourses = async (req, res) => {
   const topCourses = await courses.find({}).sort({ views: -1 }).limit(5);
   res.status(200).json(topCourses);
 };
-
 const salary = async (req, res) => {
   const courseId = req.body.courseId;
   const x = await courses.findOne(
@@ -1011,7 +1015,6 @@ const addCourseToStudent = async (req, res) => {
     res.status(404).send("Student not found");
   }
 };
-
 const getCourseById = async (req, res) => {
   const courseId = req.params.id;
 
@@ -1176,6 +1179,51 @@ const updateReportStatus = (req, res) => {
     ).clone();
   }
 };
+const getChats = (req, res) => {
+  const username = req.params.username;
+  const usertype = req.params.usertype;
+  if (usertype == "instructor") {
+    instructor
+      .find({ username: username })
+      .populate("chat")
+      .exec((err, result) => {
+        if (err) {
+          return res.status(500).json({ error: err });
+        }
+        res.status(200).json({ result: result });
+      });
+  } else if (usertype == "individual") {
+    individualTrainee
+      .find({ username: username })
+      .populate("Chat")
+      .exec((err, result) => {
+        if (err) {
+          return res.json({ error: err });
+        }
+        res.json({ result: result });
+      });
+  } else if (usertype == "corporate") {
+    corporateTrainee
+      .find({ username: username })
+      .populate("Chat")
+      .exec((err, result) => {
+        if (err) {
+          return res.json({ error: err });
+        }
+        res.json({ result: result });
+      });
+  } else if (usertype == "admin") {
+    admin
+      .find({ username: username })
+      .populate("Chat")
+      .exec((err, result) => {
+        if (err) {
+          return res.json({ error: err });
+        }
+        res.json({ result: result });
+      });
+  }
+};
 
 module.exports = {
   getUser,
@@ -1216,4 +1264,6 @@ module.exports = {
   getAllReports,
   createReport,
   updateReportStatus,
+  filterByPrice,
+  getChats,
 };

@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-
+const { ObjectId } = mongoose.Schema;
 const instructor = new Schema(
   {
     firstname: {
@@ -10,7 +10,6 @@ const instructor = new Schema(
         validator: (value) => /^[A-Za-z]+$/.test(value),
         message: "firstname is not a valid name!",
       },
-      required: [true, "Name is required"],
     },
     lastname: {
       type: String,
@@ -19,11 +18,9 @@ const instructor = new Schema(
         validator: (value) => /^[A-Za-z]+$/.test(value),
         message: "lastname not a valid name!",
       },
-      required: [true, "Name is required"],
     },
     age: {
       type: Number,
-      required: [true, "Age is required"],
     },
     gender: {
       type: String,
@@ -42,7 +39,6 @@ const instructor = new Schema(
     email: {
       type: String,
       unique: true,
-      required: [true, "Vaild email is required"],
     },
     country: {
       type: String,
@@ -80,6 +76,10 @@ const instructor = new Schema(
     approved: {
       type: Boolean,
       default: false,
+    },
+    chats: {
+      type: ObjectId,
+      ref: "chats",
     },
   },
   { timestamps: true }

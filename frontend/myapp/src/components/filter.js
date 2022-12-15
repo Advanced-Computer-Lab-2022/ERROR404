@@ -25,8 +25,6 @@ const Filter = () => {
     const urlParams = new URLSearchParams(idSearch);
     const filterType = urlParams.get("filterType");
     const value = urlParams.get("value");
-
-    console.log(filterType);
     axios
       .get("http://localhost:2020/filter/" + filterType + "/" + value)
       .then((response) => {
@@ -54,7 +52,7 @@ const Filter = () => {
         onOk={handleOk}
         onCancel={handleCancel}
       >
-        <SearchByForm values={[isModalOpen, setIsModalOpen]} />
+        <SearchByForm values={[isModalOpen]} />
       </Modal>
       <CourseComponent courses={courses} />
     </App>
