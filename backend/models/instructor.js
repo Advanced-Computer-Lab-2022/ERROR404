@@ -58,7 +58,7 @@ const instructor = new Schema(
     },
     rating: {
       type: Number,
-      default: 5,
+      default: 0,
     },
     review: {
       type: Array,

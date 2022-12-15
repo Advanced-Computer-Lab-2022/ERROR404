@@ -11,7 +11,6 @@ const InstructorReviewWrapper = () => {
         <Breadcrumb>
           <Breadcrumb.Item>My Reviews</Breadcrumb.Item>
         </Breadcrumb>
-        <Rate allowHalf defaultValue={4} disabled={true} />
         <ReviewNavigation />
       </>
     </InstructorDashboard>
