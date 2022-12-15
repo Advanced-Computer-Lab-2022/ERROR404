@@ -32,13 +32,6 @@ const AdminReports = () => {
   const [data, setData] = useState();
   const [loading, setLoading] = useState(false);
   const [filter, setFilter] = useState([]);
-  const [report, setReport] = useState({});
-  const [editReport, setEditReport] = useState(true);
-
-  const [open, setOpen] = useState(false);
-  const [user, setUser] = useState("");
-  const [confirmLoading, setConfirmLoading] = useState(false);
-  const [modalText, setModalText] = useState("Content of the modal");
 
   const [form] = Form.useForm();
 
