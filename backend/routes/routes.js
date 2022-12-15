@@ -143,6 +143,7 @@ const coursePrice = async (req, res) => {
   }
 };
 const createAdmin = async (req, res) => {
+  console.log(req.body);
   const adminUserName = req.body.admin;
   const password = req.body.password;
   const username = req.body.username;

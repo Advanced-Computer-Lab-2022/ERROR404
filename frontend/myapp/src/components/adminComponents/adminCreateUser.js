@@ -1,6 +1,5 @@
 import axios from "axios";
 import { useState, useEffect, useContext } from "react";
-import App from "../../App";
 import {
   Layout,
   Button,
@@ -10,9 +9,13 @@ import {
   message,
   Steps,
   Space,
+  Result,
+  Typography,
 } from "antd";
 import AdminDashboard from "./adminDashboard";
 import { AppContext } from "../../AppContext";
+
+import { CloseCircleOutlined, SmileOutlined } from "@ant-design/icons";
 const { Option } = Select;
 
 const CreateAdmin = () => {
@@ -24,6 +27,9 @@ const CreateAdmin = () => {
   const [formUserInfo] = Form.useForm();
   const [finalFormDisabled, setFinalFormDisabled] = useState(true);
   const [usertype, setUser] = useState("");
+  const [submitted, setSubmitted] = useState(0);
+
+  const { Paragraph, Text } = Typography;
 
   const onFinish = (event) => {
     console.log(event);
@@ -45,11 +51,11 @@ const CreateAdmin = () => {
     axios
       .post("http://localhost:2020/" + url, requestBody)
       .then((response) => {
-        message.success("user " + username + "has been created", 5);
+        setSubmitted(1);
       })
       .catch((error) => {
         console.log("erorr ", error.message);
-        message.error("Unexpected Error occured" + error.response.message, 5);
+        setSubmitted(2);
       });
   };
 
@@ -176,12 +182,59 @@ const CreateAdmin = () => {
     key: item.title,
     title: item.title,
   }));
-  return (
-    <>
-      <Steps current={current} items={items} />
-      <div className="steps-content">{steps[current].content}</div>
-    </>
-  );
+  if (submitted == 0) {
+    return (
+      <div>
+        <Steps current={current} items={items} />
+        <div className="steps-content">{steps[current].content}</div>
+      </div>
+    );
+  } else if (submitted == 1) {
+    return (
+      <Result
+        icon={<SmileOutlined />}
+        title="Great, we have done all the operations!"
+        extra={<Button type="primary">Next</Button>}
+      />
+    );
+  } else if (submitted == 2) {
+    return (
+      <Result
+        status="error"
+        title="Submission Failed"
+        subTitle="Please check and modify the following information before resubmitting."
+        extra={[
+          <Button
+            type="primary"
+            key="resubmit"
+            onClick={() => {
+              setSubmitted(0);
+              setCurrent(0);
+            }}
+          >
+            Resubmit User
+          </Button>,
+        ]}
+      >
+        <div className="desc">
+          <Paragraph>
+            <Text
+              strong
+              style={{
+                fontSize: 16,
+              }}
+            >
+              The content you submitted has the following error:
+            </Text>
+          </Paragraph>
+          <Paragraph>
+            <CloseCircleOutlined className="site-result-demo-error-icon" /> You
+            may have entered an incorrect admin or unautherized
+          </Paragraph>
+        </div>
+      </Result>
+    );
+  }
 };
 
 const CreateUserWrapper = () => {

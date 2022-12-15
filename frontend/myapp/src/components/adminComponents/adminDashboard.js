@@ -25,18 +25,8 @@ const items = [
     <BugReportIcon />
   ),
   getItem(
-    <Link to="/adminCreateAdmin">Create New Admin</Link>,
+    <Link to="/adminCreateAdmin">Create New User</Link>,
     "3",
-    <PlusCircleOutlined />
-  ),
-  getItem(
-    <Link to="/adminCreateInstructor">Create New Instructor</Link>,
-    "4",
-    <PlusCircleOutlined />
-  ),
-  getItem(
-    <Link to="/createCorp">Create New Instructor</Link>,
-    "5",
     <PlusCircleOutlined />
   ),
 
