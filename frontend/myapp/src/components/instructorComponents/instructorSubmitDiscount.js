@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Checkbox, Form, Input, message, DatePicker } from "antd";
 import axios from "axios";
-import InstructorDashboard from "../pages/InstructorDashboard";
+import InstructorDashboard from "./InstructorDashboard";
 
 const SubmitDiscount = () => {
   const onFinish = (values) => {

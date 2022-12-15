@@ -13,7 +13,7 @@ import {
   Menu,
   message,
 } from "antd";
-import InstructorDashboard from "../pages/InstructorDashboard";
+import InstructorDashboard from "./instructorComponents/InstructorDashboard";
 const { Option } = Select;
 
 const WrapperCreateCourses = () => {

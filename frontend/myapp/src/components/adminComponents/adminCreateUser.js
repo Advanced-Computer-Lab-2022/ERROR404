@@ -185,8 +185,10 @@ const CreateAdmin = () => {
   if (submitted == 0) {
     return (
       <div>
-        <Steps current={current} items={items} />
-        <div className="steps-content">{steps[current].content}</div>
+        <div>
+          <Steps current={current} items={items} />
+          <div className="steps-content">{steps[current].content}</div>
+        </div>
       </div>
     );
   } else if (submitted == 1) {

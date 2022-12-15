@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
@@ -6,11 +6,8 @@ import "antd/dist/antd.css";
 import GetCoursesByPrice from "./components/getCourses";
 import GetAllInstructorCoursesWrapper from "./components/instructorComponents/getAllInstructorCourses";
 import ViewAllCoursesPriceWrapper from "./components/viewallCoursesPrice";
-import CreateAdminWrapper from "./components/adminComponents/createAdmin";
-import CreateInstructorWrapper from "./components/createInst";
 import WrapperCreateCourses from "./components/createCourse";
 import SelectCountryWrapper from "./components/selectCountry";
-import CreateCorporateWrapper from "./components/createCorp";
 import ViewAllCoursesWrapper from "./components/viewAllCourses";
 import InstViewCoursesWrapper from "./components/instViewCourses";
 import HomePageWrapper from "./components/homePage";
@@ -24,10 +21,7 @@ import ChangePasswordPageWrapper from "./components/changePassword";
 import ChangingPaswword from "./components/changePasswordAfterEmail";
 import { AppContext } from "./AppContext";
 import UploadLink from "./components/instructorComponents/uploudYoutubeVid";
-import CoursePage from "./components/CoursePage";
 import CoreCirWrapper from "./components/coreCirriculum";
-import InstructorDashboard from "./pages/InstructorDashboard";
-import ReviewNavigation from "./components/reviewComponents";
 import InstructorReviewWrapper from "./components/instructorComponents/instructorReviews";
 import InstructorBalanceWrapper from "./components/instructorComponents/instructorBalance";
 import InstructorSettingsWrapper from "./components/instructorComponents/instructorSettings";
@@ -49,7 +43,7 @@ import CourseReview from "./components/courseComponents/courseReview";
 import CourseSyllabus from "./components/courseComponents/courseSyllabes";
 import UserCourses from "./components/courseComponents/userClassRoom";
 import ReviewCourseComponent from "./components/rateAndReviewCourse";
-import SubmitDiscount from "./components/instructorSubmitDiscount";
+import SubmitDiscount from "./components/instructorComponents/instructorSubmitDiscount";
 import InstructorCourseReview from "./components/instructorComponents/instructorCourseReviews";
 import ViewGradeWrapper from "./components/traineeComponents/viewGrade";
 import AcceptAgreWrapper from "./components/instructorComponents/AcceptAgreement";
@@ -58,6 +52,7 @@ import LoginPageWrapper from "./components/loginComponents/mainHome";
 import AdminReportsWrapper from "./components/adminComponents/adminReports";
 import AdminMainDashboardWrapper from "./components/adminComponents/adminMainDashboard";
 import CreateUserWrapper from "./components/adminComponents/adminCreateUser";
+import NoPage from "./components/NoPage";
 
 export default function MainApp() {
   const [username, setUsername] = useState("");
@@ -123,10 +118,6 @@ export default function MainApp() {
           <Route exact path="/" element={<HomePageWrapper />} />
           <Route path="/courses" element={<GetCoursesByPrice />} />
           <Route path="/adminCreateAdmin" element={<CreateUserWrapper />} />
-          <Route
-            path="/adminCreateInstructor"
-            element={<CreateInstructorWrapper />}
-          />
           <Route path="/createCourse" element={<WrapperCreateCourses />} />
           <Route
             path="/getAllInstructorCourses"
@@ -136,7 +127,6 @@ export default function MainApp() {
             path="/viewallCoursesPrice"
             element={<ViewAllCoursesPriceWrapper />}
           />
-          <Route path="/createCorp" element={<CreateCorporateWrapper />} />
           <Route path="/SelectCountry" element={<SelectCountryWrapper />} />
           <Route path="/viewAllCourses" element={<ViewAllCoursesWrapper />} />
           <Route path="/instViewCourses" element={<InstViewCoursesWrapper />} />
@@ -186,6 +176,7 @@ export default function MainApp() {
             path="/adminDashboard/reports"
             element={<AdminReportsWrapper />}
           />
+          <Route path="*" element={<NoPage />} />
         </Routes>
       </Router>
     </AppContext.Provider>

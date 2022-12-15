@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import InstructorDashboard from "../../pages/InstructorDashboard";
+import InstructorDashboard from "./InstructorDashboard";
 import ReviewNavigation from "../reviewComponents";
 import { Button, Table } from "antd";
 import {

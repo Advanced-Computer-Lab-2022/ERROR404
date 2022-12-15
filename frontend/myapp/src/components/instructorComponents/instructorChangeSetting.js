@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { Button, Form, Input, InputNumber, message } from "antd";
 import axios from "axios";
-import InstructorDashboard from "../../pages/InstructorDashboard";
+import InstructorDashboard from "./InstructorDashboard";
 import { AppContext } from "../../AppContext";
 import App from "../../App";
 import { UserSettingPage } from "../../pages/settingsPage";
