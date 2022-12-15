@@ -3,6 +3,7 @@ import { Alert } from "antd";
 import Marquee from "react-fast-marquee";
 import AdminDashboard from "./adminDashboard";
 import { AppContext } from "../../AppContext";
+import DemoPie from "./adminReportsStatistics";
 
 const AdminMainDashboardWrapper = () => {
   return (
@@ -22,10 +23,13 @@ const AdminMainDashboard = () => {
       type="info"
       banner
       message={
-        <Marquee pauseOnHover gradient={false}>
-          Welcome Back {userName}, This is a summary for all your reports and
-          requests
-        </Marquee>
+        <>
+          <Marquee pauseOnHover gradient={false}>
+            Welcome Back {userName}, This is a summary for all your reports and
+            requests
+          </Marquee>
+          <DemoPie />
+        </>
       }
     />
   );
