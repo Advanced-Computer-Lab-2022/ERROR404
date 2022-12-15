@@ -326,15 +326,6 @@ const AdminReports = () => {
         loading={loading}
         onChange={handleTableChange}
       ></Table>
-      {/* <Modal
-        title="Title"
-        open={open}
-        onOk={handleOk}
-        confirmLoading={confirmLoading}
-        onCancel={handleCancel}
-      >
-        <p>{modalText}</p>
-      </Modal> */}
     </>
   );
 };

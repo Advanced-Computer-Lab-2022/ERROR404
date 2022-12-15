@@ -18,6 +18,7 @@ function getItem(label, key, icon, children) {
 
 const items = [
   getItem(<Link to="/">Home</Link>, "1", <HomeOutlined />),
+  getItem(<Link to="/adminDashboard">Dashboard</Link>, "6", <BugReportIcon />),
   getItem(
     <Link to="/adminDashboard/reports">Reports</Link>,
     "2",
