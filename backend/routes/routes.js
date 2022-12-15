@@ -6,6 +6,7 @@ const individualTrainee = require("../models/IndividualTrainee");
 const questions = require("../models/questions");
 const quizzes = require("../models/quizzes");
 const Reports = require("../models/reports");
+const chats = require("../models/chats");
 const { default: mongoose } = require("mongoose");
 
 //Methods
@@ -156,23 +157,22 @@ const coursePrice = async (req, res) => {
   }
 };
 const createAdmin = async (req, res) => {
-  console.log(req.body);
-  const adminUserName = req.body.admin;
+  const admin = req.body.admin;
   const password = req.body.password;
   const username = req.body.username;
 
   if (
     password == null ||
     username == null ||
-    adminUserName == null ||
-    adminUserName.length == 0 ||
+    admin == null ||
+    admin.length == 0 ||
     password.length == 0 ||
     username.length == 0
   ) {
     return res.status(400).send("Required fields are not submitted");
   }
   await admin
-    .find({ username: adminUserName }, (err, data) => {
+    .find({ username: admin }, (err, data) => {
       if (err) {
         return res.status(500).send(err);
       } else {
@@ -271,7 +271,7 @@ const instructorSearch = async (req, res) => {
     .clone();
 };
 const createInstructor = async (req, res) => {
-  const admin = req.body.admin;
+  const Admin = req.body.admin;
   const username = req.body.username;
   const password = req.body.password;
   const instData = {
@@ -281,6 +281,7 @@ const createInstructor = async (req, res) => {
     // gender: req.body.gender,
     username: username,
     password: password,
+    email: username,
     // email: req.body.email,
     // country: req.body.country,
     // biography: req.body.biography,
@@ -290,17 +291,17 @@ const createInstructor = async (req, res) => {
     res.status(400).json("Enter a valid data ");
   } else {
     await admin
-      .find({ username: admin }, (err, result) => {
+      .find({ username: Admin }, (err, result) => {
         if (err) {
           res.status(500).send(err.message);
         } else if (result == "") {
-          res.status(400).send("not an admin");
+          res.status(404).send("not an admin");
         } else {
-          instructor.create(instData, (error, small) => {
+          instructor.create(instData, (error, data) => {
             if (error) {
               res.status(400).send(error.message);
             } else {
-              res.status(200).json(result);
+              res.status(200).json(data);
             }
           });
         }
@@ -309,33 +310,37 @@ const createInstructor = async (req, res) => {
   }
 };
 const createCorporateTrainee = async (req, res) => {
-  const username = req.body.username;
+  // const username = req.body.username;
+  // const password = req.body.password;
+  // const firstname = req.body.firstname;
+  // const lastname = req.body.lastname;
+  // const age = req.body.age;
+  // const gender = req.body.gender;
+  // const email = req.body.email;
+  // const country = req.body.country;
+  const admin = req.body.admin;
   const password = req.body.password;
-  const firstname = req.body.firstname;
-  const lastname = req.body.lastname;
-  const age = req.body.age;
-  const gender = req.body.gender;
-  const email = req.body.email;
-  const country = req.body.country;
+  const username = req.body.username;
+
   const corpData = {
-    firstname: firstname,
-    lastname: lastname,
-    age: age,
-    gender: gender,
+    // firstname: firstname,
+    // lastname: lastname,
+    // age: age,
+    // gender: gender,
     username: username,
     password: password,
-    email: email,
-    country: country,
+    // email: email,
+    // country: country,
   };
   if (
     username == null ||
-    password == null ||
-    firstname == null ||
-    lastname == null ||
-    age == null ||
-    gender == null ||
-    email == null ||
-    country == null
+    password == null
+    // firstname == null ||
+    // lastname == null ||
+    // age == null ||
+    // gender == null ||
+    // email == null ||
+    // country == null
   ) {
     res.status(400).json("Enter a valid data ");
   } else {
@@ -1088,7 +1093,7 @@ const getmyGrade = async (req, res) => {
   const id = req.params.id;
   const usertype = req.params.usertype;
   if (usertype == "corporate") {
-    corporateTrainee.findOne({ _id: id }, (err, result) => {
+    await corporateTrainee.findOne({ _id: id }, (err, result) => {
       if (err) {
         req.status(500).send();
       } else {
@@ -1096,7 +1101,7 @@ const getmyGrade = async (req, res) => {
       }
     });
   } else if (usertype == "individual") {
-    individualTrainee.findOne({ _id: id }, (err, result) => {
+    await individualTrainee.findOne({ _id: id }, (err, result) => {
       if (err) {
         req.status(500).send();
       } else {
@@ -1132,7 +1137,7 @@ const getAllReports = async (req, res) => {
   }).clone();
 };
 
-const createReport = (req, res) => {
+const createReport = async (req, res) => {
   console.log(req.body);
   const username = req.body.username;
   const usertype = req.body.usertype;
@@ -1159,13 +1164,13 @@ const createReport = (req, res) => {
   }
 };
 
-const updateReportStatus = (req, res) => {
+const updateReportStatus = async (req, res) => {
   const reportId = req.body.id;
 
   if (reportId == null || reportId.length == 0) {
     return res.status(400).send("Id not provided");
   } else {
-    Reports.findByIdAndUpdate(
+    await Reports.findByIdAndUpdate(
       { _id: reportId },
       { $set: { status: req.body.status } },
       { runValidators: true },
@@ -1179,11 +1184,11 @@ const updateReportStatus = (req, res) => {
     ).clone();
   }
 };
-const getChats = (req, res) => {
+const getChats = async (req, res) => {
   const username = req.params.username;
   const usertype = req.params.usertype;
   if (usertype == "instructor") {
-    instructor
+    await instructor
       .find({ username: username })
       .populate("chat")
       .exec((err, result) => {
@@ -1193,7 +1198,7 @@ const getChats = (req, res) => {
         res.status(200).json({ result: result });
       });
   } else if (usertype == "individual") {
-    individualTrainee
+    await individualTrainee
       .find({ username: username })
       .populate("Chat")
       .exec((err, result) => {
@@ -1203,7 +1208,7 @@ const getChats = (req, res) => {
         res.json({ result: result });
       });
   } else if (usertype == "corporate") {
-    corporateTrainee
+    await corporateTrainee
       .find({ username: username })
       .populate("Chat")
       .exec((err, result) => {
@@ -1213,7 +1218,7 @@ const getChats = (req, res) => {
         res.json({ result: result });
       });
   } else if (usertype == "admin") {
-    admin
+    await admin
       .find({ username: username })
       .populate("Chat")
       .exec((err, result) => {
@@ -1224,7 +1229,22 @@ const getChats = (req, res) => {
       });
   }
 };
-
+const createChat = (req, res) => {
+  const body = {
+    sender: req.body.sender,
+    reciver: req.body.reciver,
+    senderRole: req.body.senderRole,
+    reciverRole: req.body.reciverRole,
+    message: req.body.message,
+  };
+  chats.create(body, (err, result) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.status(200).send();
+    }
+  });
+};
 module.exports = {
   getUser,
   search,
