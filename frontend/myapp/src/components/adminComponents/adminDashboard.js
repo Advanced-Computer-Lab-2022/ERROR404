@@ -1,6 +1,10 @@
 import React, { useContext, useEffect } from "react";
-import { HomeOutlined, PlusCircleOutlined } from "@ant-design/icons";
-import { Breadcrumb, Layout, Menu, theme, Alert } from "antd";
+import {
+  HomeOutlined,
+  PlusCircleOutlined,
+  DashboardOutlined,
+} from "@ant-design/icons";
+import { Breadcrumb, Layout, Menu, theme, Alert, Result } from "antd";
 import { Link } from "react-router-dom";
 import BugReportIcon from "@mui/icons-material/BugReport";
 import { AppContext } from "../../AppContext";
@@ -18,7 +22,11 @@ function getItem(label, key, icon, children) {
 
 const items = [
   getItem(<Link to="/">Home</Link>, "1", <HomeOutlined />),
-  getItem(<Link to="/adminDashboard">Dashboard</Link>, "6", <BugReportIcon />),
+  getItem(
+    <Link to="/adminDashboard">Dashboard</Link>,
+    "6",
+    <DashboardOutlined />
+  ),
   getItem(
     <Link to="/adminDashboard/reports">Reports</Link>,
     "2",
@@ -39,11 +47,14 @@ const AdminDashboard = ({ children, pageName }) => {
 
   // if (user != "admin") {
   //   return (
-  //     <Alert
-  //       message="Error Unauthorized "
-  //       description="You are not autherized to access this page, Only admins can have access"
-  //       type="error"
-  //       showIcon
+  //     <Result
+  //     key="unautherized"
+  //       status="403"
+  //       title="403"
+  //       subTitle="Sorry, you are not authorized to access this page."
+  //       extra={<Button type="primary">
+  // <Link to="/">Back Home</Link>
+  // </Button>}
   //     />
   //   );
   // } else {
@@ -76,7 +87,7 @@ const AdminDashboard = ({ children, pageName }) => {
       <Footer style={{ textAlign: "center" }}>Footer</Footer>
     </Layout>
   );
-  // }
+  //}
 };
 
 export default AdminDashboard;

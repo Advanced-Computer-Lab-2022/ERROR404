@@ -1,5 +1,5 @@
 import React from "react";
-import InstructorDashboard from "../../pages/InstructorDashboard";
+import InstructorDashboard from "./InstructorDashboard";
 import ReviewNavigation from "../reviewComponents";
 import { Breadcrumb, Rate } from "antd";
 

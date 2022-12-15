@@ -13,7 +13,7 @@ import {
   SettingsPageSider,
 } from "../components/settingsPage";
 import { Link } from "react-router-dom";
-import InstructorDashboard from "./InstructorDashboard";
+import InstructorDashboard from "../components/instructorComponents/InstructorDashboard";
 import { AppContext } from "../AppContext";
 const { Header, Content, Footer, Sider } = Layout;
 

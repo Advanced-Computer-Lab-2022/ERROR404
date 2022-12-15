@@ -22,6 +22,7 @@ import {
 import { AppContext } from "../AppContext";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import SubmitDiscount from "./instructorComponents/instructorSubmitDiscount";
 
 const IconText = ({ icon, text }) => (
   <Space>
@@ -34,6 +35,7 @@ const CourseComponent = ({ courses, viewType }) => {
   const { userType } = useContext(AppContext);
   const [user, setUser] = userType;
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpenDis, setIsModalOpenDis] = useState(false);
   const [courseTitle, setTitle] = useState("");
   const [id, setId] = useState("");
 
@@ -137,7 +139,15 @@ const CourseComponent = ({ courses, viewType }) => {
                       >
                         Add preview video
                       </Button>
-                      <Button type="dashed" icon={<PlusOutlined />}>
+                      <Button
+                        type="dashed"
+                        icon={<PlusOutlined />}
+                        onClick={() => {
+                          setTitle(item.title);
+                          setId(item._id);
+                          setIsModalOpenDis(true);
+                        }}
+                      >
                         Add Dicount
                       </Button>
                       <Link to={"reviews?courseId=" + item._id}>
@@ -147,7 +157,6 @@ const CourseComponent = ({ courses, viewType }) => {
                           onClick={() => {
                             setTitle(item.title);
                             setId(item._id);
-                            setIsModalOpen(true);
                           }}
                         >
                           View Reviews
@@ -173,33 +182,43 @@ const CourseComponent = ({ courses, viewType }) => {
         )}
       />
       {user == "instructor" ? (
-        <Modal
-          title={courseTitle + " Preview video"}
-          open={isModalOpen}
-          onOk={handleOk}
-          onCancel={handleCancel}
-        >
-          <Form onFinish={onFinish}>
-            <Form.Item
-              label="Preview Video URL"
-              name="url"
-              rules={[
-                {
-                  required: true,
-                  message: "Please input your Preview Video URL!",
-                },
-              ]}
-            >
-              <Input addonBefore="https://" placeholder="any youtube video" />
-            </Form.Item>
+        <>
+          <Modal
+            title={courseTitle + " Preview video"}
+            open={isModalOpen}
+            onOk={handleOk}
+            onCancel={handleCancel}
+          >
+            <Form onFinish={onFinish}>
+              <Form.Item
+                label="Preview Video URL"
+                name="url"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please input your Preview Video URL!",
+                  },
+                ]}
+              >
+                <Input addonBefore="https://" placeholder="any youtube video" />
+              </Form.Item>
 
-            <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-              <Button type="primary" htmlType="submit">
-                Add URL
-              </Button>
-            </Form.Item>
-          </Form>
-        </Modal>
+              <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+                <Button type="primary" htmlType="submit">
+                  Add URL
+                </Button>
+              </Form.Item>
+            </Form>
+          </Modal>
+          <Modal
+            title={courseTitle + " Add Discount"}
+            open={isModalOpenDis}
+            onOk={() => setIsModalOpenDis(false)}
+            onCancel={() => setIsModalOpenDis(false)}
+          >
+            <SubmitDiscount />
+          </Modal>
+        </>
       ) : null}
     </>
   );

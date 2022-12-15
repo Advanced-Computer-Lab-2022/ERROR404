@@ -1,7 +1,7 @@
 import { message } from "antd";
 import axios from "axios";
 import { useEffect } from "react";
-import InstructorDashboard from "../../pages/InstructorDashboard";
+import InstructorDashboard from "./InstructorDashboard";
 import ReviewNavigation from "../reviewComponents";
 
 const InstructorCourseReview = () => {

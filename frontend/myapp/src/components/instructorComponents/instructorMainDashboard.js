@@ -1,4 +1,4 @@
-import InstructorDashboard from "../../pages/InstructorDashboard";
+import InstructorDashboard from "./InstructorDashboard";
 import { Statistic, Card } from "antd";
 import {
   DislikeOutlined,

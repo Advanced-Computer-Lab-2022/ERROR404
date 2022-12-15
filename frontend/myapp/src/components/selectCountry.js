@@ -5,7 +5,7 @@ import App from "../App";
 // import Select from 'react-select';
 import countryList from "react-select-country-list";
 import { UserSettingPage } from "../pages/settingsPage";
-import InstructorDashboard from "../pages/InstructorDashboard";
+import InstructorDashboard from "./instructorComponents/InstructorDashboard";
 import { AppContext } from "../AppContext";
 
 const SelectCountryWrapper = () => {

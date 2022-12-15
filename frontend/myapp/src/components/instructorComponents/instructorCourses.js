@@ -1,4 +1,4 @@
-import InstructorDashboard from "../../pages/InstructorDashboard";
+import InstructorDashboard from "./InstructorDashboard";
 import React, { useContext, useEffect, useState } from "react";
 import { Button, Modal, Form, Input, Select, Card, Tooltip } from "antd";
 import {

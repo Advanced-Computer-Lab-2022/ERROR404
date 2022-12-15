@@ -1,34 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
-import {
-  LaptopOutlined,
-  NotificationOutlined,
-  UserOutlined,
-  HomeOutlined,
-  LoginOutlined,
-  SettingFilled,
-  DislikeOutlined,
-  LikeOutlined,
-  UsergroupDeleteOutlined,
-  LogoutOutlined,
-} from "@ant-design/icons";
+import { HomeOutlined, SettingFilled, LogoutOutlined } from "@ant-design/icons";
 import ViewWeekIcon from "@mui/icons-material/ViewWeek";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import ReviewsIcon from "@mui/icons-material/Reviews";
 import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
-import {
-  Breadcrumb,
-  Layout,
-  Menu,
-  Col,
-  Row,
-  Statistic,
-  Card,
-  Skeleton,
-} from "antd";
+import { Breadcrumb, Layout, Menu, Result, Button } from "antd";
 import { Link } from "react-router-dom";
 import AddBoxIcon from "@mui/icons-material/AddBox";
-import { AppContext } from "../AppContext";
-import Alert from "@mui/material/Alert";
+import { AppContext } from "../../AppContext";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -183,10 +162,17 @@ const InstructorDashboard = ({ children }) => {
     );
   } else {
     return (
-      <>
-        <Alert severity="error">You dont have acces to this page!</Alert>
-        <Skeleton active />
-      </>
+      <Result
+        key="unautherized"
+        status="403"
+        title="403"
+        subTitle="Sorry, you are not authorized to access this page."
+        extra={
+          <Button type="primary">
+            <Link to="/">Back Home</Link>
+          </Button>
+        }
+      />
     );
   }
 };

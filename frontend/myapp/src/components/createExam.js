@@ -20,7 +20,7 @@ import {
 
 import { Header, Container } from "semantic-ui-react";
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
-import InstructorDashboard from "../pages/InstructorDashboard";
+import InstructorDashboard from "./instructorComponents/InstructorDashboard";
 
 const { Option } = Select;
 
