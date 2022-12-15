@@ -57,6 +57,7 @@ import Filter from "./components/filter";
 import LoginPageWrapper from "./components/loginComponents/mainHome";
 import AdminReportsWrapper from "./components/adminComponents/adminReports";
 import AdminMainDashboardWrapper from "./components/adminComponents/adminMainDashboard";
+import CreateUserWrapper from "./components/adminComponents/adminCreateUser";
 
 export default function MainApp() {
   const [username, setUsername] = useState("");
@@ -121,7 +122,7 @@ export default function MainApp() {
 
           <Route exact path="/" element={<HomePageWrapper />} />
           <Route path="/courses" element={<GetCoursesByPrice />} />
-          <Route path="/adminCreateAdmin" element={<CreateAdminWrapper />} />
+          <Route path="/adminCreateAdmin" element={<CreateUserWrapper />} />
           <Route
             path="/adminCreateInstructor"
             element={<CreateInstructorWrapper />}

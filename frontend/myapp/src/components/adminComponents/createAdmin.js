@@ -19,6 +19,11 @@ const CreateAdmin = () => {
           <Form.Item label="Admin Username" name="username">
             <Input />
           </Form.Item>
+          <Form.Item>
+            <Button type="primary" onClick={() => next()}>
+              Next
+            </Button>
+          </Form.Item>
         </Form>
       ),
     },
@@ -29,12 +34,34 @@ const CreateAdmin = () => {
           <Form.Item label="Admin Password" name="password" hasFeedback>
             <Input.Password />
           </Form.Item>
+          <Form.Item>
+            <Button type="primary" onClick={() => next()}>
+              Next
+            </Button>
+          </Form.Item>
+          <Form.Item>
+            <Button onClick={() => prev()}>Previous</Button>
+          </Form.Item>
         </Form>
       ),
     },
     {
       title: "Confirm Information",
-      content: "Last-content",
+      content: (
+        <Form form={formPass}>
+          <Form.Item label="Admin Password" name="password" hasFeedback>
+            <Input.Password />
+          </Form.Item>
+          <Form.Item>
+            <Button type="primary" onClick={() => next()}>
+              Next
+            </Button>
+          </Form.Item>
+          <Form.Item>
+            <Button onClick={() => prev()}>Previous</Button>
+          </Form.Item>
+        </Form>
+      ),
     },
   ];
 
@@ -52,31 +79,6 @@ const CreateAdmin = () => {
     <>
       <Steps current={current} items={items} />
       <div className="steps-content">{steps[current].content}</div>
-      <div className="steps-action">
-        {current < steps.length - 1 && (
-          <Button type="primary" onClick={() => next()}>
-            Next
-          </Button>
-        )}
-        {current === steps.length - 1 && (
-          <Button
-            type="primary"
-            onClick={() => message.success("Processing complete!")}
-          >
-            Done
-          </Button>
-        )}
-        {current > 0 && (
-          <Button
-            style={{
-              margin: "0 8px",
-            }}
-            onClick={() => prev()}
-          >
-            Previous
-          </Button>
-        )}
-      </div>
     </>
   );
 };
