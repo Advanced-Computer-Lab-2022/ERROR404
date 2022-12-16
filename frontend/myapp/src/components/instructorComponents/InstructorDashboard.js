@@ -86,95 +86,88 @@ const InstructorDashboard = ({ children }) => {
     setUser("");
   };
 
-  useEffect(() => {
-    if (user != "instructor") {
-      setVisibility(false);
-    } else {
-      setVisibility(true);
-    }
-  }, []);
-
-  if (visible) {
-    return (
-      <Layout>
-        <Header className="header">
-          <div className="logo" />
-          <Menu
-            theme="dark"
-            mode="horizontal"
-            defaultSelectedKeys={["2"]}
-            items={items}
-          />
-        </Header>
-        <Content
+  //if (visible) {
+  return (
+    <Layout>
+      <Header className="header">
+        <div className="logo" />
+        <Menu
+          theme="dark"
+          mode="horizontal"
+          defaultSelectedKeys={["2"]}
+          items={items}
+        />
+      </Header>
+      <Content
+        style={{
+          padding: "0 50px",
+        }}
+      >
+        <Breadcrumb
           style={{
-            padding: "0 50px",
+            margin: "16px 0",
           }}
         >
-          <Breadcrumb
-            style={{
-              margin: "16px 0",
-            }}
-          >
-            <Breadcrumb.Item>Home</Breadcrumb.Item>
-            <Breadcrumb.Item>{userName}</Breadcrumb.Item>
-            <Breadcrumb.Item>Dashboard</Breadcrumb.Item>
-          </Breadcrumb>
-          <Layout
+          <Breadcrumb.Item>Home</Breadcrumb.Item>
+          <Breadcrumb.Item>{userName}</Breadcrumb.Item>
+          <Breadcrumb.Item>Dashboard</Breadcrumb.Item>
+        </Breadcrumb>
+        <Layout
+          className="site-layout-background"
+          style={{
+            padding: "24px 0",
+          }}
+        >
+          <Sider
             className="site-layout-background"
+            width={200}
             style={{
-              padding: "24px 0",
+              maxHeight: "500px",
             }}
           >
-            <Sider
-              className="site-layout-background"
-              width={200}
-              style={{
-                maxHeight: "500px",
-              }}
-            >
-              <Menu
-                mode="inline"
-                theme="dark"
-                defaultSelectedKeys={["1"]}
-                defaultOpenKeys={["sub1"]}
-                items={items}
-              />
-            </Sider>
-            <Content
-              style={{
-                padding: "0 24px",
-                minHeight: 280,
-              }}
-            >
-              {children}
-            </Content>
-          </Layout>
-        </Content>
-        <Footer
-          style={{
-            textAlign: "center",
-          }}
-        >
-          GUC ACL LAB ©2022 Created by ©alighieth
-        </Footer>
-      </Layout>
-    );
-  } else {
-    return (
-      <Result
-        key="unautherized"
-        status="403"
-        title="403"
-        subTitle="Sorry, you are not authorized to access this page."
-        extra={
-          <Button type="primary">
-            <Link to="/">Back Home</Link>
-          </Button>
-        }
-      />
-    );
-  }
+            <Menu
+              mode="inline"
+              theme="dark"
+              defaultSelectedKeys={["1"]}
+              defaultOpenKeys={["sub1"]}
+              items={items}
+            />
+          </Sider>
+          <Content
+            style={{
+              padding: "0 24px",
+              minHeight: 280,
+            }}
+          >
+            {children}
+          </Content>
+        </Layout>
+      </Content>
+      <Footer
+        style={{
+          textAlign: "center",
+        }}
+      >
+        GUC ACL LAB ©2022 Created by ©alighieth
+      </Footer>
+    </Layout>
+  );
+  //}
+  // else {
+  //   return (
+  //     <Result
+  //       key="unautherized"
+  //       status="403"
+  //       title="403"
+  //       subTitle="Sorry, you are not authorized to access this page."
+  //       extra={
+  //         <Button type="primary">
+  //           <Link to="/">Back Home</Link>
+  //         </Button>
+  //       }
+  //     />
+  //   );
+  // }
 };
 
 export default InstructorDashboard;
