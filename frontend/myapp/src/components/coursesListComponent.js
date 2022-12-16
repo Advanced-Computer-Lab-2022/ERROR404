@@ -7,6 +7,7 @@ import {
   HourglassOutlined,
   DollarOutlined,
   PlusOutlined,
+  UsergroupDeleteOutlined,
 } from "@ant-design/icons";
 import {
   Avatar,
@@ -99,13 +100,8 @@ const CourseComponent = ({ courses, viewType }) => {
               }}
               actions={[
                 <IconText
-                  icon={StarOutlined}
-                  text="156"
-                  key="list-vertical-star-o"
-                />,
-                <IconText
                   icon={EyeOutlined}
-                  text="156"
+                  text={item.views}
                   key="list-vertical-like-o"
                 />,
                 <IconText
@@ -121,6 +117,11 @@ const CourseComponent = ({ courses, viewType }) => {
                 <IconText
                   icon={DollarOutlined}
                   text={item.price == 0 ? "FREE" : item.price}
+                  key="list-vertical-message"
+                />,
+                <IconText
+                  icon={UsergroupDeleteOutlined}
+                  text={item.numberOfSubscribers}
                   key="list-vertical-message"
                 />,
               ]}
