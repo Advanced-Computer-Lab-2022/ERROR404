@@ -5,6 +5,7 @@ import TopCourses from "./topCourses";
 import ReviewNavigation from "./reviewComponents";
 import { useContext } from "react";
 import { AppContext } from "../AppContext";
+import DemoWordCloud from "./WelcomePageComponents";
 
 const HomePageWrapper = () => {
   return (
@@ -26,7 +27,9 @@ const HomePage = () => {
         gap: "5vh",
       }}
     >
+      <DemoWordCloud />
       <TopCourses />
+
       {/* <TopCourses /> */}
       {/* <ReviewNavigation /> */}
     </div>
