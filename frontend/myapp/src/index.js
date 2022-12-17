@@ -60,6 +60,7 @@ import WrapperSignUp from "./components/signUp";
 import TraineeSettingsWrapper from "./components/traineeComponents/traineeSettings";
 import TraineeViewCourses from "./components/traineeComponents/traineeViewCourses";
 import ReportaProblemWrapper from "./components/reportProblem";
+import FooterWrapper from "./components/footer";
 
 export default function MainApp() {
   const [username, setUsername] = useState("");
@@ -176,6 +177,7 @@ export default function MainApp() {
           <Route path="Acceptagreement" element={<AcceptAgreWrapper />} />
           <Route path="ReportaProblem" element={<ReportaProblemWrapper />} />
           <Route path="filter" element={<Filter />} />
+          <Route path="footer" element={<FooterWrapper />} />
           <Route path="login" element={<LoginPageWrapper />} />
           <Route
             path="/adminDashboard"
