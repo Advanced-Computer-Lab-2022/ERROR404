@@ -1,25 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
 import {
-  LikeOutlined,
   MessageOutlined,
-  StarOutlined,
   EyeOutlined,
   HourglassOutlined,
   DollarOutlined,
   PlusOutlined,
   UsergroupDeleteOutlined,
 } from "@ant-design/icons";
-import {
-  Avatar,
-  List,
-  Space,
-  Rate,
-  Button,
-  Modal,
-  Form,
-  Input,
-  message,
-} from "antd";
+import { List, Space, Rate, Button, Modal, Form, Input, message } from "antd";
 import { AppContext } from "../AppContext";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
@@ -128,10 +116,15 @@ const CourseComponent = ({ courses, viewType }) => {
               extra={
                 <Space>
                   {user == "instructor" && viewType == "instructor" ? (
-                    <>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                      }}
+                    >
                       <Button
+                        style={{ width: "100%" }}
                         type="dashed"
-                        icon={<PlusOutlined />}
                         onClick={() => {
                           setTitle(item.title);
                           setId(item._id);
@@ -141,8 +134,17 @@ const CourseComponent = ({ courses, viewType }) => {
                         Add preview video
                       </Button>
                       <Button
+                        style={{ width: "100%" }}
                         type="dashed"
-                        icon={<PlusOutlined />}
+                        onClick={() => {
+                          navigation("createQuiz?courseId=" + item._id);
+                        }}
+                      >
+                        Create Quiz
+                      </Button>
+                      <Button
+                        style={{ width: "100%" }}
+                        type="dashed"
                         onClick={() => {
                           setTitle(item.title);
                           setId(item._id);
@@ -153,8 +155,8 @@ const CourseComponent = ({ courses, viewType }) => {
                       </Button>
                       <Link to={"reviews?courseId=" + item._id}>
                         <Button
+                          style={{ width: "100%" }}
                           type="dashed"
-                          icon={<PlusOutlined />}
                           onClick={() => {
                             setTitle(item.title);
                             setId(item._id);
@@ -163,7 +165,7 @@ const CourseComponent = ({ courses, viewType }) => {
                           View Reviews
                         </Button>
                       </Link>
-                    </>
+                    </div>
                   ) : null}
                   <img
                     width={250}

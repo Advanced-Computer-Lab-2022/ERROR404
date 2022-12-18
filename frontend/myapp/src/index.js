@@ -107,7 +107,7 @@ export default function MainApp() {
             element={<WrapperCreateCourses />}
           />
           <Route
-            path="/instructorDashBoard/createQuiz"
+            path="/instructorDashBoard/allMyCourses/createQuiz"
             element={<CreateExamWrapper />}
           />
           <Route
