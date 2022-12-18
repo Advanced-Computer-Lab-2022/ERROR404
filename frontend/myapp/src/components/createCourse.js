@@ -1,22 +1,11 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
+import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 import "semantic-ui-css/semantic.min.css";
 
-
-import {
-  Button,
-  Form,
-  Input,
-  InputNumber,
-  message,
-  Space
-} from "antd";
+import { Button, Form, Input, InputNumber, message, Space } from "antd";
 
 import InstructorDashboard from "./instructorComponents/InstructorDashboard";
-// const { Option } = Selec
-//import InstructorDashboard from "../pages/InstructorDashboard";
-
 
 const WrapperCreateCourses = () => {
   return (
@@ -43,8 +32,6 @@ const CreateCourse = () => {
     const exercises = event.exercises;
     const previewURL = event.previewURL;
     const category = event.category;
-
-    
 
     await createCourse(
       id,
@@ -76,9 +63,9 @@ const CreateCourse = () => {
     image,
     totalHours,
     prerequisite,
-    exercises, 
+    exercises,
     previewURL,
-    category 
+    category
   ) => {
     const requestBody = {
       id: "6366d3ddd79a066bc2b74106",
@@ -94,7 +81,7 @@ const CreateCourse = () => {
       prerequisite: prerequisite,
       exercises: exercises,
       previewURL: previewURL,
-      category: category
+      category: category,
     };
     axios
       .post("http://localhost:2020/createCourse", requestBody)
@@ -131,7 +118,7 @@ const CreateCourse = () => {
             },
           ]}
         >
-          <Input/>
+          <Input />
         </Form.Item>
 
         <Form.Item
@@ -147,103 +134,108 @@ const CreateCourse = () => {
           <Input />
         </Form.Item>
 
-
-        <Form.List label="Course subtitles" name="subtitles"  >
-        {(fields, { add, remove }) => (
-          <>
-            {fields.map(({ key, name, ...restField }) => (
-              <Space
-                key={key}
-                style={{
-                  display: 'flex',
-                  marginBottom: 8,
-                }}
-                align="baseline"
-              >
-                <Form.Item
+        <Form.List label="Course subtitles" name="subtitles">
+          {(fields, { add, remove }) => (
+            <>
+              {fields.map(({ key, name, ...restField }) => (
+                <Space
+                  key={key}
+                  style={{
+                    display: "flex",
+                    marginBottom: 8,
+                  }}
+                  align="baseline"
+                >
+                  <Form.Item
                     {...restField}
-                    name={[name, 'subtitle']}
+                    name={[name, "subtitle"]}
                     label="Add Subtitle"
                     rules={[
                       {
                         required: true,
-                        message: 'Missing subtitle',
+                        message: "Missing subtitle",
                       },
                     ]}
                   >
-                  <Input/>
+                    <Input />
+                  </Form.Item>
+
+                  <Form.Item
+                    {...restField}
+                    name={[name, "video"]}
+                    label="Add Video"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Missing video",
+                      },
+                      {
+                        type: "url",
+                        warningOnly: true,
+                      },
+                      {
+                        type: "string",
+                        min: 6,
+                      },
+                    ]}
+                  >
+                    <Input />
+                  </Form.Item>
+                  <Form.Item
+                    {...restField}
+                    name={[name, "description"]}
+                    label="Add a Description"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Missing description",
+                      },
+                    ]}
+                  >
+                    <Input />
+                  </Form.Item>
+                  <MinusCircleOutlined onClick={() => remove(name)} />
+                </Space>
+              ))}
+              <Form.Item>
+                <Button
+                  type="dashed"
+                  onClick={() => add()}
+                  block
+                  icon={<PlusOutlined />}
+                >
+                  Click to add Course Subtitles
+                </Button>
               </Form.Item>
+            </>
+          )}
+        </Form.List>
 
-                <Form.Item
-                  {...restField}
-                  name={[name, 'video']}
-                  label="Add Video"
-                  rules={[
-                    {
-                      required: true,
-                      message: 'Missing video',
-                    },
-                    {
-                      type:'url',
-                      warningOnly: true,
-                    },
-                    {
-                      type:'string',
-                      min:6,
-                    }
-                  ]}
-                >
-                  <Input />
-                </Form.Item>
-                <Form.Item
-                  {...restField}
-                  name={[name, 'description']}
-                  label="Add a Description"
-                  rules={[
-                    {
-                      required: true,
-                      message: 'Missing description',
-                    },
-                  ]}
-                >
-                  <Input/>
-                </Form.Item>
-                <MinusCircleOutlined onClick={() => remove(name)} />
-              </Space>
-            ))}
-            <Form.Item>
-              <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
-                Click to add Course Subtitles
-              </Button>
-            </Form.Item>
-          </>
-        )}
-      </Form.List>
-
-      <Space style={{
-            display: 'flex',
+        <Space
+          style={{
+            display: "flex",
             marginBottom: 8,
-                    }}
-            //align="baseline"
-            >
-        <Form.Item style={{width:'100%'}}
-          label="Course price"
-          name="price"
-          rules={[
-            {
-              required: true,
-              message: "Please enter the course price",
-            },
-          ]}
+          }}
+          //align="baseline"
         >
-          <Input />
-        </Form.Item>
-        <Form.Item  label= "Add a discount" name="discount">
-          <InputNumber style={{width:'100%'}} />
-        </Form.Item>
-      </Space>
+          <Form.Item
+            style={{ width: "100%" }}
+            label="Course price"
+            name="price"
+            rules={[
+              {
+                required: true,
+                message: "Please enter the course price",
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item label="Add a discount" name="discount">
+            <InputNumber style={{ width: "100%" }} />
+          </Form.Item>
+        </Space>
 
-        
         <Form.Item
           label="Course summary"
           name="summary"
@@ -257,33 +249,10 @@ const CreateCourse = () => {
           <Input />
         </Form.Item>
 
-        <Form.Item
-          label="Add image"
-          name="image"
-        >
-          <Input addonBefore="https://" />
-        </Form.Item>
-        
-        <Form.Item
-          label="Course summary"
-          name="summary"
-          rules={[
-            {
-              required: true,
-              message: "Please enter a summary for the course",
-            },
-          ]}
-        >
+        <Form.Item label="Add image" name="image">
           <Input addonBefore="https://" />
         </Form.Item>
 
-        <Form.Item
-          label="Add image"
-          name="image"
-        >
-          <Input addonBefore="https://" />
-        </Form.Item>
-                
         <Form.Item
           label="Total hours"
           name="totalHours"
@@ -297,10 +266,7 @@ const CreateCourse = () => {
           <Input />
         </Form.Item>
 
-        <Form.Item
-          label="Add a prerequisite"
-          name="prerequisite"
-        >
+        <Form.Item label="Add a prerequisite" name="prerequisite">
           <Input />
         </Form.Item>
 
@@ -317,11 +283,8 @@ const CreateCourse = () => {
           <Input addonBefore="https://" />
         </Form.Item>
 
-        <Form.Item
-          label="Add a Category"
-          name="category"
-        >
-          <Input/>
+        <Form.Item label="Add a Category" name="category">
+          <Input />
         </Form.Item>
 
         <Form.Item>

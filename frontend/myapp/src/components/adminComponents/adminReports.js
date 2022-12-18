@@ -90,6 +90,41 @@ const AdminReports = () => {
       width: "20%",
     },
     {
+      title: "Report type" ,
+      dataIndex: "reportType",
+      render: (reportType) => {
+        let type = "";
+        if (reportType == "technical") {
+          type = "technical";
+        } else if (reportType == "financial") {
+          type = "financial";
+        }
+        else if (reportType == "other") {
+          type = "other";
+        }
+        return (
+          <span>
+            {type}
+          </span>
+        );
+      },
+      filters: [
+        {
+          text: "technical",
+          value: "technical",
+        },
+        {
+          text: "financial",
+          value: "financial",
+        },
+        {
+          text: "other",
+          value: "other",
+        },
+      ],
+      width: "20%",
+    },
+    {
       title: "Description",
       dataIndex: "description",
     },
@@ -423,7 +458,7 @@ const AdminReports = () => {
       let data = [];
       results.data.map((item) => {
         if (filter != null && filter.length > 0) {
-          if (filter.includes(item.status)) {
+          if (filter.includes(item.status)||filter.includes(item.reportType)) {
             data.push(item);
           }
         } else {
@@ -446,7 +481,9 @@ const AdminReports = () => {
   };
   const handleTableChange = (pagination, filters, sorter) => {
     console.log(filters.status);
+    console.log(filters.reportType);
     setFilter(filters.status);
+    setFilter(filters.reportType);
   };
   return (
     <>

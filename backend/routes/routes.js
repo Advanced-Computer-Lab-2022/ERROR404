@@ -1196,17 +1196,24 @@ const createReport = async (req, res) => {
   const username = req.body.username;
   const usertype = req.body.usertype;
   const description = req.body.description;
+  const reportType = req.body.reportType;
+
   if (username == null || username.length == 0) {
     return res.status(400).send("username not sent");
   } else if (usertype == null || usertype.length == 0) {
     return res.status(400).send("usertype not sent");
   } else if (description == null || description.length == 0) {
     return res.status(400).send("description not sent");
-  } else {
+  } 
+  else if (reportType == null || reportType.length == 0) {
+    return res.status(400).send("Report Type not sent");
+ } 
+  else {
     const body = {
       user: username,
       usertype: usertype,
       description: description,
+      reportType: reportType,
     };
     Reports.create(body, (err, result) => {
       if (err) {
