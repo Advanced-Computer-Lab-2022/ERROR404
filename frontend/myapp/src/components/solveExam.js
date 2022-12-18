@@ -190,9 +190,6 @@ const SolveExam = () => {
 };
 export default SolveExamWrapper;
 
-
-
-
 // import { Select } from "antd";
 // import CoursePage from "./CoursePage";
 
