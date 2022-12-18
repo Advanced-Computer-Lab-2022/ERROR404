@@ -18,8 +18,6 @@ import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 import InstructorDashboard from "./instructorComponents/InstructorDashboard";
 import { AppContext } from "../AppContext";
 
-import InstructorDashboard from "../pages/InstructorDashboard";
-
 const { Option } = Select;
 
 const CreateExamWrapper = () => {
@@ -109,7 +107,7 @@ const CreateExam = () => {
 
   //     username:"abdelrahman",
   //     courseId: "638501f2a9b064e47ee7e0ed",
-  //     // question1: 
+  //     // question1:
 
   //   }
 
@@ -124,18 +122,13 @@ const CreateExam = () => {
   //     message.error("Unexpected Error occured" +" "+ error.response.message, 5);
   //   });
 
-
   // }
 
-
-    const onFinishFailed = (errorInfo) => {
+  const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
 
-
-
   return (
-
     <div>
       <div
         id="q1-form"
@@ -146,37 +139,58 @@ const CreateExam = () => {
           justifyContent: "center",
           alignItems: "center",
           backgroundColor: `#f0f8ff`,
-          borderRadius:20,
+          borderRadius: 20,
         }}
       >
-        <h1><b><i><u>Question 1</u></i></b></h1>
+        <h1>
+          <b>
+            <i>
+              <u>Question 1</u>
+            </i>
+          </b>
+        </h1>
         <Form
           form={q1Form}
           style={{
             width: "50%",
           }}
         >
-          <Form.Item name="q1" >
-            <Input placeholder="Question 1"style={{borderRadius:10}}/>
+          <Form.Item name="q1">
+            <Input placeholder="Question 1" style={{ borderRadius: 10 }} />
           </Form.Item>
 
           <Form.Item name="q1a">
-            <Input placeholder="Question 1, 1st possible answer(a)" style={{borderRadius:10}}/>
+            <Input
+              placeholder="Question 1, 1st possible answer(a)"
+              style={{ borderRadius: 10 }}
+            />
           </Form.Item>
           <Form.Item name="q1b">
-            <Input placeholder="Question 1, 2nd possible answer(b)" style={{borderRadius:10}}/>
+            <Input
+              placeholder="Question 1, 2nd possible answer(b)"
+              style={{ borderRadius: 10 }}
+            />
           </Form.Item>
 
           <Form.Item name="q1c">
-            <Input placeholder="Question 1, 3rd possible answer(c)" style={{borderRadius:10}}/>
+            <Input
+              placeholder="Question 1, 3rd possible answer(c)"
+              style={{ borderRadius: 10 }}
+            />
           </Form.Item>
 
           <Form.Item name="q1d">
-            <Input placeholder="Question 1, 4th possible answer(d)" style={{borderRadius:10}}/>
+            <Input
+              placeholder="Question 1, 4th possible answer(d)"
+              style={{ borderRadius: 10 }}
+            />
           </Form.Item>
 
           <Form.Item name="q1Answer">
-            <select class="ui dropdown" style={{borderRadius:10, marginLeft:170}}>
+            <select
+              class="ui dropdown"
+              style={{ borderRadius: 10, marginLeft: 170 }}
+            >
               <option value="">Select the correct solution</option>
               <option value="a">A</option>
               <option value="b">B</option>
@@ -196,11 +210,17 @@ const CreateExam = () => {
           justifyContent: "center",
           alignItems: "center",
           backgroundColor: `#f0f8ff`,
-          borderRadius:20,
-          marginTop:5,
+          borderRadius: 20,
+          marginTop: 5,
         }}
       >
-       <h1><b><i><u>Question 2</u></i></b></h1>
+        <h1>
+          <b>
+            <i>
+              <u>Question 2</u>
+            </i>
+          </b>
+        </h1>
         <Form
           form={q2Form}
           style={{
@@ -208,26 +228,41 @@ const CreateExam = () => {
           }}
         >
           <Form.Item name="q2">
-            <Input placeholder="Question 2" style={{borderRadius:10}}/>
+            <Input placeholder="Question 2" style={{ borderRadius: 10 }} />
           </Form.Item>
 
           <Form.Item name="q2a">
-            <Input placeholder="Question 2, 2st possible answer(a)" style={{borderRadius:10}}/>
+            <Input
+              placeholder="Question 2, 2st possible answer(a)"
+              style={{ borderRadius: 10 }}
+            />
           </Form.Item>
           <Form.Item name="q2b">
-            <Input placeholder="Question 2, 2nd possible answer(b)" style={{borderRadius:10}}/>
+            <Input
+              placeholder="Question 2, 2nd possible answer(b)"
+              style={{ borderRadius: 10 }}
+            />
           </Form.Item>
 
           <Form.Item name="q2c">
-            <Input placeholder="Question 2, 3rd possible answer(c)" style={{borderRadius:10}}/>
+            <Input
+              placeholder="Question 2, 3rd possible answer(c)"
+              style={{ borderRadius: 10 }}
+            />
           </Form.Item>
 
           <Form.Item name="q2d">
-            <Input placeholder="Question 2, 4th possible answer(d)" style={{borderRadius:10}}/>
+            <Input
+              placeholder="Question 2, 4th possible answer(d)"
+              style={{ borderRadius: 10 }}
+            />
           </Form.Item>
 
           <Form.Item name="q2Answer">
-            <select class="ui dropdown" style={{borderRadius:10, marginLeft:170}}>
+            <select
+              class="ui dropdown"
+              style={{ borderRadius: 10, marginLeft: 170 }}
+            >
               <option value="">Select the correct solution</option>
               <option value="a">A</option>
               <option value="b">B</option>
@@ -246,11 +281,17 @@ const CreateExam = () => {
           justifyContent: "center",
           alignItems: "center",
           backgroundColor: `#f0f8ff`,
-          borderRadius:20,
-          marginTop:5,
+          borderRadius: 20,
+          marginTop: 5,
         }}
       >
-       <h1><b><i><u>Question 3</u></i></b></h1>
+        <h1>
+          <b>
+            <i>
+              <u>Question 3</u>
+            </i>
+          </b>
+        </h1>
         <Form
           form={q3Form}
           style={{
@@ -258,26 +299,41 @@ const CreateExam = () => {
           }}
         >
           <Form.Item name="q3">
-            <Input placeholder="Question 3" style={{borderRadius:10}}/>
+            <Input placeholder="Question 3" style={{ borderRadius: 10 }} />
           </Form.Item>
 
           <Form.Item name="q3a">
-            <Input placeholder="Question 3, 1st possible answer(a)"style={{borderRadius:10}}/>
+            <Input
+              placeholder="Question 3, 1st possible answer(a)"
+              style={{ borderRadius: 10 }}
+            />
           </Form.Item>
           <Form.Item name="q3b">
-            <Input placeholder="Question 3, 2nd possible answer(b)"style={{borderRadius:10}}/>
+            <Input
+              placeholder="Question 3, 2nd possible answer(b)"
+              style={{ borderRadius: 10 }}
+            />
           </Form.Item>
 
           <Form.Item name="q3c">
-            <Input placeholder="Question 3, 3rd possible answer(c)" style={{borderRadius:10}}/>
+            <Input
+              placeholder="Question 3, 3rd possible answer(c)"
+              style={{ borderRadius: 10 }}
+            />
           </Form.Item>
 
           <Form.Item name="q3d">
-            <Input placeholder="Question 3, 4th possible answer(d)" style={{borderRadius:10}}/>
+            <Input
+              placeholder="Question 3, 4th possible answer(d)"
+              style={{ borderRadius: 10 }}
+            />
           </Form.Item>
 
           <Form.Item name="q3Answer">
-            <select class="ui dropdown" style={{borderRadius:10, marginLeft:170}}>
+            <select
+              class="ui dropdown"
+              style={{ borderRadius: 10, marginLeft: 170 }}
+            >
               <option value="">Select the correct solution</option>
               <option value="a">A</option>
               <option value="b">B</option>
@@ -296,11 +352,17 @@ const CreateExam = () => {
           justifyContent: "center",
           alignItems: "center",
           backgroundColor: `#f0f8ff`,
-          borderRadius:20,
-          marginTop:5,
+          borderRadius: 20,
+          marginTop: 5,
         }}
       >
-        <h1><b><i><u>Question 4</u></i></b></h1>
+        <h1>
+          <b>
+            <i>
+              <u>Question 4</u>
+            </i>
+          </b>
+        </h1>
         <Form
           form={q4Form}
           style={{
@@ -308,25 +370,40 @@ const CreateExam = () => {
           }}
         >
           <Form.Item name="q4">
-            <Input placeholder="Question 4" style={{borderRadius:10}}/>
+            <Input placeholder="Question 4" style={{ borderRadius: 10 }} />
           </Form.Item>
 
           <Form.Item name="q4a">
-            <Input placeholder="Question 4, 1st possible answer(a)" style={{borderRadius:10}}/>
+            <Input
+              placeholder="Question 4, 1st possible answer(a)"
+              style={{ borderRadius: 10 }}
+            />
           </Form.Item>
           <Form.Item name="q4b">
-            <Input placeholder="Question 4, 2nd possible answer(b)" style={{borderRadius:10}}/>
+            <Input
+              placeholder="Question 4, 2nd possible answer(b)"
+              style={{ borderRadius: 10 }}
+            />
           </Form.Item>
 
           <Form.Item name="q4c">
-            <Input placeholder="Question 4, 3rd possible answer(c)" style={{borderRadius:10}}/>
+            <Input
+              placeholder="Question 4, 3rd possible answer(c)"
+              style={{ borderRadius: 10 }}
+            />
           </Form.Item>
 
           <Form.Item name="q4d">
-            <Input placeholder="Question 4, 4th possible answer(d)" style={{borderRadius:10}}/>
+            <Input
+              placeholder="Question 4, 4th possible answer(d)"
+              style={{ borderRadius: 10 }}
+            />
           </Form.Item>
           <Form.Item name="q4Answer">
-            <select class="ui dropdown" style={{borderRadius:10, marginLeft:170}}>
+            <select
+              class="ui dropdown"
+              style={{ borderRadius: 10, marginLeft: 170 }}
+            >
               <option value="">Select the correct solution</option>
               <option value="a">A</option>
               <option value="b">B</option>
@@ -336,28 +413,18 @@ const CreateExam = () => {
           </Form.Item>
         </Form>
       </div>
-      <Button type="primary" style={{marginTop:10, marginLeft:470}} onClick={createExam}>
+      <Button
+        type="primary"
+        style={{ marginTop: 10, marginLeft: 470 }}
+        onClick={createExam}
+      >
         Create Quiz
       </Button>
     </div>
-
-    
-
-
   );
 };
 
 export default CreateExamWrapper;
-
-
-
-
-
-
-
-
-
-
 
 // import axios from "axios";
 // import { useState, useEffect } from "react";
@@ -379,7 +446,6 @@ export default CreateExamWrapper;
 // import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 // import InstructorDashboard from "./instructorComponents/InstructorDashboard";
 
-
 // const { Option } = Select;
 
 // const CreateExamWrapper = () => {
@@ -397,8 +463,6 @@ export default CreateExamWrapper;
 //     const [q4, setQuestion4] = useState([]);
 //     // const [exam, setExam] = useState([]);
 
-
-   
 //   const createExam = async () => {
 //     console.log(q1);
 //     console.log(q2);
@@ -409,7 +473,7 @@ export default CreateExamWrapper;
 //      courseId: "638501f2a9b064e47ee7e0ed",
 //      question1: q1[0],
 //      answer1:q1[1],
-//      answer2:q1[2], 
+//      answer2:q1[2],
 //      answer3:q1[3],
 //      answer4:q1[4],
 //      answerQes1:q1[5],
@@ -421,31 +485,29 @@ export default CreateExamWrapper;
 //      answerQes2:q2[5],
 //      question3:q3[0],
 //      answer31:q3[1],
-//      answer32:q3[2], 
+//      answer32:q3[2],
 //      answer33:q3[3],
 //      answer34:q3[4],
 //      answerQes3:q3[5],
 //      question4:q4[0],
 //      answer41:q4[1],
-//      answer42:q4[2], 
+//      answer42:q4[2],
 //      answer43:q4[3],
 //      answer44:q4[4],
 //      answerQes4:q4[5],
 
-
 //     };
 //     axios
 //       .post("http://localhost:2020/createQuestions", requestBody)
-      
+
 //       .then((response) => {
 //         // axios
-//         // .post("http://localhost:2020/createQuiz", 
+//         // .post("http://localhost:2020/createQuiz",
 //         // q1._id,
 //         // q2._id,
 //         // q3._id,
 //         // q4._id, )
 
-        
 //         // .then((response) => {
 //         //   message.success("Exam has been created", 5);
 //         //  console.log("success");
@@ -456,7 +518,6 @@ export default CreateExamWrapper;
 //         //   message.error("Unexpected Error occured" +" "+ error.response.message, 5);
 //         // });
 
-         
 //       })
 //       .catch((error) => {
 //         console.log("erorr ", error.message);
@@ -469,7 +530,7 @@ export default CreateExamWrapper;
 
 //   //     username:"abdelrahman",
 //   //     courseId: "638501f2a9b064e47ee7e0ed",
-//   //     // question1: 
+//   //     // question1:
 
 //   //   }
 
@@ -484,22 +545,18 @@ export default CreateExamWrapper;
 //   //     message.error("Unexpected Error occured" +" "+ error.response.message, 5);
 //   //   });
 
-
 //   // }
-
 
 //     const onFinishFailed = (errorInfo) => {
 //     console.log("Failed:", errorInfo);
 //   };
-
-
 
 //   return (
 
 //     <div>
 
 //     <h2 style={{marginLeft:600, marginTop:20}}><u> Question 1</u></h2>
-     
+
 //      <Input
 //                     placeholder="First question"
 //                     style={{
@@ -510,12 +567,8 @@ export default CreateExamWrapper;
 //                     onChange={(e)=>setQuestion1([e.target.value,q1[1],q1[2],q1[3],q1[4],q1[5]])}
 //                   />
 
-     
-
 //      {/* ------------- */}
 
-      
-     
 //      <Input
 //                     placeholder="First possible solution"
 //                     style={{
@@ -526,12 +579,8 @@ export default CreateExamWrapper;
 //                     onChange={(e)=>setQuestion1([q1[0],e.target.value,q1[2],q1[3],q1[4],q1[5]])}
 //                   />
 
-     
-
 //     {/* --------------- */}
 
-     
-     
 //      <Input
 //                     placeholder="Second possible solution"
 //                     style={{
@@ -542,13 +591,8 @@ export default CreateExamWrapper;
 //                     onChange={(e)=>setQuestion1([q1[0],q1[1],e.target.value,q1[3],q1[4],q1[5]])}
 //                   />
 
-      
-
 //       {/* ------------------ */}
 
-
-      
-     
 //      <Input
 //                     placeholder="Third possible solution"
 //                     style={{
@@ -559,13 +603,8 @@ export default CreateExamWrapper;
 //                     onChange={(e)=>setQuestion1([q1[0],q1[1],q1[2],e.target.value,q1[4],q1[5]])}
 //                   />
 
-      
-
 //       {/* --------------------- */}
 
-
-     
-     
 //      <Input
 //                     placeholder="Fourth possible solution"
 //                     style={{
@@ -576,9 +615,6 @@ export default CreateExamWrapper;
 //                     onChange={(e)=>setQuestion1([q1[0],q1[1],q1[2],q1[3],e.target.value,q1[5]])}
 //                   />
 
-      
-
-  
 //       <select class="ui dropdown" style={{marginLeft:570, marginTop:10}} onChange={(e)=>setQuestion1([q1[0],q1[1],q1[2],q1[3],q1[4],e.target.value])}>
 //   <option value="">Select the correct solution</option>
 //   <option value="a">A</option>
@@ -593,8 +629,6 @@ export default CreateExamWrapper;
 
 //     <h2 style={{marginLeft:600, marginTop:20}}><u> Question 2</u></h2>
 
-   
-     
 //      <Input
 //                     placeholder="Second question"
 //                     style={{
@@ -604,8 +638,6 @@ export default CreateExamWrapper;
 //                     onChange={(e)=>setQuestion2([e.target.value,q2[1],q2[2],q2[3],q2[4],q2[5]])}
 //                   />
 
-      
-     
 //      <Input
 //                     placeholder="First possible solution"
 //                     style={{
@@ -616,11 +648,8 @@ export default CreateExamWrapper;
 //                     onChange={(e)=>setQuestion2([q2[0],e.target.value,q2[2],q2[3],q2[4],q2[5]])}
 //                   />
 
-
 //     {/* --------------- */}
 
-     
-     
 //      <Input
 //                     placeholder="Second possible solution"
 //                     style={{
@@ -631,12 +660,8 @@ export default CreateExamWrapper;
 //                     onChange={(e)=>setQuestion2([q2[0],q2[1],e.target.value,q2[3],q2[4],q2[5]])}
 //                   />
 
-      
-
 //       {/* ------------------ */}
 
-
-     
 //      <Input
 //                     placeholder="Third possible solution"
 //                     style={{
@@ -647,13 +672,8 @@ export default CreateExamWrapper;
 //                     onChange={(e)=>setQuestion2([q2[0],q2[1],q2[2],e.target.value,q2[4],q2[5]])}
 //                   />
 
-      
-
 //       {/* --------------------- */}
 
-
-    
-     
 //      <Input
 //                     placeholder="Fourth possible solution"
 //                     style={{
@@ -664,9 +684,6 @@ export default CreateExamWrapper;
 //                     onChange={(e)=>setQuestion2([q2[0],q2[1],q2[2],q2[3],e.target.value,q2[5]])}
 //                   />
 
-      
-
-      
 //       <select class="ui dropdown" style={{marginLeft:570, marginTop:10}} onChange={(e)=>setQuestion2([q2[0],q2[1],q2[2],q2[3],q2[4],e.target.value])}>
 //       <option value="">Select the correct solution</option>
 //   <option value="a">A</option>
@@ -680,10 +697,6 @@ export default CreateExamWrapper;
 
 //     <h2 style={{marginLeft:600, marginTop:20}}><u> Question 3</u></h2>
 
-
- 
-
- 
 //  <Input
 //                 placeholder="Third question"
 //                 style={{
@@ -693,8 +706,6 @@ export default CreateExamWrapper;
 //                 onChange={(e)=>setQuestion3([e.target.value,q3[1],q3[2],q3[3],q3[4],q3[5]])}
 //               />
 
- 
-     
 //      <Input
 //                     placeholder="First possible solution"
 //                     style={{
@@ -705,12 +716,8 @@ export default CreateExamWrapper;
 //                     onChange={(e)=>setQuestion3([q3[0],e.target.value,q3[2],q3[3],q3[4],q3[5]])}
 //                   />
 
- 
-
 //     {/* --------------- */}
 
-      
-     
 //      <Input
 //                     placeholder="Second possible solution"
 //                     style={{
@@ -721,13 +728,8 @@ export default CreateExamWrapper;
 //                     onChange={(e)=>setQuestion3([q3[0],q3[1],e.target.value,q3[3],q3[4],q3[5]])}
 //                   />
 
-      
-
 //       {/* ------------------ */}
 
-
-     
-     
 //      <Input
 //                     placeholder="Third possible solution"
 //                     style={{
@@ -738,13 +740,8 @@ export default CreateExamWrapper;
 //                     onChange={(e)=>setQuestion3([q3[0],q3[1],q3[2],e.target.value,q3[4],q3[5]])}
 //                   />
 
-     
-
 //       {/* --------------------- */}
 
-
-     
-     
 //      <Input
 //                     placeholder="Fourth possible solution"
 //                     style={{
@@ -755,9 +752,6 @@ export default CreateExamWrapper;
 //                     onChange={(e)=>setQuestion3([q3[0],q3[1],q3[2],q3[3],e.target.value,q3[5]])}
 //                   />
 
-      
-
-  
 //       <select class="ui dropdown" style={{marginLeft:570, marginTop:10}} onChange={(e)=>setQuestion3([q3[0],q3[1],q3[2],q3[3],q3[4],e.target.value])}>
 //       <option value="">Select the correct solution</option>
 //   <option value="a">A</option>
@@ -766,15 +760,12 @@ export default CreateExamWrapper;
 //   <option value="d">D</option>
 // </select>
 
-
 // <Divider plain> </Divider>
 
 // {/* ////////////////////////////// */}
 
 // <h2 style={{marginLeft:600, marginTop:20}}><u> Question 4</u></h2>
 
-
- 
 //  <Input
 //                 placeholder="Fourth question"
 //                 style={{
@@ -784,10 +775,6 @@ export default CreateExamWrapper;
 //                 onChange={(e)=>setQuestion4([e.target.value,q4[1],q4[2],q4[3],q4[4],q4[5]])}
 //               />
 
- 
-
-  
-     
 //      <Input
 //                     placeholder="First possible solution"
 //                     style={{
@@ -798,12 +785,8 @@ export default CreateExamWrapper;
 //                     onChange={(e)=>setQuestion4([q4[0],e.target.value,q4[2],q4[3],q4[4],q4[5]])}
 //                   />
 
-     
-
 //     {/* --------------- */}
 
-     
-     
 //      <Input
 //                     placeholder="Second possible solution"
 //                     style={{
@@ -814,13 +797,8 @@ export default CreateExamWrapper;
 //                     onChange={(e)=>setQuestion4([q4[0],q4[1],e.target.value,q4[3],q4[4],q4[5]])}
 //                   />
 
-     
-
 //       {/* ------------------ */}
 
-
-      
-     
 //      <Input
 //                     placeholder="Third possible solution"
 //                     style={{
@@ -831,13 +809,8 @@ export default CreateExamWrapper;
 //                     onChange={(e)=>setQuestion4([q4[0],q4[1],q4[2],e.target.value,q4[4],q4[5]])}
 //                   />
 
-     
-
 //       {/* --------------------- */}
 
-
-      
-     
 //      <Input
 //                     placeholder="Fourth possible solution"
 //                     style={{
@@ -848,9 +821,6 @@ export default CreateExamWrapper;
 //                     onChange={(e)=>setQuestion4([q4[0],q4[1],q4[2],q4[3],e.target.value,q4[5]])}
 //                   />
 
-    
-
-
 //       <select class="ui dropdown" style={{marginLeft:570, marginTop:10}} onChange={(e)=>setQuestion4([q4[0],q4[1],q4[2],q4[3],q4[4],e.target.value])}>
 //       <option value="">Select the correct solution</option>
 //   <option value="a">A</option>
@@ -859,27 +829,21 @@ export default CreateExamWrapper;
 //   <option value="d">D</option>
 // </select>
 
-  
-
-
 // <Divider plain> </Divider>
 // {/* ///////////////////////// */}
 
-// <Button 
+// <Button
 //  onClick={createExam}
-//  style={{marginLeft:515, marginTop:10, width:300, marginBottom:30}}>Add questions</Button> 
+//  style={{marginLeft:515, marginTop:10, width:300, marginBottom:30}}>Add questions</Button>
 // <br></br>
 
-//  {/* <Button type="primary" 
-// onClick={createQuiz} 
+//  {/* <Button type="primary"
+// onClick={createQuiz}
 // block style={{marginLeft:490, marginTop:20, width:400}}>
 //       Create quiz
 //     </Button>  */}
 
 //     </div>
-
-    
-
 
 //   );
 // };

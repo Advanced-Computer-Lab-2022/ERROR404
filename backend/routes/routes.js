@@ -1420,20 +1420,18 @@ const updateRequestStatus = (req, res) => {
   }
 };
 
-
-const getExamById = async (req,res) => {
-
-    const quizId = req.params.id;
-    await quizzes
-      .findOne({ _id: quizId }, (err, result) => {
-        if (err) {
-          console.log(err);
-          res.status(500).send();
-        } else {
-          res.status(200).json(result);
-        }
-      })
-      .clone();
+const getExamById = async (req, res) => {
+  const quizId = req.params.id;
+  await quizzes
+    .findOne({ _id: quizId }, (err, result) => {
+      if (err) {
+        console.log(err);
+        res.status(500).send();
+      } else {
+        res.status(200).json(result);
+      }
+    })
+    .clone();
 
   // const quizId = req.params .id;
   // const result= await quizzes.findOne({courseId:mongoose.Types.ObjectId(quizId)});

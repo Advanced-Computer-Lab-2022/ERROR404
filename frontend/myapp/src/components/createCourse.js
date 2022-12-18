@@ -1,15 +1,10 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import {
-  MinusCircleOutlined,
-  PlusOutlined,
-  CheckOutlined,
-} from "@ant-design/icons";
+import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 import "semantic-ui-css/semantic.min.css";
 
-import { Button, Form, Input, InputNumber, message, Space, Card } from "antd";
+import { Button, Form, Input, InputNumber, message, Space } from "antd";
 import InstructorDashboard from "./instructorComponents/InstructorDashboard";
-import { positions } from "@mui/system";
 
 const WrapperCreateCourses = () => {
   return (
