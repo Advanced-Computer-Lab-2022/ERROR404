@@ -95,25 +95,25 @@ const SolveExam = () => {
             <label>Choose an answer: </label>
             <div className="field">
               <div className="ui radio checkbox">
-                <input type="radio" name="frequency" id="correct1"></input>
+                <input type="radio" name="frequencyy" id="correct1"></input>
                 <label>A</label>
               </div>
             </div>
             <div className="field">
               <div className="ui radio checkbox">
-                <input type="radio" name="frequency"></input>
+                <input type="radio" name="frequencyy"></input>
                 <label>B</label>
               </div>
             </div>
             <div className="field">
               <div className="ui radio checkbox">
-                <input type="radio" name="frequency"></input>
+                <input type="radio" name="frequencyy"></input>
                 <label>C</label>
               </div>
             </div>
             <div className="field">
               <div className="ui radio checkbox">
-                <input type="radio" name="frequency"></input>
+                <input type="radio" name="frequencyy"></input>
                 <label>D</label>
               </div>
             </div>

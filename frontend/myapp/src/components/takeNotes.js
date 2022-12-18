@@ -1,13 +1,11 @@
 import App from "../App";
 import React, {useState, useRef} from 'react';
 import {
-    EditTwoTone,
     Button,
     EditOutlined,
   } from '@ant-design/icons';
   import { Input,Modal } from 'antd';
   import { Form, Space } from 'antd';
-  import {useReactToPrint}  from "react-to-print"; 
 import { blueGrey, green, lightBlue } from "@mui/material/colors";
 
 
@@ -27,13 +25,18 @@ const TakeNotesWrapper = () => {
     setIsModalOpen(false);
   };
   const componentRef = useRef();
-  const handlePrint = useReactToPrint({
-    content:() => componentRef.current,
-    documentTitle: 'My notes',
-    onAfterPrint: () => alert(' print success')
 
-  });
+  const downloadTxtFile = () => {
+    const element = document.createElement("a");
+    const file = new Blob([document.getElementById('input').value],    
+                {type: 'text/plain;charset=utf-8'});
+    element.href = URL.createObjectURL(file);
+    element.download = "myFile.txt";
+    document.body.appendChild(element);
+    element.click();
+  }
 
+  
   
     return (
       
@@ -45,22 +48,21 @@ const TakeNotesWrapper = () => {
        
         <br></br>
 
-        <Modal ref= {componentRef} title="Write your notes!" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} style={{marginTop:400, marginLeft:420}}>
+        <Modal ref= {componentRef} title="Write your notes!" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} style={{marginTop:350, marginLeft:420}}>
 
-        <Form>
-            <Form.Item>
-            <TextArea placeholder="Type here.." autoSize />
-      <div
-        style={{
-          marginLeft:300,
-        }}
-      />
-            </Form.Item>
-            {/* <button  onClick={handlePrint}>
-               Print or save notes
-            </button>  */}
+
+
+<div>
+   <Form> 
+             <Form.Item>
+            <TextArea id= "input" placeholder="Type here.." autoSize />
+      <div/>
+            </Form.Item> 
             </Form>
-
+  <br>
+  </br>
+  <button primary onClick= {downloadTxtFile} style={{ marginLeft:130,  backgroundColor: "lightBlue", borderRadius:10, width:200}} > Download</button>
+</div>
             
       </Modal>
 

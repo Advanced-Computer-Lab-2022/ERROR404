@@ -53,6 +53,7 @@ import Filter from "./components/filter";
 import LoginPageWrapper from "./components/loginComponents/mainHome";
 import AdminReportsWrapper from "./components/adminComponents/adminReports";
 import AdminMainDashboardWrapper from "./components/adminComponents/adminMainDashboard";
+
 import CreateUserWrapper from "./components/adminComponents/adminCreateUser";
 import NoPage from "./components/NoPage";
 import MyPrograms from "./components/traineeComponents/myPrograms";
@@ -69,6 +70,9 @@ import Terms from "./components/termsAndConditions";
 import TraineeInsideCourse from "./components/traineeComponents/traineeInsideCourse";
 import CourseConversation from "./components/courseComponents/courseConversation";
 import TraineeReportsWrapper from "./components/traineeComponents/reportsFollowUp";
+
+import AdminFilterReports from "./components/adminComponents/adminFilterReports";
+
 
 import TakeNotesWrapper from "./components/takeNotes";
 
@@ -224,6 +228,7 @@ export default function MainApp() {
             element={<TraineeViewCourses />}
           />
            <Route path="/TakeNotes" element={<TakeNotesWrapper />} />
+           <Route path="/AdminFilterReports" element={<AdminFilterReports/>} />
 
         </Routes>
       </Router>
