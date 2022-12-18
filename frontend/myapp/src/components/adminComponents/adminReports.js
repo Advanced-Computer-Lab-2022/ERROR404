@@ -90,7 +90,7 @@ const AdminReports = () => {
       width: "20%",
     },
     {
-      title: "Report type" ,
+      title: "Report type",
       dataIndex: "reportType",
       render: (reportType) => {
         let type = "";
@@ -98,19 +98,10 @@ const AdminReports = () => {
           type = "technical";
         } else if (reportType == "financial") {
           type = "financial";
-        }
-        else if (reportType == "other") {
+        } else if (reportType == "other") {
           type = "other";
         }
-        return (
-
-         
-
-          <span>
-            {type}
-          </span>
-          
-        );
+        return <span>{type}</span>;
       },
       filters: [
         {
@@ -462,7 +453,10 @@ const AdminReports = () => {
       let data = [];
       results.data.map((item) => {
         if (filter != null && filter.length > 0) {
-          if (filter.includes(item.status)||filter.includes(item.reportType)) {
+          if (
+            filter.includes(item.status) ||
+            filter.includes(item.reportType)
+          ) {
             data.push(item);
           }
         } else {
