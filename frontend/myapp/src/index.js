@@ -78,6 +78,9 @@ import TakeNotesWrapper from "./components/takeNotes";
 import CreateRequestWrapper from "./components/corporateCreateRequest";
 
 
+import AdminFilterReports from "./components/adminComponents/adminFilterReports";
+
+
 import TakeNotesWrapper from "./components/takeNotes";
 
 
@@ -245,6 +248,7 @@ export default function MainApp() {
 
 
            <Route path="/TakeNotes" element={<TakeNotesWrapper />} />
+           <Route path="/AdminFilterReports" element={<AdminFilterReports/>} />
 
         </Routes>
       </Router>
