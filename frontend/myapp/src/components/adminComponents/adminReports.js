@@ -103,9 +103,13 @@ const AdminReports = () => {
           type = "other";
         }
         return (
+
+         
+
           <span>
             {type}
           </span>
+          
         );
       },
       filters: [
