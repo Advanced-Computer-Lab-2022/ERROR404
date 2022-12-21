@@ -61,6 +61,7 @@ import TraineeSettingsWrapper from "./components/traineeComponents/traineeSettin
 import TraineeViewCourses from "./components/traineeComponents/traineeViewCourses";
 import ReportaProblemWrapper from "./components/reportProblem";
 import FooterWrapper from "./components/footer";
+import CertificateWrapper from "./components/certificate";
 
 export default function MainApp() {
   const [username, setUsername] = useState("");
@@ -178,6 +179,7 @@ export default function MainApp() {
           <Route path="ReportaProblem" element={<ReportaProblemWrapper />} />
           <Route path="filter" element={<Filter />} />
           <Route path="footer" element={<FooterWrapper />} />
+          <Route path="certificate" element={<CertificateWrapper />} />
           <Route path="login" element={<LoginPageWrapper />} />
           <Route
             path="/adminDashboard"
