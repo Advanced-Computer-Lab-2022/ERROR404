@@ -82,10 +82,10 @@ import AdminFilterReports from "./components/adminComponents/adminFilterReports"
 import TakeNotesWrapper from "./components/takeNotes";
 
 import AdminFilterReports from "./components/adminComponents/adminFilterReports";
-
+import AdminRequestsWrapper from "./components/adminComponents/adminViewCourseRequests";
 
 import TakeNotesWrapper from "./components/takeNotes";
-
+import CreateRequestWrapper from "./components/corporateCreateRequest";
 
 export default function MainApp() {
   const [username, setUsername] = useState("");
@@ -256,11 +256,12 @@ export default function MainApp() {
 
           <Route path="*" element={<NoPage />} />
 
-
-
-           <Route path="/TakeNotes" element={<TakeNotesWrapper />} />
-           <Route path="/AdminFilterReports" element={<AdminFilterReports/>} />
-
+          <Route path="/TakeNotes" element={<TakeNotesWrapper />} />
+          <Route path="/AdminFilterReports" element={<AdminFilterReports />} />
+          <Route
+            path="/corporateCreateRequest"
+            element={<CreateRequestWrapper />}
+          />
         </Routes>
       </Router>
     </AppContext.Provider>

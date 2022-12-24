@@ -6,10 +6,7 @@ const individualTrainee = require("../models/IndividualTrainee");
 const questions = require("../models/questions");
 const quizzes = require("../models/quizzes");
 const Reports = require("../models/reports");
-const chats = require("../models/chats");
-const corporateRequests = require("../models/corporateRequests");
 const { default: mongoose } = require("mongoose");
-const Courses = require("../models/courses");
 
 //Methods
 const createIndividualTrainee = (req, res) => {
@@ -1244,67 +1241,6 @@ const updateReportStatus = async (req, res) => {
     ).clone();
   }
 };
-const getChats = async (req, res) => {
-  const username = req.params.username;
-  const usertype = req.params.usertype;
-  if (usertype == "instructor") {
-    await instructor
-      .find({ username: username })
-      .populate("chat")
-      .exec((err, result) => {
-        if (err) {
-          return res.status(500).json({ error: err });
-        }
-        res.status(200).json({ result: result });
-      });
-  } else if (usertype == "individual") {
-    await individualTrainee
-      .find({ username: username })
-      .populate("Chat")
-      .exec((err, result) => {
-        if (err) {
-          return res.json({ error: err });
-        }
-        res.json({ result: result });
-      });
-  } else if (usertype == "corporate") {
-    await corporateTrainee
-      .find({ username: username })
-      .populate("Chat")
-      .exec((err, result) => {
-        if (err) {
-          return res.json({ error: err });
-        }
-        res.json({ result: result });
-      });
-  } else if (usertype == "admin") {
-    await admin
-      .find({ username: username })
-      .populate("Chat")
-      .exec((err, result) => {
-        if (err) {
-          return res.json({ error: err });
-        }
-        res.json({ result: result });
-      });
-  }
-};
-const createChat = (req, res) => {
-  const body = {
-    sender: req.body.sender,
-    reciver: req.body.reciver,
-    senderRole: req.body.senderRole,
-    reciverRole: req.body.reciverRole,
-    message: req.body.message,
-  };
-  chats.create(body, (err, result) => {
-    if (err) {
-      res.status(500).send(err);
-    } else {
-      res.status(200).send();
-    }
-  });
-};
 
 const createCourseChat = (req, res) => {
   const chat = {
@@ -1482,14 +1418,4 @@ module.exports = {
   getAllReports,
   createReport,
   updateReportStatus,
-  filterByPrice,
-  getChats,
-  createCourseChat,
-  getCourseChats,
-  approveInstructor,
-  updateCourseProgress,
-  createCorporateRequest,
-  getAllRequests,
-  updateRequestStatus,
-  getExamById,
 };
