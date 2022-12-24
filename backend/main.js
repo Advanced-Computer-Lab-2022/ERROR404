@@ -54,6 +54,9 @@ const {
   getCourseChats,
   approveInstructor,
   updateCourseProgress,
+  createCorporateRequest,
+  getAllRequests,
+  updateRequestStatus,
 } = require("./routes/routes");
 
 //App variables
@@ -95,6 +98,7 @@ app.get("/viewRatingAndReviews/:username", viewRatingAndReviews);
 app.get("/filterByPrice/:min/:max", filterByPrice);
 app.get("/getChats/:username/:usertype", getChats);
 app.get("/getCourseChats/:id", getCourseChats);
+app.get("/getAllRequests", getAllRequests);
 
 app.post("/createCorporateTrainee", createCorporateTrainee);
 app.post("/createAdmin", createAdmin);
@@ -104,6 +108,7 @@ app.post("/createIndividualTrainee", createIndividualTrainee);
 app.post("/createQuestions", createQuestions);
 app.post("/createQuiz", createQuiz);
 app.post("/createReport", createReport);
+app.post("/createCorporateRequest", createCorporateRequest);
 
 app.patch("/country", chooseCountry);
 app.patch("/rateAndReviewInstructor", rateAndReviewInstructor);
@@ -126,3 +131,4 @@ app.put("/updateViews", updateViews);
 app.get("/filterByPrice/:min/:max", filterByPrice);
 app.get("/getChats/:username/:usertype", getChats);
 app.put("/approveInstructor", approveInstructor);
+app.put("/updateRequestStatus", updateRequestStatus);

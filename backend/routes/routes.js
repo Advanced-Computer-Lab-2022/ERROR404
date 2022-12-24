@@ -7,6 +7,7 @@ const questions = require("../models/questions");
 const quizzes = require("../models/quizzes");
 const Reports = require("../models/reports");
 const chats = require("../models/chats");
+const corporateRequests = require("../models/corporateRequests");
 const { default: mongoose } = require("mongoose");
 const Courses = require("../models/courses");
 
@@ -1204,11 +1205,9 @@ const createReport = async (req, res) => {
     return res.status(400).send("usertype not sent");
   } else if (description == null || description.length == 0) {
     return res.status(400).send("description not sent");
-  } 
-  else if (reportType == null || reportType.length == 0) {
+  } else if (reportType == null || reportType.length == 0) {
     return res.status(400).send("Report Type not sent");
- } 
-  else {
+  } else {
     const body = {
       user: username,
       usertype: usertype,
@@ -1335,6 +1334,47 @@ const getCourseChats = async (req, res) => {
     }
   }).clone();
 };
+const createCorporateRequest = (req, res) => {
+  console.log(req.body);
+  const username = req.body.username;
+  const usertype = req.body.usertype;
+  const courseTitle = req.body.courseTitle;
+
+  if (usertype !== "corporate") {
+    return res.status(400).send("Error occured");
+  } else if (username == null || username.length == 0) {
+    return res.status(400).send("username not sent");
+  } else if (courseTitle == null || courseTitle.length == 0) {
+    return res.status(400).send("course title not sent");
+  } else {
+    const body = {
+      username: username,
+      userType: usertype,
+      courseTitle: courseTitle,
+    };
+    corporateRequests.create(body, (err, data) => {
+      if (err) {
+        res.status(500).json(err);
+      } else {
+        res.status(200).send(data);
+      }
+    });
+  }
+};
+
+const getAllRequests = async (req, res) => {
+  await corporateRequests
+    .find({}, (err, data) => {
+      if (err) {
+        res.status(500).json(err);
+      } else if (data) {
+        res.status(200).json(data);
+      } else {
+        res.status(404).send();
+      }
+    })
+    .clone();
+};
 
 const updateCourseProgress = async (req, res) => {
   let model;
@@ -1352,13 +1392,34 @@ const updateCourseProgress = async (req, res) => {
         if (err) {
           console.log(err);
           res.status(500).send(err);
-        } else {
-          res.status(200).send();
         }
       }
     )
     .clone();
 };
+const updateRequestStatus = (req, res) => {
+  const requestId = req.body.id;
+
+  if (requestId == null || requestId.length == 0) {
+    return res.status(400).send("Id not provided");
+  } else {
+    corporateRequests
+      .findByIdAndUpdate(
+        { _id: requestId },
+        { $set: { status: req.body.status } },
+        { runValidators: true },
+        (err, data) => {
+          if (err) {
+            res.status(500).json(err);
+          } else {
+            res.status(200).send();
+          }
+        }
+      )
+      .clone();
+  }
+};
+
 module.exports = {
   getUser,
   search,
@@ -1405,4 +1466,7 @@ module.exports = {
   getCourseChats,
   approveInstructor,
   updateCourseProgress,
+  createCorporateRequest,
+  getAllRequests,
+  updateRequestStatus,
 };

@@ -72,9 +72,10 @@ import CourseConversation from "./components/courseComponents/courseConversation
 import TraineeReportsWrapper from "./components/traineeComponents/reportsFollowUp";
 
 import AdminFilterReports from "./components/adminComponents/adminFilterReports";
-
+import AdminRequestsWrapper from "./components/adminComponents/adminViewCourseRequests";
 
 import TakeNotesWrapper from "./components/takeNotes";
+import CreateRequestWrapper from "./components/corporateCreateRequest";
 
 
 export default function MainApp() {
@@ -211,6 +212,10 @@ export default function MainApp() {
             path="/adminDashboard/reports"
             element={<AdminReportsWrapper />}
           />
+          <Route
+            path="/adminDashboard/requests"
+            element={<AdminRequestsWrapper/>}
+          />
 
           <Route path="*" element={<NoPage />} />
           <Route path="/signUp" element={<WrapperSignUp />} />
@@ -229,6 +234,8 @@ export default function MainApp() {
           />
            <Route path="/TakeNotes" element={<TakeNotesWrapper />} />
            <Route path="/AdminFilterReports" element={<AdminFilterReports/>} />
+           <Route path="/corporateCreateRequest" element={<CreateRequestWrapper/>} />
+
 
         </Routes>
       </Router>
