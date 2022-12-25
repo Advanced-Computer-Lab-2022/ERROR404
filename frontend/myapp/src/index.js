@@ -59,6 +59,11 @@ import WrapperLessonPage from "./components/lessonPage";
 import WrapperSignUp from "./components/signUp";
 import TraineeSettingsWrapper from "./components/traineeComponents/traineeSettings";
 import TraineeViewCourses from "./components/traineeComponents/traineeViewCourses";
+import ReportaProblemWrapper from "./components/reportProblem";
+import FooterWrapper from "./components/footer";
+import CertificateWrapper from "./components/certificate";
+import ProgressWrapper from "./components/courseComponents/courseProgress";
+import AboutWrapper from "./components/about";
 
 export default function MainApp() {
   const [username, setUsername] = useState("");
@@ -163,7 +168,7 @@ export default function MainApp() {
           <Route path="/SolveExam" element={<SolveExamWrapper />} />
           <Route path="/user/myPrograms" element={<MyProgrmas />} />
           <Route path="/user/classroom" element={<UserCourses />} />
-          <Route path="/lessonPage" element={<WrapperLessonPage/>} />
+          <Route path="/lessonPage" element={<WrapperLessonPage />} />
           <Route
             path="/instructorDashBoard/addDiscount"
             element={<SubmitDiscount />}
@@ -173,8 +178,13 @@ export default function MainApp() {
             element={<InstructorCourseReview />}
           />
           <Route path="Acceptagreement" element={<AcceptAgreWrapper />} />
+          <Route path="ReportaProblem" element={<ReportaProblemWrapper />} />
           <Route path="filter" element={<Filter />} />
+          <Route path="footer" element={<FooterWrapper />} />
+          <Route path="certificate" element={<CertificateWrapper />} />
           <Route path="login" element={<LoginPageWrapper />} />
+          <Route path="About" element={<AboutWrapper />} />
+          <Route path="Progress" element={<ProgressWrapper />} />
           <Route
             path="/adminDashboard"
             element={<AdminMainDashboardWrapper />}
@@ -184,17 +194,11 @@ export default function MainApp() {
             element={<AdminReportsWrapper />}
           />
           <Route path="*" element={<NoPage />} />
-          <Route
-            path="/signUp"
-            element={<WrapperSignUp/>}
-          />
-          <Route
-            path="/traineeDashBoard"
-            element={<TraineeMainDashboard />}
-          />
+          <Route path="/signUp" element={<WrapperSignUp />} />
+          <Route path="/traineeDashBoard" element={<TraineeMainDashboard />} />
           <Route
             path="/traineeDashboard/viewGrade"
-            element={<ViewGradeWrapper/>}
+            element={<ViewGradeWrapper />}
           />
           <Route
             path="/traineeDashboard/settings"
@@ -202,7 +206,7 @@ export default function MainApp() {
           />
           <Route
             path="/traineeDashboard/traineeViewCourses"
-            element={<TraineeViewCourses/>}
+            element={<TraineeViewCourses />}
           />
         </Routes>
       </Router>

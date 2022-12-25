@@ -7,12 +7,6 @@
   pointer-events: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -48,11 +42,10 @@
   background-repeat: no-repeat;
   background-size: cover;
 }
-
 .dataScience {
   background-image: url("https://www.northeastern.edu/graduate/blog/wp-content/uploads/2020/06/iStock-1221293664-1-1-1.jpg");
   background-repeat: no-repeat;
-  background-size: cover; 
+  background-size: cover;
   background-color: black;
 }
 
@@ -67,4 +60,7 @@
   gap: 5%;
 }
 
-
+.footerLinksDiv > * {
+  color: "white";
+  text-decoration: "none";
+}

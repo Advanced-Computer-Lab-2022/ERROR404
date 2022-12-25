@@ -21,6 +21,7 @@ import ViewTimelineIcon from "@mui/icons-material/ViewTimeline";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { Breadcrumb, Button, Layout, Menu, Rate } from "antd";
 import { Link } from "react-router-dom";
+import FooterWrapper from "./footer";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -109,12 +110,8 @@ const PreviewCourses = ({ children, courseId }) => {
           </Content>
         </Layout>
       </Content>
-      <Footer
-        style={{
-          textAlign: "center",
-        }}
-      >
-        Ant Design ©2018 Created by ©alighieth
+      <Footer style={{ padding: 0, textAlign: "center", margin: "0 0px" }}>
+        <FooterWrapper />
       </Footer>
     </Layout>
   );

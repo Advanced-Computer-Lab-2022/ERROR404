@@ -16,6 +16,7 @@ import { Link } from "react-router-dom";
 import InstructorDashboard from "../components/instructorComponents/InstructorDashboard";
 import TraineeDashboard from "./TraineeDashboard";
 import { AppContext } from "../AppContext";
+import FooterWrapper from "../components/footer";
 const { Header, Content, Footer, Sider } = Layout;
 
 const SettingsPageWrapper = () => {
@@ -27,15 +28,13 @@ const SettingsPageWrapper = () => {
         <UserSettingPageMain />
       </InstructorDashboard>
     );
-  }
-  else if (user == "individual") {
-      return (
-        <TraineeDashboard>
-          <UserSettingPageMain />
-        </TraineeDashboard>
-      );
-  } 
-  else {
+  } else if (user == "individual") {
+    return (
+      <TraineeDashboard>
+        <UserSettingPageMain />
+      </TraineeDashboard>
+    );
+  } else {
     return (
       <App>
         <UserSettingPageMain />
@@ -95,12 +94,8 @@ const UserSettingPage = ({ children, Settings }) => (
       </Layout>
     </Content>
     <Footer
-      style={{
-        textAlign: "center",
-      }}
-    >
-      Ant Design ©2018 Created by abdo UED
-    </Footer>
+      style={{ padding: 0, textAlign: "center", margin: "0 0px" }}
+    ></Footer>
   </Layout>
 );
 
