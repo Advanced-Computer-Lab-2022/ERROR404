@@ -33,88 +33,90 @@ function getItem(label, key, icon, children) {
   };
 }
 
-const items = [
-  getItem(<Link to="/">Home</Link>, "1", <HomeOutlined />),
-  getItem(
-    <Link to="/course/about">Course Overview</Link>,
-    "2",
-    <PreviewIcon />
-  ),
-  getItem(
-    <Link to="/course/syllabus">Syllabus</Link>,
-    "3",
-    <ViewTimelineIcon />
-  ),
+const PreviewCourses = ({ children, courseId }) => {
+  const items = [
+    getItem(<Link to="/">Home</Link>, "1", <HomeOutlined />),
+    getItem(
+      <Link to={`/course/about?courseId=${courseId}`}>Course Overview</Link>,
+      "2",
+      <PreviewIcon />
+    ),
+    getItem(
+      <Link to={`/course/syllabus?courseId=${courseId}`}>Syllabus</Link>,
+      "3",
+      <ViewTimelineIcon />
+    ),
 
-  getItem(
-    <Link to="/course/reviews">Course Reviews</Link>,
-    "5",
-    <ReviewsIcon />
-  ),
-  getItem(
-    <Link to="/course/pay">
-      <Button ghost>BUY NOW!!</Button>
-    </Link>,
-    "6",
-    <ShoppingCartIcon />
-  ),
-];
-const PreviewCourses = ({ children }) => (
-  <Layout>
-    <Header className="header">
-      <Menu theme="dark" mode="horizontal" items={items} />
-    </Header>
-    <Content
-      style={{
-        padding: "0 50px",
-      }}
-    >
-      <Breadcrumb
+    getItem(
+      <Link to={`/course/reviews?courseId=${courseId}`}>Course Reviews</Link>,
+      "5",
+      <ReviewsIcon />
+    ),
+    getItem(
+      <Link to={`/course/pay?courseId=${courseId}`}>
+        <Button ghost>BUY NOW!!</Button>
+      </Link>,
+      "6",
+      <ShoppingCartIcon />
+    ),
+  ];
+  return (
+    <Layout>
+      <Header className="header">
+        <Menu theme="dark" mode="horizontal" items={items} />
+      </Header>
+      <Content
         style={{
-          margin: "16px 0",
+          padding: "0 50px",
         }}
       >
-        <Breadcrumb.Item>
-          <Link to="/">Home</Link>
-        </Breadcrumb.Item>
-        <Breadcrumb.Item>
-          <Link to="/viewAllCourses">Courses</Link>
-        </Breadcrumb.Item>
-        <Breadcrumb.Item>Web Development</Breadcrumb.Item>
-      </Breadcrumb>
-      <Layout
-        className="site-layout-background"
-        style={{
-          padding: "24px 0",
-        }}
-      >
-        <Sider className="site-layout-background" width={200}>
-          <Menu
-            theme="dark"
-            mode="inline"
-            style={{
-              height: "100%",
-            }}
-            items={items}
-          />
-        </Sider>
-        <Content
+        <Breadcrumb
           style={{
-            padding: "0 24px",
-            minHeight: 280,
+            margin: "16px 0",
           }}
         >
-          {children}
-        </Content>
-      </Layout>
-    </Content>
-    <Footer
-      style={{
-        textAlign: "center",
-      }}
-    >
-      Ant Design ©2018 Created by ©alighieth
-    </Footer>
-  </Layout>
-);
+          <Breadcrumb.Item>
+            <Link to="/">Home</Link>
+          </Breadcrumb.Item>
+          <Breadcrumb.Item>
+            <Link to="/viewAllCourses">Courses</Link>
+          </Breadcrumb.Item>
+          <Breadcrumb.Item>Web Development</Breadcrumb.Item>
+        </Breadcrumb>
+        <Layout
+          className="site-layout-background"
+          style={{
+            padding: "24px 0",
+          }}
+        >
+          <Sider className="site-layout-background" width={200}>
+            <Menu
+              theme="dark"
+              mode="inline"
+              style={{
+                height: "100%",
+              }}
+              items={items}
+            />
+          </Sider>
+          <Content
+            style={{
+              padding: "0 24px",
+              minHeight: 280,
+            }}
+          >
+            {children}
+          </Content>
+        </Layout>
+      </Content>
+      <Footer
+        style={{
+          textAlign: "center",
+        }}
+      >
+        Ant Design ©2018 Created by ©alighieth
+      </Footer>
+    </Layout>
+  );
+};
 export default PreviewCourses;
