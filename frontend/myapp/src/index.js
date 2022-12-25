@@ -77,12 +77,9 @@ import AdminRequestsWrapper from "./components/adminComponents/adminViewCourseRe
 import TakeNotesWrapper from "./components/takeNotes";
 import CreateRequestWrapper from "./components/corporateCreateRequest";
 
-
 import AdminFilterReports from "./components/adminComponents/adminFilterReports";
 
-
 import TakeNotesWrapper from "./components/takeNotes";
-
 
 export default function MainApp() {
   const [username, setUsername] = useState("");
@@ -189,6 +186,7 @@ export default function MainApp() {
           <Route path="/course/syllabus" element={<CourseSyllabus />} />
           <Route path="/SolveExam" element={<SolveExamWrapper />} />
           <Route path="/user/myPrograms" element={<MyPrograms />} />
+
           <Route path="/user/classroom" element={<UserCourses />} />
           <Route path="/lessonPage" element={<WrapperLessonPage />} />
           <Route
@@ -220,7 +218,7 @@ export default function MainApp() {
           />
           <Route
             path="/adminDashboard/requests"
-            element={<AdminRequestsWrapper/>}
+            element={<AdminRequestsWrapper />}
           />
 
           <Route path="*" element={<NoPage />} />
@@ -238,18 +236,17 @@ export default function MainApp() {
             path="/traineeDashboard/traineeViewCourses"
             element={<TraineeViewCourses />}
           />
-           <Route path="/TakeNotes" element={<TakeNotesWrapper />} />
-           <Route path="/AdminFilterReports" element={<AdminFilterReports/>} />
-           <Route path="/corporateCreateRequest" element={<CreateRequestWrapper/>} />
-
+          <Route path="/TakeNotes" element={<TakeNotesWrapper />} />
+          <Route path="/AdminFilterReports" element={<AdminFilterReports />} />
+          <Route
+            path="/corporateCreateRequest"
+            element={<CreateRequestWrapper />}
+          />
 
           <Route path="*" element={<NoPage />} />
 
-
-
-           <Route path="/TakeNotes" element={<TakeNotesWrapper />} />
-           <Route path="/AdminFilterReports" element={<AdminFilterReports/>} />
-
+          <Route path="/TakeNotes" element={<TakeNotesWrapper />} />
+          <Route path="/AdminFilterReports" element={<AdminFilterReports />} />
         </Routes>
       </Router>
     </AppContext.Provider>

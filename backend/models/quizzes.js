@@ -10,3 +10,5 @@ const quizzes = new Schema(
 
 const Quizzes = mongoose.model("Quizzes", quizzes);
 module.exports = Quizzes;
+
+
