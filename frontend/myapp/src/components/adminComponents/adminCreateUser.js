@@ -45,7 +45,7 @@ const CreateAdmin = () => {
       url = "createInstructor";
     } else if (formUserType.getFieldValue("type") == "individual") {
       url = "createIndividualTrainee";
-    } else if (formUserType.getFieldValue("type") == "coorporate") {
+    } else if (formUserType.getFieldValue("type") == "corporate") {
       url = "createCorporateTrainee";
     }
     axios
@@ -80,7 +80,7 @@ const CreateAdmin = () => {
               >
                 <Option value="admin">Admin</Option>
                 <Option value="instructor">Instructor</Option>
-                <Option value="coorporate">Corporate Trainee</Option>
+                <Option value="corporate">Corporate Trainee</Option>
                 <Option value="individual">Individual Trainee</Option>
               </Select>
             </Form.Item>

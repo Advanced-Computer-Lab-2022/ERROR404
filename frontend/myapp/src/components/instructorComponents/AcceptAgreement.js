@@ -1,4 +1,4 @@
-import { Space, message, Form, Button, Checkbox } from "antd";
+import { message, Form, Button, Checkbox } from "antd";
 import App from "../../App";
 import * as React from "react";
 import Box from "@mui/material/Box";
@@ -7,7 +7,6 @@ import SpeedDialIcon from "@mui/material/SpeedDialIcon";
 import SpeedDialAction from "@mui/material/SpeedDialAction";
 import SaveIcon from "@mui/icons-material/Save";
 import PrintIcon from "@mui/icons-material/Print";
-
 import { jsPDF } from "jspdf";
 
 const AcceptAgreWrapper = () => {
@@ -16,7 +15,6 @@ const AcceptAgreWrapper = () => {
       icon: (
         <SaveIcon
           onClick={() => {
-            console.log("aaaaaaaaa");
             const input = document.getElementById("pdf-element");
             const pdf = new jsPDF("p", "pt", "a4");
             pdf.html(input).then(() => {
@@ -31,7 +29,6 @@ const AcceptAgreWrapper = () => {
       icon: (
         <PrintIcon
           onClick={() => {
-            console.log("aaaaaaaaa");
             const input = document.getElementById("pdf-element");
             const pdf = new jsPDF("p", "pt", "a4");
             pdf.html(input).then(() => {

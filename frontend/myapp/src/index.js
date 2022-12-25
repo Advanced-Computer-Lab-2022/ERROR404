@@ -64,6 +64,7 @@ import FooterWrapper from "./components/footer";
 import CertificateWrapper from "./components/certificate";
 import ProgressWrapper from "./components/courseComponents/courseProgress";
 import AboutWrapper from "./components/about";
+import Terms from "./components/termsAndConditions";
 
 export default function MainApp() {
   const [username, setUsername] = useState("");
@@ -178,6 +179,8 @@ export default function MainApp() {
             element={<InstructorCourseReview />}
           />
           <Route path="Acceptagreement" element={<AcceptAgreWrapper />} />
+
+          <Route path="/terms" element={<Terms />} />
           <Route path="ReportaProblem" element={<ReportaProblemWrapper />} />
           <Route path="filter" element={<Filter />} />
           <Route path="footer" element={<FooterWrapper />} />
