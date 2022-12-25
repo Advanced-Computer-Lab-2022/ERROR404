@@ -1,7 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Pie } from "@ant-design/plots";
+import { Pie, Liquid } from "@ant-design/plots";
+import { LikeOutlined, EyeInvisibleOutlined } from "@ant-design/icons";
 import { AppContext } from "../../AppContext";
 import axios from "axios";
+import { Col, Row, Statistic } from "antd";
+import AdminPanelSettings from "@mui/icons-material/AdminPanelSettings";
+import { AdminReports } from "./adminReports";
 
 const DemoPie = () => {
   const { username } = useContext(AppContext);
@@ -9,6 +13,8 @@ const DemoPie = () => {
   const [unseen, setUnseen] = useState(0);
   const [resolved, setResolved] = useState(0);
   const [pending, setPending] = useState(0);
+  const [total, setTotal] = useState(0);
+  const [totalUnseen, setTotalUnseen] = useState(0);
 
   let data = [
     {
@@ -45,6 +51,18 @@ const DemoPie = () => {
     ],
   };
 
+  const lconfig = {
+    percent: unseen / 100,
+    shape: "rect",
+    outline: {
+      border: 2,
+      distance: 4,
+    },
+    wave: {
+      length: 128,
+    },
+  };
+
   useEffect(() => {
     axios.get("http://localhost:2020/getAllReports").then((results) => {
       const reports = results.data;
@@ -52,7 +70,8 @@ const DemoPie = () => {
       let unseen = 0;
       let resolved = 0;
       let pending = 0;
-      let total = 7;
+      let total = results.data.length;
+      setTotal(results.data.length);
       results.data.map((item) => {
         if (item.status == "unseen") {
           unseen++;
@@ -62,13 +81,31 @@ const DemoPie = () => {
           pending++;
         }
       });
+      setTotalUnseen(unseen);
       setUnseen((unseen / total) * 100);
       setPending((pending / total) * 100);
       setResolved((resolved / total) * 100);
     });
   }, []);
 
-  return <Pie {...config} />;
+  return (
+    <>
+      <Pie {...config} />
+
+      <Row gutter={16}>
+        <Col span={12}>
+          <Statistic
+            title="Unseen"
+            prefix={<EyeInvisibleOutlined />}
+            value={totalUnseen}
+            suffix={"/" + total}
+          />
+          {/* <Liquid {...lconfig} /> */}
+          {/* <AdminPanelSettings /> */}
+        </Col>
+      </Row>
+    </>
+  );
 };
 
 export default DemoPie;

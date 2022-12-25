@@ -145,143 +145,274 @@ const AdminReports = () => {
         "http://localhost:2020/getUser/" + reports.user + "/" + reports.usertype
       )
       .then((response) => {
-        let data = response.data;
-        console.log(response.data);
         let type = "default";
         if (reports.status == "resolved") {
           type = "success";
         } else if (reports.status == "pending") {
           type = "processing";
         }
-        modal.update({
-          title: "Report Id " + reports._id,
-          width: "100vh",
+        if (response.data != null) {
+          let data = response.data;
+          modal.update({
+            title: "Report Id " + reports._id,
+            width: "100vh",
 
-          content: (
-            <>
-              <Tabs
-                defaultActiveKey="1"
-                onChange={onChange}
-                items={[
-                  {
-                    label: `Report Information`,
-                    key: "1",
-                    children: (
-                      <Card>
-                        <Form
-                          onFinish={onFinish}
-                          onFinishFailed={onFinishFailed}
-                          autoComplete="off"
-                        >
-                          <Form.Item
-                            label="Report Id"
-                            name="reportId"
-                            initialValue={reports._id}
+            content: (
+              <>
+                <Tabs
+                  defaultActiveKey="1"
+                  onChange={onChange}
+                  items={[
+                    {
+                      label: `Report Information`,
+                      key: "1",
+                      children: (
+                        <Card>
+                          <Form
+                            onFinish={onFinish}
+                            onFinishFailed={onFinishFailed}
+                            autoComplete="off"
                           >
-                            <Input disabled />
-                          </Form.Item>
-                          <Form.Item
-                            label="Description"
-                            name="description"
-                            initialValue={reports.description}
-                          >
-                            <Input.TextArea disabled />
-                          </Form.Item>
+                            <Form.Item
+                              label="Report Id"
+                              name="reportId"
+                              initialValue={reports._id}
+                            >
+                              <Input disabled />
+                            </Form.Item>
+                            <Form.Item
+                              label="Description"
+                              name="description"
+                              initialValue={reports.description}
+                            >
+                              <Input.TextArea disabled />
+                            </Form.Item>
 
-                          <Form.Item
-                            wrapperCol={{
-                              offset: 8,
-                              span: 16,
+                            <Form.Item
+                              wrapperCol={{
+                                offset: 8,
+                                span: 16,
+                              }}
+                            ></Form.Item>
+                          </Form>
+                          <Descriptions title="Extra Info">
+                            <Descriptions.Item label="Last Update">
+                              {reports.updatedAt}
+                            </Descriptions.Item>
+                          </Descriptions>
+                        </Card>
+                      ),
+                    },
+                    {
+                      label: `User Information`,
+                      key: "2",
+                      children: (
+                        <Card>
+                          <Descriptions title="User Info">
+                            <Descriptions.Item label="Username">
+                              {data.username}
+                            </Descriptions.Item>
+                            <Descriptions.Item label="Email">
+                              {data.email}
+                            </Descriptions.Item>
+                            <Descriptions.Item label="Role">
+                              {data.role}
+                            </Descriptions.Item>
+                          </Descriptions>
+                        </Card>
+                      ),
+                    },
+                    {
+                      label: `Change Report Status`,
+                      key: "3",
+                      children: (
+                        <Card>
+                          <Descriptions title="Updating Report.........">
+                            <Descriptions.Item label="Current Status">
+                              <span>
+                                <Badge status={type} text={reports.status} />
+                              </span>
+                            </Descriptions.Item>
+                          </Descriptions>
+                          <Form
+                            form={form}
+                            onFinish={(e) => {
+                              console.log("anaaaa", e);
                             }}
-                          ></Form.Item>
-                        </Form>
-                        <Descriptions title="Extra Info">
-                          <Descriptions.Item label="Last Update">
-                            {reports.updatedAt}
-                          </Descriptions.Item>
-                        </Descriptions>
-                      </Card>
-                    ),
-                  },
-                  {
-                    label: `User Information`,
-                    key: "2",
-                    children: (
-                      <Card>
-                        <Descriptions title="User Info">
-                          <Descriptions.Item label="Username">
-                            {data.username}
-                          </Descriptions.Item>
-                          <Descriptions.Item label="Email">
-                            {data.email}
-                          </Descriptions.Item>
-                          <Descriptions.Item label="Role">
-                            {data.role}
-                          </Descriptions.Item>
-                        </Descriptions>
-                      </Card>
-                    ),
-                  },
-                  {
-                    label: `Change Report Status`,
-                    key: "3",
-                    children: (
-                      <Card>
-                        <Descriptions title="Updating Report.........">
-                          <Descriptions.Item label="Current Status">
-                            <span>
-                              <Badge status={type} text={reports.status} />
-                            </span>
-                          </Descriptions.Item>
-                        </Descriptions>
-                        <Form
-                          form={form}
-                          onFinish={(e) => {
-                            console.log("anaaaa", e);
-                          }}
-                        >
-                          <Form.Item
-                            name="status"
-                            label="Update Status to "
-                            rules={[
-                              {
-                                required: true,
-                              },
-                            ]}
                           >
-                            <Select
-                              placeholder="Select a option and change input text above"
-                              allowClear
+                            <Form.Item
+                              name="status"
+                              label="Update Status to "
+                              rules={[
+                                {
+                                  required: true,
+                                },
+                              ]}
                             >
-                              <Option value="resolved">Resolved</Option>
-                              <Option value="pending">Pending</Option>
-                            </Select>
-                          </Form.Item>
-                          <Form.Item>
-                            <Popconfirm
-                              title="Are you sure you want to submit this new status"
-                              onConfirm={() =>
-                                confirm(
-                                  form.getFieldValue("status"),
-                                  reports._id
-                                )
-                              }
-                              onOpenChange={() => console.log("open change")}
+                              <Select
+                                placeholder="Select a option and change input text above"
+                                allowClear
+                              >
+                                <Option value="resolved">Resolved</Option>
+                                <Option value="pending">Pending</Option>
+                              </Select>
+                            </Form.Item>
+                            <Form.Item>
+                              <Popconfirm
+                                title="Are you sure you want to submit this new status"
+                                onConfirm={() =>
+                                  confirm(
+                                    form.getFieldValue("status"),
+                                    reports._id
+                                  )
+                                }
+                                onOpenChange={() => console.log("open change")}
+                              >
+                                <Button type="primary" htmlType="submit">
+                                  Submit Statuss
+                                </Button>
+                              </Popconfirm>
+                            </Form.Item>
+                          </Form>
+                        </Card>
+                      ),
+                    },
+                  ]}
+                />
+              </>
+            ),
+          });
+        } else {
+          modal.update({
+            title: "Report Id " + reports._id,
+            width: "100vh",
+
+            content: (
+              <>
+                <Tabs
+                  defaultActiveKey="1"
+                  onChange={onChange}
+                  items={[
+                    {
+                      label: `Report Information`,
+                      key: "1",
+                      children: (
+                        <Card>
+                          <Form
+                            onFinish={onFinish}
+                            onFinishFailed={onFinishFailed}
+                            autoComplete="off"
+                          >
+                            <Form.Item
+                              label="Report Id"
+                              name="reportId"
+                              initialValue={reports._id}
                             >
-                              <Button type="primary" htmlType="submit">
-                                Submit Statuss
-                              </Button>
-                            </Popconfirm>
-                          </Form.Item>
-                        </Form>
-                      </Card>
-                    ),
-                  },
-                ]}
-              />
-            </>
-          ),
-        });
+                              <Input disabled />
+                            </Form.Item>
+                            <Form.Item
+                              label="Description"
+                              name="description"
+                              initialValue={reports.description}
+                            >
+                              <Input.TextArea disabled />
+                            </Form.Item>
+
+                            <Form.Item
+                              wrapperCol={{
+                                offset: 8,
+                                span: 16,
+                              }}
+                            ></Form.Item>
+                          </Form>
+                          <Descriptions title="Extra Info">
+                            <Descriptions.Item label="Last Update">
+                              {reports.updatedAt}
+                            </Descriptions.Item>
+                          </Descriptions>
+                        </Card>
+                      ),
+                    },
+                    {
+                      label: `User Information`,
+                      key: "2",
+                      children: (
+                        <Card>
+                          <Descriptions title="User Info">
+                            <Descriptions.Item label="Username">
+                              {reports.user}
+                            </Descriptions.Item>
+                            <Descriptions.Item label="Extra Info">
+                              <span>
+                                This user is a guest and no information
+                                available
+                              </span>
+                            </Descriptions.Item>
+                          </Descriptions>
+                        </Card>
+                      ),
+                    },
+                    {
+                      label: `Change Report Status`,
+                      key: "3",
+                      children: (
+                        <Card>
+                          <Descriptions title="Updating Report.........">
+                            <Descriptions.Item label="Current Status">
+                              <span>
+                                <Badge status={type} text={reports.status} />
+                              </span>
+                            </Descriptions.Item>
+                          </Descriptions>
+                          <Form
+                            form={form}
+                            onFinish={(e) => {
+                              console.log("anaaaa", e);
+                            }}
+                          >
+                            <Form.Item
+                              name="status"
+                              label="Update Status to "
+                              rules={[
+                                {
+                                  required: true,
+                                },
+                              ]}
+                            >
+                              <Select
+                                placeholder="Select a option and change input text above"
+                                allowClear
+                              >
+                                <Option value="resolved">Resolved</Option>
+                                <Option value="pending">Pending</Option>
+                              </Select>
+                            </Form.Item>
+                            <Form.Item>
+                              <Popconfirm
+                                title="Are you sure you want to submit this new status"
+                                onConfirm={() =>
+                                  confirm(
+                                    form.getFieldValue("status"),
+                                    reports._id
+                                  )
+                                }
+                                onOpenChange={() => console.log("open change")}
+                              >
+                                <Button type="primary" htmlType="submit">
+                                  Submit Statuss
+                                </Button>
+                              </Popconfirm>
+                            </Form.Item>
+                          </Form>
+                        </Card>
+                      ),
+                    },
+                  ]}
+                />
+              </>
+            ),
+          });
+        }
       });
   };
 
