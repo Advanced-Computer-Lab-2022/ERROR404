@@ -1041,10 +1041,8 @@ const getMyCoursesTrainee = (req, res) => {
 
   let ids = [];
   if (usertype == "corporate") {
-    corporateTrainee.findOne(
-      { username: username },
-      { Regcourses: 1 },
-      (err, data) => {
+    corporateTrainee
+      .findOne({ username: username }, { Regcourses: 1 }, (err, data) => {
         if (err) {
           res.status(500).send();
         } else {
@@ -1060,13 +1058,11 @@ const getMyCoursesTrainee = (req, res) => {
             }
           });
         }
-      }
-    );
+      })
+      .clone();
   } else if (usertype == "individual") {
-    individualTrainee.findOne(
-      { username: username },
-      { Regcourses: 1 },
-      (err, data) => {
+    individualTrainee
+      .findOne({ username: username }, { Regcourses: 1 }, (err, data) => {
         if (err) {
           res.status(500).send();
         } else {
@@ -1082,8 +1078,8 @@ const getMyCoursesTrainee = (req, res) => {
             }
           });
         }
-      }
-    );
+      })
+      .clone();
   } else {
     res.status(404).send("user type not found");
   }
@@ -1093,21 +1089,25 @@ const getmyGrade = async (req, res) => {
   const id = req.params.id;
   const usertype = req.params.usertype;
   if (usertype == "corporate") {
-    await corporateTrainee.findOne({ _id: id }, (err, result) => {
-      if (err) {
-        req.status(500).send();
-      } else {
-        res.status(200).json(result);
-      }
-    });
+    await corporateTrainee
+      .findOne({ _id: id }, (err, result) => {
+        if (err) {
+          req.status(500).send();
+        } else {
+          res.status(200).json(result);
+        }
+      })
+      .clone();
   } else if (usertype == "individual") {
-    await individualTrainee.findOne({ _id: id }, (err, result) => {
-      if (err) {
-        req.status(500).send();
-      } else {
-        res.status(200).json(result);
-      }
-    });
+    await individualTrainee
+      .findOne({ _id: id }, (err, result) => {
+        if (err) {
+          req.status(500).send();
+        } else {
+          res.status(200).json(result);
+        }
+      })
+      .clone();
   }
 };
 // const approveInstructor = async (req, res) => {

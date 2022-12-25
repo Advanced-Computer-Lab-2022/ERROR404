@@ -61,7 +61,7 @@ const App = ({ children }) => {
         <LogoutOutlined />
       ),
     ];
-  } else if (user == "individual") {
+  } else if (user == "individual" || user == "corporate") {
     items = [
       getItem(<Link to="/">Home</Link>, "1", <HomeOutlined />),
       getItem(<Link to="/settings">Settings</Link>, "3", <SettingFilled />),

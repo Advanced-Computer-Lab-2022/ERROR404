@@ -1,4 +1,4 @@
-GET http://localhost:2020/getChats/abdelrahman/instructor
+GET http://localhost:2020/getMyCourses/individual/bruno
 # Content-Type: application/json
 
 # {
