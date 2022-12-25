@@ -63,6 +63,7 @@ import ReportaProblemWrapper from "./components/reportProblem";
 import FooterWrapper from "./components/footer";
 import CertificateWrapper from "./components/certificate";
 import ProgressWrapper from "./components/courseComponents/courseProgress";
+import AboutWrapper from "./components/about";
 
 export default function MainApp() {
   const [username, setUsername] = useState("");
@@ -182,6 +183,7 @@ export default function MainApp() {
           <Route path="footer" element={<FooterWrapper />} />
           <Route path="certificate" element={<CertificateWrapper />} />
           <Route path="login" element={<LoginPageWrapper />} />
+          <Route path="About" element={<AboutWrapper />} />
           <Route path="Progress" element={<ProgressWrapper />} />
           <Route
             path="/adminDashboard"

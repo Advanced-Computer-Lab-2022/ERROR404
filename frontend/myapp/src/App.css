@@ -6,7 +6,15 @@
   height: 40vmin;
   pointer-events: none;
 }
+<<<<<<< Updated upstream
 
+=======
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+>>>>>>> Stashed changes
 
 .App-header {
   background-color: #282c34;
@@ -46,7 +54,7 @@
 .dataScience {
   background-image: url("https://www.northeastern.edu/graduate/blog/wp-content/uploads/2020/06/iStock-1221293664-1-1-1.jpg");
   background-repeat: no-repeat;
-  background-size: cover; 
+  background-size: cover;
   background-color: black;
 }
 
