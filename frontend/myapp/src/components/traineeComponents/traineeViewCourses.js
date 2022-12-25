@@ -12,7 +12,6 @@ const TraineeViewCourses = () => {
   const { userType, username } = useContext(AppContext);
   const [userName, setUserName] = username;
   const [user, setUser] = userType;
-  const [data, setData] = useState([]);
   const [neverChangedCourses, setNeverCourses] = useState([]);
   const [courses, setCourses] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -44,7 +43,6 @@ const TraineeViewCourses = () => {
     originalData: [neverChangedCourses, setNeverCourses],
   };
   return (
-    <TraineeDashboard>
       <div
         style={{
           display: "flex",
@@ -52,18 +50,8 @@ const TraineeViewCourses = () => {
           justifyContent: "space-between",
         }}
       >
-        {/* <Tooltip title="Filter">
-          <Button
-            type="primary"
-            shape="round"
-            icon={<FilterOutlined />}
-            onClick={showModal}
-          />
-        </Tooltip> */}
-      </div>
-
       <CourseComponent courses={courses} viewType="individual" />
-    </TraineeDashboard>
+      </div>
   );
 };
 
