@@ -58,7 +58,6 @@ import MyProgrmas from "./components/myPrograms";
 import WrapperLessonPage from "./components/lessonPage";
 import WrapperSignUp from "./components/signUp";
 import TraineeSettingsWrapper from "./components/traineeComponents/traineeSettings";
-import PayCourse from "./components/payCourse";
 import TraineeViewCourses from "./components/traineeComponents/traineeViewCourses";
 
 export default function MainApp() {
@@ -157,7 +156,6 @@ export default function MainApp() {
             path="/rateAndReviewCourse"
             element={<ReviewCourseComponent />}
           />
-          <Route path="/viewMyGrades" element={<ViewGradeWrapper />} />
           <Route path="/searchedItems" element={<LoadSearchedCourses />} />
           <Route path="/course/about" element={<PreviewCourseWrapper />} />
           <Route path="/course/reviews" element={<CourseReview />} />
@@ -205,10 +203,6 @@ export default function MainApp() {
           <Route
             path="/traineeDashboard/traineeViewCourses"
             element={<TraineeViewCourses/>}
-          />
-          <Route
-            path="/payCourse"
-            element={<PayCourse/>}
           />
         </Routes>
       </Router>
