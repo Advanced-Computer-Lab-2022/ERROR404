@@ -61,6 +61,7 @@ const {
   createCorporateRequest,
   getAllRequests,
   updateRequestStatus,
+  getExamById,
 } = require("./routes/routes");
 
 //App variables
@@ -105,6 +106,7 @@ app.get("/getCourseChats/:id", getCourseChats);
 app.get("/getAllRequests", getAllRequests);
 app.get("/getExam/:id", getExamById);
 app.get("/getAllRequests", getAllRequests);
+app.get("/getExam/:id", getExamById);
 
 app.post("/createCorporateTrainee", createCorporateTrainee);
 app.post("/createAdmin", createAdmin);
