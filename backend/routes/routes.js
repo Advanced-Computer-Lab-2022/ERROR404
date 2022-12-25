@@ -1279,7 +1279,7 @@ const createCorporateRequest = (req, res) => {
   if (usertype !== "corporate") {
     return res.status(400).send("Error occured");
   } else if (username == null || username.length == 0) {
-    return res.status(400).send("username not sent");
+    return res.status(400).send("Please enter your username");
   } else if (courseTitle == null || courseTitle.length == 0) {
     return res.status(400).send("course title not sent");
   } else {
