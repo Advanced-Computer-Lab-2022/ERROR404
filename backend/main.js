@@ -5,6 +5,9 @@ const bodyParser = require("body-parser");
 var cors = require("cors");
 //DB connections to be put in .env file
 const MongoURI = "mongodb+srv://admin:admin@cluster0.vm6qaas.mongodb.net/test";
+// const stripe = require ("stripe")(
+//   "sk_test_51MItYHEGgskyidzzbKBojcag9DhVxeE6ejqQcGGMFJZvEKEJYqbMjA2MKFZAqeaOrGtbm6dlfogqOGcKcb1F3J73003K1qMk3b"
+//   );
 const {
   getUser,
   search,
@@ -113,3 +116,5 @@ app.put("/updateReportStatus", updateReportStatus);
 app.put("/updateViews", updateViews);
 app.get("/filterByPrice/:min/:max", filterByPrice);
 app.get("/getChats/:username/:usertype", getChats);
+
+

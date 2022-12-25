@@ -102,6 +102,39 @@ const getUser = async (req, res) => {
   // we need to implement new schema
 };
 
+const reportProblem = async (req,res) => {
+  if(req.body == null){
+    console.log("here")
+
+  }
+
+  const username = req.body.username;
+
+  if(username== null) {
+
+    res.status(401).send("Username is not found");
+  }
+  else if(
+    req.body.problemType == null ||
+    req.body.problem == null
+  ){
+    res.status(400).send("Required fields were not submitted");
+  }
+  else{
+    const reportDetails = {
+      problemType: req.body.problemType,
+      problem:req.body.problem,
+    }
+    reports.create(reportDetails, (err, small) => {
+      if (err) {
+        console.log("error with report ", err.message);
+      } else {
+        res.status(200).send();
+      }
+    });
+  }
+};
+
 const createCourse = async (req, res) => {
   const instructorId = req.body.id;
   const instructor = await instructor.findOne({ _id: instructorId });
@@ -148,6 +181,8 @@ const createCourse = async (req, res) => {
     });
   }
 };
+
+
 const coursePrice = async (req, res) => {
   const c = await courses.find({}, { title: 1, price: 1, _id: 0 });
   if (c == null) {
@@ -587,6 +622,7 @@ const viewRatingAndReviews = async (req, res) => {
     })
     .clone();
 };
+
 const changePassword = async (req, res) => {
   const id = req.body.id;
   const newPassword = req.body.newPassword;
@@ -720,6 +756,22 @@ const viewReviewAndRatingForInstructor = async (req, res) => {
     )
     .clone();
 };
+
+const traineebalance = async (req,res)=> {
+  const username = req.params.username;
+  await individualTrainee.find(
+    {username:username},
+    {wallet:1},
+    (err, result) => {
+      if(err){
+        res.status(500).json(err);
+      } else {
+        res.status(200).json(result);
+      }
+    }
+  ).clone();
+};
+
 const uploadPreviewVideoForCourse = async (req, res) => {
   const id = req.body.id;
   const url = req.body.url;
@@ -1038,7 +1090,6 @@ const getCourseById = async (req, res) => {
 const getMyCoursesTrainee = (req, res) => {
   const usertype = req.params.usertype;
   const username = req.params.username;
-
   let ids = [];
   if (usertype == "corporate") {
     corporateTrainee
@@ -1264,6 +1315,7 @@ module.exports = {
   rateAndReviewInstructor,
   rateAndReviewCourse,
   viewRatingAndReviews,
+  traineebalance,
   uploadPreviewVideoForCourse,
   editEmail,
   editBio,

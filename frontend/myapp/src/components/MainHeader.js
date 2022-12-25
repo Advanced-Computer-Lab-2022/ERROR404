@@ -143,17 +143,19 @@ const MainHeader = ({ values }) => {
         key: "login",
       },
       {
-        label: (
-          <Button
-            type="primary"
-            style={{
-              color: "white",
-            }}
-          >
-            Join for Free
-          </Button>
-        ),
-        key: "sigup",
+        label: <Link to="/signUp">Join for free</Link>,
+        key: "signup",
+      //(
+        //   <Button
+        //     style={{
+        //       color: "white",
+        //     }}
+        //     type="link"
+        //   >
+        //     Join for Free
+        //   </Button>
+        // ),
+        
       },
     ];
   }

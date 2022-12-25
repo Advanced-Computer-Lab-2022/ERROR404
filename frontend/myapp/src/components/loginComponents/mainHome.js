@@ -122,7 +122,7 @@ const LoginComponent = ({ values }) => {
           icon={<PersonAddIcon />}
           size="medium"
         >
-          <Link to="/">Create new Account</Link>
+          <Link to="/signUp">Create new Account</Link>
         </Button>
       </Space>
 

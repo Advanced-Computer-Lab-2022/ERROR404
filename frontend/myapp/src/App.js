@@ -3,6 +3,13 @@ import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Layout, Select, Breadcrumb, Menu, Modal, Button, Avatar } from "antd";
 import {
+  DesktopOutlined,
+  FileOutlined,
+  SelectOutlined,
+  FolderViewOutlined,
+  PlusSquareOutlined,
+  UserAddOutlined,
+  SearchOutlined,
   HomeOutlined,
   TeamOutlined,
   SettingFilled,
@@ -13,6 +20,7 @@ import MainHeader from "./components/MainHeader";
 import PrimarySearchAppBar from "./components/searchBarHeader";
 import ReviewNavigation from "./components/reviewComponents";
 import LoginComponent from "./components/loginComponents/mainHome";
+import DashboardIcon from "@mui/icons-material/Dashboard";
 import { AppContext } from "./AppContext";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import BugReportIcon from "@mui/icons-material/BugReport";
@@ -39,6 +47,10 @@ const App = ({ children }) => {
       label,
     };
   }
+// const items = [
+//   getItem(<Link to="/">Home</Link>, "17", <HomeOutlined />),
+//   getItem(<Link to="/">Sign in | Login</Link>, "12", <LoginOutlined />),
+//   getItem(<Link to="/signUp">Sign up </Link>, "12", <UserAddOutlined />),
 
   let items = [];
   if (user == "instructor") {
@@ -65,6 +77,11 @@ const App = ({ children }) => {
   } else if (user == "individual" || user == "corporate") {
     items = [
       getItem(<Link to="/">Home</Link>, "1", <HomeOutlined />),
+      getItem(
+        <Link to="traineeDashboard">My Dashboard</Link>,
+        "2",
+        <DashboardIcon />
+      ),
       getItem(<Link to="/settings">Settings</Link>, "3", <SettingFilled />),
       getItem(
         <Link

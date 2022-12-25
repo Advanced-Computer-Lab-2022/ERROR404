@@ -6,6 +6,7 @@ import App from "../App";
 import countryList from "react-select-country-list";
 import { UserSettingPage } from "../pages/settingsPage";
 import InstructorDashboard from "./instructorComponents/InstructorDashboard";
+import TraineeDashboard from "../pages/TraineeDashboard";
 import { AppContext } from "../AppContext";
 
 const SelectCountryWrapper = () => {
@@ -19,7 +20,17 @@ const SelectCountryWrapper = () => {
         </UserSettingPage>
       </InstructorDashboard>
     );
-  } else {
+  } else if(user == "individual") {
+    return (
+      <TraineeDashboard >
+        <UserSettingPage Settings="Select Country">
+          <SelectCountry />
+        </UserSettingPage>
+      </TraineeDashboard >
+    );
+  }
+  
+  else {
     return (
       <App>
         <UserSettingPage Settings="Select Country">

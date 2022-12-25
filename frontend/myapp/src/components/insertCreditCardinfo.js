@@ -19,6 +19,7 @@ import CreditCardIcon from "@mui/icons-material/CreditCard";
 import DialpadIcon from "@mui/icons-material/Dialpad";
 import App from "../App";
 import { UserSettingPage } from "../pages/settingsPage";
+import TraineeDashboard from "../pages/TraineeDashboard";
 
 const monthFormat = "YYYY/MM";
 
@@ -34,11 +35,11 @@ const config = {
 
 const InsertCreditCardInfoWrapper = () => {
   return (
-    <App>
+    <TraineeDashboard>
       <UserSettingPage Settings="Insert Credit Card">
         <InsertCreditCardInfo />
       </UserSettingPage>
-    </App>
+    </TraineeDashboard>
   );
 };
 
