@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import "semantic-ui-css/semantic.min.css";
 
-import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
+
 import {
   Button,
   Form,
@@ -13,9 +13,9 @@ import {
   Space
 } from "antd";
 
-// import InstructorDashboard from "./instructorComponents/InstructorDashboard";
+import InstructorDashboard from "./instructorComponents/InstructorDashboard";
 // const { Option } = Selec
-import InstructorDashboard from "../pages/InstructorDashboard";
+//import InstructorDashboard from "../pages/InstructorDashboard";
 
 
 const WrapperCreateCourses = () => {

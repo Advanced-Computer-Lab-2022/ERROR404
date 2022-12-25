@@ -1,54 +1,31 @@
 import TraineeDashboard from "../../pages/TraineeDashboard";
-import { Statistic, Card } from "antd";
-import {
-  DislikeOutlined,
-  LikeOutlined,
-  UsergroupDeleteOutlined,
-} from "@ant-design/icons";
+import { Alert } from "antd";
+import Marquee from "react-fast-marquee";
+import { AppContext } from "../../AppContext";
+import React, { useContext } from "react";
 
-const TraineeMainDashboard = () => {
+const TraineeMainDashboardWrapper = () => {
   return (
     <TraineeDashboard>
-      <InstructorStudents />
-      <InstructorLikes />
+      <TraineeMainDashboard />
     </TraineeDashboard>
   );
 };
 
-const InstructorStudents = () => {
+export default TraineeMainDashboardWrapper;
+
+const TraineeMainDashboard = () => {
+  const { username } = useContext(AppContext);
+  const [userName, setUserName] = username;
   return (
-    <Card>
-      <Statistic
-        title="Your Students"
-        value={1100}
-        precision={2}
-        valueStyle={{ color: "#3f8600" }}
-        prefix={<UsergroupDeleteOutlined />}
-        suffix="students"
-      />
-    </Card>
+    <Alert
+      type="info"
+      banner
+      message={
+        <Marquee pauseOnHover gradient={false}>
+          Welcome Back {userName} , Here are all the courses you are registered for:
+        </Marquee>
+      }
+    />
   );
 };
-
-const InstructorLikes = () => {
-  return (
-    <div>
-      <Card>
-        <Statistic
-          title="Positive Feedback"
-          value={1128}
-          prefix={<LikeOutlined />}
-        />
-      </Card>
-      <Card>
-        <Statistic
-          title="Negative Feedback"
-          value={1128}
-          prefix={<DislikeOutlined />}
-        />
-      </Card>
-    </div>
-  );
-};
-
-export default TraineeMainDashboard;

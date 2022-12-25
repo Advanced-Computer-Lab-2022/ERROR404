@@ -20,6 +20,7 @@ import MainHeader from "./components/MainHeader";
 import PrimarySearchAppBar from "./components/searchBarHeader";
 import ReviewNavigation from "./components/reviewComponents";
 import LoginComponent from "./components/loginComponents/mainHome";
+import DashboardIcon from "@mui/icons-material/Dashboard";
 import { AppContext } from "./AppContext";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import BugReportIcon from "@mui/icons-material/BugReport";
@@ -38,14 +39,14 @@ const App = ({ children }) => {
     setUser("");
   };
 
-//   function getItem(label, key, icon, children) {
-//     return {
-//       key,
-//       icon,
-//       children,
-//       label,
-//     };
-//   }
+  function getItem(label, key, icon, children) {
+    return {
+      key,
+      icon,
+      children,
+      label,
+    };
+  }
 // const items = [
 //   getItem(<Link to="/">Home</Link>, "17", <HomeOutlined />),
 //   getItem(<Link to="/">Sign in | Login</Link>, "12", <LoginOutlined />),
@@ -76,6 +77,11 @@ const App = ({ children }) => {
   } else if (user == "individual" || user == "corporate") {
     items = [
       getItem(<Link to="/">Home</Link>, "1", <HomeOutlined />),
+      getItem(
+        <Link to="traineeDashboard">My Dashboard</Link>,
+        "2",
+        <DashboardIcon />
+      ),
       getItem(<Link to="/settings">Settings</Link>, "3", <SettingFilled />),
       getItem(
         <Link

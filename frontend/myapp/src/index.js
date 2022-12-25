@@ -57,6 +57,9 @@ import NoPage from "./components/NoPage";
 import MyProgrmas from "./components/myPrograms";
 import WrapperLessonPage from "./components/lessonPage";
 import WrapperSignUp from "./components/signUp";
+import TraineeSettingsWrapper from "./components/traineeComponents/traineeSettings";
+import PayCourse from "./components/payCourse";
+import TraineeViewCourses from "./components/traineeComponents/traineeViewCourses";
 
 export default function MainApp() {
   const [username, setUsername] = useState("");
@@ -190,6 +193,22 @@ export default function MainApp() {
           <Route
             path="/traineeDashBoard"
             element={<TraineeMainDashboard />}
+          />
+          <Route
+            path="/traineeDashboard/viewGrade"
+            element={<ViewGradeWrapper/>}
+          />
+          <Route
+            path="/traineeDashboard/settings"
+            element={<TraineeSettingsWrapper />}
+          />
+          <Route
+            path="/traineeDashboard/traineeViewCourses"
+            element={<TraineeViewCourses/>}
+          />
+          <Route
+            path="/payCourse"
+            element={<PayCourse/>}
           />
         </Routes>
       </Router>

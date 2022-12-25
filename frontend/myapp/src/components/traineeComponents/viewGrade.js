@@ -4,6 +4,7 @@ import { Form } from "antd";
 import { Collapse, Table } from "antd";
 import App from "../../App";
 import { AppContext } from "../../AppContext";
+import TraineeDashboard from "../../pages/TraineeDashboard";
 const { Column, ColumnGroup } = Table;
 
 const ViewGradeWrapper = () => {
@@ -32,7 +33,7 @@ const ViewGradeWrapper = () => {
   }, []);
 
   return (
-    <App>
+    <TraineeDashboard>
       <Table dataSource={data} key={data.subject}>
         <ColumnGroup>
           <Column title="Subject" dataIndex="subject" key="subject" />
@@ -41,7 +42,7 @@ const ViewGradeWrapper = () => {
           <Column title="Grade" dataIndex="grade" key="grade" />
         </ColumnGroup>
       </Table>
-    </App>
+    </TraineeDashboard>
   );
 };
 

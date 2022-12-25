@@ -6,6 +6,7 @@ import emailjs from "@emailjs/browser";
 import { UserSettingPage } from "../pages/settingsPage";
 import App from "../App";
 import InstructorDashboard from "./instructorComponents/InstructorDashboard";
+import TraineeDashboard from "../pages/TraineeDashboard";
 import axios from "axios";
 
 const ChangePasswordPageWrapper = () => {
@@ -19,7 +20,17 @@ const ChangePasswordPageWrapper = () => {
         </UserSettingPage>
       </InstructorDashboard>
     );
-  } else {
+  } 
+  else if (user=="individual") {
+    return (
+      <TraineeDashboard>
+        <UserSettingPage>
+          <ChangePasswordPage />
+        </UserSettingPage>
+      </TraineeDashboard>
+    );
+  }
+  else {
     return (
       <App>
         <UserSettingPage>
