@@ -6,21 +6,7 @@
   height: 40vmin;
   pointer-events: none;
 }
-@page {
-  size: A4 landscape;
-  margin: 10mm;
-}
-body {
-  margin: 0;
-  padding: 0;
-  border: 1mm solid #991b1b;
-  height: 188mm;
-}
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
+
 
 .App-header {
   background-color: #282c34;

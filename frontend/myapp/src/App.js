@@ -25,6 +25,7 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import { AppContext } from "./AppContext";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import BugReportIcon from "@mui/icons-material/BugReport";
+import FooterWrapper from "./components/footer";
 
 const { Header, Footer, Sider, Content } = Layout;
 const { Option } = Select;
@@ -171,14 +172,14 @@ const App = ({ children }) => {
         <Sider
           width={300}
           theme="dark"
-          collapsible
-          collapsed={collapsed}
-          onCollapse={(value) => setCollapsed(value)}
+          // collapsible
+          // collapsed={collapsed}
+          // onCollapse={(value) => setCollapsed(value)}
         >
           <div className="logo" />
           <Menu theme="dark" mode="inline" items={items} />
         </Sider>
-        <Content style={{ padding: "5%" }}>
+        <Content style={{ margin: "0 0px", padding: "5%" }}>
           {children}
           <Modal
             open={isModalOpen}
@@ -193,6 +194,9 @@ const App = ({ children }) => {
           </Modal>
         </Content>
       </Layout>
+      <Footer style={{ padding: 0, textAlign: "center", margin: "0 0px" }}>
+        <FooterWrapper />
+      </Footer>
     </Layout>
   );
 };

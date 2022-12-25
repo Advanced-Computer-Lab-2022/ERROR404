@@ -8,6 +8,7 @@ import { Breadcrumb, Layout, Menu, theme, Alert, Result } from "antd";
 import { Link } from "react-router-dom";
 import BugReportIcon from "@mui/icons-material/BugReport";
 import { AppContext } from "../../AppContext";
+import FooterWrapper from "../footer";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -84,7 +85,9 @@ const AdminDashboard = ({ children, pageName }) => {
           </Content>
         </Layout>
       </Content>
-      <Footer style={{ textAlign: "center" }}>Footer</Footer>
+      <Footer style={{ padding: 0, textAlign: "center", margin: "0 0px" }}>
+        <FooterWrapper />
+      </Footer>
     </Layout>
   );
   //}
