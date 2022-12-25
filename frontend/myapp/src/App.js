@@ -1,6 +1,6 @@
 import "./App.css";
 import { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Layout, Select, Breadcrumb, Menu, Modal, Button, Avatar } from "antd";
 import {
   HomeOutlined,
@@ -24,6 +24,7 @@ const App = ({ children }) => {
   const { userType, username } = useContext(AppContext);
   const [user, setUser] = userType;
   const [userName, setUserName] = username;
+  const navigate = useNavigate();
 
   const logout = () => {
     setUserName("");
@@ -67,6 +68,7 @@ const App = ({ children }) => {
       getItem(<Link to="/settings">Settings</Link>, "3", <SettingFilled />),
       getItem(
         <Link
+          to="/"
           onClick={() => {
             logout();
           }}
@@ -92,6 +94,7 @@ const App = ({ children }) => {
       ),
       getItem(
         <Link
+          to="/"
           onClick={() => {
             logout();
           }}

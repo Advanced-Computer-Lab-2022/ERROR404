@@ -5,7 +5,7 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import ReviewsIcon from "@mui/icons-material/Reviews";
 import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 import { Breadcrumb, Layout, Menu, Result, Button } from "antd";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AddBoxIcon from "@mui/icons-material/AddBox";
 import { AppContext } from "../../AppContext";
 
@@ -25,6 +25,7 @@ const InstructorDashboard = ({ children }) => {
   const [userName, setUserName] = username;
   const [user, setUser] = userType;
   const [visible, setVisibility] = useState(false);
+  const navigate = useNavigate();
 
   const items = [
     getItem(<Link to="/">Home</Link>, "1", <HomeOutlined />),
