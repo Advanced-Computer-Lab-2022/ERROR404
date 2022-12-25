@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const { ObjectId } = mongoose.Schema;
 const corporateTrainee = new Schema(
   {
     firstname: {
@@ -60,6 +61,10 @@ const corporateTrainee = new Schema(
     grades: {
       type: Map,
       default: "",
+    },
+    chats: {
+      type: ObjectId,
+      ref: "Chats",
     },
   },
 

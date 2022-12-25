@@ -1,10 +1,10 @@
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import App from "../App";
 import { Layout, Button, Form, Input, Select, message } from "antd";
 import AdminDashboard from "./adminComponents/adminDashboard";
+import { AppContext } from "../AppContext";
 const { Option } = Select;
-
 const CreateInstructorWrapper = () => {
   return (
     <>
@@ -16,6 +16,8 @@ const CreateInstructorWrapper = () => {
 };
 
 const CreateInstructor = () => {
+  const { username } = useContext(AppContext);
+  const [userName, setUserName] = username;
   const onFinish = async (event) => {
     console.log("Success:", event);
     const password = event.password;
@@ -26,12 +28,12 @@ const CreateInstructor = () => {
 
   const createInstructor = async (username, password) => {
     const requestBody = {
-      currentUser: "alighieth",
+      admin: userName,
       username: username,
       password: password,
     };
     axios
-      .post("http://localhost:2020/createInstr", requestBody)
+      .post("http://localhost:2020/createInstructor", requestBody)
       .then((response) => {
         message.success("user " + username + " has been created", 5);
       })
@@ -61,10 +63,6 @@ const CreateInstructor = () => {
         onFinishFailed={onFinishFailed}
         autoComplete="off"
       >
-        <Form.Item label="Parent Admin Username" name="Parentusername">
-          <Input />
-        </Form.Item>
-
         <Form.Item
           label="Username"
           name="username"

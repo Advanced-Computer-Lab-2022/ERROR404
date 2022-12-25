@@ -6,24 +6,40 @@ const individualTrainee = require("../models/IndividualTrainee");
 const questions = require("../models/questions");
 const quizzes = require("../models/quizzes");
 const Reports = require("../models/reports");
+const chats = require("../models/chats");
 const { default: mongoose } = require("mongoose");
 
 //Methods
 const createIndividualTrainee = (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
+  const firstname = req.body.firstname;
+  const lastname = req.body.lastname;
+  const age = req.body.age;
+  const gender = req.body.gender;
+  const email = req.body.email;
+  const country = req.body.country;
   const userData = {
-    firstname: req.body.firstname,
-    lastname: req.body.lastname,
-    age: req.body.age,
-    gender: req.body.gender,
+    firstname: firstname,
+    lastname: lastname,
+    age: age,
+    gender: gender,
     username: username,
     password: password,
-    email: req.body.email,
-    country: req.body.country,
+    email: email,
+    country: country,
   };
-  if (username == null || password == null) {
-    return res.status(400).json("Enter a valid data ");
+  if (
+    username == null ||
+    password == null ||
+    firstname == null ||
+    lastname == null ||
+    age == null ||
+    gender == null ||
+    email == null ||
+    country == null
+  ) {
+    return res.status(400).json("Valid data not submitted");
   } else {
     individualTrainee.create(userData, function (err, small) {
       if (err) {
@@ -94,7 +110,6 @@ const createCourse = async (req, res) => {
   } else if (
     req.body.title == null ||
     req.body.subject == null ||
-    // req.body.instructor == null ||
     req.body.subtitle == null ||
     req.body.price == null ||
     req.body.summary == null ||
@@ -134,7 +149,6 @@ const createCourse = async (req, res) => {
   }
 };
 const coursePrice = async (req, res) => {
-  console.log(req.params);
   const c = await courses.find({}, { title: 1, price: 1, _id: 0 });
   if (c == null) {
     res.status(404).send("no course found");
@@ -143,23 +157,22 @@ const coursePrice = async (req, res) => {
   }
 };
 const createAdmin = async (req, res) => {
-  console.log(req.body);
-  const adminUserName = req.body.admin;
+  const admin = req.body.admin;
   const password = req.body.password;
   const username = req.body.username;
 
   if (
     password == null ||
     username == null ||
-    adminUserName == null ||
-    adminUserName.length == 0 ||
+    admin == null ||
+    admin.length == 0 ||
     password.length == 0 ||
     username.length == 0
   ) {
     return res.status(400).send("Required fields are not submitted");
   }
   await admin
-    .find({ username: adminUserName }, (err, data) => {
+    .find({ username: admin }, (err, data) => {
       if (err) {
         return res.status(500).send(err);
       } else {
@@ -258,34 +271,37 @@ const instructorSearch = async (req, res) => {
     .clone();
 };
 const createInstructor = async (req, res) => {
-  const currentUser = req.body.currentUser;
+  const Admin = req.body.admin;
+  const username = req.body.username;
+  const password = req.body.password;
   const instData = {
-    firstname: req.body.firstname,
-    lastname: req.body.lastname,
-    age: req.body.age,
-    gender: req.body.gender,
-    username: req.body.username,
-    password: req.body.password,
-    email: req.body.email,
-    country: req.body.country,
-    biography: req.body.biography,
-    phoneNumber: req.body.phoneNumber,
+    // firstname: req.body.firstname,
+    // lastname: req.body.lastname,
+    // age: req.body.age,
+    // gender: req.body.gender,
+    username: username,
+    password: password,
+    email: username,
+    // email: req.body.email,
+    // country: req.body.country,
+    // biography: req.body.biography,
+    // phoneNumber: req.body.phoneNumber,
   };
-  if (username == "" || password == "") {
+  if (username == null || password == null) {
     res.status(400).json("Enter a valid data ");
   } else {
     await admin
-      .find({ username: currentUser }, {}, (err, result) => {
+      .find({ username: Admin }, (err, result) => {
         if (err) {
           res.status(500).send(err.message);
         } else if (result == "") {
-          res.status(400).send("not an admin");
+          res.status(404).send("not an admin");
         } else {
-          instructor.create(instData, (error, small) => {
+          instructor.create(instData, (error, data) => {
             if (error) {
               res.status(400).send(error.message);
             } else {
-              res.status(200).json(result);
+              res.status(200).json(data);
             }
           });
         }
@@ -294,27 +310,48 @@ const createInstructor = async (req, res) => {
   }
 };
 const createCorporateTrainee = async (req, res) => {
+  // const username = req.body.username;
+  // const password = req.body.password;
+  // const firstname = req.body.firstname;
+  // const lastname = req.body.lastname;
+  // const age = req.body.age;
+  // const gender = req.body.gender;
+  // const email = req.body.email;
+  // const country = req.body.country;
+  const admin = req.body.admin;
+  const password = req.body.password;
+  const username = req.body.username;
+
   const corpData = {
-    firstname: req.body.firstname,
-    lastname: req.body.lastname,
-    age: req.body.age,
-    gender: req.body.gender,
-    username: req.body.username,
-    password: req.body.password,
-    email: req.body.email,
-    country: req.body.country,
+    // firstname: firstname,
+    // lastname: lastname,
+    // age: age,
+    // gender: gender,
+    username: username,
+    password: password,
+    // email: email,
+    // country: country,
   };
-  // if (username == null || password == null) {
-  //   res.status(400).json("Enter a valid data ");
-  // } else {
-  corporateTrainee.create(corpData, (error, small) => {
-    if (error) {
-      res.status(400).send(error.message);
-    } else {
-      res.status(200).send("user is created");
-    }
-  });
-  // }
+  if (
+    username == null ||
+    password == null
+    // firstname == null ||
+    // lastname == null ||
+    // age == null ||
+    // gender == null ||
+    // email == null ||
+    // country == null
+  ) {
+    res.status(400).json("Enter a valid data ");
+  } else {
+    corporateTrainee.create(corpData, (error, small) => {
+      if (error) {
+        res.status(400).send(error.message);
+      } else {
+        res.status(200).send("user is created");
+      }
+    });
+  }
 };
 const viewCourses = async (req, res) => {
   const a = await courses.find({});
@@ -427,7 +464,7 @@ const filterCourses = async (req, res) => {
   if (filterType == null || key == null) {
     res.status(404).send("enter a filter type");
   } else {
-    await courses
+    courses
       .find()
       .where(filterType, key)
       .exec((err, result) => {
@@ -438,6 +475,19 @@ const filterCourses = async (req, res) => {
         }
       });
   }
+};
+const filterByPrice = async (req, res) => {
+  const { min, max } = req.params;
+  courses.find(
+    { $and: [{ price: { $lte: max } }, { price: { $gte: min } }] },
+    (err, result) => {
+      if (err) {
+        res.status(500).send();
+      } else {
+        res.status(200).json(result);
+      }
+    }
+  );
 };
 const updateViews = async (req, res) => {
   const id = req.body.id;
@@ -455,7 +505,6 @@ const rateAndReviewInstructor = async (req, res) => {
   const username = req.body.username;
   const rate = req.body.rate;
   const review = req.body.review;
-  console.log(req.body);
   let oldrate = 0;
   if (isNaN(rate)) {
     res.status(400).send("invalid rate");
@@ -469,10 +518,11 @@ const rateAndReviewInstructor = async (req, res) => {
         } else {
           oldrate = result.rating;
           let newRating = rate / 2 + oldrate / 2;
+          let num = newRating.toFixed(1);
           instructor
             .updateOne(
               { username: username },
-              { rating: newRating, $push: { review: review } },
+              { rating: num, $push: { review: review } },
               (err, result) => {
                 if (err) {
                   res.status(500).send(err.message);
@@ -488,7 +538,7 @@ const rateAndReviewInstructor = async (req, res) => {
   }
 };
 const rateAndReviewCourse = async (req, res) => {
-  const courseId = req.body.id;
+  const courseId = req.body.courseId;
   const review = req.body.review;
   const newRate = req.body.newRate;
   console.log(req.body);
@@ -505,10 +555,11 @@ const rateAndReviewCourse = async (req, res) => {
         } else {
           oldRate = result.rating;
           let newRating = newRate / 2 + oldRate / 2;
+          let num = newRating.toFixed(1);
           courses
             .updateOne(
               { _id: courseId },
-              { rating: newRating, $push: { review: review } },
+              { rating: num, $push: { review: review } },
               (err, result) => {
                 if (err) {
                   res.status(500).send(err.message);
@@ -748,7 +799,6 @@ const topCourses = async (req, res) => {
   const topCourses = await courses.find({}).sort({ views: -1 }).limit(5);
   res.status(200).json(topCourses);
 };
-
 const salary = async (req, res) => {
   const courseId = req.body.courseId;
   const x = await courses.findOne(
@@ -970,7 +1020,6 @@ const addCourseToStudent = async (req, res) => {
     res.status(404).send("Student not found");
   }
 };
-
 const getCourseById = async (req, res) => {
   const courseId = req.params.id;
 
@@ -992,10 +1041,8 @@ const getMyCoursesTrainee = (req, res) => {
 
   let ids = [];
   if (usertype == "corporate") {
-    corporateTrainee.findOne(
-      { username: username },
-      { Regcourses: 1 },
-      (err, data) => {
+    corporateTrainee
+      .findOne({ username: username }, { Regcourses: 1 }, (err, data) => {
         if (err) {
           res.status(500).send();
         } else {
@@ -1011,13 +1058,11 @@ const getMyCoursesTrainee = (req, res) => {
             }
           });
         }
-      }
-    );
+      })
+      .clone();
   } else if (usertype == "individual") {
-    individualTrainee.findOne(
-      { username: username },
-      { Regcourses: 1 },
-      (err, data) => {
+    individualTrainee
+      .findOne({ username: username }, { Regcourses: 1 }, (err, data) => {
         if (err) {
           res.status(500).send();
         } else {
@@ -1033,8 +1078,8 @@ const getMyCoursesTrainee = (req, res) => {
             }
           });
         }
-      }
-    );
+      })
+      .clone();
   } else {
     res.status(404).send("user type not found");
   }
@@ -1044,21 +1089,25 @@ const getmyGrade = async (req, res) => {
   const id = req.params.id;
   const usertype = req.params.usertype;
   if (usertype == "corporate") {
-    corporateTrainee.findOne({ _id: id }, (err, result) => {
-      if (err) {
-        req.status(500).send();
-      } else {
-        res.status(200).json(result);
-      }
-    });
+    await corporateTrainee
+      .findOne({ _id: id }, (err, result) => {
+        if (err) {
+          req.status(500).send();
+        } else {
+          res.status(200).json(result);
+        }
+      })
+      .clone();
   } else if (usertype == "individual") {
-    individualTrainee.findOne({ _id: id }, (err, result) => {
-      if (err) {
-        req.status(500).send();
-      } else {
-        res.status(200).json(result);
-      }
-    });
+    await individualTrainee
+      .findOne({ _id: id }, (err, result) => {
+        if (err) {
+          req.status(500).send();
+        } else {
+          res.status(200).json(result);
+        }
+      })
+      .clone();
   }
 };
 // const approveInstructor = async (req, res) => {
@@ -1088,7 +1137,7 @@ const getAllReports = async (req, res) => {
   }).clone();
 };
 
-const createReport = (req, res) => {
+const createReport = async (req, res) => {
   console.log(req.body);
   const username = req.body.username;
   const usertype = req.body.usertype;
@@ -1115,13 +1164,13 @@ const createReport = (req, res) => {
   }
 };
 
-const updateReportStatus = (req, res) => {
+const updateReportStatus = async (req, res) => {
   const reportId = req.body.id;
 
   if (reportId == null || reportId.length == 0) {
     return res.status(400).send("Id not provided");
   } else {
-    Reports.findByIdAndUpdate(
+    await Reports.findByIdAndUpdate(
       { _id: reportId },
       { $set: { status: req.body.status } },
       { runValidators: true },
@@ -1135,7 +1184,67 @@ const updateReportStatus = (req, res) => {
     ).clone();
   }
 };
-
+const getChats = async (req, res) => {
+  const username = req.params.username;
+  const usertype = req.params.usertype;
+  if (usertype == "instructor") {
+    await instructor
+      .find({ username: username })
+      .populate("chat")
+      .exec((err, result) => {
+        if (err) {
+          return res.status(500).json({ error: err });
+        }
+        res.status(200).json({ result: result });
+      });
+  } else if (usertype == "individual") {
+    await individualTrainee
+      .find({ username: username })
+      .populate("Chat")
+      .exec((err, result) => {
+        if (err) {
+          return res.json({ error: err });
+        }
+        res.json({ result: result });
+      });
+  } else if (usertype == "corporate") {
+    await corporateTrainee
+      .find({ username: username })
+      .populate("Chat")
+      .exec((err, result) => {
+        if (err) {
+          return res.json({ error: err });
+        }
+        res.json({ result: result });
+      });
+  } else if (usertype == "admin") {
+    await admin
+      .find({ username: username })
+      .populate("Chat")
+      .exec((err, result) => {
+        if (err) {
+          return res.json({ error: err });
+        }
+        res.json({ result: result });
+      });
+  }
+};
+const createChat = (req, res) => {
+  const body = {
+    sender: req.body.sender,
+    reciver: req.body.reciver,
+    senderRole: req.body.senderRole,
+    reciverRole: req.body.reciverRole,
+    message: req.body.message,
+  };
+  chats.create(body, (err, result) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.status(200).send();
+    }
+  });
+};
 module.exports = {
   getUser,
   search,
@@ -1175,4 +1284,6 @@ module.exports = {
   getAllReports,
   createReport,
   updateReportStatus,
+  filterByPrice,
+  getChats,
 };

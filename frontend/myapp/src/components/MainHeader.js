@@ -52,7 +52,7 @@ const MainHeader = ({ values }) => {
         key: "user",
       },
     ];
-  } else if (user == "individual") {
+  } else if (user == "individual" || user == "corporate") {
     items = [
       {
         label: (
@@ -69,8 +69,8 @@ const MainHeader = ({ values }) => {
       { label: <Link to="/viewMyGrades">My Grades</Link>, key: "grades" }, // which is required
       {
         label: (
-          <Link to="/user/classroom">
-            <Button ghost>My Classroom</Button>
+          <Link to="/user/myPrograms">
+            <Button ghost>My Programs</Button>
           </Link>
         ),
         key: "myClassroom",

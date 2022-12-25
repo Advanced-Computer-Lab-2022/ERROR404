@@ -1,11 +1,11 @@
-POST  http://localhost:2020/createAdmin
-Content-Type: application/json
+GET http://localhost:2020/getMyCourses/individual/bruno
+# Content-Type: application/json
 
-{
-      "admin": "alighieth",
-      "username": "testUser1",
-      "password": "test"
-}
+# {
+#       "courseId": "638501f2a9b064e47ee7e0ed",
+#       "newRate": "4",
+#       "review": "goooooood"
+# }
 
 # {
 #    "username" :"abdelrahman", 
