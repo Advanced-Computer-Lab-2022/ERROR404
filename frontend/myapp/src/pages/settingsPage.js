@@ -14,6 +14,7 @@ import {
 } from "../components/settingsPage";
 import { Link } from "react-router-dom";
 import InstructorDashboard from "../components/instructorComponents/InstructorDashboard";
+import TraineeDashboard from "./TraineeDashboard";
 import { AppContext } from "../AppContext";
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -26,7 +27,15 @@ const SettingsPageWrapper = () => {
         <UserSettingPageMain />
       </InstructorDashboard>
     );
-  } else {
+  }
+  else if (user == "individual") {
+      return (
+        <TraineeDashboard>
+          <UserSettingPageMain />
+        </TraineeDashboard>
+      );
+  } 
+  else {
     return (
       <App>
         <UserSettingPageMain />

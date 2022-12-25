@@ -39,6 +39,8 @@ const WrapperLessonPage = () => {
   const [collapsed, setCollapsed] = useState(false);
   const [courseId, setCourseId] = useState("");
   const [courseData, setCourseData] = useState("");
+  const [courseDescription, setCourseDescription]= useState("");
+  const [courseTitle, setCourseTitle]= useState("");
 
   useEffect(() => {
     const idSearch = window.location.search;
@@ -55,6 +57,8 @@ const WrapperLessonPage = () => {
       .then((response) => {
         setCourseData(response.data);
         console.log(response.data);
+        console.log(response.data.subtitles.description.value);
+        setCourseTitle(response.data.title.value);
       })
       .catch((err) => {
         console.log(err);
@@ -128,7 +132,8 @@ const WrapperLessonPage = () => {
                 textAlign:"center", 
                 fontSize:20
 
-                }} > In this video we will cover everything you need to know about JSON in only 10 minutes.  
+                }} >
+                   In this video we will cover everything you need to know about JSON in only 10 minutes.  
                     We will cover what JSON is, why JSON is important, what JSON is used for, the syntax of JSON, and multiple examples of JSON. 
                     JSON is the most popular data representation format, and is one of the most important, and easiest concepts you can learn in programming. 
                     It allows you to create APIs, config files, and structured data. We will be covering all of the terminology, 

@@ -9,10 +9,12 @@ import {
   DislikeOutlined,
   LikeOutlined,
   UsergroupDeleteOutlined,
+  LogoutOutlined,
 } from "@ant-design/icons";
 import ViewWeekIcon from "@mui/icons-material/ViewWeek";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import GradeIcon from '@mui/icons-material/Grade';
+import ReviewsIcon from "@mui/icons-material/Reviews";
 import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 import {
   Breadcrumb,
@@ -40,51 +42,55 @@ function getItem(label, key, icon, children) {
   };
 }
 
-const items = [
-  getItem(
-    <Link to="/traineeDashboard">My Dashboard</Link>,
-    "13",
-    <DashboardIcon />
-  ),
-  getItem(
-    <Link to="/traineeDashBoard">View all my courses</Link>,
-    "16",
-    <ViewWeekIcon />
-  ),
-
-  getItem(
-    <Link to="/traineeDashBoard">My Balance</Link>,
-    "17",
-    <AccountBalanceWalletIcon />
-  ),
-  getItem(
-    <Link to="/traineeDashBoard">Add Credit Card Info</Link>,
-    "17",
-    <AccountBalanceWalletIcon />
-  ),
-  getItem(
-    <Link to="/traineeDashBoard">View My Grades</Link>,
-    "17",
-    <GradeIcon />
-  ),
-  getItem(<Link to="/settings">Settings</Link>, "15", <SettingFilled />),
-  //   getItem(<InstructorBalance />, "16", <SettingFilled />),
-];
-
 const TraineeDashboard = ({ children }) => {
-//   const { userType } = useContext(AppContext);
-//   const [user, setUser] = userType;
-//   const [visible, setVisibility] = useState(false);
+  const { userType, username } = useContext(AppContext);
+  const [userName, setUserName] = username;
+  const [user, setUser] = userType;
+  //const [visible, setVisibility] = useState(false);
 
-//   useEffect(() => {
-//     if (user != "Individual-trainee") {
-//       setVisibility(false);
-//     } else {
-//       setVisibility(true);
-//     }
-//   }, []);
+  const items = [
+    getItem(<Link to="/">Home</Link>, "1", <HomeOutlined />),
+    getItem(
+      <Link to="/traineeDashboard">My Dashboard</Link>,
+      "13",
+      <DashboardIcon />
+    ),
+    getItem(
+      <Link to="/traineeDashboard/traineeViewCourses">View all my courses</Link>,
+      "16",
+      <ViewWeekIcon />
+    ),
+    
+    getItem(
+      <Link to="/traineeDashboard">My Balance</Link>,
+      "17",
+      <AccountBalanceWalletIcon />
+    ),
+    getItem(
+      <Link to="/traineeDashboard/viewGrade">View My Grades</Link>,
+      "17",
+      <GradeIcon />
+    ),
+    getItem(<Link to="/settings">Settings</Link>, "15", <SettingFilled />),
+    getItem(
+      <Link
+        to="/"
+        onClick={() => {
+          logout();
+        }}
+      >
+        Log Out
+      </Link>,
+      "3",
+      <LogoutOutlined />
+    ),
+  ];
 
-//   if (visible) {
+  const logout = () => {
+    setUserName("");
+    setUser("");
+  };
+
     return (
       <Layout>
         <Header className="header">
@@ -107,7 +113,7 @@ const TraineeDashboard = ({ children }) => {
             }}
           >
             <Breadcrumb.Item>Home</Breadcrumb.Item>
-            <Breadcrumb.Item>IndividualTrainee</Breadcrumb.Item>
+            <Breadcrumb.Item>{userName}</Breadcrumb.Item>
             <Breadcrumb.Item>Dashboard</Breadcrumb.Item>
           </Breadcrumb>
           <Layout
@@ -150,14 +156,7 @@ const TraineeDashboard = ({ children }) => {
         </Footer>
       </Layout>
     );
-//   } else {
-//     return (
-//       <>
-//         <Alert severity="error">You dont have acces to this page!</Alert>
-//         <Skeleton active />
-//       </>
-//     );
-//   }
 };
+
 
 export default TraineeDashboard;
