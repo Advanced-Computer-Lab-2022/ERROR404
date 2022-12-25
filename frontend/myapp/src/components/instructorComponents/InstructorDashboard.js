@@ -88,84 +88,83 @@ const InstructorDashboard = ({ children }) => {
     setUser("");
   };
 
-  //if (visible) {
-  return (
-    <Layout>
-      <Header className="header">
-        <div className="logo" />
-        <Menu
-          theme="dark"
-          mode="horizontal"
-          defaultSelectedKeys={["2"]}
-          items={items}
-        />
-      </Header>
-      <Content
-        style={{
-          padding: "0 50px",
-        }}
-      >
-        <Breadcrumb
+  if (user == "instructor") {
+    return (
+      <Layout>
+        <Header className="header">
+          <div className="logo" />
+          <Menu
+            theme="dark"
+            mode="horizontal"
+            defaultSelectedKeys={["2"]}
+            items={items}
+          />
+        </Header>
+        <Content
           style={{
-            margin: "16px 0",
+            padding: "0 50px",
           }}
         >
-          <Breadcrumb.Item>Home</Breadcrumb.Item>
-          <Breadcrumb.Item>{userName}</Breadcrumb.Item>
-          <Breadcrumb.Item>Dashboard</Breadcrumb.Item>
-        </Breadcrumb>
-        <Layout
-          className="site-layout-background"
-          style={{
-            padding: "24px 0",
-          }}
-        >
-          <Sider
+          <Breadcrumb
+            style={{
+              margin: "16px 0",
+            }}
+          >
+            <Breadcrumb.Item>Home</Breadcrumb.Item>
+            <Breadcrumb.Item>{userName}</Breadcrumb.Item>
+            <Breadcrumb.Item>Dashboard</Breadcrumb.Item>
+          </Breadcrumb>
+          <Layout
             className="site-layout-background"
-            width={200}
             style={{
-              maxHeight: "500px",
+              padding: "24px 0",
             }}
           >
-            <Menu
-              mode="inline"
-              theme="dark"
-              defaultSelectedKeys={["1"]}
-              defaultOpenKeys={["sub1"]}
-              items={items}
-            />
-          </Sider>
-          <Content
-            style={{
-              padding: "0 24px",
-              minHeight: 280,
-            }}
-          >
-            {children}
-          </Content>
-        </Layout>
-      </Content>
-      <Footer style={{ padding: 0, textAlign: "center", margin: "0 0px" }}>
-        <FooterWrapper />
-      </Footer>
-    </Layout>
-  );
-  //}
-  // else {
-  //   return (
-  //     <Result
-  //       key="unautherized"
-  //       status="403"
-  //       title="403"
-  //       subTitle="Sorry, you are not authorized to access this page."
-  //       extra={
-  //         <Button type="primary">
-  //           <Link to="/">Back Home</Link>
-  //         </Button>
-  //       }
-  //     />
-  //   );
-  // }
+            <Sider
+              className="site-layout-background"
+              width={200}
+              style={{
+                maxHeight: "500px",
+              }}
+            >
+              <Menu
+                mode="inline"
+                theme="dark"
+                defaultSelectedKeys={["1"]}
+                defaultOpenKeys={["sub1"]}
+                items={items}
+              />
+            </Sider>
+            <Content
+              style={{
+                padding: "0 24px",
+                minHeight: 280,
+              }}
+            >
+              {children}
+            </Content>
+          </Layout>
+        </Content>
+        <Footer style={{ padding: 0, textAlign: "center", margin: "0 0px" }}>
+          <FooterWrapper />
+        </Footer>
+      </Layout>
+    );
+  } else {
+    return (
+      <Result
+        key="unautherized"
+        status="403"
+        title="403"
+        subTitle="Sorry, you are not authorized to access this page."
+        extra={
+          <Button type="primary">
+            <Link to="/">Back Home</Link>
+          </Button>
+        }
+      />
+    );
+  }
 };
 
 export default InstructorDashboard;
