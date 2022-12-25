@@ -27,6 +27,8 @@ const PreviewCourseWrapper = () => {
   const [newPrice, setNewPrice] = useState("");
   const [oldPrice, setOldPrice] = useState("");
   const [date, setDate] = useState("");
+  const [subtitlesCount, setSubtitlesCount] = useState("");
+  const [noOfSubscribers, setNoOfSubscribers] = useState("");
   const location = useNavigate();
   useEffect(() => {
     const idSearch = window.location.search;
@@ -53,6 +55,12 @@ const PreviewCourseWrapper = () => {
       .then((response) => {
         setCourseData(response.data);
         console.log(response.data);
+
+        setSubtitlesCount(response.data.subtitles.length);
+        console.log(response.data.subtitles.length);
+
+        setNoOfSubscribers(response.data.numberOfSubscribers);
+        console.log(response.data.numberOfSubscribers);
 
         console.log(response.data.discount.value);
         setOldPrice(response.data.discount.value);
