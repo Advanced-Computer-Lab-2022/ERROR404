@@ -11,6 +11,7 @@ const Filter = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [courses, setCourses] = useState([]);
   let location = useLocation();
+
   const showModal = () => {
     setIsModalOpen(true);
   };
@@ -52,7 +53,7 @@ const Filter = () => {
         onOk={handleOk}
         onCancel={handleCancel}
       >
-        <SearchByForm values={[isModalOpen]} />
+        <SearchByForm  />
       </Modal>
       <CourseComponent courses={courses} />
     </App>

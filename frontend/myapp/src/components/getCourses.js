@@ -9,7 +9,7 @@ const { Panel } = Collapse;
 
 const SearchByForm = ({ values }) => {
   const [data, setData] = useState([]);
-  const [isModalOpen, setIsModalOpen] = values;
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {}, [data]);

@@ -311,7 +311,7 @@ const FooterWrapper = () => {
 
         backgroundColor: "black",
         color: "White",
-        height: "30vh",
+        height: "40vh",
       }}
     >
       <div

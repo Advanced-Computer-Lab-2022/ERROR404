@@ -54,7 +54,6 @@ const ViewAllCourses = () => {
     console.log(" => ", event);
     console.log(event);
 
-    await ViewAllCourses();
   };
 
   return (
@@ -74,7 +73,7 @@ const ViewAllCourses = () => {
         onOk={handleOk}
         onCancel={handleCancel}
       >
-        <SearchByForm dataState={setData} />
+        <SearchByForm />
       </Modal>
       <CourseComponent courses={data} viewType="view" />
     </>
