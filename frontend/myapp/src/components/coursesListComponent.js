@@ -7,11 +7,20 @@ import {
   PlusOutlined,
   UsergroupDeleteOutlined,
 } from "@ant-design/icons";
-import { List, Space, Rate, Button, Modal, Form, Input, message } from "antd";
+import {
+  List,
+  Space,
+  Rate,
+  Button,
+  Modal,
+  Form,
+  Input,
+  message,
+  DatePicker,
+} from "antd";
 import { AppContext } from "../AppContext";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import SubmitDiscount from "./instructorComponents/instructorSubmitDiscount";
 
 const IconText = ({ icon, text }) => (
   <Space>
@@ -29,7 +38,26 @@ const CourseComponent = ({ courses, viewType }) => {
   const [id, setId] = useState("");
 
   let navigation = useNavigate();
+  const onFinish1 = (values) => {
+    console.log("Success:", values);
+    const body = {
+      courseId: id,
+      discount: values.discountValue,
+      date: values.endDate,
+    };
 
+    axios
+      .put("http://localhost:2020/submitDiscount", body)
+      .then(() => {
+        message.success("discount added", 3);
+      })
+      .catch(() => {
+        message.error("error", 3);
+      });
+  };
+  const onFinishFailed1 = (errorInfo) => {
+    console.log("Failed:", errorInfo);
+  };
   useEffect(() => {
     console.log(courses);
   }, []);
@@ -40,6 +68,82 @@ const CourseComponent = ({ courses, viewType }) => {
 
   const handleCancel = () => {
     setIsModalOpen(false);
+  };
+
+  const openDis = (id, courseTitle) => {
+    const modal = Modal.confirm();
+
+    modal.update({
+      title: "Updated " + courseTitle,
+      content: (
+        <Form
+          onFinish={onFinish1}
+          onFinishFailed={onFinishFailed1}
+          autoComplete="off"
+        >
+          <Form.Item
+            label="Dicount Value"
+            name="discountValue"
+            rules={[
+              {
+                required: true,
+                message: "Please input your Dicount Value!",
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+
+          <Form.Item
+            label="End Date"
+            name="endDate"
+            rules={[
+              {
+                required: true,
+                message: "Please input your End Date!",
+              },
+            ]}
+          >
+            <DatePicker />
+          </Form.Item>
+          <Form.Item>
+            <Button type="primary" htmlType="submit">
+              Submit
+            </Button>
+          </Form.Item>
+        </Form>
+      ),
+    });
+  };
+
+  const openPreview = (id, courseTitle) => {
+    const modal = Modal.success();
+
+    modal.update({
+      title: "Updated " + courseTitle,
+      content: (
+        <Form onFinish={onFinish}>
+          <Form.Item
+            label="Preview Video URL"
+            name="url"
+            rules={[
+              {
+                required: true,
+                message: "Please input your Preview Video URL!",
+              },
+            ]}
+          >
+            <Input addonBefore="https://" placeholder="any youtube video" />
+          </Form.Item>
+
+          <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+            <Button type="primary" htmlType="submit">
+              Add URL
+            </Button>
+          </Form.Item>
+        </Form>
+      ),
+    });
   };
 
   const onFinish = (values) => {
@@ -126,9 +230,7 @@ const CourseComponent = ({ courses, viewType }) => {
                         style={{ width: "100%" }}
                         type="dashed"
                         onClick={() => {
-                          setTitle(item.title);
-                          setId(item._id);
-                          setIsModalOpen(true);
+                          openPreview(item._id, item.title);
                         }}
                       >
                         Add preview video
@@ -146,9 +248,7 @@ const CourseComponent = ({ courses, viewType }) => {
                         style={{ width: "100%" }}
                         type="dashed"
                         onClick={() => {
-                          setTitle(item.title);
-                          setId(item._id);
-                          setIsModalOpenDis(true);
+                          openDis(item._id, item.title);
                         }}
                       >
                         Add Dicount
@@ -184,45 +284,7 @@ const CourseComponent = ({ courses, viewType }) => {
           </div>
         )}
       />
-      {user == "instructor" ? (
-        <>
-          <Modal
-            title={courseTitle + " Preview video"}
-            open={isModalOpen}
-            onOk={handleOk}
-            onCancel={handleCancel}
-          >
-            <Form onFinish={onFinish}>
-              <Form.Item
-                label="Preview Video URL"
-                name="url"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please input your Preview Video URL!",
-                  },
-                ]}
-              >
-                <Input addonBefore="https://" placeholder="any youtube video" />
-              </Form.Item>
-
-              <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-                <Button type="primary" htmlType="submit">
-                  Add URL
-                </Button>
-              </Form.Item>
-            </Form>
-          </Modal>
-          <Modal
-            title={courseTitle + " Add Discount"}
-            open={isModalOpenDis}
-            onOk={() => setIsModalOpenDis(false)}
-            onCancel={() => setIsModalOpenDis(false)}
-          >
-            <SubmitDiscount />
-          </Modal>
-        </>
-      ) : null}
+      {user == "instructor" ? <></> : null}
     </>
   );
 };

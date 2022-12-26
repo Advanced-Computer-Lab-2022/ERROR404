@@ -10,9 +10,10 @@ import InstructorFilter from "./instructorFilterCourses";
 import InstructorSearchBar from "./instructorSearch";
 
 const InstructorViewAllTitlesWrapper = () => {
-  const { userMongoId } = useContext(AppContext);
+  const { userMongoId, username } = useContext(AppContext);
   const [data, setData] = useState([]);
   const [userId, setUserId] = userMongoId;
+  const [userName, setUserName] = username;
   const [neverChangedCourses, setNeverCourses] = useState([]);
   const [courses, setCourses] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -30,7 +31,7 @@ const InstructorViewAllTitlesWrapper = () => {
   };
 
   useEffect(() => {
-    fetch("http://localhost:2020/instViewCourses/abdelrahman")
+    fetch("http://localhost:2020/instViewCourses/" + userName)
       .then((responce) => responce.json())
       .then((data) => {
         console.log(data);

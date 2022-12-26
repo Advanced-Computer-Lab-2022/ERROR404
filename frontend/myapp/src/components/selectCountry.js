@@ -20,17 +20,15 @@ const SelectCountryWrapper = () => {
         </UserSettingPage>
       </InstructorDashboard>
     );
-  } else if(user == "individual") {
+  } else if (user == "individual") {
     return (
-      <TraineeDashboard >
+      <TraineeDashboard>
         <UserSettingPage Settings="Select Country">
           <SelectCountry />
         </UserSettingPage>
-      </TraineeDashboard >
+      </TraineeDashboard>
     );
-  }
-  
-  else {
+  } else {
     return (
       <App>
         <UserSettingPage Settings="Select Country">
