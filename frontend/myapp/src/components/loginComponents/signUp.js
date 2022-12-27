@@ -264,6 +264,7 @@ import {
   InputNumber,
   message,
   Image,
+  Checkbox,
 } from "antd";
 const { Option } = Select;
 
@@ -519,9 +520,30 @@ const WrapperSignUp = ({ values }) => {
                 <InputNumber style={{ width: "100%" }} />
               </Form.Item>
             </Space>
-
+            <Form.Item name="accept" style={{ alignSelf: "center" }}>
+              <Checkbox
+                onChange={() => {
+                  document.getElementById("submit_button").disabled =
+                    !document.getElementById("submit_button").disabled;
+                }}
+              >
+                I agree to the{" "}
+                <a
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href="http://localhost:3000/terms"
+                >
+                  Terms of Service
+                </a>
+              </Checkbox>
+            </Form.Item>
             <Form.Item style={{ alignSelf: "center" }}>
-              <Button type="primary" htmlType="submit">
+              <Button
+                type="primary"
+                htmlType="submit"
+                id="submit_button"
+                disabled
+              >
                 Sign Up
               </Button>
             </Form.Item>
