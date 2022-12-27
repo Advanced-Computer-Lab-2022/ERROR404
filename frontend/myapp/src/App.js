@@ -26,6 +26,7 @@ import { AppContext } from "./AppContext";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import BugReportIcon from "@mui/icons-material/BugReport";
 import FooterWrapper from "./components/footer";
+import WrapperSignUp from "./components/loginComponents/signUp";
 
 const { Header, Footer, Sider, Content } = Layout;
 const { Option } = Select;
@@ -49,10 +50,10 @@ const App = ({ children }) => {
       label,
     };
   }
-// const items = [
-//   getItem(<Link to="/">Home</Link>, "17", <HomeOutlined />),
-//   getItem(<Link to="/">Sign in | Login</Link>, "12", <LoginOutlined />),
-//   getItem(<Link to="/signUp">Sign up </Link>, "12", <UserAddOutlined />),
+  // const items = [
+  //   getItem(<Link to="/">Home</Link>, "17", <HomeOutlined />),
+  //   getItem(<Link to="/">Sign in | Login</Link>, "12", <LoginOutlined />),
+  //   getItem(<Link to="/signUp">Sign up </Link>, "12", <UserAddOutlined />),
 
   let items = [];
   if (user == "instructor") {
@@ -179,20 +180,7 @@ const App = ({ children }) => {
           <div className="logo" />
           <Menu theme="dark" mode="inline" items={items} />
         </Sider>
-        <Content style={{ margin: "0 0px", padding: "5%" }}>
-          {children}
-          <Modal
-            open={isModalOpen}
-            onCancel={handleCancel}
-            footer={[
-              <Button type="primary" onClick={handleCancel}>
-                Cancel
-              </Button>,
-            ]}
-          >
-            <LoginComponent values={[isModalOpen, setIsModalOpen]} />
-          </Modal>
-        </Content>
+        <Content style={{ margin: "0 0px", padding: "5%" }}>{children}</Content>
       </Layout>
       <Footer style={{ padding: 0, textAlign: "center", margin: "0 0px" }}>
         <FooterWrapper />

@@ -184,10 +184,32 @@ const CreateAdmin = () => {
   }));
   if (submitted == 0) {
     return (
-      <div>
-        <div>
-          <Steps current={current} items={items} />
-          <div className="steps-content">{steps[current].content}</div>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "40vh",
+        }}
+      >
+        <div
+          style={{
+            width: "80%",
+            height: "50%",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+              gap: "20px",
+            }}
+          >
+            <Steps current={current} items={items} />
+            <div className="steps-content">{steps[current].content}</div>
+          </div>
         </div>
       </div>
     );

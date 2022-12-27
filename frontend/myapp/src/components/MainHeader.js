@@ -1,4 +1,13 @@
-import { Layout, Image, Menu, Input, Popover, Button, Avatar } from "antd";
+import {
+  Layout,
+  Image,
+  Menu,
+  Input,
+  Popover,
+  Button,
+  Avatar,
+  Modal,
+} from "antd";
 import React, { useState, useContext } from "react";
 import SearchByForm from "./search";
 import { Link } from "react-router-dom";
@@ -7,6 +16,8 @@ import SchoolIcon from "@mui/icons-material/School";
 import { AppContext } from "../AppContext";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import BugReportIcon from "@mui/icons-material/BugReport";
+import WrapperSignUp from "./loginComponents/signUp";
+import LoginComponent from "./loginComponents/mainHome";
 
 const { Header, Footer, Sider, Content } = Layout;
 const { Search } = Input;
@@ -24,7 +35,20 @@ const MainHeader = ({ values }) => {
   const { userType, username } = useContext(AppContext);
   const [user, setUser] = userType;
   const [userName, setUserName] = username;
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = values;
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
 
   const [current, setCurrent] = useState("mail");
   let items = [];
@@ -143,9 +167,9 @@ const MainHeader = ({ values }) => {
         key: "login",
       },
       {
-        label: <Link to="/signUp">Join for free</Link>,
+        label: <Link onClick={() => setIsDrawerOpen(true)}>Join for free</Link>,
         key: "signup",
-      //(
+        //(
         //   <Button
         //     style={{
         //       color: "white",
@@ -155,7 +179,6 @@ const MainHeader = ({ values }) => {
         //     Join for Free
         //   </Button>
         // ),
-        
       },
     ];
   }
@@ -180,6 +203,19 @@ const MainHeader = ({ values }) => {
         items={items}
         style={{ width: "70%" }}
       />
+      <Modal
+        open={isModalOpen}
+        onCancel={handleCancel}
+        footer={[
+          <Button type="primary" onClick={handleCancel}>
+            Cancel
+          </Button>,
+        ]}
+      >
+        <LoginComponent values={[isModalOpen, setIsModalOpen]} />
+      </Modal>
+
+      <WrapperSignUp values={[isDrawerOpen, setIsDrawerOpen]} />
     </Header>
   );
 };
