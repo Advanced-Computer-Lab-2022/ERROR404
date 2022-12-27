@@ -39,11 +39,11 @@ const HomePage = () => {
       >
         <div>
           <h1>Learn without limits</h1>
-          <p>
+          <h4>
             Start, switch, or advance your career with more than 5,400 courses,
             Professional Certificates, and degrees from world-class universities
             and companies.
-          </p>
+          </h4>
           <Button type="primary">
             <Link
               style={{
