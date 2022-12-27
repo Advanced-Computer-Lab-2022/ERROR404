@@ -31,7 +31,7 @@ const CreateCorporate = () => {
       password: password,
     };
     axios
-      .post("http://localhost:2020/createCoop", requestBody)
+      .post("http://localhost:2020/createCorporateTrainee", requestBody)
       .then((response) => {
         message.success("user " + username + " has been created", 5);
       })

@@ -20,8 +20,7 @@ const ChangePasswordPageWrapper = () => {
         </UserSettingPage>
       </InstructorDashboard>
     );
-  } 
-  else if (user=="individual") {
+  } else if (user == "individual") {
     return (
       <TraineeDashboard>
         <UserSettingPage>
@@ -29,8 +28,7 @@ const ChangePasswordPageWrapper = () => {
         </UserSettingPage>
       </TraineeDashboard>
     );
-  }
-  else {
+  } else {
     return (
       <App>
         <UserSettingPage>

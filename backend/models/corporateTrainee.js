@@ -5,7 +5,7 @@ const corporateTrainee = new Schema(
   {
     firstname: {
       type: String,
-      minLength: 3,
+
       validate: {
         validator: (value) => /^[A-Za-z]+$/.test(value),
         message: "firstname is not a valid name!",
@@ -14,7 +14,7 @@ const corporateTrainee = new Schema(
     },
     lastname: {
       type: String,
-      minLength: 3,
+
       validate: {
         validator: (value) => /^[A-Za-z]+$/.test(value),
         message: "lastname not a valid name!",
@@ -23,7 +23,7 @@ const corporateTrainee = new Schema(
     },
     age: {
       type: Number,
-      required: [true, "Age is required"],
+      //required: [true, "Age is required"],
     },
     gender: {
       type: String,
@@ -43,8 +43,8 @@ const corporateTrainee = new Schema(
     },
     email: {
       type: String,
-      unique: true,
-      required: [true, "Vaild email is required"],
+      //  unique: true,
+      //required: [true, "Vaild email is required"],
     },
     country: {
       type: String,
