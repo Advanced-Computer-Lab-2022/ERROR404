@@ -56,7 +56,7 @@ import CreateUserWrapper from "./components/adminComponents/adminCreateUser";
 import NoPage from "./components/NoPage";
 import MyProgrmas from "./components/myPrograms";
 import WrapperLessonPage from "./components/lessonPage";
-import WrapperSignUp from "./components/signUp";
+import WrapperSignUp from "./components/loginComponents/signUp";
 import TraineeSettingsWrapper from "./components/traineeComponents/traineeSettings";
 import TraineeViewCourses from "./components/traineeComponents/traineeViewCourses";
 import ReportaProblemWrapper from "./components/reportProblem";

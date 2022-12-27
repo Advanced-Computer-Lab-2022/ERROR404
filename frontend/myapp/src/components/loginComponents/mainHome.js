@@ -113,8 +113,17 @@ const LoginComponent = ({ values }) => {
   return (
     <>
       <Space>
-        <Button type="primary" shape="round" icon={<LoginIcon />} size="medium">
-          <Link to="/login">Sign In</Link>
+        <Button
+          type="primary"
+          shape="round"
+          icon={<LoginIcon />}
+          size="medium"
+          disabled
+        >
+          <Link to="/login" style={{ textDecoration: "none" }}>
+            {" "}
+            Sign In
+          </Link>
         </Button>
         <Button
           type="primary"
@@ -122,7 +131,16 @@ const LoginComponent = ({ values }) => {
           icon={<PersonAddIcon />}
           size="medium"
         >
-          <Link to="/signUp">Create new Account</Link>
+          <Link
+            to="/signUp"
+            style={{
+              color: "white",
+              textDecoration: "none",
+            }}
+          >
+            {" "}
+            Create new Account
+          </Link>
         </Button>
       </Space>
 
@@ -167,15 +185,17 @@ const LoginComponent = ({ values }) => {
             value={value.password}
             onChange={handleChange("password")}
             endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={handleClickShowPassword}
-                  onMouseDown={handleMouseDownPassword}
-                >
-                  {value.showPassword ? <VisibilityOff /> : <Visibility />}
-                </IconButton>
-              </InputAdornment>
+              <>
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                  >
+                    {value.showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              </>
             }
           />
         </FormControl>
@@ -197,7 +217,17 @@ const LoginComponent = ({ values }) => {
         <Button type="primary" icon={<Fingerprint />} onClick={handleClick}>
           Login
         </Button>
-        <Button type="link">Or Register</Button>
+        <Button type="link">
+          <Link
+            to="/signup"
+            style={{
+              textDecoration: "none",
+            }}
+            onClick={() => setIsModalOpen(false)}
+          >
+            Or Register
+          </Link>
+        </Button>
         <hr
           style={{
             height: 5,
