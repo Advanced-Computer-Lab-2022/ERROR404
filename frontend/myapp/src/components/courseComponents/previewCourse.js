@@ -35,7 +35,18 @@ const PreviewCourseWrapper = () => {
     const urlParams = new URLSearchParams(idSearch);
     const courseId = urlParams.get("courseId");
 
-    setCourseId(courseId);
+    let body = {
+      id: courseId,
+    };
+
+    axios
+      .put("http://localhost:2020/updateViews", body)
+      .then(() => {
+        console.log("incrementing views ");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
 
     axios
       .get("http://localhost:2020/getCourse/" + courseId)
@@ -56,6 +67,7 @@ const PreviewCourseWrapper = () => {
         console.log(err);
       });
   }, []);
+
   return (
     <PreviewCourses courseId={courseId}>
       <grid centered>

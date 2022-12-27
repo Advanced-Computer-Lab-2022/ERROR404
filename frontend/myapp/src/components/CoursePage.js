@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   LaptopOutlined,
   NotificationOutlined,
@@ -10,6 +10,7 @@ import {
 } from "@ant-design/icons";
 import { Breadcrumb, Layout, Menu, Image } from "antd";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const { Header, Content, Sider } = Layout;
 function getItem(label, key, icon, children) {
@@ -31,6 +32,7 @@ const items = [
 
 const CoursePage = ({ children }) => {
   const [courseName, setCourseName] = useState("Intro to Web Dev");
+
   return (
     <Layout>
       <Header className="header" style={{ backgroundColor: "white" }}>
