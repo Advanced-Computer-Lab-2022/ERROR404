@@ -42,6 +42,7 @@ const TopCourses = () => {
         {topCourses.map((course) => {
           return (
             <div
+              key={course._id}
               onClick={() => navigate(`/course/about?courseId=${course._id}`)}
             >
               <h1

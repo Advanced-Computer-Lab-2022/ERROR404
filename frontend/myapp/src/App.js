@@ -127,15 +127,25 @@ const App = ({ children }) => {
     ];
   } else {
     items = [
-      getItem(<Link to="/">Home</Link>, "1", <HomeOutlined />),
       getItem(
-        <Button
-          style={{ color: "white" }}
-          type="link"
+        <Link
+          to="/"
+          style={{
+            textDecoration: "none",
+          }}
+        >
+          Home
+        </Link>,
+        "1",
+        <HomeOutlined />
+      ),
+      getItem(
+        <Link
+          style={{ textDecoration: "none" }}
           onClick={() => setIsModalOpen(true)}
         >
-          Login | Sign Up
-        </Button>,
+          Login or Sign Up
+        </Link>,
         "2",
         <LoginOutlined />
       ),
@@ -168,7 +178,6 @@ const App = ({ children }) => {
   return (
     <Layout className="layout">
       <MainHeader values={[isModalOpen, setIsModalOpen]} />
-      {/* <PrimarySearchAppBar /> */}
       <Layout style={{ minHeight: "90vh" }} theme="dark">
         <Sider
           width={300}

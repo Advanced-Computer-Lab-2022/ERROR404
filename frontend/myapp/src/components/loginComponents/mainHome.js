@@ -21,7 +21,7 @@ import axios from "axios";
 import { AppContext } from "../../AppContext";
 import LoginIcon from "@mui/icons-material/Login";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
-import { Button, message, Space, notification } from "antd";
+import { Button, message, Space, notification, Alert } from "antd";
 
 const LoginComponent = ({ values }) => {
   const {
@@ -51,6 +51,7 @@ const LoginComponent = ({ values }) => {
     showPassword: true,
   });
   const [isModalOpen, setIsModalOpen] = values;
+  const [visible, setVisible] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (prop) => (event) => {
@@ -78,38 +79,52 @@ const LoginComponent = ({ values }) => {
     console.log(value);
     console.log("user " + user);
 
-    axios
-      .get(`http://localhost:2020/getUser/${value.username}/${user}`)
-      .then((response) => {
-        console.log(response);
-        if (response.data == null) {
-          message.error("You have entered a wrong password, or username", 3);
-        } else {
-          console.log(response.data);
-          let data = response.data;
-          if (value.password == response.data.password) {
-            message.success(`Welcome Back ${response.data.username}`, 2);
-            // setting up context
-            setIsLoggedIn(true);
-            setRegion(data.country);
-            setUserEmail(data.email);
-            setUserMongoId(data._id);
-            setUsername(data.username);
-            setUserPassword(data.password);
-            setUserType(user);
-            if (user == "instructor") {
-              setInstructorBio(data.biography);
-            }
-            setIsModalOpen(false);
-          } else {
+    if (value.username == "" || value.password == "" || user == "") {
+      message.warning("All fields must be filled first", 3);
+    } else {
+      axios
+        .get(`http://localhost:2020/getUser/${value.username}/${user}`)
+        .then((response) => {
+          console.log(response);
+          if (response.data == null) {
             message.error("You have entered a wrong password, or username", 3);
+          } else {
+            console.log(response.data);
+            let data = response.data;
+            if (value.password == response.data.password) {
+              message.success(`Welcome Back ${response.data.username}`, 2);
+              // setting up context
+              setIsLoggedIn(true);
+              setRegion(data.country);
+              setUserEmail(data.email);
+              setUserMongoId(data._id);
+              setUsername(data.username);
+              setUserPassword(data.password);
+              setUserType(user);
+              if (user == "instructor") {
+                setInstructorBio(data.biography);
+              }
+              setIsModalOpen(false);
+            } else {
+              setVisible(true);
+              message.error(
+                "You have entered a wrong username, or password",
+                3
+              );
+            }
           }
-        }
-      })
-      .catch((error) => {
-        message.error("An erorr has occured " + error, 3);
-      });
+        })
+        .catch((error) => {
+          console.log(error.response.status);
+          message.error("An erorr has occured " + error.response.data, 3);
+        });
+    }
   };
+
+  const handleClose = () => {
+    setVisible(false);
+  };
+
   return (
     <>
       <Space>
@@ -160,7 +175,15 @@ const LoginComponent = ({ values }) => {
         }}
       >
         <h1>Welcome Back</h1>
-        <FormControl sx={{ m: 1, width: "70%" }} variant="standard">
+        {visible && (
+          <Alert
+            message="You have entered a wrong username, or password"
+            type="error"
+            closable
+            afterClose={handleClose}
+          />
+        )}
+        <FormControl sx={{ m: 1, width: "70%" }} variant="standard" required>
           <TextField
             id="input-with-icon-textfield"
             label="Username"
@@ -175,11 +198,12 @@ const LoginComponent = ({ values }) => {
             onChange={handleChange("username")}
           />
         </FormControl>
-        <FormControl sx={{ m: 1, width: "70%" }} variant="standard">
+        <FormControl sx={{ m: 1, width: "70%" }} variant="standard" required>
           <InputLabel htmlFor="standard-adornment-password">
             Password
           </InputLabel>
           <Input
+            required
             id="standard-adornment-password"
             type={value.showPassword ? "text" : "password"}
             value={value.password}
@@ -199,7 +223,7 @@ const LoginComponent = ({ values }) => {
             }
           />
         </FormControl>
-        <FormControl sx={{ m: 1, width: "70%" }} variant="standard">
+        <FormControl sx={{ m: 1, width: "70%" }} variant="standard" required>
           <InputLabel id="demo-simple-select-label">User Type</InputLabel>
           <Select
             labelId="demo-simple-select-label"

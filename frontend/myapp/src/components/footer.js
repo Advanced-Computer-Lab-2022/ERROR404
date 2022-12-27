@@ -187,7 +187,10 @@ const MoreCategories = () => {
       >
         <b>Instructors </b>
       </h4>
-      <Link style={{ color: "white", textDecoration: "none" }}>
+      <Link
+        to="/acceptagreement"
+        style={{ color: "white", textDecoration: "none" }}
+      >
         Instructor Agreement
       </Link>
       <Link style={{ color: "white", textDecoration: "none" }}>
@@ -225,13 +228,22 @@ const InstructorCategories = () => {
       >
         <b>Courses</b>
       </h4>
-      <Link style={{ color: "white", textDecoration: "none" }}>
+      <Link
+        to="/viewAllCourses"
+        style={{ color: "white", textDecoration: "none" }}
+      >
         View All courses
       </Link>
-      <Link style={{ color: "white", textDecoration: "none" }}>
+      <Link
+        to="/rateAndReviewInstructor"
+        style={{ color: "white", textDecoration: "none" }}
+      >
         Rate Instructor
       </Link>
-      <Link style={{ color: "white", textDecoration: "none" }}>
+      <Link
+        to="/rateAndReviewCourse"
+        style={{ color: "white", textDecoration: "none" }}
+      >
         Rate a course
       </Link>
       <Link style={{ color: "white", textDecoration: "none" }}>
