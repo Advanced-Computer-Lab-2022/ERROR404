@@ -196,16 +196,28 @@ const MainHeader = ({ values }) => {
         alignItems: "center",
       }}
     >
-      <img
-        src="https://drnajafbeigi.com/wp-content/uploads/404%D8%AB.png"
-        style={{ height: "80%" }}
-      />
+      <Link
+        to="/"
+        style={{
+          //backgroundColor: "black",
+          height: "100%",
+          width: "20vw",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Image
+          preview={false}
+          src="https://drnajafbeigi.com/wp-content/uploads/404%D8%AB.png"
+          height="100%"
+        />
+      </Link>
       <SearchByForm />
       <Menu
         theme="dark"
         mode="horizontal"
         items={items}
-        style={{ width: "70%" }}
+        style={{ width: "20vw" }}
       />
       <Modal
         open={isModalOpen}

@@ -193,7 +193,10 @@ const MoreCategories = () => {
       >
         Instructor Agreement
       </Link>
-      <Link style={{ color: "white", textDecoration: "none" }}>
+      <Link
+        to="/ReportaProblem"
+        style={{ color: "white", textDecoration: "none" }}
+      >
         Report a Problem
       </Link>
       <Link style={{ color: "white", textDecoration: "none" }}>
