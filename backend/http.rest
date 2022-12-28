@@ -1,15 +1,11 @@
-POST  http://localhost:2020/createReport
-Content-Type: application/json
+GET http://localhost:2020/instructorFilterCourses/abdelrahman/title/CSEN 301 
+# Content-Type: application/json
 
-{
-      "username": "dinaa",
-      "usertype": "instructor",
-      "description": "i have a severe problemmm",
-      "reportType": "financial"
-  
- 
-  
-}
+# {
+#       "id": "638501f2a9b064e47ee7e0ed",
+#       "sender": "ali",
+#       "message": "i am sending a test message"
+# }
 
 # {
 #    "username" :"abdelrahman", 

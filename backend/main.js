@@ -56,6 +56,8 @@ const {
   createCorporateRequest,
   getAllRequests,
   updateRequestStatus,
+  instructorFilterCourses,
+  instructorFilterByPrice,
 } = require("./routes/routes");
 
 //App variables
@@ -134,3 +136,11 @@ app.put("/updateViews", updateViews);
 app.put("/approveInstructor", approveInstructor);
 app.put("/updateRequestStatus", updateRequestStatus);
 app.put("/updateRequestStatus", updateRequestStatus);
+app.get(
+  "/instructorFilterByPrice/:username/:min/:max",
+  instructorFilterByPrice
+);
+app.get(
+  "/instructorFilterCourses/:username/:filterType/:key",
+  instructorFilterCourses
+);
