@@ -139,6 +139,17 @@ const HomePage = () => {
         }}
       />
 
+      <TopCourses />
+
+      <hr
+        style={{
+          border: "solid 1px black",
+          width: "96%",
+          color: "#FFFF00",
+          height: "1px",
+        }}
+      />
+
       <div
         style={{
           width: "100%",
@@ -161,19 +172,6 @@ const HomePage = () => {
           }}
         ></Image>
       </div>
-      <hr
-        style={{
-          border: "solid 1px black",
-          width: "96%",
-          color: "#FFFF00",
-          height: "1px",
-        }}
-      />
-      {/* <DemoWordCloud /> */}
-      <TopCourses />
-
-      {/* <TopCourses /> */}
-      {/* <ReviewNavigation /> */}
     </div>
   );
 };

@@ -74,7 +74,7 @@ const AdminDashboard = ({ children, pageName }) => {
             <Breadcrumb.Item>{pageName}</Breadcrumb.Item>
           </Breadcrumb>
           <Layout style={{ padding: "24px 0" }}>
-            <Sider width={200} style={{ height: "30vh" }}>
+            <Sider width={200} style={{ height: "45xvh" }}>
               <Menu theme="dark" mode="inline" items={items} />
             </Sider>
             <Content style={{ padding: "0 24px", minHeight: "80vh" }}>

@@ -43,7 +43,7 @@ const SearchByForm = () => {
   return (
     <>
       <Search
-        placeholder="input search text"
+        placeholder="Search anything......"
         onSearch={onSearch}
         enterButton
         size="middle"

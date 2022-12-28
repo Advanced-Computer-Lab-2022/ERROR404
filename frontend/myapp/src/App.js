@@ -55,111 +55,6 @@ const App = ({ children }) => {
   //   getItem(<Link to="/">Sign in | Login</Link>, "12", <LoginOutlined />),
   //   getItem(<Link to="/signUp">Sign up </Link>, "12", <UserAddOutlined />),
 
-  let items = [];
-  if (user == "instructor") {
-    items = [
-      getItem(<Link to="/">Home</Link>, "1", <HomeOutlined />),
-      getItem(
-        <Link to="instructorDashboard">My Dashboard</Link>,
-        "2",
-        <HomeOutlined />
-      ),
-      getItem(
-        <Link
-          to="/"
-          onClick={() => {
-            logout();
-          }}
-        >
-          Log Out
-        </Link>,
-        "3",
-        <LogoutOutlined />
-      ),
-    ];
-  } else if (user == "individual" || user == "corporate") {
-    items = [
-      getItem(<Link to="/">Home</Link>, "1", <HomeOutlined />),
-      getItem(
-        <Link to="traineeDashboard">My Dashboard</Link>,
-        "2",
-        <DashboardIcon />
-      ),
-      getItem(<Link to="/settings">Settings</Link>, "3", <SettingFilled />),
-      getItem(
-        <Link
-          to="/"
-          onClick={() => {
-            logout();
-          }}
-        >
-          Logout
-        </Link>,
-        "2",
-        <LogoutOutlined />
-      ),
-    ];
-  } else if (user == "admin") {
-    items = [
-      getItem(<Link to="/">Home</Link>, "1", <HomeOutlined />),
-      getItem(
-        <Link to="/adminDashboard">My Dashboard</Link>,
-        "3",
-        <AdminPanelSettingsIcon />
-      ),
-      getItem(
-        <Link to="/adminDashboard/reports">All Reports</Link>,
-        "2",
-        <BugReportIcon />
-      ),
-      getItem(
-        <Link
-          to="/"
-          onClick={() => {
-            logout();
-          }}
-        >
-          Logout
-        </Link>,
-        "2",
-        <LogoutOutlined />
-      ),
-    ];
-  } else {
-    items = [
-      getItem(
-        <Link
-          to="/"
-          style={{
-            textDecoration: "none",
-          }}
-        >
-          Home
-        </Link>,
-        "1",
-        <HomeOutlined />
-      ),
-      getItem(
-        <Link
-          style={{ textDecoration: "none" }}
-          onClick={() => setIsModalOpen(true)}
-        >
-          Login or Sign Up
-        </Link>,
-        "2",
-        <LoginOutlined />
-      ),
-
-      getItem("Team", "sub2", <TeamOutlined />, [
-        getItem("Ali Ghieth", "6"),
-        getItem("Abdelrahman Ali", "8"),
-        getItem("موهمد تامر ", "9"),
-        getItem("Dina Tamer", "10"),
-        getItem("Malak Amr ", "11"),
-      ]),
-    ];
-  }
-
   const [collapsed, setCollapsed] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -179,19 +74,6 @@ const App = ({ children }) => {
     <Layout className="layout">
       <MainHeader values={[isModalOpen, setIsModalOpen]} />
       <Layout style={{ minHeight: "90vh" }} theme="dark">
-        <Sider
-          width={300}
-          style={{
-            height: "100vh",
-          }}
-          theme="dark"
-          // collapsible
-          // collapsed={collapsed}
-          // onCollapse={(value) => setCollapsed(value)}
-        >
-          <div className="logo" />
-          <Menu theme="dark" mode="inline" items={items} />
-        </Sider>
         <Content style={{ margin: "0 0px", padding: "5%" }}>{children}</Content>
       </Layout>
       <Footer style={{ padding: 0, textAlign: "center", margin: "0 0px" }}>

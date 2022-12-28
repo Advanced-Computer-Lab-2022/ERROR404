@@ -11,7 +11,14 @@ import {
 import React, { useState, useContext } from "react";
 import SearchByForm from "./search";
 import { Link } from "react-router-dom";
-import { HomeOutlined, UserOutlined } from "@ant-design/icons";
+import {
+  HomeOutlined,
+  UserOutlined,
+  LogoutOutlined,
+  DashboardFilled,
+  SettingFilled,
+  DashboardOutlined,
+} from "@ant-design/icons";
 import SchoolIcon from "@mui/icons-material/School";
 import { AppContext } from "../AppContext";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
@@ -53,28 +60,52 @@ const MainHeader = ({ values }) => {
   const [current, setCurrent] = useState("mail");
   let items = [];
 
+  const logout = () => {
+    setUserName("");
+    setUser("");
+  };
+
   if (user == "instructor") {
     items = [
       {
         label: (
-          <Link to="/">
+          <Link className="link" to="/">
             <HomeOutlined />
           </Link>
         ),
         key: "home",
-      }, // remember to pass the key prop
-      {
-        label: <Link to="/viewAllCourses">Explore All Courses</Link>,
-        key: "explore",
       },
+      getItem(
+        <Link className="link" to="instructorDashboard">
+          My Dashboard
+        </Link>,
+        "2",
+        <DashboardOutlined />
+      ),
+
+      // remember to pass the key prop
       {
         label: (
-          <Popover content={userName}>
-            <Avatar size="medium" icon={<UserOutlined />} />
-          </Popover>
+          <Link className="link" to="/viewAllCourses">
+            Explore All Courses
+          </Link>
         ),
-        key: "user",
+        key: "explore",
       },
+
+      getItem(
+        <Link
+          className="link"
+          to="/"
+          onClick={() => {
+            logout();
+          }}
+        >
+          Log Out
+        </Link>,
+        "3",
+        <LogoutOutlined />
+      ),
     ];
   } else if (user == "individual" || user == "corporate") {
     items = [
@@ -90,15 +121,30 @@ const MainHeader = ({ values }) => {
         label: <Link to="/viewAllCourses">Explore All Courses</Link>,
         key: "explore",
       },
-      { label: <Link to="/viewMyGrades">My Grades</Link>, key: "grades" }, // which is required
+      getItem(
+        <Link className="link" to="traineeDashboard">
+          My Dashboard
+        </Link>,
+        "2",
+        <DashboardOutlined />
+      ),
       {
         label: (
-          <Link to="/user/myPrograms">
+          <Link className="link" to="/viewMyGrades">
+            My Grades
+          </Link>
+        ),
+        key: "grades",
+      }, // which is required
+      {
+        label: (
+          <Link className="link" to="/user/myPrograms">
             <Button ghost>My Programs</Button>
           </Link>
         ),
         key: "myClassroom",
       },
+      getItem(<Link to="/settings">Settings</Link>, "3", <SettingFilled />),
       {
         label: (
           <Popover content={userName}>
@@ -110,24 +156,52 @@ const MainHeader = ({ values }) => {
     ];
   } else if (user == "admin") {
     items = [
-      getItem(<Link to="/">Home</Link>, "1", <HomeOutlined />),
       getItem(
-        <Link to="/adminDashboard">My Dashboard</Link>,
+        <Link className="link" to="/">
+          Home
+        </Link>,
+        "1",
+        <HomeOutlined />
+      ),
+      getItem(
+        <Link className="link" to="/adminDashboard">
+          My Dashboard
+        </Link>,
         "3",
         <AdminPanelSettingsIcon />
       ),
       getItem(
-        <Link to="/adminDashboard/reports">All Reports</Link>,
+        <Link className="link" to="/adminDashboard/reports">
+          All Reports
+        </Link>,
         "2",
         <BugReportIcon />
       ),
-      getItem(<Link to="/viewAllCourses">Explore All Courses</Link>, "4"),
+      getItem(
+        <Link className="link" to="/viewAllCourses">
+          Explore All Courses
+        </Link>,
+        "4"
+      ),
+      getItem(
+        <Link
+          className="link"
+          to="/"
+          onClick={() => {
+            logout();
+          }}
+        >
+          Logout
+        </Link>,
+        "2",
+        <LogoutOutlined />
+      ),
     ];
   } else {
     items = [
       {
         label: (
-          <Link to="/">
+          <Link to="/" className="link">
             <HomeOutlined />
           </Link>
         ),
@@ -135,22 +209,14 @@ const MainHeader = ({ values }) => {
       }, // remember to pass the key prop
 
       {
-        label: <Link to="/viewAllCourses">Explore All Courses</Link>,
+        label: (
+          <Link className="link" to="/viewAllCourses">
+            Explore All Courses
+          </Link>
+        ),
         key: "explore",
       },
-      {
-        label: (
-          <Button
-            type="link"
-            style={{
-              color: "white",
-            }}
-          >
-            For Enterprise
-          </Button>
-        ),
-        key: "enterprise",
-      },
+
       {
         label: (
           <Button
@@ -168,18 +234,12 @@ const MainHeader = ({ values }) => {
         key: "login",
       },
       {
-        label: <Link onClick={() => setIsDrawerOpen(true)}>Join for free</Link>,
+        label: (
+          <Link className="link" onClick={() => setIsDrawerOpen(true)}>
+            Join for free
+          </Link>
+        ),
         key: "signup",
-        //(
-        //   <Button
-        //     style={{
-        //       color: "white",
-        //     }}
-        //     type="link"
-        //   >
-        //     Join for Free
-        //   </Button>
-        // ),
       },
     ];
   }
@@ -202,6 +262,7 @@ const MainHeader = ({ values }) => {
           //backgroundColor: "black",
           height: "100%",
           width: "20vw",
+          textDecoration: "none",
           justifyContent: "center",
           alignItems: "center",
         }}
