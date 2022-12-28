@@ -217,7 +217,7 @@ const MainHeader = ({ values }) => {
         theme="dark"
         mode="horizontal"
         items={items}
-        style={{ width: "20vw" }}
+        style={{ width: "100%" }}
       />
       <Modal
         open={isModalOpen}
