@@ -53,7 +53,6 @@ const ViewAllCourses = () => {
   const onFinish = async (event) => {
     console.log(" => ", event);
     console.log(event);
-
   };
 
   return (
@@ -68,7 +67,7 @@ const ViewAllCourses = () => {
       </Tooltip>
 
       <Modal
-        title="Basic Modal"
+        title="Filter"
         open={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}
