@@ -22,20 +22,34 @@ const Filter = () => {
     setIsModalOpen(false);
   };
   useEffect(() => {
+    setIsModalOpen(false);
     const idSearch = window.location.search;
     const urlParams = new URLSearchParams(idSearch);
     const filterType = urlParams.get("filterType");
-    const value = urlParams.get("value");
-    axios
-      .get("http://localhost:2020/filter/" + filterType + "/" + value)
-      .then((response) => {
-        setCourses(response.data);
-      })
-      .catch((error) => {
-        message.error(error.response.data, 3);
-        console.log("erorr ", error.message);
-        setCourses([]);
-      });
+    if (filterType == "price") {
+      const min = urlParams.get("min");
+      const max = urlParams.get("max");
+      axios
+        .get("http://localhost:2020/filterByPrice/" + min + "/" + max)
+        .then((response) => {
+          setCourses(response.data);
+        })
+        .catch((error) => {
+          console.log("erorr ", error.message);
+          setCourses([]);
+        });
+    } else {
+      const value = urlParams.get("value");
+      axios
+        .get("http://localhost:2020/filter/" + filterType + "/" + value)
+        .then((response) => {
+          setCourses(response.data);
+        })
+        .catch((error) => {
+          console.log("erorr ", error.message);
+          setCourses([]);
+        });
+    }
   }, [location]);
 
   return (
