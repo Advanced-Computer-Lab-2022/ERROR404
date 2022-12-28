@@ -35,7 +35,7 @@ const AdminRequests = () => {
 
   const [form] = Form.useForm();
 
-  const confirm = (status, id) =>
+  const confirm = (status, id, courseId, username, userType) =>
     new Promise((resolve) => {
       console.log("sssssssss ", status);
       const requestBody = {
@@ -45,8 +45,24 @@ const AdminRequests = () => {
       axios
         .put("http://localhost:2020/updateRequestStatus", requestBody)
         .then((res) => {
-          console.log(res);
-          message.success("status has been changed to " + status);
+          const reqBody= {
+          usertype:userType,
+          courseId:courseId,
+          username:username,
+
+          }
+          if(status == 'approved') {
+            axios
+        .put("http://localhost:2020/addCourseToStudent", reqBody)
+        .then(() => {
+          message.success("request approved");
+        })
+        .catch((err) => console.log("error at updating courses"+err));
+          } else {
+            message.success("status has been changed to " + status);
+            console.log(res);
+          }
+          
         });
       setTimeout(() => resolve(null), 3000);
     });
@@ -57,11 +73,6 @@ const AdminRequests = () => {
       dataIndex: "username",
       width: "20%",
     },
-    {
-        title: "Course title",
-        dataIndex: "courseTitle",
-        width: "20%",
-      },
     {
       title: <Badge status="success" text="Status" />,
       dataIndex: "status",
@@ -148,11 +159,13 @@ const AdminRequests = () => {
       }
     });
     console.log("the request => ", requests);
+    console.log(requests.username + " " +  requests.userType)
     axios
       .get(
-        "http://localhost:2020/getUser/" + requests.username + "/" + requests.usertype
+        "http://localhost:2020/getUser/" + requests.username + "/" + requests.userType
       )
       .then((response) => {
+        console.log("hello")
         let data = response.data;
         console.log(response.data);
         let type = "default";
@@ -163,10 +176,10 @@ const AdminRequests = () => {
         }else if (requests.status == "rejected") {
             type = "fail";
           }
+          console.log("hello world", requests._id, " " + requests.username )
         modal.update({
           title: "Request Id " + requests._id,
-          width: "100vh",
-
+        
           content: (
             <>
                 <Tabs
@@ -178,6 +191,7 @@ const AdminRequests = () => {
                     label: `Change Request Status`,
                     key: "1",
                     children: (
+                      <>
                       <Card>
                         <Descriptions title="Updating status...">
                           <Descriptions.Item label="Current Status">
@@ -186,6 +200,7 @@ const AdminRequests = () => {
                             </span>
                           </Descriptions.Item>
                         </Descriptions>
+                        </Card>
                         <Form
                           form={form}
                           onFinish={(e) => {
@@ -216,7 +231,10 @@ const AdminRequests = () => {
                               onConfirm={() =>
                                 confirm(
                                   form.getFieldValue("status"),
-                                  requests._id
+                                  requests._id,
+                                  requests.courseId,
+                                  requests.username,
+                                  requests.userType
                                 )
                               }
                               onOpenChange={() => console.log("open change")}
@@ -227,13 +245,16 @@ const AdminRequests = () => {
                             </Popconfirm>
                           </Form.Item>
                         </Form>
-                      </Card>
+                      </>
                     ),
                   },
                 ]}
               />
             </>
           ),
+        })
+        .catch((err) => {
+          console.log(err.response.data);
         });
       });
   };

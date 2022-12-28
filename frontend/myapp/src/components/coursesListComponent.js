@@ -21,6 +21,8 @@ import {
 import { AppContext } from "../AppContext";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import SubmitDiscount from "./instructorComponents/instructorSubmitDiscount";
+import CreateRequestWrapper from "./corporateCreateRequest";
 
 const IconText = ({ icon, text }) => (
   <Space>
@@ -186,7 +188,7 @@ const CourseComponent = ({ courses, viewType }) => {
               onClick={() => {
                 if (user == "instructor" && viewType == "instructor") {
                   setIsModalOpen(true);
-                } else {
+                } else if (user == "individual") {
                   navigation("/course/about?courseId=" + item._id);
                 }
               }}
@@ -219,6 +221,18 @@ const CourseComponent = ({ courses, viewType }) => {
               ]}
               extra={
                 <Space>
+                  {user == "corporate" ? (
+                    <>
+                      <CreateRequestWrapper />{" "}
+                      <Button
+                        onClick={() => {
+                          navigation("/course/about?courseId=" + item._id);
+                        }}
+                      >
+                        View Course
+                      </Button>
+                    </>
+                  ) : null}
                   {user == "instructor" && viewType == "instructor" ? (
                     <div
                       style={{

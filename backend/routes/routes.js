@@ -51,6 +51,7 @@ const createIndividualTrainee = (req, res) => {
 };
 
 const getUser = async (req, res) => {
+  console.log("hello......" + req.body);
   const username = req.params.username;
   const userType = req.params.userType;
 
@@ -1008,6 +1009,7 @@ const createQuiz = async (req, res) => {
   }
 };
 const addCourseToStudent = async (req, res) => {
+  console.log(req.body);
   const username = req.body.username;
   const courseId = req.body.courseId;
   const usertype = req.body.usertype;
@@ -1274,19 +1276,19 @@ const createCorporateRequest = (req, res) => {
   console.log(req.body);
   const username = req.body.username;
   const usertype = req.body.usertype;
-  const courseTitle = req.body.courseTitle;
+  const courseId = req.body.courseId;
 
   if (usertype !== "corporate") {
     return res.status(400).send("Error occured");
   } else if (username == null || username.length == 0) {
     return res.status(400).send("Please enter your username");
-  } else if (courseTitle == null || courseTitle.length == 0) {
-    return res.status(400).send("course title not sent");
+  } else if (courseId == null || courseId.length == 0) {
+    return res.status(400).send("Please enter the course title");
   } else {
     const body = {
       username: username,
       userType: usertype,
-      courseTitle: courseTitle,
+      courseId: courseId,
     };
     corporateRequests.create(body, (err, data) => {
       if (err) {

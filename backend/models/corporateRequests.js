@@ -19,7 +19,7 @@ const corporateRequests = new Schema(
         required: true,
       },
 
-    courseTitle: {
+    courseId: {
         type: String,
         required: true,
       },

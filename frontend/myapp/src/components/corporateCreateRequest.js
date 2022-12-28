@@ -1,33 +1,29 @@
+
 import App from "../App";
 import React, {useState, useRef, useEffect,useContext} from 'react';
 import {
-    Button,
     EditOutlined,
   } from '@ant-design/icons';
-  import { Input,Modal } from 'antd';
-  import { Form, Space } from 'antd';
+  import { Input,Modal, Button } from 'antd';
+  import { Form, Space , message,Select} from 'antd';
 import { blueGrey, green, lightBlue } from "@mui/material/colors";
 import { AppContext } from "../AppContext";
 import axios from "axios";
+const { Option } = Select;
+// import message from 'react';
 
 
 
 const CreateRequestWrapper = () => {
 
-    const { username } = useContext(AppContext);
-    const { TextArea } = Input;
-    const [value, setValue] = useState('');
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [requestId, setRequest] = useState("");
-    const [request] = Form.useForm();
-
-    useEffect(() => {
-        const idSearch = window.location.search;
-        const urlParams = new URLSearchParams(idSearch);
-        const request = urlParams.get("requestId");
     
-        setRequest(request);
-      }, []);
+    const [request, setRequest] = useState([]);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const { userType } = useContext(AppContext);
+    const { username } = useContext(AppContext);
+    const [user, setUser] = userType;
+    const [userName, setUserName] = username;
+   
     
 
   const showModal = () => {
@@ -42,30 +38,25 @@ const CreateRequestWrapper = () => {
   };
 
 const creatRequest = async ()=>{
+    console.log(request);
     const requestBody = {
-        username: username,
-        courseTitle: request.getFieldValue("courseTitle"),
-        userType: request.getFieldValue("userType"),
-    };
-    console.log(requestBody);
-
-    axios.
-      post("http://localhost:2020/createCorporateRequest", requestBody)
-    .then((data) => {
-       // message.success("request sent");
-        let ids = [];
-        data.data.map((request)=>{
-            console.log(request);
-            ids.push(request._id);
-        });
-        console.log(ids);
-        let reqBody={
-            username:username,
-            requestId: requestId,
-
-        };
+     username: userName,
+     courseId: "638501f2a9b064e47ee7e0ed",
+     usertype: user,
+    }
+    
+    axios
+    .post("http://localhost:2020/createCorporateRequest", requestBody)
+    
+    .then((response) => {
+     
+      message.success("request sent");
+       
     })
-    .catch((err) => console.log(err));
+    .catch((error) => {
+      console.log("erorr ", error.response.data);
+      message.error("Unexpected Error occured" , 5);
+    });
 };
 
 
@@ -76,69 +67,18 @@ const creatRequest = async ()=>{
   
     return (
       
-<div>       
-        <br></br>
-
-        <Modal ref= {componentRef} title="Request access to this course" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} style={{marginTop:120, marginLeft:420, height:500}}>
-
-
-
-<div>
-<div
-        id="request"
-        style={{
-          border: "1px solid black",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          backgroundColor: `#f0f8ff`,
-          borderRadius:20,
-        }}
-      >
-        {/* <h4><i>request access to this course</i></h4> */}
-        <br></br>
-        <br></br>
-        <Form
-          form={request}
-          style={{
-            width: "50%",
-          }}
-        >
-          <Form.Item name="username" >
-            <Input placeholder="please enter your username"style={{borderRadius:10}}/>
-          </Form.Item>
-
-          <Form.Item name="courseTitle">
-            <Input placeholder="please enter the course title" style={{borderRadius:10}}/>
-          </Form.Item>
-
-          <Form.Item name="userType">
-            <select class="ui dropdown" style={{borderRadius:10, marginLeft:40}}>
-              <option value="">Select user type</option>
-              <option value="a">individual trainee</option>
-              <option value="b">corporate trainee</option>
-            </select>
-          </Form.Item>
-        </Form>
-      </div>
-
-      <button style={{marginLeft:170, width:130,height:40, marginTop:10, backgroundColor: "lightBlue", borderRadius:10, borderColor:"grey"}} onClick={creatRequest}>
-            Send Request
-        </button>
-
- 
-</div>
-            
-      </Modal>
-
-        <button style={{marginLeft:600, width:130,height:50, marginTop:10, backgroundColor: "lightBlue", borderRadius:10, borderColor:"grey"}} onClick={showModal}>
+    <>
+     <Button type="primary" onClick={showModal}>
             Access course
-        </button>
-        </div>
-
+        </Button>
+        <Modal title="Request Course Acces" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} style={{marginTop:120, marginLeft:420, height:500}}>
+          <h2> Are you sure you want to request access?</h2>
+      <Button type="primary" onClick={creatRequest}>
+            Send Request
+        </Button>
+      </Modal>
+    </>
      
-      
     );
   };
 
@@ -146,3 +86,93 @@ const creatRequest = async ()=>{
   
 
 export default CreateRequestWrapper;
+
+//////////////////////////////////////////////////
+
+
+// import { Button, Form, Input, Rate, message, Space } from "antd";
+// import axios from "axios";
+// import React, { useContext, useState, useEffect } from "react";
+// import { Select } from 'antd';
+
+// const CourseRequest = () => {
+//   const createRequest = async (event) => {
+//     const requestBody = {
+//       username: event.username,
+//       courseTitle: event.courseTitle,
+//       userType: event.userType, 
+//     };
+//     axios
+//       .patch("http://localhost:2020/createCorporateRequest", requestBody)
+//       .then((response) => {
+//         message.success("Your request has been sent", 5);
+//       })
+//       .catch((error) => {
+//         console.log("erorr ", error);
+//         message.error("Unexpected Error occured " + error, 5);
+//       });
+//   };
+
+//   return (
+//     <>
+//       <Form
+//         name="createRequest"
+//         className="reviewIntructor-form"
+//         onFinish={createRequest}
+//         style={{
+//           width: "90%",
+//         }}
+//       >
+//         <Form.Item
+//           name="username"
+//           label="Enter your username"
+//           rules={[{ required: true }]}
+//         >
+//           <Input placeholder="Enter your username" />
+//         </Form.Item>
+
+//         <Form.Item
+//           name="courseTitle"
+//           label="Enter the title of the course"
+//           rules={[
+//             { required: true, message: "Please enter the course title" },
+//           ]}
+//         >
+//           <Input placeholder="Enter the course title" />
+//         </Form.Item>
+//         <Form.Item name="userType">
+//           <Select
+//             style={{
+//               width: 160,
+//             }}
+//             allowClear
+//             options={[
+//               {
+//                 value: "corporate",
+//                 label: "Corporate Trainee",
+//               },
+//             ]}
+//           />
+//         </Form.Item>
+//         </Form>
+//         <Form.Item>
+//           <Button
+//             type="primary"
+//             htmlType="submit"
+//             className="login-form-button"
+//             style={{
+//               width: "70%",
+//               marginTop:"10%",
+//               alignItems:"center",
+//             }}
+//           >
+//             Submit Request
+//           </Button>
+//         </Form.Item>
+//       <Form/>
+//     </>
+//   );
+// };
+// export default CourseRequest;
+
+
