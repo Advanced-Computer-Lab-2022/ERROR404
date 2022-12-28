@@ -321,9 +321,11 @@ const PersonalInformationTab = () => {
         <Link to="/changePassword">
           <Button type="primary">Change Password</Button>
         </Link>
-        <Link to="/insertCard">
-          <Button type="primary">Insert Credit Card</Button>
-        </Link>
+        {user == "individual" ? (
+          <Link to="/insertCard">
+            <Button type="primary">Insert Credit Card</Button>
+          </Link>
+        ) : null}
         {user == "instructor" ? (
           <Link to="/instructorDashboard/editBio">
             <Button type="primary">Change Bio</Button>
