@@ -199,6 +199,12 @@ const MoreCategories = () => {
       >
         Report a Problem
       </Link>
+      <Link
+        to="/user/reports"
+        style={{ color: "white", textDecoration: "none" }}
+      >
+        Follow up on a ticket
+      </Link>
       <Link style={{ color: "white", textDecoration: "none" }}>
         Request Access to Course
       </Link>

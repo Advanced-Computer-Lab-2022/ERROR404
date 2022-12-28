@@ -73,7 +73,10 @@ const App = ({ children }) => {
   return (
     <Layout className="layout">
       <MainHeader values={[isModalOpen, setIsModalOpen]} />
-      <Layout style={{ minHeight: "90vh" }} theme="dark">
+      <Layout
+        style={{ minHeight: "90vh", backgroundColor: "white" }}
+        theme="dark"
+      >
         <Content style={{ margin: "0 0px", padding: "5%" }}>{children}</Content>
       </Layout>
       <Footer style={{ padding: 0, textAlign: "center", margin: "0 0px" }}>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
@@ -67,6 +67,7 @@ import AboutWrapper from "./components/about";
 import Terms from "./components/termsAndConditions";
 import TraineeInsideCourse from "./components/traineeComponents/traineeInsideCourse";
 import CourseConversation from "./components/courseComponents/courseConversation";
+import TraineeReportsWrapper from "./components/traineeComponents/reportsFollowUp";
 
 export default function MainApp() {
   const [username, setUsername] = useState("");
@@ -184,7 +185,7 @@ export default function MainApp() {
             element={<InstructorCourseReview />}
           />
           <Route path="Acceptagreement" element={<AcceptAgreWrapper />} />
-
+          <Route path="/user/reports" element={<TraineeReportsWrapper />} />
           <Route path="/terms" element={<Terms />} />
           <Route path="ReportaProblem" element={<ReportaProblemWrapper />} />
           <Route path="filter" element={<Filter />} />

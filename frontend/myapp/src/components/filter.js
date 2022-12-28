@@ -32,7 +32,7 @@ const Filter = () => {
         setCourses(response.data);
       })
       .catch((error) => {
-        message.error(err.response.data, 3);
+        message.error(error.response.data, 3);
         console.log("erorr ", error.message);
         setCourses([]);
       });

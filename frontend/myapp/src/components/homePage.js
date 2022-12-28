@@ -65,6 +65,15 @@ const HomePage = () => {
           class="css-12519x1"
           alt=""
         ></img>
+        <img
+          class="non-student-cta--non-student-cta-image--7Y7Ul non-student-cta--on-desktop--2bk9D"
+          data-purpose="desktop-non-student-cta-image"
+          alt=""
+          width="400"
+          height="400"
+          src="home/non-student-cta/instructor-1x-v3.jpg"
+          srcset="https://s.udemycdn.com/home/non-student-cta/instructor-1x-v3.jpg 1x, https://s.udemycdn.com/home/non-student-cta/instructor-2x-v3.jpg 2x"
+        ></img>
       </div>
 
       <hr
@@ -91,11 +100,18 @@ const HomePage = () => {
             alignItems: "center",
           }}
         >
-          <img
+          {/* <img
             width="30%"
             src="https://www.udacity.com/www-proxy/contentful/assets/2y9b3o528xhq/6VWrRGtNBKGeivw207U8Gj/9628b44b000dad0588b78d37c751d495/udacitys-talent-transformation-suite-graphic.png?fm=png"
             alt=""
             loading="lazy"
+          ></img> */}
+          <img
+            src="https://s.udemycdn.com/error_page/error-desktop-v1.jpg"
+            srcset="https://s.udemycdn.com/error_page/error-desktop-v1.jpg 1x, https://s.udemycdn.com/error_page/error-desktop-2x-v1.jpg 2x"
+            alt=""
+            width="480"
+            height="360"
           ></img>
           <div
             style={{
@@ -110,25 +126,27 @@ const HomePage = () => {
             <h1>ERROR404s What We Offer</h1>
             <ul>
               <li>
-                <h3>
+                <h4>
                   Our experts work with you to design a tailored transformation
                   journey. Solve your acute workforce challenges to deliver
                   next-level business results.
-                </h3>
+                </h4>
               </li>
+              <br />
               <li>
-                <h3>
+                <h4>
                   Our competencies focus exclusively on in‑demand digital
                   technologies and ensure workplace relevance.
-                </h3>
+                </h4>
               </li>
+              <br />
               <li>
-                <h3>
+                <h4>
                   Easily deploy our infinitely scalable platform, optimized to
                   enable and empower job-ready digital talent. Highly focused
                   content—refined over 10 years with industry experts—verifies
                   core competencies through personalized feedback.
-                </h3>
+                </h4>
               </li>
             </ul>
           </div>
