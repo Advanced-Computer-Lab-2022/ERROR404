@@ -1160,20 +1160,21 @@ const getmyGrade = async (req, res) => {
       .clone();
   }
 };
-// const approveInstructor = async (req, res) => {
-//   const username = req.body.username;
-//   instructor.findOneAndUpdate(
-//     { username: username },
-//     { approved: true },
-//     (err, result) => {
-//       if (err) {
-//         res.status(500).json();
-//       } else {
-//         res.status(200).json();
-//       }
-//     }
-//   );
-// };
+const approveInstructor = async (req, res) => {
+  const username = req.body.username;
+
+  instructor.findOneAndUpdate(
+    { username: username },
+    { approved: true },
+    (err, result) => {
+      if (err) {
+        res.status(500).json();
+      } else {
+        res.status(200).json();
+      }
+    }
+  );
+};
 
 const getAllReports = async (req, res) => {
   await Reports.find({}, (err, data) => {
@@ -1368,4 +1369,5 @@ module.exports = {
   getChats,
   createCourseChat,
   getCourseChats,
+  approveInstructor,
 };
