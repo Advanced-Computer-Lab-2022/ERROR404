@@ -11,8 +11,6 @@ import {
 } from "@ant-design/icons";
 import { Breadcrumb, Layout, Menu, Image, Empty } from "antd";
 import { Link } from "react-router-dom";
-import CoursePage from "../CoursePage";
-import CourseComponent from "../coursesListComponent";
 import { AppContext } from "../../AppContext";
 import axios from "axios";
 import CoreCirWrapper, { CoreCurricullum } from "../coreCirriculum";

@@ -23,16 +23,20 @@ function getItem(label, key, icon, children) {
 }
 
 const items = [
-  getItem(<Link to="/">Home</Link>, 0, <HomeOutlined />),
+  getItem(
+    <Link className="link" to="/">
+      Home
+    </Link>,
+    0,
+    <HomeOutlined />
+  ),
   getItem("Exercises", 1, <QuestionOutlined />),
   getItem("Syllabus", 2, <BranchesOutlined />),
   getItem("Core Curriculum", 3, <BranchesOutlined />),
   getItem("Your Grades", 4, <PercentageOutlined />),
 ];
 
-const CoursePage = ({ children }) => {
-  const [courseName, setCourseName] = useState("Intro to Web Dev");
-
+const CoursePage = ({ children, courseName }) => {
   return (
     <Layout>
       <Header className="header" style={{ backgroundColor: "white" }}>
@@ -53,7 +57,7 @@ const CoursePage = ({ children }) => {
             defaultSelectedKeys={["1"]}
             defaultOpenKeys={["sub1"]}
             style={{
-              height: "100%",
+              height: "60vh",
               borderRight: 0,
             }}
             items={items}
@@ -86,12 +90,6 @@ const CoursePage = ({ children }) => {
               gap: "20px",
             }}
           >
-            {/* <Image
-              width={"100%"}
-              height={"80%"}
-              preview={false}
-              src="https://freetutsdownload.com/wp-content/uploads/2021/10/UDACITY-Machine-Learning-Engineer-Nanodegree-v4.0.0.jpg"
-            /> */}
             {children}
           </Content>
         </Layout>

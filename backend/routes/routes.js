@@ -8,6 +8,7 @@ const quizzes = require("../models/quizzes");
 const Reports = require("../models/reports");
 const chats = require("../models/chats");
 const { default: mongoose } = require("mongoose");
+const Courses = require("../models/courses");
 
 //Methods
 const createIndividualTrainee = (req, res) => {
@@ -129,23 +130,25 @@ const reportProblem = async (req, res) => {
 };
 
 const createCourse = async (req, res) => {
+  console.log(req.body);
   const instructorId = req.body.id;
-  const instructor = await instructor.findOne({ _id: instructorId });
-  if (instructor == null) {
+  const instructorData = await instructor.findOne({ _id: instructorId });
+  if (instructorData == null) {
     res.status(401).send("Username is not found, or unauthorized");
   } else if (
     req.body.title == null ||
     req.body.subject == null ||
-    req.body.subtitle == null ||
+    req.body.subtitles == null ||
     req.body.price == null ||
     req.body.summary == null ||
     req.body.totalHours == null
   ) {
+    console.log("Required fields were not submitted");
     res.status(400).send("Required fields were not submitted");
   } else if (req.body.summary.length < 5) {
     res.status(400).send("Summary should be atleast 5 words long");
   } else {
-    const name = instructor.username;
+    const name = instructorData.username;
     const courseDetails = {
       title: req.body.title,
       subject: req.body.subject,
@@ -162,7 +165,7 @@ const createCourse = async (req, res) => {
       },
       image: req.body.image,
       prerequisite: req.body.prerequisite,
-      preview: req.body.preview,
+      preview: req.body.previewURL,
       category: req.body.category,
     };
     courses.create(courseDetails, (err, small) => {
@@ -1292,6 +1295,35 @@ const createChat = (req, res) => {
     }
   });
 };
+
+const createCourseChat = (req, res) => {
+  const chat = {
+    sender: req.body.sender,
+    message: req.body.message,
+  };
+
+  Courses.findByIdAndUpdate(
+    { _id: req.body.id },
+    { $push: { chat: chat } },
+    (err, result) => {
+      if (err) {
+        res.status(500).send(err);
+      } else {
+        res.status(200).send();
+      }
+    }
+  );
+};
+
+const getCourseChats = async (req, res) => {
+  await Courses.findOne({ _id: req.params.id }, { chat: 1 }, (err, data) => {
+    if (err) {
+      res.status(500).send();
+    } else {
+      res.status(200).json(data);
+    }
+  }).clone();
+};
 module.exports = {
   getUser,
   search,
@@ -1334,4 +1366,6 @@ module.exports = {
   updateReportStatus,
   filterByPrice,
   getChats,
+  createCourseChat,
+  getCourseChats,
 };

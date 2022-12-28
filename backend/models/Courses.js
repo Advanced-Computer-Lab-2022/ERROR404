@@ -30,7 +30,7 @@ const courses = new Schema(
     },
     subtitles: [
       {
-        name: {
+        subtitle: {
           type: String,
           required: true,
           default: "",
@@ -62,12 +62,10 @@ const courses = new Schema(
     discount: {
       value: {
         type: Number,
-        required: true,
         default: 0,
       },
       endDate: {
         type: String,
-        required: true,
         default: "",
       },
     },
@@ -87,6 +85,18 @@ const courses = new Schema(
       type: Array,
       default: [],
     },
+    chat: [
+      {
+        sender: {
+          type: String,
+          default: "",
+        },
+        message: {
+          type: String,
+          default: "",
+        },
+      },
+    ],
     numberOfSubscribers: {
       type: Number,
       default: 0,

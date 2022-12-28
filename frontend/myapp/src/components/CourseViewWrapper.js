@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   LaptopOutlined,
   NotificationOutlined,
@@ -8,12 +8,10 @@ import {
   SettingFilled,
   DislikeOutlined,
   LikeOutlined,
+  WechatOutlined,
   UsergroupDeleteOutlined,
 } from "@ant-design/icons";
-import ViewWeekIcon from "@mui/icons-material/ViewWeek";
-import DashboardIcon from "@mui/icons-material/Dashboard";
 import ReviewsIcon from "@mui/icons-material/Reviews";
-import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 import PreviewIcon from "@mui/icons-material/Preview";
 import Alert from "@mui/material/Alert";
 import AddBoxIcon from "@mui/icons-material/AddBox";
@@ -22,6 +20,7 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { Breadcrumb, Button, Layout, Menu, Rate } from "antd";
 import { Link } from "react-router-dom";
 import FooterWrapper from "./footer";
+import { AppContext } from "../AppContext";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -35,32 +34,95 @@ function getItem(label, key, icon, children) {
 }
 
 const PreviewCourses = ({ children, courseId }) => {
-  const items = [
-    getItem(<Link to="/">Home</Link>, "1", <HomeOutlined />),
-    getItem(
-      <Link to={`/course/about?courseId=${courseId}`}>Course Overview</Link>,
-      "2",
-      <PreviewIcon />
-    ),
-    getItem(
-      <Link to={`/course/syllabus?courseId=${courseId}`}>Syllabus</Link>,
-      "3",
-      <ViewTimelineIcon />
-    ),
+  const { userType, traineeCourses } = useContext(AppContext);
+  const [user, setUser] = userType;
+  const [traineeRegCourses, setTraineeCourses] = traineeCourses;
 
-    getItem(
-      <Link to={`/course/reviews?courseId=${courseId}`}>Course Reviews</Link>,
-      "5",
-      <ReviewsIcon />
-    ),
-    getItem(
-      <Link to={`/course/pay?courseId=${courseId}`}>
-        <Button ghost>BUY NOW!!</Button>
-      </Link>,
-      "6",
-      <ShoppingCartIcon />
-    ),
-  ];
+  let items = [];
+
+  if (
+    (user == "individual" || user == "corporate" || user == "admin") &&
+    traineeRegCourses.includes(courseId)
+  ) {
+    items = [
+      getItem(
+        <Link className="link" to="/">
+          Home
+        </Link>,
+        "1",
+        <HomeOutlined />
+      ),
+      getItem(
+        <Link className="link" to={`/course/about?courseId=${courseId}`}>
+          Course Overview
+        </Link>,
+        "2",
+        <PreviewIcon />
+      ),
+      getItem(
+        <Link className="link" to={`/course/syllabus?courseId=${courseId}`}>
+          Syllabus
+        </Link>,
+        "3",
+        <ViewTimelineIcon />
+      ),
+
+      getItem(
+        <Link className="link" to={`/course/reviews?courseId=${courseId}`}>
+          Course Reviews
+        </Link>,
+        "5",
+        <ReviewsIcon />
+      ),
+      getItem(
+        <Link className="link" to={`/course/conversation?courseId=${courseId}`}>
+          Course Conversations
+        </Link>,
+        "6",
+        <WechatOutlined />
+      ),
+    ];
+  } else {
+    items = [
+      getItem(
+        <Link className="link" to="/">
+          Home
+        </Link>,
+        "1",
+        <HomeOutlined />
+      ),
+      getItem(
+        <Link className="link" to={`/course/about?courseId=${courseId}`}>
+          Course Overview
+        </Link>,
+        "2",
+        <PreviewIcon />
+      ),
+      getItem(
+        <Link className="link" to={`/course/syllabus?courseId=${courseId}`}>
+          Syllabus
+        </Link>,
+        "3",
+        <ViewTimelineIcon />
+      ),
+
+      getItem(
+        <Link className="link" to={`/course/reviews?courseId=${courseId}`}>
+          Course Reviews
+        </Link>,
+        "5",
+        <ReviewsIcon />
+      ),
+      getItem(
+        <Link className="link" to={`/course/pay?courseId=${courseId}`}>
+          <Button ghost>BUY NOW!!</Button>
+        </Link>,
+        "6",
+        <ShoppingCartIcon />
+      ),
+    ];
+  }
+
   return (
     <Layout>
       <Header className="header">
@@ -95,7 +157,7 @@ const PreviewCourses = ({ children, courseId }) => {
               theme="dark"
               mode="inline"
               style={{
-                height: "100%",
+                height: "60vh",
               }}
               items={items}
             />

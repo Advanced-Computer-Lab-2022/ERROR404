@@ -54,7 +54,7 @@ import AdminReportsWrapper from "./components/adminComponents/adminReports";
 import AdminMainDashboardWrapper from "./components/adminComponents/adminMainDashboard";
 import CreateUserWrapper from "./components/adminComponents/adminCreateUser";
 import NoPage from "./components/NoPage";
-import MyProgrmas from "./components/myPrograms";
+import MyPrograms from "./components/traineeComponents/myPrograms";
 import WrapperLessonPage from "./components/lessonPage";
 import WrapperSignUp from "./components/loginComponents/signUp";
 import TraineeSettingsWrapper from "./components/traineeComponents/traineeSettings";
@@ -65,6 +65,8 @@ import CertificateWrapper from "./components/certificate";
 import ProgressWrapper from "./components/courseComponents/courseProgress";
 import AboutWrapper from "./components/about";
 import Terms from "./components/termsAndConditions";
+import TraineeInsideCourse from "./components/traineeComponents/traineeInsideCourse";
+import CourseConversation from "./components/courseComponents/courseConversation";
 
 export default function MainApp() {
   const [username, setUsername] = useState("");
@@ -76,6 +78,7 @@ export default function MainApp() {
   const [region, setRegion] = useState("");
   const [instructorBio, setInstructorBio] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [traineeCourses, setTraineeCourses] = useState([]);
 
   const values = {
     username: [username, setUsername],
@@ -87,6 +90,7 @@ export default function MainApp() {
     userRegion: [region, setRegion],
     instructorBio: [instructorBio, setInstructorBio],
     loggedIn: [isLoggedIn, setIsLoggedIn],
+    traineeCourses: [traineeCourses, setTraineeCourses],
   };
 
   return (
@@ -164,10 +168,11 @@ export default function MainApp() {
           />
           <Route path="/searchedItems" element={<LoadSearchedCourses />} />
           <Route path="/course/about" element={<PreviewCourseWrapper />} />
+          <Route path="/course/conversation" element={<CourseConversation />} />
           <Route path="/course/reviews" element={<CourseReview />} />
           <Route path="/course/syllabus" element={<CourseSyllabus />} />
           <Route path="/SolveExam" element={<SolveExamWrapper />} />
-          <Route path="/user/myPrograms" element={<MyProgrmas />} />
+          <Route path="/user/myPrograms" element={<MyPrograms />} />
           <Route path="/user/classroom" element={<UserCourses />} />
           <Route path="/lessonPage" element={<WrapperLessonPage />} />
           <Route
