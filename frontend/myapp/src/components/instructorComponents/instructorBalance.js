@@ -24,32 +24,17 @@ import InstructorTransactions, {
 } from "./instructorTransactions";
 
 const InstructorBalanceWrapper = () => {
-  const ContainerHeight = 400;
-  let value;
   const { username, userType } = useContext(AppContext);
-  const [data, setData] = useState([]);
+  const [value, setvalue] = useState(0);
   const [userName, setUserName] = username;
   const [usertype, setUserType] = userType;
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleOk = () => {
-    setIsModalOpen(false);
-  };
-
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
 
   useEffect(() => {
-    setIsModalOpen(true);
     axios
       .get(`http://localhost:2020/getUser/${userName}/${usertype}`)
       .then((response) => {
-        value = response.wallet;
+        console.log(response.data.wallet);
+        setvalue(response.data.wallet);
       });
   }, []);
 
@@ -57,28 +42,15 @@ const InstructorBalanceWrapper = () => {
     <InstructorDashboard>
       <div>
         <h1>My Monthly Balance</h1>
-        <List>
-          <VirtualList
-            data={value}
-            height={ContainerHeight}
-            itemHeight={2}
-            itemKey="email"
-          >
-            {() => (
-              <List.Item>
-                <Card>
-                  <Statistic
-                    title={"Total Balance for "}
-                    value={value}
-                    precision={2}
-                    valueStyle={{ color: "#3f8600" }}
-                    prefix={<DollarOutlined />}
-                  />
-                </Card>
-              </List.Item>
-            )}
-          </VirtualList>
-        </List>
+        <Card
+          title="My Wallet"
+          bordered={false}
+          style={{
+            width: 300,
+          }}
+        >
+          <p>{value}</p>
+        </Card>
       </div>
       {/* <InstructorBalanceAdditions value={1000} />
       <InstructorBalanceAdditions value={125} />
@@ -86,7 +58,6 @@ const InstructorBalanceWrapper = () => {
       <InstructorBalanceAdditions value={2000} />
       <InstructorBalanceAdditions value={2500} /> */}
 
-      <InstructorMonthlyBalances />
       <InstructorTransactions />
     </InstructorDashboard>
   );
