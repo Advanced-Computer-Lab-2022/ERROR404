@@ -1,16 +1,39 @@
-import React from "react";
+import React, { useContext } from "react";
 import App from "../App";
 import Box from "@mui/material/Box";
 import SpeedDial from "@mui/material/SpeedDial";
 import SpeedDialIcon from "@mui/material/SpeedDialIcon";
 import SpeedDialAction from "@mui/material/SpeedDialAction";
 import SaveIcon from "@mui/icons-material/Save";
+import { AppContext } from "../AppContext";
+import emailjs from "@emailjs/browser";
 import "../App.css";
 import { jsPDF } from "jspdf";
-import { Input } from "antd";
-import { useState } from "react";
+import { Input, message, Form, Button } from "antd";
 const CertificateWrapper = () => {
-  const [username, setUserName] = useState("");
+  const { userEmail, userMongoId, userType, username } = useContext(AppContext);
+  const [useremail, setUserEmail] = userEmail;
+  const [userId, setId] = userMongoId;
+  const [name, setName] = username;
+
+  const onFinish = (values) => {
+    console.log("Received values of form: ", values);
+    var data = {
+      name: name,
+      userId: userId,
+      certificate_url: "http://localhost:3000/certificate",
+      recepientEmail: useremail,
+    };
+    emailjs
+      .send("service_5di6lsf", "template_ug4a51m", data, "hIXXOv4x76p3JXKWU")
+      .then(
+        (result) => message.success("An Email has been sent successfully!! "),
+        (error) => {
+          message.error("Oops... " + JSON.stringify(error));
+          console.log(JSON.stringify(error));
+        }
+      );
+  };
   const actions = [
     {
       icon: (
@@ -31,7 +54,7 @@ const CertificateWrapper = () => {
   ];
   const handleChange = (event) => {
     console.log(event.target.value);
-    setUserName(event.target.value);
+    setName(event.target.value);
   };
   return (
     <App>
@@ -60,7 +83,7 @@ const CertificateWrapper = () => {
             position: "absolute",
             left: "160mm",
             top: "55mm",
-            height: "150mm",
+            height: "130mm",
             width: "147mm",
             border: "1mm solid #991B1B",
             backgroundcolor: "#d6d6e4",
@@ -72,7 +95,7 @@ const CertificateWrapper = () => {
               position: "absolute",
               left: "10mm",
               top: "10mm",
-              height: "128mm",
+              height: "108mm",
               width: "125mm",
               border: "1mm solid #991B1B",
               background: "white",
@@ -84,7 +107,7 @@ const CertificateWrapper = () => {
                 border: "1mm solid #991B1B",
                 margin: "4mm",
                 padding: "10mm",
-                height: "118mm",
+                height: "98mm",
                 textAlign: "center",
               }}
             >
@@ -112,7 +135,7 @@ const CertificateWrapper = () => {
                 style={{
                   fontSize: "20pt",
                   marginBottom: "0",
-                  marginTop: "5mm",
+                  marginTop: "1mm",
                 }}
               >
                 This Certificate Is Proudly Presented To
@@ -122,7 +145,7 @@ const CertificateWrapper = () => {
                   fontSize: "12pt",
                 }}
               >
-                {username}
+                {name}
               </p>
               <h3
                 style={{
@@ -179,7 +202,7 @@ const CertificateWrapper = () => {
           bottom: "10mm",
         }}
       >
-        <h5>Enter your name please</h5>
+        <h5>Enter the name to be shown on the certificate</h5>
         <Input.TextArea
           onChange={handleChange}
           placeholder="Enter you name please"
@@ -188,7 +211,7 @@ const CertificateWrapper = () => {
       <div>
         <Box
           sx={{
-            height: 400,
+            height: 350,
             width: 1050,
             transform: "translateZ(100px)",
             flexGrow: 2,
@@ -208,6 +231,42 @@ const CertificateWrapper = () => {
             ))}
           </SpeedDial>
         </Box>
+        <div
+          style={{
+            display: "Flex",
+            flexDirection: "column",
+            gap: "20%",
+            justifyContent: "center",
+            alignItems: "center",
+            fontSize: "25px",
+          }}
+        >
+          <h4>
+            We will be sending you an email to {useremail} to change the
+            password
+          </h4>
+          <Form
+            name="normal_login"
+            className="change-password-form"
+            initialValues={{
+              remember: true,
+            }}
+            onFinish={onFinish}
+          >
+            <Form.Item>
+              <Button
+                type="primary"
+                htmlType="submit"
+                className="login-form-button"
+                style={{
+                  width: "100%",
+                }}
+              >
+                Send
+              </Button>
+            </Form.Item>
+          </Form>
+        </div>
       </div>
     </App>
   );
