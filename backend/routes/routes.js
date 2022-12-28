@@ -1354,6 +1354,43 @@ const updateCourseProgress = async (req, res) => {
     )
     .clone();
 };
+const instructorFilterCourses = async (req, res) => {
+  const username = req.params.username;
+  const filterType = req.params.filterType;
+  const key = req.params.key;
+  if (filterType == null || key == null) {
+    res.status(404).send("enter a filter type");
+  } else {
+    courses
+      .find({ username: username })
+      .where(filterType, key)
+      .exec((err, result) => {
+        if (err) {
+          res.status(500).send(err.message);
+        } else if (result) {
+          res.status(200).json(result);
+        }
+      });
+  }
+};
+const instructorFilterByPrice = async (req, res) => {
+  const { username, min, max } = req.params;
+  console.log(req.params);
+  courses.find(
+    {
+      username: username,
+      $and: [{ price: { $lte: max } }, { price: { $gte: min } }],
+    },
+    (err, result) => {
+      if (err) {
+        res.status(500).send();
+        console.log(err);
+      } else {
+        res.status(200).json(result);
+      }
+    }
+  );
+};
 module.exports = {
   getUser,
   search,
@@ -1400,4 +1437,6 @@ module.exports = {
   getCourseChats,
   approveInstructor,
   updateCourseProgress,
+  instructorFilterCourses,
+  instructorFilterByPrice,
 };

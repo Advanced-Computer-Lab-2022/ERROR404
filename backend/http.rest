@@ -1,12 +1,11 @@
-PUT  http://localhost:2020/addCourseToStudent
-Content-Type: application/json
+GET http://localhost:2020/instructorFilterCourses/abdelrahman/title/CSEN 301 
+# Content-Type: application/json
 
-{
-    "username": "bruno",
-    "courseId": "638775f1aa3227ac76bb2de1",
-    "progress": "30",
-    "usertype": "individual"
-}
+# {
+#       "id": "638501f2a9b064e47ee7e0ed",
+#       "sender": "ali",
+#       "message": "i am sending a test message"
+# }
 
 # {
 #    "username" :"abdelrahman", 

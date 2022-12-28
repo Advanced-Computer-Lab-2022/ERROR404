@@ -1,66 +1,104 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
-import { Button, Modal, Form, Input, Select } from "antd";
-import { Collapse } from "antd";
+import { Button, Modal, Form, Input, Select, Slider, Collapse } from "antd";
+
+import { AppContext } from "../../AppContext";
+import { useNavigate } from "react-router-dom";
 const { Option } = Select;
 
 const { Panel } = Collapse;
 
-const InstructorFilter = () => {
+const InstructorFilterCourses = ({ values }) => {
+  const { username } = useContext(AppContext);
+  const [userName, setUserName] = username;
   const [data, setData] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [FilterType, setFilterType] = useState("");
+  const [min, setMin] = useState();
+  const [max, setMax] = useState();
+  const navigate = useNavigate();
 
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleOk = () => {
-    setIsModalOpen(false);
-  };
-
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
-
-  useEffect(() => {
-    console.log("data =>  ", data);
-  }, [data]);
+  useEffect(() => {}, [data]);
 
   const getCourses = (filterType, value) => {
-    setIsModalOpen(true);
-    console.log("filename ", filterType);
-    axios({
-      method: "get",
-      url: "http://localhost:2020/filter/" + filterType + "/" + value,
-    })
-      .then((response) => {
-        setData(response.data);
+    if (filterType == "price") {
+      axios({
+        method: "get",
+        url:
+          "http://localhost:2020/InstructorFilterByPrice/" +
+          userName +
+          "/" +
+          min +
+          "/" +
+          max,
       })
-      .catch((error) => {
-        console.log("erorr ", error.message);
-      });
+        .then((response) => {
+          setData(response.data);
+        })
+        .catch((error) => {
+          console.log("erorr ", error.message);
+        });
+    } else {
+      axios({
+        method: "get",
+        url:
+          "http://localhost:2020/instructorFilterCourses/" +
+          userName +
+          "/" +
+          filterType +
+          "/" +
+          value,
+      })
+        .then((response) => {
+          setData(response.data);
+        })
+        .catch((error) => {
+          console.log("erorr ", error.message);
+        });
+    }
   };
 
   const [form] = Form.useForm();
   const onFinish = async (event) => {
-    console.log(" => ", event);
     const value = event.value;
-    const filterType = event.filterType;
-    console.log(value);
+    const filterType = FilterType;
+    if (filterType == "price") {
+      setIsModalOpen(false);
+      navigate(
+        "/Instructorfilter?filterType=" +
+          filterType +
+          "&min=" +
+          min +
+          "&max=" +
+          max
+      );
+      console.log(isModalOpen);
+    } else {
+      setIsModalOpen(false);
+      navigate(
+        "/Instructorfilter?filterType=" + filterType + "&value=" + value
+      );
+    }
 
-    await getCourses(filterType, value);
+    getCourses(filterType, value);
   };
-
+  const onChange = async () => {
+    setFilterType(form.getFieldValue("filterType"));
+  };
+  const change = async (value) => {
+    setMax(value[1]);
+    setMin(value[0]);
+  };
   const onReset = () => {
     form.resetFields();
   };
-
   return (
     <>
       <Form onFinish={onFinish} form={form} name="control-hooks">
         <Form.Item label="Filter By:" name="filterType">
           <Select
             placeholder="Select a option and change input text above"
+            onChange={onChange}
             allowClear
           >
             <Option value="title" key="Title">
@@ -72,12 +110,27 @@ const InstructorFilter = () => {
             <Option value="subject" key="Subject">
               By Subject
             </Option>
+            <Option value="instructor" key="Instructor">
+              By Instructor
+            </Option>
           </Select>
         </Form.Item>
-        <Form.Item name="value" label="value" rules={[{ required: true }]}>
-          <Input />
-        </Form.Item>
-
+        {form.getFieldValue("filterType") == "price" ? (
+          <Form.Item name="value1" label="value" rules={[{ required: true }]}>
+            <Slider
+              onChange={change}
+              range={{
+                draggableTrack: true,
+              }}
+              defaultValue={[0, 5000]}
+              max={5000}
+            />
+          </Form.Item>
+        ) : (
+          <Form.Item name="value" label="value" rules={[{ required: true }]}>
+            <Input />
+          </Form.Item>
+        )}
         <Form.Item>
           <Button type="primary" htmlType="submit">
             Submit
@@ -87,33 +140,8 @@ const InstructorFilter = () => {
           </Button>
         </Form.Item>
       </Form>
-
-      <Modal
-        title="Basic Modal"
-        open={isModalOpen}
-        onOk={handleOk}
-        onCancel={handleCancel}
-      >
-        <Collapse defaultActiveKey={["1"]}>
-          {data.map((course) => {
-            console.log("here");
-            return (
-              <Panel header={course.title} key={course._id}>
-                <p>Title: {course.title}</p>
-                <p>Summary: {course.summary}</p>
-                <p>Instructor: {course.instructor}</p>
-                <p>Price: {course.price}</p>
-                <p>rating: {course.rating}</p>
-                <p>Total Hours: {course.totalHours}</p>
-                <p>Subject: {course.subject}</p>
-                <p>Discount: {course.discount}</p>
-              </Panel>
-            );
-          })}
-        </Collapse>
-      </Modal>
     </>
   );
 };
 
-export default InstructorFilter;
+export default InstructorFilterCourses;

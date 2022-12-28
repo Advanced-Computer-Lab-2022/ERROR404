@@ -54,6 +54,8 @@ const {
   getCourseChats,
   approveInstructor,
   updateCourseProgress,
+  instructorFilterCourses,
+  instructorFilterByPrice,
 } = require("./routes/routes");
 
 //App variables
@@ -126,3 +128,11 @@ app.put("/updateViews", updateViews);
 app.get("/filterByPrice/:min/:max", filterByPrice);
 app.get("/getChats/:username/:usertype", getChats);
 app.put("/approveInstructor", approveInstructor);
+app.get(
+  "/instructorFilterByPrice/:username/:min/:max",
+  instructorFilterByPrice
+);
+app.get(
+  "/instructorFilterCourses/:username/:filterType/:key",
+  instructorFilterCourses
+);
