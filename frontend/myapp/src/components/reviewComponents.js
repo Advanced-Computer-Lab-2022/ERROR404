@@ -10,6 +10,7 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import { Avatar, List, Space, Rate } from "antd";
+import { borderRadius } from "@mui/system";
 
 const messageExamples = [
   {
@@ -30,8 +31,7 @@ const ReviewNavigation = () => {
   const { username } = useContext(AppContext);
   const [userName, setUserName] = username;
   const [messages, setMessages] = useState([]);
-  const [rate, setRate] = useState(0);
-
+  const [rate, setRate] = useState();
   useEffect(() => {
     axios
       .get("http://localhost:2020/viewRatingAndReviews/" + userName)
@@ -44,16 +44,22 @@ const ReviewNavigation = () => {
   }, []);
   return (
     <div>
+      <br />
       My Rate :
-      <Rate allowHalf defaultValue={rate} disabled={true} />
+      <Rate allowHalf value={rate} disabled={true} />
       <List
         itemLayout="vertical"
         size="small"
+        style={{
+          height: 400,
+          overflow: "auto",
+        }}
         pagination={{
           onChange: (page) => {
             console.log(page);
           },
-          pageSize: 5,
+
+          pageSize: 10,
         }}
         dataSource={messages}
         renderItem={(item) => (
@@ -61,12 +67,19 @@ const ReviewNavigation = () => {
             style={{
               boxSizing: "border-box",
               padding: "2px",
+              border: "1px solid rgba(140, 140, 140, 0.35)",
             }}
           >
-            <List.Item key={item}>
+            <List.Item key={item} style={{ color: "black" }}>
               <List.Item.Meta
+                style={{
+                  alignItems: "center",
+                  justifyContent: "center",
+                  marginTop: "15px",
+                  fontWeight: "bold",
+                }}
                 avatar={<Avatar icon={<UserOutlined />} />}
-                title={item}
+                description={item}
               />
             </List.Item>
           </div>
