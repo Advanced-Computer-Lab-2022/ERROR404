@@ -1015,11 +1015,16 @@ const addCourseToStudent = async (req, res) => {
   const username = req.body.username;
   const courseId = req.body.courseId;
   const usertype = req.body.usertype;
+
+  const progress = {
+    course: courseId,
+    progress: 0,
+  };
   if (usertype == "corporate") {
     corporateTrainee
       .updateOne(
         { username: username },
-        { $addToSet: { Regcourses: courseId } },
+        { $addToSet: { Regcourses: courseId, progress: progress } },
         (err, result) => {
           if (err) {
             res.status(500).send();
@@ -1045,7 +1050,7 @@ const addCourseToStudent = async (req, res) => {
     individualTrainee
       .updateOne(
         { username: username },
-        { $addToSet: { Regcourses: courseId } },
+        { $addToSet: { Regcourses: courseId, progress: progress } },
         (err, result) => {
           if (err) {
             res.status(500).send();
@@ -1325,6 +1330,30 @@ const getCourseChats = async (req, res) => {
     }
   }).clone();
 };
+
+const updateCourseProgress = async (req, res) => {
+  let model;
+  if (req.body.usertype == "individual") {
+    model = individualTrainee;
+  } else if (req.body.usertype == "corporate") {
+    model = corporateTrainee;
+  }
+
+  await model
+    .findOneAndUpdate(
+      { _id: req.body.id, "progress.course": req.body.courseId },
+      { $set: { "progress.$.progress": req.body.progress } },
+      (err, data) => {
+        if (err) {
+          console.log(err);
+          res.status(500).send(err);
+        } else {
+          res.status(200).send();
+        }
+      }
+    )
+    .clone();
+};
 module.exports = {
   getUser,
   search,
@@ -1370,4 +1399,5 @@ module.exports = {
   createCourseChat,
   getCourseChats,
   approveInstructor,
+  updateCourseProgress,
 };

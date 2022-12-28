@@ -47,7 +47,6 @@ const courses = new Schema(
         },
       },
     ],
-
     exercises: {
       type: Array,
       default: [],

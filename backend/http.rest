@@ -1,11 +1,12 @@
-GET  http://localhost:2020/getCourseChats/638501f2a9b064e47ee7e0ed
-# Content-Type: application/json
+PUT  http://localhost:2020/addCourseToStudent
+Content-Type: application/json
 
-# {
-#       "id": "638501f2a9b064e47ee7e0ed",
-#       "sender": "ali",
-#       "message": "i am sending a test message"
-# }
+{
+    "username": "bruno",
+    "courseId": "638775f1aa3227ac76bb2de1",
+    "progress": "30",
+    "usertype": "individual"
+}
 
 # {
 #    "username" :"abdelrahman", 

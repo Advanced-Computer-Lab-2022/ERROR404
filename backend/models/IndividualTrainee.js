@@ -92,10 +92,17 @@ const individualTrainee = new Schema(
         },
       },
     ],
-    chats: {
-      type: ObjectId,
-      ref: "Chats",
-    },
+
+    progress: [
+      {
+        course: {
+          type: String,
+        },
+        progress: {
+          type: Number,
+        },
+      },
+    ],
   },
   { timestamps: true }
 );

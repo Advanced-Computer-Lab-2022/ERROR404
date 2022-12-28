@@ -53,6 +53,7 @@ const {
   createCourseChat,
   getCourseChats,
   approveInstructor,
+  updateCourseProgress,
 } = require("./routes/routes");
 
 //App variables
@@ -110,6 +111,7 @@ app.patch("/rateAndReviewCourse", rateAndReviewCourse);
 app.patch("/insertVideoLinkToCourse", insertVideoLinkToCourse);
 app.patch("/addCreditCardInfo", addCreditCardInfo);
 app.patch("/createCourseChat", createCourseChat);
+app.patch("/updateCourseProgress", updateCourseProgress);
 
 app.put("/uploadPreviewVideoForCourse", uploadPreviewVideoForCourse);
 app.put("/editEmail", editEmail);
