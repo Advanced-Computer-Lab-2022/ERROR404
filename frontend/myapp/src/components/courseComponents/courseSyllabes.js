@@ -13,7 +13,7 @@ const CourseSyllabus = () => {
 
     const urlParams = new URLSearchParams(idSearch);
     const courseId = urlParams.get("courseId");
-
+    console.log(courseId);
     setCourseId(courseId);
   }, [navigate]);
   return (

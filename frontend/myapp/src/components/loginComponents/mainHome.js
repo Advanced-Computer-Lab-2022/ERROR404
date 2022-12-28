@@ -34,6 +34,7 @@ const LoginComponent = ({ values }) => {
     userRegion,
     userPhone,
     userType,
+    traineeCourses,
   } = useContext(AppContext);
   const [userName, setUsername] = username;
   const [useremail, setUserEmail] = userEmail;
@@ -44,6 +45,7 @@ const LoginComponent = ({ values }) => {
   const [region, setRegion] = userRegion;
   const [instructorbio, setInstructorBio] = instructorBio;
   const [isLoggedIn, setIsLoggedIn] = loggedIn;
+  const [traineeEnrolledCourses, setTraineeCourses] = traineeCourses;
   const [user, setUser] = useState("");
   const [value, setValues] = useState({
     username: "",
@@ -103,6 +105,10 @@ const LoginComponent = ({ values }) => {
               setUserType(user);
               if (user == "instructor") {
                 setInstructorBio(data.biography);
+              } else if (user == "individual" || user == "corporate") {
+                console.log(data.Regcourses);
+                setTraineeCourses(data.Regcourses);
+                console.log(traineeEnrolledCourses);
               }
               setIsModalOpen(false);
             } else {

@@ -121,6 +121,7 @@ const MainHeader = ({ values }) => {
         "2",
         <BugReportIcon />
       ),
+      getItem(<Link to="/viewAllCourses">Explore All Courses</Link>, "4"),
     ];
   } else {
     items = [
@@ -195,7 +196,10 @@ const MainHeader = ({ values }) => {
         alignItems: "center",
       }}
     >
-      <span>ERROR404</span>
+      <img
+        src="https://drnajafbeigi.com/wp-content/uploads/404%D8%AB.png"
+        style={{ height: "80%" }}
+      />
       <SearchByForm />
       <Menu
         theme="dark"

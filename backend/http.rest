@@ -1,11 +1,11 @@
-POST  http://localhost:2020/createReport
-Content-Type: application/json
+GET  http://localhost:2020/getCourseChats/638501f2a9b064e47ee7e0ed
+# Content-Type: application/json
 
-{
-      "username": "bruno",
-      "usertype": "individual",
-      "description": "testdkfmldsmclkcmlskmdslkdscmlsd"
-}
+# {
+#       "id": "638501f2a9b064e47ee7e0ed",
+#       "sender": "ali",
+#       "message": "i am sending a test message"
+# }
 
 # {
 #    "username" :"abdelrahman", 

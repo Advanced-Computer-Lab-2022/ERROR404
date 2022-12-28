@@ -34,7 +34,7 @@ const PreviewCourseWrapper = () => {
 
     const urlParams = new URLSearchParams(idSearch);
     const courseId = urlParams.get("courseId");
-
+    setCourseId(courseId);
     let body = {
       id: courseId,
     };

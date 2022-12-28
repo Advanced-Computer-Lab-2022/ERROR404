@@ -1,9 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
-import App from "../App";
+import App from "../../App";
 import { Breadcrumb, Layout, Menu, Image, Empty } from "antd";
-import { AppContext } from "../AppContext";
 import axios from "axios";
-import CourseComponent from "./coursesListComponent";
+import TraineePrograms from "./traineePrograms";
+import { AppContext } from "../../AppContext";
+
 const { Header, Footer, Sider, Content } = Layout;
 
 const MyProgrmas = () => {
@@ -24,7 +25,7 @@ const MyProgrmas = () => {
   }, []);
   return (
     <App>
-      <CourseComponent courses={courses} viewType="My Programs" />
+      <TraineePrograms courses={courses} viewType="My Programs" />
     </App>
   );
 };

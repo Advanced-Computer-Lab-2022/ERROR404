@@ -181,6 +181,9 @@ const App = ({ children }) => {
       <Layout style={{ minHeight: "90vh" }} theme="dark">
         <Sider
           width={300}
+          style={{
+            height: "100vh",
+          }}
           theme="dark"
           // collapsible
           // collapsed={collapsed}
