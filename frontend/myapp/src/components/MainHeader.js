@@ -118,7 +118,11 @@ const MainHeader = ({ values }) => {
         key: "home",
       }, // remember to pass the key prop
       {
-        label: <Link to="/viewAllCourses">Explore All Courses</Link>,
+        label: (
+          <Link className="link" to="/viewAllCourses">
+            Explore All Courses
+          </Link>
+        ),
         key: "explore",
       },
       getItem(
@@ -144,7 +148,26 @@ const MainHeader = ({ values }) => {
         ),
         key: "myClassroom",
       },
-      getItem(<Link to="/settings">Settings</Link>, "3", <SettingFilled />),
+      getItem(
+        <Link className="link" to="/settings">
+          Settings
+        </Link>,
+        "3",
+        <SettingFilled />
+      ),
+      getItem(
+        <Link
+          className="link"
+          to="/"
+          onClick={() => {
+            logout();
+          }}
+        >
+          Logout
+        </Link>,
+        "2",
+        <LogoutOutlined />
+      ),
       {
         label: (
           <Popover content={userName}>

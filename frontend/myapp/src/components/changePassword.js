@@ -69,7 +69,10 @@ const ChangePasswordPage = () => {
           console.log("hello2");
         })
         .catch((err) => {
-          message.error("An unexpected error has occurred", 3);
+          message.error(
+            "An unexpected error has occurred " + err.response.data,
+            3
+          );
           console.log("error at change password ", JSON.stringify(err));
         });
     } else {

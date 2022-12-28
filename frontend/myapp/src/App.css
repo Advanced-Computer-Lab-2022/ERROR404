@@ -43,10 +43,12 @@
   background-size: cover;
 }
 .dataScience {
-  background-image: url("https://www.northeastern.edu/graduate/blog/wp-content/uploads/2020/06/iStock-1221293664-1-1-1.jpg");
+  background-image: url("https://img.freepik.com/premium-photo/black-stone-texture-dark-slate-background-top-view_88281-1206.jpg?w=2000");
+  /* background-image: "back.png"; */
   background-repeat: no-repeat;
   background-size: cover;
   background-color: black;
+  
 }
 
 .changePasswordWrapper {

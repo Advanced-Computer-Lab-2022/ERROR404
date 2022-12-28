@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import App from "../App";
-import { Button, Modal, Tooltip } from "antd";
+import { Button, message, Modal, Tooltip } from "antd";
 import { FilterOutlined } from "@ant-design/icons";
 import CourseComponent from "./coursesListComponent";
 import SearchByForm from "./getCourses";
@@ -32,6 +32,7 @@ const Filter = () => {
         setCourses(response.data);
       })
       .catch((error) => {
+        message.error(error.response.data, 3);
         console.log("erorr ", error.message);
         setCourses([]);
       });
@@ -53,7 +54,7 @@ const Filter = () => {
         onOk={handleOk}
         onCancel={handleCancel}
       >
-        <SearchByForm  />
+        <SearchByForm />
       </Modal>
       <CourseComponent courses={courses} />
     </App>

@@ -1,5 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
-import { HomeOutlined, SettingFilled, LogoutOutlined } from "@ant-design/icons";
+import {
+  HomeOutlined,
+  SettingFilled,
+  LogoutOutlined,
+  ReconciliationOutlined,
+} from "@ant-design/icons";
 import ViewWeekIcon from "@mui/icons-material/ViewWeek";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import ReviewsIcon from "@mui/icons-material/Reviews";
@@ -29,46 +34,80 @@ const InstructorDashboard = ({ children }) => {
   const navigate = useNavigate();
 
   const items = [
-    getItem(<Link to="/">Home</Link>, "1", <HomeOutlined />),
     getItem(
-      <Link to="/instructorDashBoard">My Dashboard</Link>,
+      <Link className="link" to="/">
+        Home
+      </Link>,
+      "1",
+      <HomeOutlined />
+    ),
+    getItem(
+      <Link className="link" to="/instructorDashBoard">
+        My Dashboard
+      </Link>,
       "2",
       <DashboardIcon />
     ),
     getItem(
-      <Link to="/instructorDashBoard/allMyCourses">View all my courses</Link>,
+      <Link className="link" to="/instructorDashBoard/allMyCourses">
+        View all my courses
+      </Link>,
       "4",
       <ViewWeekIcon />
     ),
 
     getItem(
-      <Link to="/instructorDashBoard/balance">My Balance</Link>,
+      <Link className="link" to="/instructorDashBoard/balance">
+        My Balance
+      </Link>,
       "17",
       <AccountBalanceWalletIcon />
     ),
     getItem(
-      <Link to="/instructorDashBoard/reviews">My Reviews</Link>,
+      <Link className="link" to="/instructorDashBoard/reviews">
+        My Reviews
+      </Link>,
       "18",
       <ReviewsIcon />
     ),
     getItem(
-      <Link to="/instructorDashBoard/createCourse">Create New Course</Link>,
+      <Link className="link" to="/instructorDashBoard/createCourse">
+        Create New Course
+      </Link>,
       "19",
       <AddBoxIcon />
     ),
     getItem(
-      <Link to="/instructorDashBoard/createQuiz">Create New Quiz</Link>,
+      <Link className="link" to="/instructorDashBoard/createQuiz">
+        Create New Quiz
+      </Link>,
       "20",
       <AddBoxIcon />
     ),
     getItem(
-      <Link to="/instructorDashBoard/addDiscount">Add Discount</Link>,
+      <Link className="link" to="/instructorDashBoard/addDiscount">
+        Add Discount
+      </Link>,
       "21",
       <AddBoxIcon />
     ),
-    getItem(<Link to="/settings">Settings</Link>, "15", <SettingFilled />),
+    getItem(
+      <Link className="link" to="/settings">
+        Settings
+      </Link>,
+      "15",
+      <SettingFilled />
+    ),
+    getItem(
+      <Link className="link" to="/user/reports">
+        My Tickets
+      </Link>,
+      "18",
+      <ReconciliationOutlined />
+    ),
     getItem(
       <Link
+        className="link"
         to="/"
         onClick={() => {
           logout();
@@ -138,7 +177,7 @@ const InstructorDashboard = ({ children }) => {
             <Content
               style={{
                 padding: "0 24px",
-                minHeight: 280,
+                minHeight: "80vh",
               }}
             >
               {children}
