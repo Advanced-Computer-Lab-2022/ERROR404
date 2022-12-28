@@ -51,8 +51,8 @@ const CourseComponent = ({ courses, viewType }) => {
       .then(() => {
         message.success("discount added", 3);
       })
-      .catch(() => {
-        message.error("error", 3);
+      .catch((err) => {
+        message.error("error " + err.response.data, 3);
       });
   };
   const onFinishFailed1 = (errorInfo) => {
@@ -163,7 +163,7 @@ const CourseComponent = ({ courses, viewType }) => {
       })
       .catch((err) => {
         console.log("error at add preview url ", JSON.stringify(err));
-        message.error("Unexpected error has occured ", 3);
+        message.error("Unexpected error has occured " + err.response.data, 3);
       });
   };
 

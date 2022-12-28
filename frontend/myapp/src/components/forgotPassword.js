@@ -49,7 +49,7 @@ const ForgotPasswordPage = () => {
       .then(
         (result) => message.success("An Email has been sent successfully!! "),
         (error) => {
-          message.error("Oops... " + JSON.stringify(error));
+          message.error("Oops... " + err.response.data);
           console.log(JSON.stringify(error));
         }
       );
