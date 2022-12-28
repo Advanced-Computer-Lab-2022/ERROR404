@@ -44,7 +44,12 @@ const HomePage = () => {
             Professional Certificates, and degrees from world-class universities
             and companies.
           </h4>
-          <Button type="primary">
+          <Button
+            type="primary"
+            style={{
+              backgroundColor: "#001529",
+            }}
+          >
             <Link
               style={{
                 textDecoration: "none",
