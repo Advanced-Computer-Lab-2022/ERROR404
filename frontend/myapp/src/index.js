@@ -74,6 +74,7 @@ import TakeNotesWrapper from "./components/takeNotes";
 import CreateRequestWrapper from "./components/corporateCreateRequest";
 import Subtitles from "./components/subtitles";
 import InstructorFilteredCourses from "./components/instructorComponents/instructorFilteredCourses";
+import CourseSubtitles from "./components/courseComponents/courseSyllabes";
 export default function MainApp() {
   const [username, setUsername] = useState("");
   const [userEmail, setUserEmail] = useState("");
@@ -176,7 +177,7 @@ export default function MainApp() {
           <Route path="/course/about" element={<PreviewCourseWrapper />} />
           <Route path="/course/conversation" element={<CourseConversation />} />
           <Route path="/course/reviews" element={<CourseReview />} />
-          <Route path="/course/syllabus" element={<CourseSyllabus />} />
+          <Route path="/course/syllabus" element={<CourseSubtitles />} />
           <Route path="/SolveExam" element={<SolveExamWrapper />} />
           <Route path="/user/myPrograms" element={<MyPrograms />} />
 

@@ -27,7 +27,7 @@ const SocialMediaComponent = () => {
             color: "white",
             textDecoration: "none",
           }}
-          href="https://www.facebook.com/mohamed.tamer.7393264"
+          href="https://www.facebook.com/CanCham/"
           onClick="return func();"
         >
           <FacebookOutlined
@@ -75,7 +75,7 @@ const SocialMediaComponent = () => {
             color: "white",
             textDecoration: "none",
           }}
-          href="https://www.youtube.com/channel/UCm3-9EhovPw8IVP6PgfActA"
+          href="https://www.youtube.com/channel/UC1ykoFKsMjVQCx3TeLIXDbg"
           onClick="return func();"
         >
           {" "}

@@ -6,6 +6,8 @@ import App from "../App";
 import { FilterOutlined } from "@ant-design/icons";
 import SearchByForm from "./getCourses";
 import CourseComponent from "./coursesListComponent";
+import TopCourses from "./topCourses";
+
 const { Option } = Select;
 
 const { Panel } = Collapse;
@@ -57,23 +59,6 @@ const ViewAllCourses = () => {
 
   return (
     <>
-      <Tooltip title="search">
-        <Button
-          type="primary"
-          shape="circle"
-          icon={<FilterOutlined />}
-          onClick={showModal}
-        />
-      </Tooltip>
-
-      <Modal
-        title="Filter"
-        open={isModalOpen}
-        onOk={handleOk}
-        onCancel={handleCancel}
-      >
-        <SearchByForm />
-      </Modal>
       <CourseComponent courses={data} viewType="view" />
     </>
   );

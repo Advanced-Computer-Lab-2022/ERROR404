@@ -4,6 +4,7 @@ import {
   SettingFilled,
   LogoutOutlined,
   ReconciliationOutlined,
+  UsergroupDeleteOutlined,
 } from "@ant-design/icons";
 import ViewWeekIcon from "@mui/icons-material/ViewWeek";
 import DashboardIcon from "@mui/icons-material/Dashboard";
@@ -14,6 +15,7 @@ import { Link, useNavigate } from "react-router-dom";
 import AddBoxIcon from "@mui/icons-material/AddBox";
 import { AppContext } from "../../AppContext";
 import FooterWrapper from "../footer";
+import { InstructorStudents } from "./instructorMainDashboard";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -106,6 +108,14 @@ const InstructorDashboard = ({ children }) => {
       <ReconciliationOutlined />
     ),
     getItem(
+      <Link className="link" to="/user/reports">
+        My Students
+      </Link>,
+      "19",
+      <ReconciliationOutlined />,
+      [getItem(<InstructorStudents />, "20", <UsergroupDeleteOutlined />)]
+    ),
+    getItem(
       <Link
         className="link"
         to="/"
@@ -159,21 +169,6 @@ const InstructorDashboard = ({ children }) => {
               padding: "24px 0",
             }}
           >
-            <Sider
-              className="site-layout-background"
-              width={200}
-              style={{
-                maxHeight: "500px",
-              }}
-            >
-              <Menu
-                mode="inline"
-                theme="dark"
-                defaultSelectedKeys={["1"]}
-                defaultOpenKeys={["sub1"]}
-                items={items}
-              />
-            </Sider>
             <Content
               style={{
                 padding: "0 24px",

@@ -259,7 +259,7 @@ const MainHeader = ({ values }) => {
       {
         label: (
           <Link className="link" onClick={() => setIsDrawerOpen(true)}>
-            Join for free
+            Sign Up
           </Link>
         ),
         key: "signup",
