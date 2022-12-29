@@ -23,6 +23,8 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import SubmitDiscount from "./instructorComponents/instructorSubmitDiscount";
 import CreateRequestWrapper from "./corporateCreateRequest";
+import SearchByForm from "./getCourses";
+import TopCourses from "./topCourses";
 
 const IconText = ({ icon, text }) => (
   <Space>
@@ -170,141 +172,179 @@ const CourseComponent = ({ courses, viewType }) => {
   };
 
   return (
-    <>
-      <List
-        itemLayout="vertical"
-        size="large"
-        pagination={{
-          onChange: (page) => {
-            console.log(page);
-          },
-          pageSize: 4,
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "flex-start",
+        gap: "5px",
+        width: "100%",
+      }}
+    >
+      <div
+        style={{
+          width: "20%",
+          height: "100vh",
+          backgroundColor: "black",
         }}
-        dataSource={courses}
-        renderItem={(item) => (
-          <div>
-            <List.Item
-              key={item._id}
-              onClick={() => {
-                if (user == "instructor" && viewType == "instructor") {
-                  setIsModalOpen(true);
-                } else if (
-                  user == "individual" ||
-                  user == "admin" ||
-                  user == "" ||
-                  user == null
-                ) {
-                  navigation("/course/about?courseId=" + item._id);
-                }
-              }}
-              actions={[
-                <IconText
-                  icon={EyeOutlined}
-                  text={item.views}
-                  key="list-vertical-like-o"
-                />,
-                <IconText
-                  icon={MessageOutlined}
-                  text={item.review.length}
-                  key="list-vertical-message"
-                />,
-                <IconText
-                  icon={HourglassOutlined}
-                  text={item.totalHours + " hours"}
-                  key="list-vertical-message"
-                />,
-                <IconText
-                  icon={DollarOutlined}
-                  text={item.price == 0 ? "FREE" : item.price}
-                  key="list-vertical-message"
-                />,
-                <IconText
-                  icon={UsergroupDeleteOutlined}
-                  text={item.numberOfSubscribers}
-                  key="list-vertical-message"
-                />,
-              ]}
-              extra={
-                <Space>
-                  {user == "corporate" ? (
-                    <>
-                      <CreateRequestWrapper courseId={item._id} />{" "}
-                      <Button
-                        onClick={() => {
-                          navigation("/course/about?courseId=" + item._id);
+      >
+        <SearchByForm />
+      </div>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          width: "80%",
+          gap: "40px",
+        }}
+      >
+        <TopCourses />
+
+        <hr
+          style={{
+            border: "solid 1px black",
+            width: "96%",
+            color: "#FFFF00",
+            height: "1px",
+          }}
+        />
+
+        <List
+          itemLayout="vertical"
+          size="large"
+          pagination={{
+            onChange: (page) => {
+              console.log(page);
+            },
+            pageSize: 6,
+          }}
+          dataSource={courses}
+          renderItem={(item) => (
+            <div>
+              <List.Item
+                key={item._id}
+                onClick={() => {
+                  if (user == "instructor" && viewType == "instructor") {
+                    setIsModalOpen(true);
+                  } else if (
+                    user == "individual" ||
+                    user == "admin" ||
+                    user == "" ||
+                    user == null
+                  ) {
+                    navigation("/course/about?courseId=" + item._id);
+                  }
+                }}
+                actions={[
+                  <IconText
+                    icon={EyeOutlined}
+                    text={item.views}
+                    key="list-vertical-like-o"
+                  />,
+                  <IconText
+                    icon={MessageOutlined}
+                    text={item.review.length}
+                    key="list-vertical-message"
+                  />,
+                  <IconText
+                    icon={HourglassOutlined}
+                    text={item.totalHours + " hours"}
+                    key="list-vertical-message"
+                  />,
+                  <IconText
+                    icon={DollarOutlined}
+                    text={item.price == 0 ? "FREE" : item.price}
+                    key="list-vertical-message"
+                  />,
+                  <IconText
+                    icon={UsergroupDeleteOutlined}
+                    text={item.numberOfSubscribers}
+                    key="list-vertical-message"
+                  />,
+                ]}
+                extra={
+                  <Space>
+                    {user == "corporate" ? (
+                      <>
+                        <CreateRequestWrapper courseId={item._id} />{" "}
+                        <Button
+                          onClick={() => {
+                            navigation("/course/about?courseId=" + item._id);
+                          }}
+                        >
+                          View Course
+                        </Button>
+                      </>
+                    ) : null}
+                    {user == "instructor" && viewType == "instructor" ? (
+                      <div
+                        style={{
+                          display: "flex",
+                          flexDirection: "column",
                         }}
                       >
-                        View Course
-                      </Button>
-                    </>
-                  ) : null}
-                  {user == "instructor" && viewType == "instructor" ? (
-                    <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                      }}
-                    >
-                      <Button
-                        style={{ width: "100%" }}
-                        type="dashed"
-                        onClick={() => {
-                          openPreview(item._id, item.title);
-                        }}
-                      >
-                        Add preview video
-                      </Button>
-                      <Button
-                        style={{ width: "100%" }}
-                        type="dashed"
-                        onClick={() => {
-                          navigation("createQuiz?courseId=" + item._id);
-                        }}
-                      >
-                        Create Quiz
-                      </Button>
-                      <Button
-                        style={{ width: "100%" }}
-                        type="dashed"
-                        onClick={() => {
-                          openDis(item._id, item.title);
-                        }}
-                      >
-                        Add Dicount
-                      </Button>
-                      <Link to={"reviews?courseId=" + item._id}>
                         <Button
                           style={{ width: "100%" }}
                           type="dashed"
                           onClick={() => {
-                            setTitle(item.title);
-                            setId(item._id);
+                            openPreview(item._id, item.title);
                           }}
                         >
-                          View Reviews
+                          Add preview video
                         </Button>
-                      </Link>
-                    </div>
-                  ) : null}
-                  <img
-                    width={250}
-                    alt="logo"
-                    src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
-                  />
-                </Space>
-              }
-            >
-              <List.Item.Meta
-                title={<a href={item.href}>{item.title}</a>}
-                description={item.summary}
-              />
-              {<Rate allowHalf defaultValue={item.rating} disabled={true} />}
-            </List.Item>
-          </div>
-        )}
-      />
-      {user == "instructor" ? <></> : null}
-    </>
+                        <Button
+                          style={{ width: "100%" }}
+                          type="dashed"
+                          onClick={() => {
+                            navigation("createQuiz?courseId=" + item._id);
+                          }}
+                        >
+                          Create Quiz
+                        </Button>
+                        <Button
+                          style={{ width: "100%" }}
+                          type="dashed"
+                          onClick={() => {
+                            openDis(item._id, item.title);
+                          }}
+                        >
+                          Add Dicount
+                        </Button>
+                        <Link to={"reviews?courseId=" + item._id}>
+                          <Button
+                            style={{ width: "100%" }}
+                            type="dashed"
+                            onClick={() => {
+                              setTitle(item.title);
+                              setId(item._id);
+                            }}
+                          >
+                            View Reviews
+                          </Button>
+                        </Link>
+                      </div>
+                    ) : null}
+                    <img
+                      width={250}
+                      alt="logo"
+                      src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
+                    />
+                  </Space>
+                }
+              >
+                <List.Item.Meta
+                  title={<a href={item.href}>{item.title}</a>}
+                  description={item.summary}
+                />
+                {<Rate allowHalf defaultValue={item.rating} disabled={true} />}
+              </List.Item>
+            </div>
+          )}
+        />
+        {user == "instructor" ? <></> : null}
+      </div>
+    </div>
   );
 };
 

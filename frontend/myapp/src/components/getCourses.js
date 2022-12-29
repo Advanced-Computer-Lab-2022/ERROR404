@@ -8,7 +8,6 @@ const { Panel } = Collapse;
 
 const SearchByForm = ({ values }) => {
   const [data, setData] = useState([]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [FilterType, setFilterType] = useState("");
   const [min, setMin] = useState();
   const [max, setMax] = useState();
@@ -47,13 +46,10 @@ const SearchByForm = ({ values }) => {
     const value = event.value;
     const filterType = FilterType;
     if (filterType == "price") {
-      setIsModalOpen(false);
       navigate(
         "/filter?filterType=" + filterType + "&min=" + min + "&max=" + max
       );
-      console.log(isModalOpen);
     } else {
-      setIsModalOpen(false);
       navigate("/filter?filterType=" + filterType + "&value=" + value);
     }
 

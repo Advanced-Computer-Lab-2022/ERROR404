@@ -8,6 +8,7 @@ import { AppContext } from "../AppContext";
 import DemoWordCloud from "./WelcomePageComponents";
 import { Link } from "react-router-dom";
 import { color, height } from "@mui/system";
+import Sponsors from "./sponsors";
 
 const HomePageWrapper = () => {
   return (
@@ -162,17 +163,6 @@ const HomePage = () => {
         }}
       />
 
-      <TopCourses />
-
-      <hr
-        style={{
-          border: "solid 1px black",
-          width: "96%",
-          color: "#FFFF00",
-          height: "1px",
-        }}
-      />
-
       <div
         style={{
           width: "100%",
@@ -186,14 +176,15 @@ const HomePage = () => {
       >
         <h1>The trusted market leader in talent transformation.</h1>
 
-        <Image
+        <Sponsors />
+        {/* <Image
           preview={false}
           src="https://www.udacity.com/www-proxy/contentful/assets/2y9b3o528xhq/47TPYX0wcqm1okPq5KsTD8/9a199f7634901bfa0b5bbdbb456983eb/customer-logos-mobile2.png"
           height="80%"
           style={{
             objectFit: "contain",
           }}
-        ></Image>
+        ></Image> */}
       </div>
     </div>
   );

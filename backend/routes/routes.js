@@ -1460,7 +1460,7 @@ const updateRequestStatus = (req, res) => {
 const getAllSubtitles = async (req, res) => {
   const courseId = req.params.id;
   await courses
-    .find({ _id: courseId }, { subtitles: 1 }, (err, data) => {
+    .findOne({ _id: courseId }, { subtitles: 1 }, (err, data) => {
       if (err) {
         res.status(500).json(err);
       } else if (data) {

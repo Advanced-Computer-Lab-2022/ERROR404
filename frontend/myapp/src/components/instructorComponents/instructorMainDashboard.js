@@ -56,15 +56,7 @@ const InstructorStudents = () => {
 
   return (
     <>
-      <Card>
-        <Statistic
-          title="Your Students"
-          value={totalStudents}
-          valueStyle={{ color: "#3f8600" }}
-          prefix={<UsergroupDeleteOutlined />}
-          suffix="students"
-        />
-      </Card>
+      <span>{totalStudents} students</span>
     </>
   );
 };
@@ -89,5 +81,7 @@ const InstructorLikes = () => {
     </div>
   );
 };
+
+export { InstructorStudents };
 
 export default InstructorMainDashboard;

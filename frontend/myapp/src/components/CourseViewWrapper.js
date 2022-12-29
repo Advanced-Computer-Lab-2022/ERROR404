@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   LaptopOutlined,
   NotificationOutlined,
@@ -21,6 +21,8 @@ import { Breadcrumb, Button, Layout, Menu, Rate } from "antd";
 import { Link } from "react-router-dom";
 import FooterWrapper from "./footer";
 import { AppContext } from "../AppContext";
+import CourseSubtitles from "./courseComponents/courseSyllabes";
+import axios from "axios";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -98,28 +100,6 @@ const PreviewCourses = ({ children, courseId }) => {
         "2",
         <PreviewIcon />
       ),
-      getItem(
-        <Link className="link" to={`/course/syllabus?courseId=${courseId}`}>
-          Syllabus
-        </Link>,
-        "3",
-        <ViewTimelineIcon />
-      ),
-
-      getItem(
-        <Link className="link" to={`/course/reviews?courseId=${courseId}`}>
-          Course Reviews
-        </Link>,
-        "5",
-        <ReviewsIcon />
-      ),
-      getItem(
-        <Link className="link" to={`/course/pay?courseId=${courseId}`}>
-          <Button ghost>BUY NOW!!</Button>
-        </Link>,
-        "6",
-        <ShoppingCartIcon />
-      ),
     ];
   }
 
@@ -128,6 +108,7 @@ const PreviewCourses = ({ children, courseId }) => {
       <Header className="header">
         <Menu theme="dark" mode="horizontal" items={items} />
       </Header>
+
       <Content
         style={{
           padding: "0 50px",
@@ -146,22 +127,15 @@ const PreviewCourses = ({ children, courseId }) => {
           </Breadcrumb.Item>
           <Breadcrumb.Item>Web Development</Breadcrumb.Item>
         </Breadcrumb>
+
         <Layout
           className="site-layout-background"
           style={{
             padding: "24px 0",
           }}
         >
-          <Sider className="site-layout-background" width={200}>
-            <Menu
-              theme="dark"
-              mode="inline"
-              style={{
-                height: "60vh",
-              }}
-              items={items}
-            />
-          </Sider>
+          <CourseSubtitles courseId={courseId} />
+
           <Content
             style={{
               padding: "0 24px",
