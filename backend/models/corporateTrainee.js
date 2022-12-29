@@ -66,6 +66,16 @@ const corporateTrainee = new Schema(
       type: ObjectId,
       ref: "Chats",
     },
+    progress: [
+      {
+        course: {
+          type: String,
+        },
+        progress: {
+          type: Number,
+        },
+      },
+    ],
   },
 
   { timestamps: true }

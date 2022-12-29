@@ -3,6 +3,7 @@ import {
   HomeOutlined,
   PlusCircleOutlined,
   DashboardOutlined,
+  QuestionOutlined,
 } from "@ant-design/icons";
 import { Breadcrumb, Layout, Menu, theme, Alert, Result, Button } from "antd";
 import { Link } from "react-router-dom";
@@ -32,6 +33,11 @@ const items = [
     <Link to="/adminDashboard/reports">Reports</Link>,
     "2",
     <BugReportIcon />
+  ),
+  getItem(
+    <Link to="/adminDashboard/requests">Course Requests</Link>,
+    "4",
+    <QuestionOutlined />
   ),
   getItem(
     <Link to="/adminCreateAdmin">Create New User</Link>,

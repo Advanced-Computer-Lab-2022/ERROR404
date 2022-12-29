@@ -1,14 +1,14 @@
 const corporateTrainee = require("../models/corporateTrainee");
 const courses = require("../models/courses");
+const Courses = require("../models/courses");
 const admin = require("../models/admin");
 const instructor = require("../models/instructor");
 const individualTrainee = require("../models/IndividualTrainee");
+const corporateRequests = require("../models/corporateRequests");
 const questions = require("../models/questions");
 const quizzes = require("../models/quizzes");
 const Reports = require("../models/reports");
-const chats = require("../models/chats");
 const { default: mongoose } = require("mongoose");
-const Courses = require("../models/courses");
 
 //Methods
 const createIndividualTrainee = (req, res) => {
@@ -53,6 +53,7 @@ const createIndividualTrainee = (req, res) => {
 };
 
 const getUser = async (req, res) => {
+  console.log("hello......" + req.body);
   const username = req.params.username;
   const userType = req.params.userType;
 
@@ -962,9 +963,7 @@ const createQuestions = async (req, res) => {
       answer: answerQes4,
       options: options4,
     };
-
     const array = [body1, body2, body3, body4];
-
     questions
       .insertMany(array)
       .then((docs) => {
@@ -1012,6 +1011,7 @@ const createQuiz = async (req, res) => {
   }
 };
 const addCourseToStudent = async (req, res) => {
+  console.log("helllz ", req.body);
   const username = req.body.username;
   const courseId = req.body.courseId;
   const usertype = req.body.usertype;
@@ -1198,17 +1198,22 @@ const createReport = async (req, res) => {
   const username = req.body.username;
   const usertype = req.body.usertype;
   const description = req.body.description;
+  const reportType = req.body.reportType;
+
   if (username == null || username.length == 0) {
     return res.status(400).send("username not sent");
   } else if (usertype == null || usertype.length == 0) {
     return res.status(400).send("usertype not sent");
   } else if (description == null || description.length == 0) {
     return res.status(400).send("description not sent");
+  } else if (reportType == null || reportType.length == 0) {
+    return res.status(400).send("Report Type not sent");
   } else {
     const body = {
       user: username,
       usertype: usertype,
       description: description,
+      reportType: reportType,
     };
     Reports.create(body, (err, result) => {
       if (err) {
@@ -1240,67 +1245,6 @@ const updateReportStatus = async (req, res) => {
     ).clone();
   }
 };
-const getChats = async (req, res) => {
-  const username = req.params.username;
-  const usertype = req.params.usertype;
-  if (usertype == "instructor") {
-    await instructor
-      .find({ username: username })
-      .populate("chat")
-      .exec((err, result) => {
-        if (err) {
-          return res.status(500).json({ error: err });
-        }
-        res.status(200).json({ result: result });
-      });
-  } else if (usertype == "individual") {
-    await individualTrainee
-      .find({ username: username })
-      .populate("Chat")
-      .exec((err, result) => {
-        if (err) {
-          return res.json({ error: err });
-        }
-        res.json({ result: result });
-      });
-  } else if (usertype == "corporate") {
-    await corporateTrainee
-      .find({ username: username })
-      .populate("Chat")
-      .exec((err, result) => {
-        if (err) {
-          return res.json({ error: err });
-        }
-        res.json({ result: result });
-      });
-  } else if (usertype == "admin") {
-    await admin
-      .find({ username: username })
-      .populate("Chat")
-      .exec((err, result) => {
-        if (err) {
-          return res.json({ error: err });
-        }
-        res.json({ result: result });
-      });
-  }
-};
-const createChat = (req, res) => {
-  const body = {
-    sender: req.body.sender,
-    reciver: req.body.reciver,
-    senderRole: req.body.senderRole,
-    reciverRole: req.body.reciverRole,
-    message: req.body.message,
-  };
-  chats.create(body, (err, result) => {
-    if (err) {
-      res.status(500).send(err);
-    } else {
-      res.status(200).send();
-    }
-  });
-};
 
 const createCourseChat = (req, res) => {
   const chat = {
@@ -1330,6 +1274,47 @@ const getCourseChats = async (req, res) => {
     }
   }).clone();
 };
+const createCorporateRequest = (req, res) => {
+  console.log(req.body);
+  const username = req.body.username;
+  const usertype = req.body.usertype;
+  const courseId = req.body.courseId;
+
+  if (usertype !== "corporate") {
+    return res.status(400).send("Error occured");
+  } else if (username == null || username.length == 0) {
+    return res.status(400).send("Please enter your username");
+  } else if (courseId == null || courseId.length == 0) {
+    return res.status(400).send("Please enter the course title");
+  } else {
+    const body = {
+      username: username,
+      userType: usertype,
+      courseId: courseId,
+    };
+    corporateRequests.create(body, (err, data) => {
+      if (err) {
+        res.status(500).json(err);
+      } else {
+        res.status(200).send(data);
+      }
+    });
+  }
+};
+
+const getAllRequests = async (req, res) => {
+  await corporateRequests
+    .find({}, (err, data) => {
+      if (err) {
+        res.status(500).json(err);
+      } else if (data) {
+        res.status(200).json(data);
+      } else {
+        res.status(404).send();
+      }
+    })
+    .clone();
+};
 
 const updateCourseProgress = async (req, res) => {
   let model;
@@ -1347,13 +1332,34 @@ const updateCourseProgress = async (req, res) => {
         if (err) {
           console.log(err);
           res.status(500).send(err);
-        } else {
-          res.status(200).send();
         }
       }
     )
     .clone();
 };
+const updateRequestStatus = (req, res) => {
+  const requestId = req.body.id;
+
+  if (requestId == null || requestId.length == 0) {
+    return res.status(400).send("Id not provided");
+  } else {
+    corporateRequests
+      .findByIdAndUpdate(
+        { _id: requestId },
+        { $set: { status: req.body.status } },
+        { runValidators: true },
+        (err, data) => {
+          if (err) {
+            res.status(500).json(err);
+          } else {
+            res.status(200).send();
+          }
+        }
+      )
+      .clone();
+  }
+};
+
 module.exports = {
   getUser,
   search,
@@ -1394,10 +1400,12 @@ module.exports = {
   getAllReports,
   createReport,
   updateReportStatus,
-  filterByPrice,
-  getChats,
-  createCourseChat,
+  createCorporateRequest,
+  getAllRequests,
   getCourseChats,
-  approveInstructor,
+  updateRequestStatus,
+  createCourseChat,
   updateCourseProgress,
+  approveInstructor,
+  filterByPrice,
 };

@@ -1,11 +1,14 @@
-PUT  http://localhost:2020/addCourseToStudent
+POST  http://localhost:2020/createReport
 Content-Type: application/json
 
 {
-    "username": "bruno",
-    "courseId": "638775f1aa3227ac76bb2de1",
-    "progress": "30",
-    "usertype": "individual"
+      "username": "dinaa",
+      "usertype": "instructor",
+      "description": "i have a severe problemmm",
+      "reportType": "financial"
+  
+ 
+  
 }
 
 # {

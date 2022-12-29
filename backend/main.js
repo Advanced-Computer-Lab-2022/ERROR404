@@ -49,11 +49,13 @@ const {
   createReport,
   updateReportStatus,
   filterByPrice,
-  getChats,
   createCourseChat,
   getCourseChats,
   approveInstructor,
   updateCourseProgress,
+  createCorporateRequest,
+  getAllRequests,
+  updateRequestStatus,
 } = require("./routes/routes");
 
 //App variables
@@ -93,8 +95,12 @@ app.get("/filter/:filterType/:key", filterCourses);
 app.get("/viewReviewAndRating/:username", viewReviewAndRatingForInstructor);
 app.get("/viewRatingAndReviews/:username", viewRatingAndReviews);
 app.get("/filterByPrice/:min/:max", filterByPrice);
-app.get("/getChats/:username/:usertype", getChats);
+//app.get("/getChats/:username/:usertype", getChats);
 app.get("/getCourseChats/:id", getCourseChats);
+app.get("/getAllRequests", getAllRequests);
+//app.get("/getExam/:id", getExamById);
+app.get("/getAllRequests", getAllRequests);
+app.get("/filterByPrice/:min/:max", filterByPrice);
 
 app.post("/createCorporateTrainee", createCorporateTrainee);
 app.post("/createAdmin", createAdmin);
@@ -104,6 +110,7 @@ app.post("/createIndividualTrainee", createIndividualTrainee);
 app.post("/createQuestions", createQuestions);
 app.post("/createQuiz", createQuiz);
 app.post("/createReport", createReport);
+app.post("/createCorporateRequest", createCorporateRequest);
 
 app.patch("/country", chooseCountry);
 app.patch("/rateAndReviewInstructor", rateAndReviewInstructor);
@@ -123,6 +130,7 @@ app.put("/addCourseToStudent", addCourseToStudent);
 app.put("/submitDiscount", submitDiscount);
 app.put("/updateReportStatus", updateReportStatus);
 app.put("/updateViews", updateViews);
-app.get("/filterByPrice/:min/:max", filterByPrice);
-app.get("/getChats/:username/:usertype", getChats);
+//app.get("/getChats/:username/:usertype", getChats);
 app.put("/approveInstructor", approveInstructor);
+app.put("/updateRequestStatus", updateRequestStatus);
+app.put("/updateRequestStatus", updateRequestStatus);
