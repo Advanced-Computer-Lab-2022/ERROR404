@@ -1447,6 +1447,4 @@ module.exports = {
   instructorFilterByPrice,
   approveInstructor,
   filterByPrice,
-  instructorFilterCourses,
-  instructorFilterByPrice,
 };
