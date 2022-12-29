@@ -188,7 +188,12 @@ const CourseComponent = ({ courses, viewType }) => {
               onClick={() => {
                 if (user == "instructor" && viewType == "instructor") {
                   setIsModalOpen(true);
-                } else if (user == "individual" || user == "admin") {
+                } else if (
+                  user == "individual" ||
+                  user == "admin" ||
+                  user == "" ||
+                  user == null
+                ) {
                   navigation("/course/about?courseId=" + item._id);
                 }
               }}
