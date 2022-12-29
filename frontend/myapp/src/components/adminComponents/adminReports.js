@@ -22,7 +22,7 @@ const { Option } = Select;
 
 const AdminReportsWrapper = () => {
   return (
-    <AdminDashboard>
+    <AdminDashboard pageName="Reports">
       <AdminReports />
     </AdminDashboard>
   );
@@ -32,6 +32,8 @@ const AdminReports = () => {
   const [data, setData] = useState();
   const [loading, setLoading] = useState(false);
   const [filter, setFilter] = useState([]);
+  const [reportType, setReportType] = useState([]);
+  const [refresh, setRefresh] = useState(true);
 
   const [form] = Form.useForm();
 
@@ -47,6 +49,7 @@ const AdminReports = () => {
         .then((res) => {
           console.log(res);
           message.success("status has been changed to " + status);
+          setRefresh(!refresh);
         });
       setTimeout(() => resolve(null), 3000);
     });
@@ -453,10 +456,7 @@ const AdminReports = () => {
       let data = [];
       results.data.map((item) => {
         if (filter != null && filter.length > 0) {
-          if (
-            filter.includes(item.status) ||
-            filter.includes(item.reportType)
-          ) {
+          if (filter.includes(item.status)) {
             data.push(item);
           }
         } else {
@@ -472,7 +472,7 @@ const AdminReports = () => {
   useEffect(() => {
     fetchData();
     console.log("--------> ", filter);
-  }, [filter]);
+  }, [filter, reportType, refresh]);
 
   const handleChange = (event) => {
     console.log(event);
@@ -481,7 +481,8 @@ const AdminReports = () => {
     console.log(filters.status);
     console.log(filters.reportType);
     setFilter(filters.status);
-    setFilter(filters.reportType);
+    setReportType(filters.reportType);
+    //setFilter(filters.reportType);
   };
   return (
     <>

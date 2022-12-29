@@ -7,7 +7,7 @@ import DemoPie from "./adminReportsStatistics";
 
 const AdminMainDashboardWrapper = () => {
   return (
-    <AdminDashboard>
+    <AdminDashboard pageName="Dashboard">
       <AdminMainDashboard />
     </AdminDashboard>
   );
@@ -20,14 +20,15 @@ const AdminMainDashboard = () => {
   const [userName, setUserName] = username;
   return (
     <Alert
+      style={{
+        position: "relative",
+      }}
       type="info"
       banner
       message={
         <>
-          <Marquee pauseOnHover gradient={false}>
-            Welcome Back {userName}, This is a summary for all your reports and
-            requests
-          </Marquee>
+          Welcome Back {userName}, This is a summary for all your reports and
+          requests
           <DemoPie />
         </>
       }
