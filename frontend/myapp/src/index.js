@@ -75,6 +75,7 @@ import AdminRequestsWrapper from "./components/adminComponents/adminViewCourseRe
 import TakeNotesWrapper from "./components/takeNotes";
 import CreateRequestWrapper from "./components/corporateCreateRequest";
 
+import InstructorFilteredCourses from "./components/instructorComponents/instructorFilteredCourses";
 export default function MainApp() {
   const [username, setUsername] = useState("");
   const [userEmail, setUserEmail] = useState("");
@@ -193,6 +194,11 @@ export default function MainApp() {
           />
 
           <Route path="Acceptagreement" element={<AcceptAgreWrapper />} />
+
+          <Route
+            path="InstructorFilter"
+            element={<InstructorFilteredCourses />}
+          />
           <Route path="/user/reports" element={<TraineeReportsWrapper />} />
           <Route path="/terms" element={<Terms />} />
           <Route path="ReportaProblem" element={<ReportaProblemWrapper />} />
