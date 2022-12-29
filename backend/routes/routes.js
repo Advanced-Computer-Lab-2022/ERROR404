@@ -1,5 +1,6 @@
 const corporateTrainee = require("../models/corporateTrainee");
 const courses = require("../models/courses");
+const Courses = require("../models/courses");
 const admin = require("../models/admin");
 const instructor = require("../models/instructor");
 const individualTrainee = require("../models/IndividualTrainee");
