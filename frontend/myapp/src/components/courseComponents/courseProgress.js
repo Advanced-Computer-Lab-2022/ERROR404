@@ -1,27 +1,46 @@
 import React from "react";
-import { useMemo, useState, useContext } from "react";
+import { useEffect, useState, useContext } from "react";
 import { RightOutlined, LinkOutlined } from "@ant-design/icons";
-import { Button, Progress } from "antd";
+import { Button, Progress, Space } from "antd";
 import { Checkbox } from "antd";
 import axios from "axios";
-import { AppContext } from "../AppContext";
+import { AppContext } from "../../AppContext";
 import { message, Select, Form, Item, Input } from "antd";
 const ProgressWrapper = () => {
-  const [progress, setProgress] = useState("");
-  const { userType, username } = useContext(AppContext);
+  const [progress, setProgress] = useState(0);
+  const { username, userType } = useContext(AppContext);
+  const [userName, setUserName] = username;
   const [usertype, setUserType] = userType;
+
+  useEffect(() => {
+    const idSearch = window.location.search;
+    console.log(idSearch);
+
+    const urlParams = new URLSearchParams(idSearch);
+    const courseId = urlParams.get("courseId");
+    axios
+      .get(`http://localhost:2020/getUser/${userName}/${usertype}`)
+      .then((response) => {
+        console.log(response.data.progress);
+        response.data.progress.map((course) => {
+          if (course.course == courseId) {
+            setProgress(course);
+          }
+        });
+      });
+  }, []);
 
   const onFinish = async (event) => {
     console.log("Success:", event);
     const progress = event.progress;
 
-    await courseProgress(progress);
+    await updateProgress(progress);
   };
 
-  const courseProgress = async (progress) => {
+  const updateProgress = async (progress) => {
     const requestBody = {
-      //currentUser: currentUser,
       usertype: usertype,
+      progress: progress,
     };
     axios
       .patch("http://localhost:2020/updateCourseProgress", requestBody)
@@ -50,7 +69,15 @@ const ProgressWrapper = () => {
     });
   };
   return (
-    <div>
+    <Form
+      name="basic"
+      labelCol={{ span: 8 }}
+      wrapperCol={{ span: 16 }}
+      initialValues={{ remember: true }}
+      onFinish={onFinish}
+      onFinishFailed={onFinishFailed}
+      autoComplete="off"
+    >
       <div
         style={{
           display: "flex",
@@ -226,7 +253,12 @@ const ProgressWrapper = () => {
         </a>
         <Checkbox onClick={increase}> </Checkbox>
       </div>
-    </div>
+      <Form.Item wrapperCol={{ offset: 21, span: "50%" }}>
+        <Button type="primary" htmlType="submit">
+          Save
+        </Button>
+      </Form.Item>
+    </Form>
   );
 };
 export default ProgressWrapper;
