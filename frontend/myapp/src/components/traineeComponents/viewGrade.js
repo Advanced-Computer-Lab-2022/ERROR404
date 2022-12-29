@@ -4,7 +4,7 @@ import { Form } from "antd";
 import { Collapse, Table } from "antd";
 import App from "../../App";
 import { AppContext } from "../../AppContext";
-import TraineeDashboard from "../../pages/TraineeDashboard";
+import TraineeDashboard from "./TraineeDashboard";
 const { Column, ColumnGroup } = Table;
 
 const ViewGradeWrapper = () => {

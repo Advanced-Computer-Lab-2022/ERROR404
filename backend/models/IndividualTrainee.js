@@ -61,10 +61,6 @@ const individualTrainee = new Schema(
       type: Map,
       default: "",
     },
-    wallet: {
-      type: Number,
-      default: 0,
-    },
     creditCardInfo: [
       {
         holderName: {
@@ -103,6 +99,14 @@ const individualTrainee = new Schema(
         },
       },
     ],
+    chats: {
+      type: ObjectId,
+      ref: "Chats",
+    },
+    balance: {
+      type: Number,
+      default: 0,
+    },
   },
   { timestamps: true }
 );

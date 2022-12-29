@@ -58,6 +58,8 @@ const {
   updateRequestStatus,
   instructorFilterCourses,
   instructorFilterByPrice,
+  traineebalance,
+  getAllSubtitles,
 } = require("./routes/routes");
 
 //App variables
@@ -103,6 +105,8 @@ app.get("/getAllRequests", getAllRequests);
 //app.get("/getExam/:id", getExamById);
 app.get("/getAllRequests", getAllRequests);
 app.get("/filterByPrice/:min/:max", filterByPrice);
+app.get("/getMyBalance/:username", traineebalance);
+app.get("/getAllSubtitles/:id",getAllSubtitles)
 
 app.post("/createCorporateTrainee", createCorporateTrainee);
 app.post("/createAdmin", createAdmin);
@@ -135,7 +139,6 @@ app.put("/updateViews", updateViews);
 //app.get("/getChats/:username/:usertype", getChats);
 app.put("/approveInstructor", approveInstructor);
 app.put("/updateRequestStatus", updateRequestStatus);
-app.put("/updateRequestStatus", updateRequestStatus);
 app.get(
   "/instructorFilterByPrice/:username/:min/:max",
   instructorFilterByPrice
@@ -144,3 +147,9 @@ app.get(
   "/instructorFilterCourses/:username/:filterType/:key",
   instructorFilterCourses
 );
+app.get("/filterByPrice/:min/:max", filterByPrice);
+//app.get("/getChats/:username/:usertype", getChats);
+
+
+
+

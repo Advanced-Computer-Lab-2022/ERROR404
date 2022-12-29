@@ -74,6 +74,7 @@ import AdminFilterReports from "./components/adminComponents/adminFilterReports"
 import AdminRequestsWrapper from "./components/adminComponents/adminViewCourseRequests";
 import TakeNotesWrapper from "./components/takeNotes";
 import CreateRequestWrapper from "./components/corporateCreateRequest";
+import Subtitles from "./components/subtitles";
 
 import InstructorFilteredCourses from "./components/instructorComponents/instructorFilteredCourses";
 export default function MainApp() {
@@ -234,8 +235,8 @@ export default function MainApp() {
             element={<TraineeSettingsWrapper />}
           />
           <Route
-            path="/traineeDashboard/traineeViewCourses"
-            element={<TraineeViewCourses />}
+            path="/subtitles"
+            element={<Subtitles/>}
           />
           <Route path="/TakeNotes" element={<TakeNotesWrapper />} />
           <Route path="/AdminFilterReports" element={<AdminFilterReports />} />

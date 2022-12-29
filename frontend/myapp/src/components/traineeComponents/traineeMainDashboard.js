@@ -1,10 +1,11 @@
-import TraineeDashboard from "../../pages/TraineeDashboard";
+import TraineeDashboard from "./TraineeDashboard";
 import { Alert } from "antd";
 import Marquee from "react-fast-marquee";
 import { AppContext } from "../../AppContext";
 //import TraineeViewCourses from "./traineeViewCourses";
 import CourseComponent from "../coursesListComponent";
 import React, { useContext, useEffect, useState } from "react";
+import CourseComponentTrainee from "../coursesListTraineeComponent";
 
 const TraineeMainDashboardWrapper = () => {
   return (
@@ -77,7 +78,7 @@ const TraineeViewCourses = () => {
           justifyContent: "space-between",
         }}
       >
-      <CourseComponent courses={courses} viewType="individual" />
+      <CourseComponentTrainee courses={courses} viewType="individual" />
       </div>
   );
 };

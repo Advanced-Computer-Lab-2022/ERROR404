@@ -19,7 +19,7 @@ import CreditCardIcon from "@mui/icons-material/CreditCard";
 import DialpadIcon from "@mui/icons-material/Dialpad";
 import App from "../App";
 import { UserSettingPage } from "../pages/settingsPage";
-import TraineeDashboard from "../pages/TraineeDashboard";
+import TraineeDashboard from "./traineeComponents/TraineeDashboard";
 
 const monthFormat = "YYYY/MM";
 

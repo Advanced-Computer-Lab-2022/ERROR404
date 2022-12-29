@@ -5,6 +5,7 @@ import React, { useContext, useState, useEffect } from "react";
 const desc = [1, 2, 3, 4, 5];
 const ReviewComponent = () => {
   const [value, setValue] = useState(0);
+  const [componentDisabled, setComponentDisabled] = useState(false);
   const reviewInstructor = async (event) => {
     const requestBody = {
       username: event.username,
@@ -28,14 +29,15 @@ const ReviewComponent = () => {
         name="reviewIntructor"
         className="reviewIntructor-form"
         initialValues={{ remember: true }}
+        disabled={componentDisabled}
         onFinish={reviewInstructor}
         style={{
-          width: "50%",
+          width: "90%",
         }}
       >
         <Form.Item
           name="username"
-          label="enter your instructor username"
+          label="Enter your instructor username"
           rules={[
             { required: true, message: "Please your Instructor username" },
           ]}
@@ -45,7 +47,7 @@ const ReviewComponent = () => {
 
         <Form.Item
           name="review"
-          label="enter your review"
+          label="Enter your review"
           rules={[
             { required: true, message: "Please enter your review" },
             { minLength: 5 },
@@ -67,10 +69,15 @@ const ReviewComponent = () => {
             htmlType="submit"
             className="login-form-button"
             style={{
-              width: "50%",
+              width: "70%",
+              marginTop:"10%",
+              alignItems:"center",
+            }}
+            onClick={() => {
+              setComponentDisabled(true);
             }}
           >
-            submit
+            Submit Review
           </Button>
         </Form.Item>
       </Form>
