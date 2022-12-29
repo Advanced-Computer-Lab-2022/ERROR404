@@ -81,11 +81,11 @@ const LoginComponent = ({ values }) => {
     console.log(value);
     console.log("user " + user);
 
-    if (value.username == "" || value.password == "" || user == "") {
+    if (value.username == "" || value.password == "") {
       message.warning("All fields must be filled first", 3);
     } else {
       axios
-        .get(`http://localhost:2020/getUser/${value.username}/${user}`)
+        .get(`http://localhost:2020/login/${value.username}`)
         .then((response) => {
           console.log(response);
           if (response.data == null) {
@@ -102,10 +102,13 @@ const LoginComponent = ({ values }) => {
               setUserMongoId(data._id);
               setUsername(data.username);
               setUserPassword(data.password);
-              setUserType(user);
-              if (user == "instructor") {
+              setUserType(data.role);
+              if (data.role == "instructor") {
                 setInstructorBio(data.biography);
-              } else if (user == "individual" || user == "corporate") {
+              } else if (
+                data.role == "individual" ||
+                data.role == "corporate"
+              ) {
                 console.log(data.Regcourses);
                 setTraineeCourses(data.Regcourses);
                 console.log(traineeEnrolledCourses);
@@ -134,7 +137,7 @@ const LoginComponent = ({ values }) => {
   return (
     <>
       <Space>
-        <Button
+        {/* <Button
           type="primary"
           shape="round"
           icon={<LoginIcon />}
@@ -145,24 +148,7 @@ const LoginComponent = ({ values }) => {
             {" "}
             Sign In
           </Link>
-        </Button>
-        <Button
-          type="primary"
-          shape="round"
-          icon={<PersonAddIcon />}
-          size="medium"
-        >
-          <Link
-            to="/signUp"
-            style={{
-              color: "white",
-              textDecoration: "none",
-            }}
-          >
-            {" "}
-            Create new Account
-          </Link>
-        </Button>
+        </Button> */}
       </Space>
 
       <div
@@ -229,7 +215,7 @@ const LoginComponent = ({ values }) => {
             }
           />
         </FormControl>
-        <FormControl sx={{ m: 1, width: "70%" }} variant="standard" required>
+        {/* <FormControl sx={{ m: 1, width: "70%" }} variant="standard" required>
           <InputLabel id="demo-simple-select-label">User Type</InputLabel>
           <Select
             labelId="demo-simple-select-label"
@@ -243,28 +229,32 @@ const LoginComponent = ({ values }) => {
             <MenuItem value={"admin"}>Administrator</MenuItem>
             <MenuItem value={"corporate"}>Corporate Trainee</MenuItem>
           </Select>
-        </FormControl>
+        </FormControl> */}
         <Button type="primary" icon={<Fingerprint />} onClick={handleClick}>
           Login
         </Button>
-        <Button type="link">
-          <Link
-            to="/signup"
-            style={{
-              textDecoration: "none",
-            }}
-            onClick={() => setIsModalOpen(false)}
-          >
-            Or Register
-          </Link>
-        </Button>
+        <br />
+        <br />
+        <h6>Have not joined us yet?</h6>
+        <br />
+
+        <Link
+          type="link"
+          to="signUp"
+          style={{
+            color: "blue",
+            textDecoration: "none",
+          }}
+        >
+          {" "}
+          Create new Account
+        </Link>
+
         <hr
           style={{
             height: 5,
           }}
         />
-
-        <Button type="link">Log in with your organization</Button>
       </div>
     </>
   );

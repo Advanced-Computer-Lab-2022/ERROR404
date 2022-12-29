@@ -1,11 +1,11 @@
-GET http://localhost:2020/instructorFilterCourses/abdelrahman/title/CSEN 301 
-# Content-Type: application/json
+POST http://localhost:2020/createCorporateTrainee 
+Content-Type: application/json
 
-# {
-#       "id": "638501f2a9b064e47ee7e0ed",
-#       "sender": "ali",
-#       "message": "i am sending a test message"
-# }
+{
+    "admin": "alighieth",
+    "username": "seif",
+    "password": "123"
+}
 
 # {
 #    "username" :"abdelrahman", 

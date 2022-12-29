@@ -51,7 +51,7 @@ const individualTrainee = new Schema(
     },
     role: {
       type: String,
-      default: "Individual-trainee",
+      default: "individual",
     },
     Regcourses: {
       type: Array,

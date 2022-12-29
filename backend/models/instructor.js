@@ -46,7 +46,7 @@ const instructor = new Schema(
     },
     role: {
       type: String,
-      default: "Instructor",
+      default: "instructor",
     },
     courses: {
       type: Schema.Types.ObjectId,

@@ -9,10 +9,10 @@ const questions = require("../models/questions");
 const quizzes = require("../models/quizzes");
 const Reports = require("../models/reports");
 const chats = require("../models/chats");
-const { default: mongoose } = require("mongoose");
+const usernames = require("../models/usernames");
 
 //Methods
-const createIndividualTrainee = (req, res) => {
+const createIndividualTrainee = async (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
   const firstname = req.body.firstname;
@@ -20,6 +20,13 @@ const createIndividualTrainee = (req, res) => {
   const age = req.body.age;
   const gender = req.body.gender;
   const email = req.body.email;
+  let x;
+  await usernames
+    .find({ name: username })
+    .count({ limit: 1 })
+    .then((count) => {
+      x = count;
+    });
   //const country = req.body.country;
   const userData = {
     firstname: firstname,
@@ -38,12 +45,16 @@ const createIndividualTrainee = (req, res) => {
     lastname == null ||
     age == null ||
     gender == null ||
-    email == null 
+    email == null
     // country == null
   ) {
     return res.status(400).json("Valid data not submitted");
+  } else if (x == 1) {
+    return res.status(409).json("username already in use");
   } else {
-    individualTrainee.create(userData, function (err, small) {
+    await usernames.create({ name: username });
+
+    await individualTrainee.create(userData, function (err, small) {
       if (err) {
         res.status(500).send("Database not responding  => " + err);
       } else {
@@ -54,7 +65,6 @@ const createIndividualTrainee = (req, res) => {
 };
 
 const getUser = async (req, res) => {
-  console.log("hello......" + req.body);
   const username = req.params.username;
   const userType = req.params.userType;
 
@@ -103,6 +113,63 @@ const getUser = async (req, res) => {
   }
 
   // we need to implement new schema
+};
+const login = async (req, res) => {
+  const username = req.params.username;
+  await corporateTrainee
+    .findOne({ username: username }, async (err, result) => {
+      if (result == null) {
+        await admin
+          .findOne(
+            { username: username },
+
+            async (err, result) => {
+              if (result == null) {
+                await individualTrainee
+                  .findOne(
+                    { username: username },
+
+                    async (err, result) => {
+                      if (result == null) {
+                        await instructor
+                          .findOne(
+                            { username: username },
+
+                            async (err, result) => {
+                              if (result == null) {
+                                res
+                                  .status(403)
+                                  .send("username or password are invalid");
+                              } else {
+                                res.status(200).send(result);
+
+                                console.log(result);
+                              }
+                            }
+                          )
+                          .clone();
+                      } else {
+                        res.status(200).send(result);
+
+                        console.log(result);
+                      }
+                    }
+                  )
+                  .clone();
+              } else {
+                res.status(200).send(result);
+
+                console.log(result);
+              }
+            }
+          )
+          .clone();
+      } else {
+        res.status(200).send(result);
+        console.log(result);
+      }
+    })
+    .clone();
 };
 
 const reportProblem = async (req, res) => {
@@ -189,10 +256,16 @@ const coursePrice = async (req, res) => {
   }
 };
 const createAdmin = async (req, res) => {
-  const admin = req.body.admin;
+  const Admin = req.body.admin;
   const password = req.body.password;
   const username = req.body.username;
-
+  let x;
+  await usernames
+    .find({ name: username })
+    .count({ limit: 1 })
+    .then((count) => {
+      x = count;
+    });
   if (
     password == null ||
     username == null ||
@@ -202,35 +275,40 @@ const createAdmin = async (req, res) => {
     username.length == 0
   ) {
     return res.status(400).send("Required fields are not submitted");
-  }
-  await admin
-    .find({ username: admin }, (err, data) => {
-      if (err) {
-        return res.status(500).send(err);
-      } else {
-        console.log("data ", data.length);
-        if (data.length == 0) {
-          return res.status(401).send("Unautherized access");
+  } else if (x == 1) {
+    return res.status(409).json("username already in use");
+  } else {
+    await usernames.create({ name: username });
+    await admin
+      .find({ username: Admin }, (err, data) => {
+        if (err) {
+          return res.status(500).send(err);
         } else {
-          const adminData = {
-            password: password,
-            username: username,
-          };
-          admin.create(adminData, function (err, small) {
-            if (err) {
+          if (data.length == 0) {
+            return res.status(401).send("Unautherized access");
+          } else {
+            const adminData = {
+              password: password,
+              username: username,
+            };
+            admin.create(adminData, function (err, small) {
+              if (err) {
+                res
+                  .status(500)
+                  .send("Database not responding  => " + err.message);
+                console.log(err.message);
+                return;
+              }
+              // this means record created
               res
-                .status(500)
-                .send("Database not responding  => " + err.message);
-              console.log(err.message);
-              return;
-            }
-            // this means record created
-            res.status(200).send("admin " + username + " created Successfully");
-          });
+                .status(200)
+                .send("admin " + username + " created Successfully");
+            });
+          }
         }
-      }
-    })
-    .clone();
+      })
+      .clone();
+  }
 };
 const search = async (req, res) => {
   let query = {};
@@ -306,6 +384,13 @@ const createInstructor = async (req, res) => {
   const Admin = req.body.admin;
   const username = req.body.username;
   const password = req.body.password;
+  let x;
+  await usernames
+    .find({ name: username })
+    .count({ limit: 1 })
+    .then((count) => {
+      x = count;
+    });
   const instData = {
     // firstname: req.body.firstname,
     // lastname: req.body.lastname,
@@ -321,7 +406,10 @@ const createInstructor = async (req, res) => {
   };
   if (username == null || password == null) {
     res.status(400).json("Enter a valid data ");
+  } else if (x == 1) {
+    return res.status(409).json("username already in use");
   } else {
+    await usernames.create({ name: username });
     await admin
       .find({ username: Admin }, (err, result) => {
         if (err) {
@@ -353,7 +441,13 @@ const createCorporateTrainee = async (req, res) => {
   const Admin = req.body.admin;
   const password = req.body.password;
   const username = req.body.username;
-
+  let x;
+  await usernames
+    .find({ name: username })
+    .count({ limit: 1 })
+    .then((count) => {
+      x = count;
+    });
   const corpData = {
     firstname: "firstname",
     lastname: "lastname",
@@ -372,7 +466,10 @@ const createCorporateTrainee = async (req, res) => {
     // country == null
   ) {
     res.status(400).json("Enter a valid data ");
+  } else if (x == 1) {
+    return res.status(409).json("username already in use");
   } else {
+    await usernames.create({ name: username });
     await admin
       .findOne({ username: Admin }, (err, result) => {
         if (err) {
@@ -762,11 +859,9 @@ const viewReviewAndRatingForInstructor = async (req, res) => {
 
 const traineebalance = async (req, res) => {
   const username = req.params.username;
-  await individualTrainee.find(
-    {username:username},
-    {_id: 0, balance:1},
-    (err, result) => {
-      if(err){
+  await individualTrainee
+    .find({ username: username }, { _id: 0, balance: 1 }, (err, result) => {
+      if (err) {
         res.status(500).json(err);
       } else {
         res.status(200).json(result);
@@ -1362,18 +1457,19 @@ const updateRequestStatus = (req, res) => {
   }
 };
 
-
 const getAllSubtitles = async (req, res) => {
   const courseId = req.params.id;
-  await courses.find({ _id: courseId }, { subtitles: 1 }, (err, data) => {
-    if (err) {
-      res.status(500).json(err);
-    } else if (data) {
-      res.status(200).json(data);
-    } else {
-      res.status(404).send();
-    }
-  }).clone();
+  await courses
+    .find({ _id: courseId }, { subtitles: 1 }, (err, data) => {
+      if (err) {
+        res.status(500).json(err);
+      } else if (data) {
+        res.status(200).json(data);
+      } else {
+        res.status(404).send();
+      }
+    })
+    .clone();
 };
 
 const instructorFilterCourses = async (req, res) => {
@@ -1464,4 +1560,5 @@ module.exports = {
   approveInstructor,
   filterByPrice,
   getAllSubtitles,
+  login,
 };
