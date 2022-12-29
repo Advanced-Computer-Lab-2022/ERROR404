@@ -1,4 +1,4 @@
-import TraineeDashboard from "../../pages/TraineeDashboard";
+import TraineeDashboard from "./TraineeDashboard";
 import {
   SettingsPageSider,
   PersonalInformationTab,

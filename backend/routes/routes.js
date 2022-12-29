@@ -8,6 +8,7 @@ const corporateRequests = require("../models/corporateRequests");
 const questions = require("../models/questions");
 const quizzes = require("../models/quizzes");
 const Reports = require("../models/reports");
+const chats = require("../models/chats");
 const { default: mongoose } = require("mongoose");
 
 //Methods
@@ -19,7 +20,7 @@ const createIndividualTrainee = (req, res) => {
   const age = req.body.age;
   const gender = req.body.gender;
   const email = req.body.email;
-  const country = req.body.country;
+  //const country = req.body.country;
   const userData = {
     firstname: firstname,
     lastname: lastname,
@@ -28,7 +29,7 @@ const createIndividualTrainee = (req, res) => {
     username: username,
     password: password,
     email: email,
-    country: country,
+    // country: country,
   };
   if (
     username == null ||
@@ -37,8 +38,8 @@ const createIndividualTrainee = (req, res) => {
     lastname == null ||
     age == null ||
     gender == null ||
-    email == null ||
-    country == null
+    email == null 
+    // country == null
   ) {
     return res.status(400).json("Valid data not submitted");
   } else {
@@ -761,9 +762,11 @@ const viewReviewAndRatingForInstructor = async (req, res) => {
 
 const traineebalance = async (req, res) => {
   const username = req.params.username;
-  await individualTrainee
-    .find({ username: username }, { wallet: 1 }, (err, result) => {
-      if (err) {
+  await individualTrainee.find(
+    {username:username},
+    {_id: 0, balance:1},
+    (err, result) => {
+      if(err){
         res.status(500).json(err);
       } else {
         res.status(200).json(result);
@@ -1078,7 +1081,6 @@ const addCourseToStudent = async (req, res) => {
 };
 const getCourseById = async (req, res) => {
   const courseId = req.params.id;
-
   await courses
     .findOne({ _id: courseId }, (err, result) => {
       if (err) {
@@ -1360,6 +1362,20 @@ const updateRequestStatus = (req, res) => {
   }
 };
 
+
+const getAllSubtitles = async (req, res) => {
+  const courseId = req.params.id;
+  await courses.find({ _id: courseId }, { subtitles: 1 }, (err, data) => {
+    if (err) {
+      res.status(500).json(err);
+    } else if (data) {
+      res.status(200).json(data);
+    } else {
+      res.status(404).send();
+    }
+  }).clone();
+};
+
 const instructorFilterCourses = async (req, res) => {
   const username = req.params.username;
   const filterType = req.params.filterType;
@@ -1447,4 +1463,5 @@ module.exports = {
   instructorFilterByPrice,
   approveInstructor,
   filterByPrice,
+  getAllSubtitles,
 };

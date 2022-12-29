@@ -14,7 +14,7 @@ import {
 } from "../components/settingsPage";
 import { Link } from "react-router-dom";
 import InstructorDashboard from "../components/instructorComponents/InstructorDashboard";
-import TraineeDashboard from "./TraineeDashboard";
+import TraineeDashboard from "../components/traineeComponents/TraineeDashboard";
 import { AppContext } from "../AppContext";
 import FooterWrapper from "../components/footer";
 const { Header, Content, Footer, Sider } = Layout;

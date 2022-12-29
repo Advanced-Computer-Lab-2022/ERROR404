@@ -6,7 +6,7 @@ import emailjs from "@emailjs/browser";
 import { UserSettingPage } from "../pages/settingsPage";
 import App from "../App";
 import InstructorDashboard from "./instructorComponents/InstructorDashboard";
-import TraineeDashboard from "../pages/TraineeDashboard";
+import TraineeDashboard from "./traineeComponents/TraineeDashboard";
 import axios from "axios";
 
 const ChangePasswordPageWrapper = () => {

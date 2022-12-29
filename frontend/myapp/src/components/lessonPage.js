@@ -38,14 +38,14 @@ const items = [
 const WrapperLessonPage = () => {
   const [collapsed, setCollapsed] = useState(false);
   const [courseId, setCourseId] = useState("");
-  const [courseData, setCourseData] = useState("");
+  const [courseData, setCourseData] = useState([]);
+  const [courseSubTitles, setCourseSubTitles]= useState([]);
+  const [courseSubName, setCourseSubName]=useState("")
   const [courseDescription, setCourseDescription]= useState("");
-  const [courseTitle, setCourseTitle]= useState("");
+  const [courseVideo, setCourseVideo]= useState("");
 
   useEffect(() => {
     const idSearch = window.location.search;
-    
-
     const urlParams = new URLSearchParams(idSearch);
     const courseId = urlParams.get("courseId");
     console.log(idSearch);
@@ -53,17 +53,35 @@ const WrapperLessonPage = () => {
     setCourseId(courseId);
 
     axios
-      .get("http://localhost:2020/getCourse/" + courseId)
+      .get("http://localhost:2020/getCourse/63890eb0905b2b7822834673")
       .then((response) => {
         setCourseData(response.data);
         console.log(response.data);
-        console.log(response.data.subtitles.description.value);
-        setCourseTitle(response.data.title.value);
+        console.log(response.data.subtitles.map())
+        // console.log(response.data.subtitles.name)
+
       })
       .catch((err) => {
         console.log(err);
       });
   }, []);
+
+//   const items = response.data.map(subtitles)
+//   ([
+//     getItem('Go Back', '1', <LeftOutlined />), 
+//     getItem('Getting Started', 'sub1' , <DesktopOutlined /> , [
+//         getItem('Welcome to the Course!', '2'),
+//         getItem('What is JSON', '3'),
+//         getItem('Why JSON instead of JavaScript', '4'),
+//         getItem('Join our Online Learning Community', '5'),
+//   ]),
+//     getItem('JavaScript Refresher', 'sub2', <UserOutlined />, [
+//     getItem('Module Introduction', '6'),
+//     getItem('Understanding "let" and "const"', '7'),
+//     getItem('Arrow Functions', '8'),
+//   ]),
+  
+// ]);
 
   return (
     <Layout
@@ -88,14 +106,14 @@ const WrapperLessonPage = () => {
           }}
         >
            
-          <Breadcrumb
+          {/* <Breadcrumb
             style={{
               margin: '16px 5',
             }}
           >
             <Breadcrumb.Item>User</Breadcrumb.Item>
             <Breadcrumb.Item>Bill</Breadcrumb.Item>
-          </Breadcrumb>
+          </Breadcrumb> */}
 
           <iframe style={{
                 marginLeft:150,

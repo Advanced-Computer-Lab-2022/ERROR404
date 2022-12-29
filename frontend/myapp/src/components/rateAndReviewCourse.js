@@ -1,13 +1,18 @@
 import { Button, Form, Input, Rate, message, Space } from "antd";
 import axios from "axios";
-import React, { useContext, useState, useEffect } from "react";
+import React, {useState} from "react";
 
 const desc = [1, 2, 3, 4, 5];
-const ReviewCourseComponent = () => {
+function ReviewCourseComponent({Id}){
+  const [id, setCourseId]= useState(Id);
   const [value, setValue] = useState(0);
-  const reviewCourse = async (event) => {
+  const [componentDisabled, setComponentDisabled] = useState(false);
+ 
+  const reviewCourse = async (event) => {  
+    setCourseId({Id});
+    console.log(id);
     const requestBody = {
-      id: event.courseId,
+      courseId: id,
       review: event.review,
       newRate: value,
     };
@@ -15,6 +20,7 @@ const ReviewCourseComponent = () => {
       .patch("http://localhost:2020/rateAndReviewCourse", requestBody)
       .then((response) => {
         message.success("Your review has been submitted successfully", 5);
+        console.log(response);
       })
       .catch((error) => {
         console.log("erorr ", error);
@@ -27,19 +33,12 @@ const ReviewCourseComponent = () => {
       <Form
         name="reviewCourse"
         className="reviewIntructor-form"
-        initialValues={{ remember: true }}
+        disabled={componentDisabled}
         onFinish={reviewCourse}
         style={{
-          width: "50%",
+          width: "70%",
         }}
       >
-        <Form.Item
-          name="courseId"
-          label="Enter your course id"
-          rules={[{ required: true }]}
-        >
-          <Input placeholder="Enter your course id" />
-        </Form.Item>
 
         <Form.Item
           name="review"
@@ -66,7 +65,10 @@ const ReviewCourseComponent = () => {
             className="login-form-button"
             style={{
               width: "70%",
+              marginTop:"10%",
+              alignItems:"center",
             }}
+
           >
             Submit Review
           </Button>
