@@ -1443,6 +1443,8 @@ module.exports = {
   updateRequestStatus,
   createCourseChat,
   updateCourseProgress,
+  instructorFilterCourses,
+  instructorFilterByPrice,
   approveInstructor,
   filterByPrice,
   instructorFilterCourses,
