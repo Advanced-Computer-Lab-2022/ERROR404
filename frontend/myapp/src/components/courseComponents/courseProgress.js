@@ -1,10 +1,44 @@
 import React from "react";
-import { useState } from "react";
+import { useMemo, useState, useContext } from "react";
 import { RightOutlined, LinkOutlined } from "@ant-design/icons";
 import { Button, Progress } from "antd";
 import { Checkbox } from "antd";
-
+import axios from "axios";
+import { AppContext } from "../AppContext";
+import { message, Select, Form, Item, Input } from "antd";
 const ProgressWrapper = () => {
+  const [progress, setProgress] = useState("");
+  const { userType, username } = useContext(AppContext);
+  const [usertype, setUserType] = userType;
+
+  const onFinish = async (event) => {
+    console.log("Success:", event);
+    const progress = event.progress;
+
+    await courseProgress(progress);
+  };
+
+  const courseProgress = async (progress) => {
+    const requestBody = {
+      //currentUser: currentUser,
+      usertype: usertype,
+    };
+    axios
+      .patch("http://localhost:2020/updateCourseProgress", requestBody)
+      .then((response) => {
+        message.success("Progress Saved", 5);
+        setProgress(progress);
+      })
+      .catch((error) => {
+        console.log("erorr ", error.message);
+        message.error("Unexpected Error occured" + error.response.message, 5);
+      });
+  };
+
+  const onFinishFailed = (errorInfo) => {
+    console.log("Failed:", errorInfo);
+  };
+
   const [percent, setPercent] = useState(0);
   const increase = () => {
     setPercent((prevPercent) => {
