@@ -9,7 +9,6 @@ const questions = require("../models/questions");
 const quizzes = require("../models/quizzes");
 const Reports = require("../models/reports");
 const chats = require("../models/chats");
-const corporateRequests = require("../models/corporateRequests");
 const { default: mongoose } = require("mongoose");
 
 //Methods
@@ -1361,6 +1360,7 @@ const updateRequestStatus = (req, res) => {
       )
       .clone();
   }
+};
 
 
 const getAllSubtitles = async (req, res) => {
