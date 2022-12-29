@@ -172,11 +172,9 @@ const CreateAdmin = () => {
                 gap: "5%",
               }}
             >
-              {" "}
               <Form.Item>
                 <Button onClick={() => prev()}>Previous</Button>
-              </Form.Item>
-              <Form.Item>
+
                 <Button type="primary" htmlType="submit">
                   Confirm
                 </Button>
