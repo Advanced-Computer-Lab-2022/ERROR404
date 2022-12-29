@@ -175,6 +175,7 @@ const LoginComponent = ({ values }) => {
             afterClose={handleClose}
           />
         )}
+        <br />
         <FormControl sx={{ m: 1, width: "70%" }} variant="standard" required>
           <TextField
             id="input-with-icon-textfield"
@@ -230,13 +231,13 @@ const LoginComponent = ({ values }) => {
             <MenuItem value={"corporate"}>Corporate Trainee</MenuItem>
           </Select>
         </FormControl> */}
+        <br />
         <Button type="primary" icon={<Fingerprint />} onClick={handleClick}>
           Login
         </Button>
         <br />
         <br />
         <h6>Have not joined us yet?</h6>
-        <br />
 
         <Link
           type="link"
