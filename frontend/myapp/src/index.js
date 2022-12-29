@@ -70,20 +70,8 @@ import Terms from "./components/termsAndConditions";
 import TraineeInsideCourse from "./components/traineeComponents/traineeInsideCourse";
 import CourseConversation from "./components/courseComponents/courseConversation";
 import TraineeReportsWrapper from "./components/traineeComponents/reportsFollowUp";
-
 import AdminFilterReports from "./components/adminComponents/adminFilterReports";
 import AdminRequestsWrapper from "./components/adminComponents/adminViewCourseRequests";
-
-import TakeNotesWrapper from "./components/takeNotes";
-import CreateRequestWrapper from "./components/corporateCreateRequest";
-
-import AdminFilterReports from "./components/adminComponents/adminFilterReports";
-
-import TakeNotesWrapper from "./components/takeNotes";
-
-import AdminFilterReports from "./components/adminComponents/adminFilterReports";
-import AdminRequestsWrapper from "./components/adminComponents/adminViewCourseRequests";
-
 import TakeNotesWrapper from "./components/takeNotes";
 import CreateRequestWrapper from "./components/corporateCreateRequest";
 

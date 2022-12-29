@@ -1,30 +1,21 @@
-
 import App from "../App";
-import React, {useState, useRef, useEffect,useContext} from 'react';
-import {
-    EditOutlined,
-  } from '@ant-design/icons';
-  import { Input,Modal, Button } from 'antd';
-  import { Form, Space , message,Select} from 'antd';
+import React, { useState, useRef, useEffect, useContext } from "react";
+import { EditOutlined } from "@ant-design/icons";
+import { Input, Modal, Button } from "antd";
+import { Form, Space, message, Select } from "antd";
 import { blueGrey, green, lightBlue } from "@mui/material/colors";
 import { AppContext } from "../AppContext";
 import axios from "axios";
 const { Option } = Select;
 // import message from 'react';
 
-
-
-const CreateRequestWrapper = () => {
-
-    
-    const [request, setRequest] = useState([]);
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const { userType } = useContext(AppContext);
-    const { username } = useContext(AppContext);
-    const [user, setUser] = userType;
-    const [userName, setUserName] = username;
-   
-    
+const CreateRequestWrapper = ({ courseId }) => {
+  const [request, setRequest] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { userType } = useContext(AppContext);
+  const { username } = useContext(AppContext);
+  const [user, setUser] = userType;
+  const [userName, setUserName] = username;
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -37,58 +28,52 @@ const CreateRequestWrapper = () => {
     setIsModalOpen(false);
   };
 
-const creatRequest = async ()=>{
+  const creatRequest = async () => {
     console.log(request);
     const requestBody = {
-     username: userName,
-     courseId: "638501f2a9b064e47ee7e0ed",
-     usertype: user,
-    }
-    
-    axios
-    .post("http://localhost:2020/createCorporateRequest", requestBody)
-    
-    .then((response) => {
-     
-      message.success("request sent");
-       
-    })
-    .catch((error) => {
-      console.log("erorr ", error.response.data);
-      message.error("Unexpected Error occured" , 5);
-    });
-};
+      username: userName,
+      courseId: courseId,
+      usertype: user,
+    };
 
+    axios
+      .post("http://localhost:2020/createCorporateRequest", requestBody)
+
+      .then((response) => {
+        message.success("request sent");
+      })
+      .catch((error) => {
+        console.log("erorr ", error.response.data);
+        message.error("Unexpected Error occured", 5);
+      });
+  };
 
   const componentRef = useRef();
 
-
-  
-  
-    return (
-      
+  return (
     <>
-     <Button type="primary" onClick={showModal}>
-            Access course
-        </Button>
-        <Modal title="Request Course Acces" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} style={{marginTop:120, marginLeft:420, height:500}}>
-          <h2> Are you sure you want to request access?</h2>
-      <Button type="primary" onClick={creatRequest}>
-            Send Request
+      <Button type="primary" onClick={showModal}>
+        Access course
+      </Button>
+      <Modal
+        title="Request Course Acces"
+        open={isModalOpen}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        style={{ marginTop: 120, marginLeft: 420, height: 500 }}
+      >
+        <h2> Are you sure you want to request access?</h2>
+        <Button type="primary" onClick={creatRequest}>
+          Send Request
         </Button>
       </Modal>
     </>
-     
-    );
-  };
-
-
-  
+  );
+};
 
 export default CreateRequestWrapper;
 
 //////////////////////////////////////////////////
-
 
 // import { Button, Form, Input, Rate, message, Space } from "antd";
 // import axios from "axios";
@@ -100,7 +85,7 @@ export default CreateRequestWrapper;
 //     const requestBody = {
 //       username: event.username,
 //       courseTitle: event.courseTitle,
-//       userType: event.userType, 
+//       userType: event.userType,
 //     };
 //     axios
 //       .patch("http://localhost:2020/createCorporateRequest", requestBody)
@@ -174,5 +159,3 @@ export default CreateRequestWrapper;
 //   );
 // };
 // export default CourseRequest;
-
-

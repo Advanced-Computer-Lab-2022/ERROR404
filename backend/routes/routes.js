@@ -3,6 +3,7 @@ const courses = require("../models/courses");
 const admin = require("../models/admin");
 const instructor = require("../models/instructor");
 const individualTrainee = require("../models/IndividualTrainee");
+const corporateRequests = require("../models/corporateRequests");
 const questions = require("../models/questions");
 const quizzes = require("../models/quizzes");
 const Reports = require("../models/reports");
@@ -1009,7 +1010,7 @@ const createQuiz = async (req, res) => {
   }
 };
 const addCourseToStudent = async (req, res) => {
-  console.log(req.body);
+  console.log("helllz ", req.body);
   const username = req.body.username;
   const courseId = req.body.courseId;
   const usertype = req.body.usertype;
@@ -1400,5 +1401,10 @@ module.exports = {
   updateReportStatus,
   createCorporateRequest,
   getAllRequests,
+  getCourseChats,
   updateRequestStatus,
+  createCourseChat,
+  updateCourseProgress,
+  approveInstructor,
+  filterByPrice,
 };

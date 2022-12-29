@@ -223,7 +223,7 @@ const CourseComponent = ({ courses, viewType }) => {
                 <Space>
                   {user == "corporate" ? (
                     <>
-                      <CreateRequestWrapper />{" "}
+                      <CreateRequestWrapper courseId={item._id} />{" "}
                       <Button
                         onClick={() => {
                           navigation("/course/about?courseId=" + item._id);

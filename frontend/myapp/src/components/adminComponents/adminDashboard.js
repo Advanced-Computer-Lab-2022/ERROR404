@@ -36,7 +36,7 @@ const items = [
   ),
   getItem(
     <Link to="/adminDashboard/requests">Course Requests</Link>,
-    "2",
+    "4",
     <QuestionOutlined />
   ),
   getItem(
