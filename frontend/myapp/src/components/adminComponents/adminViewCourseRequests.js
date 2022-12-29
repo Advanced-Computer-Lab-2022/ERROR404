@@ -22,7 +22,7 @@ const { Option } = Select;
 
 const AdminRequestsWrapper = () => {
   return (
-    <AdminDashboard>
+    <AdminDashboard pageName="Course Requests">
       <AdminRequests />
     </AdminDashboard>
   );

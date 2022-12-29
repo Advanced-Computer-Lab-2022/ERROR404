@@ -114,14 +114,24 @@ const CreateAdmin = () => {
             >
               <Input.Password />
             </Form.Item>
-            <Form.Item>
-              <Button type="primary" htmlType="submit">
-                Next
-              </Button>
-            </Form.Item>
-            <Form.Item>
-              <Button onClick={() => prev()}>Previous</Button>
-            </Form.Item>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "center",
+                alignItems: "center",
+                gap: "5%",
+              }}
+            >
+              <Form.Item>
+                <Button onClick={() => prev()}>Previous</Button>
+              </Form.Item>
+              <Form.Item>
+                <Button type="primary" htmlType="submit">
+                  Next
+                </Button>
+              </Form.Item>
+            </div>
           </Form>
         </Space>
       ),
@@ -153,19 +163,25 @@ const CreateAdmin = () => {
                 rules={[{ required: true }]}
               />
             </Form.Item>
-            <Form.Item>
-              <Button type="link" onClick={() => setFinalFormDisabled(false)}>
-                Edit
-              </Button>
-            </Form.Item>
-            <Form.Item>
-              <Button type="primary" htmlType="submit">
-                Confirm {usertype} info
-              </Button>
-            </Form.Item>
-            <Form.Item>
-              <Button onClick={() => prev()}>Previous</Button>
-            </Form.Item>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "center",
+                alignItems: "center",
+                gap: "5%",
+              }}
+            >
+              {" "}
+              <Form.Item>
+                <Button onClick={() => prev()}>Previous</Button>
+              </Form.Item>
+              <Form.Item>
+                <Button type="primary" htmlType="submit">
+                  Confirm
+                </Button>
+              </Form.Item>
+            </div>
           </Form>
         </Space>
       ),
@@ -264,7 +280,7 @@ const CreateAdmin = () => {
 const CreateUserWrapper = () => {
   return (
     <>
-      <AdminDashboard>
+      <AdminDashboard pageName="Create New User">
         <CreateAdmin />
       </AdminDashboard>
     </>
