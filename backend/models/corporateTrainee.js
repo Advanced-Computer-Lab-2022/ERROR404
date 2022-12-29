@@ -52,7 +52,7 @@ const corporateTrainee = new Schema(
     },
     role: {
       type: String,
-      default: "Corporate-trainee",
+      default: "corporate",
     },
     Regcourses: {
       type: Array,

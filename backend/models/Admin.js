@@ -16,6 +16,10 @@ const admin = new Schema(
       type: ObjectId,
       ref: "Chats",
     },
+    role: {
+      type: String,
+      default: "admin",
+    },
   },
   { timestamps: true }
 );

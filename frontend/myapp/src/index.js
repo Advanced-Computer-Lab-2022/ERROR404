@@ -46,14 +46,12 @@ import UserCourses from "./components/courseComponents/userClassRoom";
 import ReviewCourseComponent from "./components/rateAndReviewCourse";
 import SubmitDiscount from "./components/instructorComponents/instructorSubmitDiscount";
 import InstructorCourseReview from "./components/instructorComponents/instructorCourseReviews";
-
 import ViewGradeWrapper from "./components/traineeComponents/viewGrade";
 import AcceptAgreWrapper from "./components/instructorComponents/AcceptAgreement";
 import Filter from "./components/filter";
 import LoginPageWrapper from "./components/loginComponents/mainHome";
 import AdminReportsWrapper from "./components/adminComponents/adminReports";
 import AdminMainDashboardWrapper from "./components/adminComponents/adminMainDashboard";
-
 import CreateUserWrapper from "./components/adminComponents/adminCreateUser";
 import NoPage from "./components/NoPage";
 import MyPrograms from "./components/traineeComponents/myPrograms";
@@ -75,7 +73,6 @@ import AdminRequestsWrapper from "./components/adminComponents/adminViewCourseRe
 import TakeNotesWrapper from "./components/takeNotes";
 import CreateRequestWrapper from "./components/corporateCreateRequest";
 import Subtitles from "./components/subtitles";
-
 import InstructorFilteredCourses from "./components/instructorComponents/instructorFilteredCourses";
 export default function MainApp() {
   const [username, setUsername] = useState("");
@@ -108,7 +105,7 @@ export default function MainApp() {
         <Routes>
           <Route exact path="/" element={<HomePageWrapper />} />
           <Route
-            path="instructorDashBoard"
+            path="/instructorDashBoard"
             element={<InstructorMainDashboard />}
           />
           <Route
@@ -190,25 +187,25 @@ export default function MainApp() {
             element={<SubmitDiscount />}
           />
           <Route
-            path="instructorDashboard/allMyCourses/reviews"
+            path="/instructorDashboard/allMyCourses/reviews"
             element={<InstructorCourseReview />}
           />
 
-          <Route path="Acceptagreement" element={<AcceptAgreWrapper />} />
+          <Route path="/Acceptagreement" element={<AcceptAgreWrapper />} />
 
           <Route
-            path="InstructorFilter"
+            path="/InstructorFilter"
             element={<InstructorFilteredCourses />}
           />
           <Route path="/user/reports" element={<TraineeReportsWrapper />} />
           <Route path="/terms" element={<Terms />} />
-          <Route path="ReportaProblem" element={<ReportaProblemWrapper />} />
-          <Route path="filter" element={<Filter />} />
-          <Route path="footer" element={<FooterWrapper />} />
-          <Route path="certificate" element={<CertificateWrapper />} />
-          <Route path="login" element={<LoginPageWrapper />} />
-          <Route path="About" element={<AboutWrapper />} />
-          <Route path="Progress" element={<ProgressWrapper />} />
+          <Route path="/ReportaProblem" element={<ReportaProblemWrapper />} />
+          <Route path="/filter" element={<Filter />} />
+          <Route path="/footer" element={<FooterWrapper />} />
+          <Route path="/certificate" element={<CertificateWrapper />} />
+          <Route path="/login" element={<LoginPageWrapper />} />
+          <Route path="/About" element={<AboutWrapper />} />
+          <Route path="/Progress" element={<ProgressWrapper />} />
           <Route
             path="/adminDashboard"
             element={<AdminMainDashboardWrapper />}
@@ -234,10 +231,7 @@ export default function MainApp() {
             path="/traineeDashboard/settings"
             element={<TraineeSettingsWrapper />}
           />
-          <Route
-            path="/subtitles"
-            element={<Subtitles/>}
-          />
+          <Route path="/subtitles" element={<Subtitles />} />
           <Route path="/TakeNotes" element={<TakeNotesWrapper />} />
           <Route path="/AdminFilterReports" element={<AdminFilterReports />} />
           <Route
