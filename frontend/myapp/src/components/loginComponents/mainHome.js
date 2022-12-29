@@ -24,6 +24,7 @@ import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import { Button, message, Space, notification, Alert } from "antd";
 
 const LoginComponent = ({ values }) => {
+  const { modal, drawer } = values;
   const {
     loggedIn,
     username,
@@ -52,7 +53,9 @@ const LoginComponent = ({ values }) => {
     password: "",
     showPassword: true,
   });
-  const [isModalOpen, setIsModalOpen] = values;
+  const [isModalOpen, setIsModalOpen] = modal;
+  const [isDrawerOpen, setIsDrawerOpen] = drawer;
+
   const [visible, setVisible] = useState(false);
   const navigate = useNavigate();
 
@@ -136,21 +139,6 @@ const LoginComponent = ({ values }) => {
 
   return (
     <>
-      <Space>
-        {/* <Button
-          type="primary"
-          shape="round"
-          icon={<LoginIcon />}
-          size="medium"
-          disabled
-        >
-          <Link to="/login" style={{ textDecoration: "none" }}>
-            {" "}
-            Sign In
-          </Link>
-        </Button> */}
-      </Space>
-
       <div
         style={{
           width: "100%",
@@ -216,21 +204,7 @@ const LoginComponent = ({ values }) => {
             }
           />
         </FormControl>
-        {/* <FormControl sx={{ m: 1, width: "70%" }} variant="standard" required>
-          <InputLabel id="demo-simple-select-label">User Type</InputLabel>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={user}
-            label="User Type"
-            onChange={handleUserChange}
-          >
-            <MenuItem value={"instructor"}>Instructor</MenuItem>
-            <MenuItem value={"individual"}>Individual Trainee</MenuItem>
-            <MenuItem value={"admin"}>Administrator</MenuItem>
-            <MenuItem value={"corporate"}>Corporate Trainee</MenuItem>
-          </Select>
-        </FormControl> */}
+
         <br />
         <Button type="primary" icon={<Fingerprint />} onClick={handleClick}>
           Login
@@ -241,10 +215,13 @@ const LoginComponent = ({ values }) => {
 
         <Link
           type="link"
-          to="signUp"
           style={{
             color: "blue",
             textDecoration: "none",
+          }}
+          onClick={() => {
+            setIsModalOpen(false);
+            setIsDrawerOpen(true);
           }}
         >
           {" "}

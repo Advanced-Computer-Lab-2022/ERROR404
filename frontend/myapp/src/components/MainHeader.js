@@ -65,6 +65,11 @@ const MainHeader = ({ values }) => {
     setUser("");
   };
 
+  let v = {
+    modal: [isModalOpen, setIsModalOpen],
+    drawer: [isDrawerOpen, setIsDrawerOpen],
+  };
+
   if (user == "instructor") {
     items = [
       {
@@ -312,7 +317,7 @@ const MainHeader = ({ values }) => {
           </Button>,
         ]}
       >
-        <LoginComponent values={[isModalOpen, setIsModalOpen]} />
+        <LoginComponent values={v} />
       </Modal>
 
       <WrapperSignUp values={[isDrawerOpen, setIsDrawerOpen]} />
