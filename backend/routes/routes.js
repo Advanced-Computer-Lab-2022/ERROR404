@@ -1337,7 +1337,6 @@ const updateCourseProgress = async (req, res) => {
     )
     .clone();
 };
-<<<<<<< HEAD
 const updateRequestStatus = (req, res) => {
   const requestId = req.body.id;
 
@@ -1361,7 +1360,6 @@ const updateRequestStatus = (req, res) => {
   }
 };
 
-=======
 const instructorFilterCourses = async (req, res) => {
   const username = req.params.username;
   const filterType = req.params.filterType;
@@ -1399,7 +1397,6 @@ const instructorFilterByPrice = async (req, res) => {
     }
   );
 };
->>>>>>> 9c1d597 (instructor filter his courses)
 module.exports = {
   getUser,
   search,
@@ -1446,11 +1443,8 @@ module.exports = {
   updateRequestStatus,
   createCourseChat,
   updateCourseProgress,
-<<<<<<< HEAD
   approveInstructor,
   filterByPrice,
-=======
   instructorFilterCourses,
   instructorFilterByPrice,
->>>>>>> 9c1d597 (instructor filter his courses)
 };
