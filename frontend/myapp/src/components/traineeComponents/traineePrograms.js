@@ -60,7 +60,7 @@ const TraineePrograms = ({ courses, viewType }) => {
             <List.Item
               key={item._id}
               onClick={() => {
-                navigation("/course/about?courseId=" + item._id);
+                navigation("/trainee/course?courseId=" + item._id);
               }}
               actions={[
                 <IconText

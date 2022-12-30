@@ -30,7 +30,7 @@ const TraineeReportsWrapper = () => {
 
   if (user == "instructor") {
     return (
-      <InstructorDashboard>
+      <InstructorDashboard pageName="Reports Follow up">
         <TraineeReports />
       </InstructorDashboard>
     );

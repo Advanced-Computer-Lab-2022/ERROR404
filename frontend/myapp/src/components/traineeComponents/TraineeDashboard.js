@@ -42,7 +42,7 @@ function getItem(label, key, icon, children) {
   };
 }
 
-const TraineeDashboard = ({ children }) => {
+const TraineeDashboard = ({ children, pageName }) => {
   const { userType, username } = useContext(AppContext);
   const [userName, setUserName] = username;
   const [user, setUser] = userType;
@@ -62,7 +62,7 @@ const TraineeDashboard = ({ children }) => {
     ),
     getItem(
       <Link to="/traineeDashboard/viewGrade">View My Grades</Link>,
-      "17",
+      "18",
       <GradeIcon />
     ),
     getItem(<Link to="/settings">Settings</Link>, "15", <SettingFilled />),
@@ -106,9 +106,13 @@ const TraineeDashboard = ({ children }) => {
             margin: "16px 0",
           }}
         >
-          <Breadcrumb.Item>Home</Breadcrumb.Item>
-          <Breadcrumb.Item>{userName}</Breadcrumb.Item>
-          <Breadcrumb.Item>Dashboard</Breadcrumb.Item>
+          <Breadcrumb.Item>
+            <Link to="/">Home</Link>
+          </Breadcrumb.Item>
+          <Breadcrumb.Item>
+            <Link to="traineeDashboard">Dashboard</Link>
+          </Breadcrumb.Item>
+          <Breadcrumb.Item>{pageName}</Breadcrumb.Item>
         </Breadcrumb>
         <Layout
           className="site-layout-background"
