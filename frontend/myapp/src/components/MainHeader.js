@@ -173,14 +173,13 @@ const MainHeader = ({ values }) => {
         "2",
         <LogoutOutlined />
       ),
-      {
-        label: (
-          <Popover content={userName}>
-            <Avatar size="medium" icon={<UserOutlined />} />
-          </Popover>
-        ),
-        key: "user",
-      },
+      getItem(
+        <Popover content={userName}>
+          <Avatar size="medium" icon={<UserOutlined />} />
+        </Popover>,
+        "user",
+        <LogoutOutlined />
+      ),
     ];
   } else if (user == "admin") {
     items = [

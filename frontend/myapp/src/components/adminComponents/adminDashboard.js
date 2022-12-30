@@ -115,11 +115,18 @@ const AdminDashboard = ({ children, pageName }) => {
         <Header
           className="header"
           style={{
+            position: "relative",
             position: "sticky",
             top: "0px",
             width: "100%",
             height: "8vh",
             zIndex: "100",
+            color: "white",
+            display: "flex",
+            flexDirection: "row",
+            gap: "20px",
+            minHeight: "10vh",
+            alignItems: "center",
           }}
         >
           <div className="logo" />

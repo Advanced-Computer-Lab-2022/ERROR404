@@ -107,14 +107,9 @@ const InstructorDashboard = ({ children }) => {
       "18",
       <ReconciliationOutlined />
     ),
-    getItem(
-      <Link className="link" to="/user/reports">
-        My Students
-      </Link>,
-      "19",
-      <ReconciliationOutlined />,
-      [getItem(<InstructorStudents />, "20", <UsergroupDeleteOutlined />)]
-    ),
+    getItem(<Link>My Students</Link>, "19", <ReconciliationOutlined />, [
+      getItem(<InstructorStudents />, "20", <UsergroupDeleteOutlined />),
+    ]),
     getItem(
       <Link
         className="link"
@@ -140,7 +135,23 @@ const InstructorDashboard = ({ children }) => {
   if (user == "instructor") {
     return (
       <Layout>
-        <Header className="header">
+        <Header
+          className="header"
+          style={{
+            position: "relative",
+            position: "sticky",
+            top: "0px",
+            width: "100%",
+            height: "8vh",
+            zIndex: "100",
+            color: "white",
+            display: "flex",
+            flexDirection: "row",
+            gap: "20px",
+            minHeight: "10vh",
+            alignItems: "center",
+          }}
+        >
           <div className="logo" />
           <Menu
             theme="dark"

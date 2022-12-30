@@ -106,6 +106,7 @@ const LoginComponent = ({ values }) => {
               setUsername(data.username);
               setUserPassword(data.password);
               setUserType(data.role);
+              console.log(usertype);
               if (data.role == "instructor") {
                 setInstructorBio(data.biography);
               } else if (
