@@ -56,7 +56,7 @@ const courses = new Schema(
       type: String,
       required: [true, "Summary Required"],
       minLength: 5,
-      maxLength: 100,
+      maxLength: 500,
     },
     discount: {
       value: {

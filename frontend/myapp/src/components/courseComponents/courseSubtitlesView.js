@@ -1,13 +1,16 @@
 import { Descriptions, Menu, List } from "antd";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import TakeNotesWrapper from "../takeNotes";
 import TraineeDashboard from "../traineeComponents/TraineeDashboard";
 
 const CoursePreview = () => {
   const [subtitles, setSubtitles] = useState([]);
   const [courseId, setcourseId] = useState([]);
   const [video, setVideo] = useState("");
+
+  const location = useNavigate();
 
   useEffect(() => {
     const idSearch = window.location.search;
@@ -27,7 +30,7 @@ const CoursePreview = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [location]);
   return (
     <TraineeDashboard pageName="Course Preview">
       {" "}
@@ -119,6 +122,7 @@ const CourseSubtitleViewWrapper = () => {
   const [description, setDescription] = useState("");
   const [subtitles, setSubtitles] = useState([]);
   const [courseId, setcourseId] = useState([]);
+  const location = useNavigate();
 
   useEffect(() => {
     const idSearch = window.location.search;
@@ -143,7 +147,7 @@ const CourseSubtitleViewWrapper = () => {
       .catch((err) => {
         console.log(err.response);
       });
-  }, []);
+  }, [location]);
   return (
     <TraineeDashboard pageName={subtitle}>
       <div
@@ -151,12 +155,12 @@ const CourseSubtitleViewWrapper = () => {
           width: "100%",
           height: "100vh",
           display: "flex",
+          flexDirection: "column",
           justifyContent: "flex-start",
           alignItems: "center",
           gap: "5%",
         }}
       >
-        <h1>Les</h1>
         <div
           style={{
             width: "100%",
@@ -173,6 +177,7 @@ const CourseSubtitleViewWrapper = () => {
             }}
           >
             <h2>All Subtitles</h2>
+            <TakeNotesWrapper />
             <List
               itemLayout="horizontal"
               dataSource={subtitles}
@@ -180,7 +185,7 @@ const CourseSubtitleViewWrapper = () => {
                 <List.Item>
                   <Link
                     to={
-                      "trainee/course?subtitle=" +
+                      "/trainee/course/subtitle?subtitle=" +
                       item.subtitle +
                       "&description=" +
                       item.description +
@@ -220,7 +225,20 @@ const CourseSubtitleViewWrapper = () => {
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowfullscreen
             ></iframe>
-            <div>{description}</div>
+
+            <div
+              style={{
+                height: "20%",
+                width: "100%",
+                backgroundColor: "white",
+                border: "1px solid black",
+                fontSize: "24px",
+                overflow: "scroll",
+              }}
+            >
+              <h1>Summary :</h1>
+              {description}
+            </div>
           </div>
         </div>
       </div>

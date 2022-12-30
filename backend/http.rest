@@ -1,10 +1,10 @@
-POST http://localhost:2020/createCorporateTrainee 
+PUT http://localhost:2020/addCourseToStudent 
 Content-Type: application/json
 
 {
-    "admin": "alighieth",
-    "username": "seif",
-    "password": "123"
+    "usertype": "individual",
+    "username": "bruno",
+    "courseId": "63af72c8dc50987ddd1e1848"
 }
 
 # {

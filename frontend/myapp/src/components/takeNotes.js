@@ -1,9 +1,6 @@
-import App from "../App";
 import React, { useState, useRef } from "react";
-import { Button, EditOutlined } from "@ant-design/icons";
-import { Input, Modal } from "antd";
-import { Form, Space } from "antd";
-import { blueGrey, green, lightBlue } from "@mui/material/colors";
+import { EditOutlined } from "@ant-design/icons";
+import { Input, Modal, Form, Space, Button, Drawer } from "antd";
 
 const TakeNotesWrapper = () => {
   const { TextArea } = Input;
@@ -33,64 +30,68 @@ const TakeNotesWrapper = () => {
   };
 
   return (
-    <div>
-      <iframe
-        style={{ width: 560, height: 315, marginLeft: 400, marginTop: 10 }}
-        src="https://www.youtube.com/embed/nbHlVrkA0wk"
-        title="YouTube video player"
-        frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen
-      ></iframe>
-
-      <br></br>
-
-      <Modal
-        ref={componentRef}
-        title="Write your notes!"
+    <>
+      {" "}
+      <Button type="primary" onClick={showModal}>
+        Take notes <EditOutlined />
+      </Button>
+      <Drawer
+        title="Taking Notes......."
+        placement="left"
+        width="20vw"
+        onClose={handleCancel}
         open={isModalOpen}
-        onOk={handleOk}
-        onCancel={handleCancel}
-        style={{ marginTop: 350, marginLeft: 420 }}
+        extra={
+          <Space>
+            <Button onClick={handleCancel}>Cancel</Button>
+            <Button type="primary" onClick={downloadTxtFile}>
+              save
+            </Button>
+          </Space>
+        }
       >
-        <div>
-          <Form>
-            <Form.Item>
-              <TextArea id="input" placeholder="Type here.." autoSize />
-              <div />
-            </Form.Item>
-          </Form>
-          <br></br>
-          <button
-            primary
-            onClick={downloadTxtFile}
+        <Form style={{ width: "100%", height: "100%" }}>
+          <Form.Item
             style={{
-              marginLeft: 130,
-              backgroundColor: "lightBlue",
-              borderRadius: 10,
-              width: 200,
+              height: "50%",
             }}
           >
-            {" "}
-            Download
-          </button>
-        </div>
-      </Modal>
+            <Input.TextArea id="input" placeholder="Type here........" />
+          </Form.Item>
+        </Form>
+      </Drawer>
+    </>
+    // //</><Modal
+    //   ref={componentRef}
+    //   title="Write your notes!"
+    //   open={isModalOpen}
+    //   onOk={handleOk}
+    //   onCancel={handleCancel}
+    //   style={{ marginTop: 350, marginLeft: 420 }}
+    // >
+    //   <div
+    //     style={{
+    //       display: "flex",
+    //       flexDirection: "column",
+    //       justifyContent: "center",
+    //       alignContent: "center",
+    //       alignItems: "center",
+    //       width: "100%",
+    //     }}
+    //   >
+    //     <Form style={{ width: "100%" }}>
+    //       <Form.Item>
+    //         <Input.TextArea id="input" placeholder="Type here.." />
+    //       </Form.Item>
+    //     </Form>
+    //     <br></br>
+    //     <Button type="primary" onClick={downloadTxtFile}>
+    //       Download
+    //     </Button>
+    //   </div>
+    // </Modal>
 
-      <button
-        style={{
-          marginLeft: 600,
-          width: 130,
-          marginTop: 10,
-          backgroundColor: "lightBlue",
-          borderRadius: 10,
-          borderColor: "grey",
-        }}
-        onClick={showModal}
-      >
-        Take notes <EditOutlined />
-      </button>
-    </div>
+    //</div>
   );
 };
 

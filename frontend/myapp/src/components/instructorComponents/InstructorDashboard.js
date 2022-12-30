@@ -28,7 +28,7 @@ function getItem(label, key, icon, children) {
   };
 }
 
-const InstructorDashboard = ({ children }) => {
+const InstructorDashboard = ({ children, pageName }) => {
   const { userType, username } = useContext(AppContext);
   const [userName, setUserName] = username;
   const [user, setUser] = userType;
@@ -170,9 +170,11 @@ const InstructorDashboard = ({ children }) => {
               margin: "16px 0",
             }}
           >
-            <Breadcrumb.Item>Home</Breadcrumb.Item>
-            <Breadcrumb.Item>{userName}</Breadcrumb.Item>
+            <Breadcrumb.Item>
+              <Link to="/">Home</Link>
+            </Breadcrumb.Item>
             <Breadcrumb.Item>Dashboard</Breadcrumb.Item>
+            <Breadcrumb.Item>{pageName}</Breadcrumb.Item>
           </Breadcrumb>
           <Layout
             className="site-layout-background"
