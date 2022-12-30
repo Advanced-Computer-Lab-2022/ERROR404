@@ -131,7 +131,7 @@ const MainHeader = ({ values }) => {
         key: "explore",
       },
       getItem(
-        <Link className="link" to="traineeDashboard">
+        <Link className="link" to="/traineeDashboard">
           My Dashboard
         </Link>,
         "2",
@@ -139,7 +139,7 @@ const MainHeader = ({ values }) => {
       ),
       {
         label: (
-          <Link className="link" to="/viewMyGrades">
+          <Link className="link" to="/traineeDashboard/viewGrade">
             My Grades
           </Link>
         ),

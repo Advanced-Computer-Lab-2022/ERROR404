@@ -259,7 +259,7 @@ export default function MainApp() {
           <Route path="/trainee/course" element={<CoursePreview />} />
           <Route
             path="/trainee/course/subtitle"
-            element={<CourseSubtitles />}
+            element={<CourseSubtitleViewWrapper />}
           />
         </Routes>
       </Router>

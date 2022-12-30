@@ -4,6 +4,7 @@ import { Breadcrumb, Layout, Menu, Image, Empty } from "antd";
 import axios from "axios";
 import TraineePrograms from "./traineePrograms";
 import { AppContext } from "../../AppContext";
+import TraineeDashboard from "./TraineeDashboard";
 
 const { Header, Footer, Sider, Content } = Layout;
 
@@ -24,9 +25,9 @@ const MyProgrmas = () => {
       });
   }, []);
   return (
-    <App>
+    <TraineeDashboard>
       <TraineePrograms courses={courses} viewType="My Programs" />
-    </App>
+    </TraineeDashboard>
   );
 };
 

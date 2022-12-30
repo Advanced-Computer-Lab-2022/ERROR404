@@ -25,11 +25,13 @@ import {
   Statistic,
   Card,
   Skeleton,
+  Button,
 } from "antd";
 import { Link } from "react-router-dom";
 import AddBoxIcon from "@mui/icons-material/AddBox";
 import { AppContext } from "../../AppContext";
 import Alert from "@mui/material/Alert";
+import FooterWrapper from "../footer";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -66,6 +68,15 @@ const TraineeDashboard = ({ children, pageName }) => {
       <GradeIcon />
     ),
     getItem(<Link to="/settings">Settings</Link>, "15", <SettingFilled />),
+
+    {
+      label: (
+        <Link className="link" to="/user/myPrograms">
+          <Button ghost>My Programs</Button>
+        </Link>
+      ),
+      key: "myClassroom",
+    },
     getItem(
       <Link
         to="/"
@@ -87,7 +98,23 @@ const TraineeDashboard = ({ children, pageName }) => {
 
   return (
     <Layout>
-      <Header className="header">
+      <Header
+        className="header"
+        style={{
+          position: "relative",
+          position: "sticky",
+          top: "0px",
+          width: "100%",
+          height: "8vh",
+          zIndex: "100",
+          color: "white",
+          display: "flex",
+          flexDirection: "row",
+          gap: "20px",
+          minHeight: "10vh",
+          alignItems: "center",
+        }}
+      >
         <div className="logo" />
         <Menu
           theme="dark"
@@ -99,6 +126,7 @@ const TraineeDashboard = ({ children, pageName }) => {
       <Content
         style={{
           padding: "0 50px",
+          height: "100vh",
         }}
       >
         <Breadcrumb
@@ -110,7 +138,7 @@ const TraineeDashboard = ({ children, pageName }) => {
             <Link to="/">Home</Link>
           </Breadcrumb.Item>
           <Breadcrumb.Item>
-            <Link to="traineeDashboard">Dashboard</Link>
+            <Link to="/traineeDashboard">Dashboard</Link>
           </Breadcrumb.Item>
           <Breadcrumb.Item>{pageName}</Breadcrumb.Item>
         </Breadcrumb>
@@ -130,12 +158,8 @@ const TraineeDashboard = ({ children, pageName }) => {
           </Content>
         </Layout>
       </Content>
-      <Footer
-        style={{
-          textAlign: "center",
-        }}
-      >
-        GUC ACL LAB ©2022 Created by ©alighieth
+      <Footer style={{ padding: 0, textAlign: "center", margin: "0 0px" }}>
+        <FooterWrapper />
       </Footer>
     </Layout>
   );
