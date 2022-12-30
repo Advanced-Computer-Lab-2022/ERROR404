@@ -9,6 +9,9 @@ import {
   Menu,
   Image,
   Rate,
+  Avatar,
+  List,
+  Collapse,
 } from "antd";
 
 import button from "react-bootstrap/Button";
@@ -20,6 +23,9 @@ import { alignPropType } from "react-bootstrap/esm/types";
 import PreviewCourses from "../CourseViewWrapper";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import CourseSubtitles from "./courseSyllabes";
+
+const { Panel } = Collapse;
 
 const PreviewCourseWrapper = () => {
   const [courseId, setCourseId] = useState("");
@@ -27,6 +33,7 @@ const PreviewCourseWrapper = () => {
   const [newPrice, setNewPrice] = useState("");
   const [oldPrice, setOldPrice] = useState("");
   const [date, setDate] = useState("");
+  const [subtitles, setSubtitles] = useState([]);
   const [subtitlesCount, setSubtitlesCount] = useState("");
   const [noOfSubscribers, setNoOfSubscribers] = useState("");
   const location = useNavigate();
@@ -55,6 +62,8 @@ const PreviewCourseWrapper = () => {
       .then((response) => {
         setCourseData(response.data);
         console.log(response.data);
+        console.log(response.data.subtitles);
+        setSubtitles(response.data.subtitles);
 
         setSubtitlesCount(response.data.subtitles.length);
         console.log(response.data.subtitles.length);
@@ -79,9 +88,6 @@ const PreviewCourseWrapper = () => {
   return (
     <PreviewCourses courseId={courseId}>
       <grid centered>
-        {/* <semanticHeader>
-        preview course:
-    </semanticHeader> */}
         <div
           centered
           class="ui centered card"
@@ -102,18 +108,13 @@ const PreviewCourseWrapper = () => {
             ></iframe>
           </div>
           <div class="content">
-            <a class="price" size="100">
-              E£{newPrice}
-            </a>
-            <a> </a>
-            <s>
-              <a class="meta">E£{courseData.price}</a>
-            </s>
-
+            E£{newPrice}
+            <s>E£{courseData.price}</s>
             <div class="meta">
               <i class="icon clock "></i>
               <div class=" text">
                 {oldPrice}% discount valid till {date}!
+                <Rate disabled allowHalf value={courseData.rating}></Rate>
               </div>
             </div>
             <p></p>
@@ -137,57 +138,64 @@ const PreviewCourseWrapper = () => {
           <h3>This course includes:</h3>
 
           <div class="extra content">
-            <a>
-              <div class="three wide column">
-                <i class="icon video play "></i>
-                {courseData.totalHours} hours on-demand video
-              </div>
-            </a>
+            <div class="three wide column">
+              <i class="icon video play "></i>
+              {courseData.totalHours} hours on-demand video
+            </div>
           </div>
           <div class="extra content">
-            <a>
-              <div class="three wide column">
-                <i class="icon file outline "></i>2 articles
-              </div>
-            </a>
+            <div class="three wide column">
+              <i class="icon file outline "></i>2 articles
+            </div>
           </div>
           <div class="extra content">
-            <a>
-              <div class="three wide column">
-                <i class="icon download "></i>
-                50 downlaodable resources
-              </div>
-            </a>
+            <div class="three wide column">
+              <i class="icon download "></i>
+              50 downlaodable resources
+            </div>
           </div>
           <div class="extra content">
-            <a>
-              <div class="three wide column">
-                <i class="icon question circle "></i>5 practical tests
-              </div>
-            </a>
+            <div class="three wide column">
+              <i class="icon question circle "></i>5 practical tests
+            </div>
           </div>
           <div class="extra content">
-            <a>
-              <div class="three wide column">
-                <i class="icon mobile alternate "></i>
-                Access on mobile and TV
-              </div>
-            </a>
+            <div class="three wide column">
+              <i class="icon mobile alternate "></i>
+              Access on mobile and TV
+            </div>
           </div>
           <div class="extra content">
-            <a>
-              <div class="three wide column">
-                <i class="icon certificate "></i>
-                Certificate of completion
-              </div>
-            </a>
+            <div class="three wide column">
+              <i class="icon certificate "></i>
+              Certificate of completion
+            </div>
           </div>
           <div>
             <div class="ui link list">
-              <div>
-                <a class="item">
-                  <Rate disabled allowHalf value={courseData.rating}></Rate>
-                </a>
+              <div
+                style={{
+                  boxSizing: "border-box",
+                  padding: "20px",
+                }}
+              >
+                <hr />
+                <Collapse ghost>
+                  <Panel header="Subtitles" key="1">
+                    <List
+                      itemLayout="horizontal"
+                      dataSource={subtitles}
+                      renderItem={(item) => (
+                        <List.Item>
+                          <List.Item.Meta
+                            title={item.subtitle}
+                            description={item.description}
+                          />
+                        </List.Item>
+                      )}
+                    />
+                  </Panel>
+                </Collapse>
               </div>
             </div>
           </div>

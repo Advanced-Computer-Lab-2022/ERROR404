@@ -13,7 +13,7 @@ import {
 } from "@ant-design/icons";
 import ViewWeekIcon from "@mui/icons-material/ViewWeek";
 import DashboardIcon from "@mui/icons-material/Dashboard";
-import GradeIcon from '@mui/icons-material/Grade';
+import GradeIcon from "@mui/icons-material/Grade";
 import ReviewsIcon from "@mui/icons-material/Reviews";
 import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 import {
@@ -85,72 +85,56 @@ const TraineeDashboard = ({ children }) => {
     setUser("");
   };
 
-    return (
-      <Layout>
-        <Header className="header">
-          <div className="logo" />
-          <Menu
-            theme="dark"
-            mode="horizontal"
-            defaultSelectedKeys={["2"]}
-            items={items}
-          />
-        </Header>
-        <Content
+  return (
+    <Layout>
+      <Header className="header">
+        <div className="logo" />
+        <Menu
+          theme="dark"
+          mode="horizontal"
+          defaultSelectedKeys={["2"]}
+          items={items}
+        />
+      </Header>
+      <Content
+        style={{
+          padding: "0 50px",
+        }}
+      >
+        <Breadcrumb
           style={{
-            padding: "0 50px",
+            margin: "16px 0",
           }}
         >
-          <Breadcrumb
-            style={{
-              margin: "16px 0",
-            }}
-          >
-            <Breadcrumb.Item>Home</Breadcrumb.Item>
-            <Breadcrumb.Item>{userName}</Breadcrumb.Item>
-            <Breadcrumb.Item>Dashboard</Breadcrumb.Item>
-          </Breadcrumb>
-          <Layout
-            className="site-layout-background"
-            style={{
-              padding: "24px 0",
-            }}
-          >
-            <Sider
-              className="site-layout-background"
-              width={200}
-              style={{
-                maxHeight: "500px",
-              }}
-            >
-              <Menu
-                mode="inline"
-                theme="dark"
-                defaultSelectedKeys={["1"]}
-                defaultOpenKeys={["sub1"]}
-                items={items}
-              />
-            </Sider>
-            <Content
-              style={{
-                padding: "0 24px",
-                minHeight: 280,
-              }}
-            >
-              {children}
-            </Content>
-          </Layout>
-        </Content>
-        <Footer
+          <Breadcrumb.Item>Home</Breadcrumb.Item>
+          <Breadcrumb.Item>{userName}</Breadcrumb.Item>
+          <Breadcrumb.Item>Dashboard</Breadcrumb.Item>
+        </Breadcrumb>
+        <Layout
+          className="site-layout-background"
           style={{
-            textAlign: "center",
+            padding: "24px 0",
           }}
         >
-          GUC ACL LAB ©2022 Created by ©alighieth
-        </Footer>
-      </Layout>
-    );
+          <Content
+            style={{
+              padding: "0 24px",
+              minHeight: 280,
+            }}
+          >
+            {children}
+          </Content>
+        </Layout>
+      </Content>
+      <Footer
+        style={{
+          textAlign: "center",
+        }}
+      >
+        GUC ACL LAB ©2022 Created by ©alighieth
+      </Footer>
+    </Layout>
+  );
 };
-
 
 export default TraineeDashboard;

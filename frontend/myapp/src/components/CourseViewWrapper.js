@@ -134,8 +134,6 @@ const PreviewCourses = ({ children, courseId }) => {
             padding: "24px 0",
           }}
         >
-          <CourseSubtitles courseId={courseId} />
-
           <Content
             style={{
               padding: "0 24px",
