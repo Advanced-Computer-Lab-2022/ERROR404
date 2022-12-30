@@ -33,7 +33,7 @@ const ViewGradeWrapper = () => {
   }, []);
 
   return (
-    <TraineeDashboard>
+    <TraineeDashboard pageName="Previous Grades">
       <Table dataSource={data} key={data.subject}>
         <ColumnGroup>
           <Column title="Subject" dataIndex="subject" key="subject" />

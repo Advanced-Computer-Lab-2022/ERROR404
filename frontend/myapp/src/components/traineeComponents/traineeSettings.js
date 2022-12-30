@@ -6,7 +6,7 @@ import {
 
 const TraineeSettingsWrapper = () => {
   return (
-    <TraineeDashboard>
+    <TraineeDashboard pageName="Settings">
       <SettingsPageSider />
       <PersonalInformationTab />
     </TraineeDashboard>

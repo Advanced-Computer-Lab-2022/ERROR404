@@ -43,8 +43,9 @@ const PreviewCourses = ({ children, courseId }) => {
   let items = [];
 
   if (
-    (user == "individual" || user == "corporate" || user == "admin") &&
-    traineeRegCourses.includes(courseId)
+    ((user == "individual" || user == "corporate") &&
+      traineeRegCourses.includes(courseId)) ||
+    user == "admin"
   ) {
     items = [
       getItem(
@@ -82,6 +83,13 @@ const PreviewCourses = ({ children, courseId }) => {
         </Link>,
         "6",
         <WechatOutlined />
+      ),
+      getItem(
+        <Link className="link" to={`/trainee/course?courseId=${courseId}`}>
+          Continue Studying
+        </Link>,
+        "7",
+        <LaptopOutlined />
       ),
     ];
   } else {

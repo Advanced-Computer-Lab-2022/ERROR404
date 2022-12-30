@@ -75,7 +75,9 @@ import CreateRequestWrapper from "./components/corporateCreateRequest";
 import Subtitles from "./components/subtitles";
 import InstructorFilteredCourses from "./components/instructorComponents/instructorFilteredCourses";
 import CourseSubtitles from "./components/courseComponents/courseSyllabes";
-import CourseSubtitleViewWrapper from "./components/courseComponents/courseSubtitlesView";
+import CourseSubtitleViewWrapper, {
+  CoursePreview,
+} from "./components/courseComponents/courseSubtitlesView";
 export default function MainApp() {
   const [username, setUsername] = useState("");
   const [userEmail, setUserEmail] = useState("");
@@ -254,9 +256,10 @@ export default function MainApp() {
             path="/corporateCreateRequest"
             element={<CreateRequestWrapper />}
           />
+          <Route path="/trainee/course" element={<CoursePreview />} />
           <Route
-            path="/trainee/course"
-            element={<CourseSubtitleViewWrapper />}
+            path="/trainee/course/subtitle"
+            element={<CourseSubtitles />}
           />
         </Routes>
       </Router>

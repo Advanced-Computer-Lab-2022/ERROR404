@@ -34,11 +34,13 @@ const IconText = ({ icon, text }) => (
 );
 
 const CourseComponent = ({ courses, viewType }) => {
-  const { userType } = useContext(AppContext);
+  const { userType, traineeCourses } = useContext(AppContext);
   const [user, setUser] = userType;
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalOpenDis, setIsModalOpenDis] = useState(false);
   const [courseTitle, setTitle] = useState("");
+  const [traineeRegCourses, setTraineeCourses] = traineeCourses;
+
   const [id, setId] = useState("");
 
   let navigation = useNavigate();
@@ -233,7 +235,16 @@ const CourseComponent = ({ courses, viewType }) => {
                     user == "" ||
                     user == null
                   ) {
-                    navigation("/course/about?courseId=" + item._id);
+                    console.log(user);
+                    if (
+                      (user == "individual" || user == "corporate") &&
+                      traineeRegCourses.includes(item._id)
+                    ) {
+                      console.log("hell");
+                      navigation("/trainee/course?courseId=" + item._id);
+                    } else {
+                      navigation("/course/about?courseId=" + item._id);
+                    }
                   }
                 }}
                 actions={[
