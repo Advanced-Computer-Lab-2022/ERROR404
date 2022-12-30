@@ -9,37 +9,37 @@ import InstructorDashboard from "./instructorComponents/InstructorDashboard";
 import TraineeDashboard from "./traineeComponents/TraineeDashboard";
 import axios from "axios";
 
-const ChangePasswordPageWrapper = () => {
-  const { userType } = useContext(AppContext);
-  const [user, setUser] = userType;
-  if (user == "instructor") {
-    return (
-      <InstructorDashboard>
-        <UserSettingPage Settings="Change Password">
-          <ChangePasswordPage />
-        </UserSettingPage>
-      </InstructorDashboard>
-    );
-  } else if (user == "individual") {
-    return (
-      <TraineeDashboard>
-        <UserSettingPage>
-          <ChangePasswordPage />
-        </UserSettingPage>
-      </TraineeDashboard>
-    );
-  } else {
-    return (
-      <App>
-        <UserSettingPage>
-          <ChangePasswordPage />
-        </UserSettingPage>
-      </App>
-    );
-  }
-};
+// const ChangePasswordPageWrapper = () => {
+//   const { userType } = useContext(AppContext);
+//   const [user, setUser] = userType;
+//   if (user == "instructor") {
+//     return (
+//       <InstructorDashboard>
+//         <UserSettingPage Settings="Change Password">
+//           <ChangePasswordPage />
+//         </UserSettingPage>
+//       </InstructorDashboard>
+//     );
+//   } else if (user == "individual") {
+//     return (
+//       <TraineeDashboard>
+//         <UserSettingPage>
+//           <ChangePasswordPage />
+//         </UserSettingPage>
+//       </TraineeDashboard>
+//     );
+//   } else {
+//     return (
+//       <App>
+//         <UserSettingPage>
+//           <ChangePasswordPage />
+//         </UserSettingPage>
+//       </App>
+//     );
+//   }
+// };
 
-const ChangePasswordPage = () => {
+const ChangePasswordPageWrapper = () => {
   const { userEmail, userMongoId, userType, username, userPassword } =
     useContext(AppContext);
   const [useremail, setUserEmail] = userEmail;

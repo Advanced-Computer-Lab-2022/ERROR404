@@ -33,17 +33,17 @@ const config = {
   ],
 };
 
-const InsertCreditCardInfoWrapper = () => {
-  return (
-    <TraineeDashboard>
-      <UserSettingPage Settings="Insert Credit Card">
-        <InsertCreditCardInfo />
-      </UserSettingPage>
-    </TraineeDashboard>
-  );
-};
+// const InsertCreditCardInfoWrapper = () => {
+//   return (
+//     <TraineeDashboard>
+//       <UserSettingPage Settings="Insert Credit Card">
+//         <InsertCreditCardInfo />
+//       </UserSettingPage>
+//     </TraineeDashboard>
+//   );
+// };
 
-const InsertCreditCardInfo = () => {
+const InsertCreditCardInfoWrapper = () => {
   const { userEmail, username } = useContext(AppContext);
   const [email, setEmail] = userEmail;
   const [user, setUsername] = username;
@@ -75,63 +75,83 @@ const InsertCreditCardInfo = () => {
   };
 
   return (
-    <div>
-      <Form
-        name="creditCard-inerting-form"
-        className="changingpassword-form"
-        initialValues={{ remember: true }}
-        onFinish={onFinish}
+    <div
+      style={{
+        width: "100%",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "flex-start",
+        alignItems: "center",
+      }}
+    >
+      <div
+        style={{
+          width: "50%",
+        }}
       >
-        <Form.Item
-          name="cardNumber"
-          label="Card Number"
-          rules={[
-            { required: true, message: "Please input your card number!" },
-          ]}
+        <Form
+          name="creditCard-inerting-form"
+          className="changingpassword-form"
+          initialValues={{ remember: true }}
+          onFinish={onFinish}
         >
-          <Input
-            prefix={<CreditCardIcon className="site-form-item-icon" />}
-            placeholder="Card Number"
-          />
-        </Form.Item>
-        <Form.Item
-          name="holderName"
-          label="Card Holder Name"
-          rules={[
-            { required: true, message: "Please input your card holder name!" },
-          ]}
-        >
-          <Input
-            prefix={<FontColorsOutlined className="site-form-item-icon" />}
-            placeholder="Card Holder Name"
-          />
-        </Form.Item>
-        <Form.Item
-          name="cvv"
-          label="CVV"
-          rules={[{ required: true, message: "Please Confirm New Password!" }]}
-        >
-          <Input.Password
-            prefix={<DialpadIcon className="site-form-item-icon" />}
-            placeholder="CVV"
-          />
-        </Form.Item>
-        <Form.Item name="expDate" label="Expiry Date" {...config}>
-          <DatePicker format={monthFormat} picker="month" />
-        </Form.Item>
-
-        <Form.Item>
-          <Button
-            type="primary"
-            htmlType="submit"
-            style={{
-              width: "100%",
-            }}
+          <Form.Item
+            name="cardNumber"
+            label="Card Number"
+            rules={[
+              { required: true, message: "Please input your card number!" },
+            ]}
           >
-            Add Credit Card
-          </Button>
-        </Form.Item>
-      </Form>
+            <Input
+              prefix={<CreditCardIcon className="site-form-item-icon" />}
+              placeholder="Card Number"
+            />
+          </Form.Item>
+          <Form.Item
+            name="holderName"
+            label="Card Holder Name"
+            rules={[
+              {
+                required: true,
+                message: "Please input your card holder name!",
+              },
+            ]}
+          >
+            <Input
+              prefix={<FontColorsOutlined className="site-form-item-icon" />}
+              placeholder="Card Holder Name"
+            />
+          </Form.Item>
+          <Form.Item
+            name="cvv"
+            label="CVV"
+            rules={[
+              { required: true, message: "Please Confirm New Password!" },
+            ]}
+          >
+            <Input.Password
+              prefix={<DialpadIcon className="site-form-item-icon" />}
+              placeholder="CVV"
+            />
+          </Form.Item>
+          <Form.Item name="expDate" label="Expiry Date" {...config}>
+            <DatePicker format={monthFormat} picker="month" />
+          </Form.Item>
+
+          <Form.Item>
+            <Button
+              type="primary"
+              htmlType="submit"
+              style={{
+                width: "20%",
+                textAlign: "center",
+              }}
+            >
+              Add Credit Card
+            </Button>
+          </Form.Item>
+        </Form>
+      </div>
     </div>
   );
 };

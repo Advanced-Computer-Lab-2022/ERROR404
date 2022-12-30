@@ -7,7 +7,7 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import SendIcon from "@mui/icons-material/Send";
-import { Space, Image, Input, Button, Form, message } from "antd";
+import { Space, Image, Input, Button, Form, message, Tabs } from "antd";
 import TextField from "@mui/material/TextField";
 import { Link } from "react-router-dom";
 import VpnKeyIcon from "@mui/icons-material/VpnKey";
@@ -19,6 +19,8 @@ import { AppContext } from "../AppContext";
 import axios from "axios";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
+import ChangePasswordPageWrapper from "./changePassword";
+import InsertCreditCardInfoWrapper from "./insertCreditCardinfo";
 
 const SettingsPageSider = () => {
   const { userType } = useContext(AppContext);
@@ -211,128 +213,158 @@ const PersonalInformationTab = () => {
   };
 
   return (
-    <div>
-      <h1>Basic Information</h1>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "2vh",
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            gap: "5%",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <Image
-            width={200}
-            src="https://thumbor.forbes.com/thumbor/fit-in/x/https://www.forbes.com/advisor/in/wp-content/uploads/2022/03/monkey-g412399084_1280.jpg"
-          />
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-            }}
-          >
-            <h1>{userName}</h1>
-            {user == "instructor" ? (
-              <TextField
-                required
-                disabled={formDisabled}
-                id="outlined-textarea"
-                label="Bio"
-                name="bio"
-                defaultValue={bio}
-                onChange={handleChange}
-              />
-            ) : null}
-          </div>
-          <Button
-            icon={<EditOutlined />}
-            onClick={() => setFormDisabled(!formDisabled)}
-          ></Button>
-        </div>
-
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            gap: "5%",
-            justifyContent: "center",
-          }}
-        >
-          <TextField
-            disabled
-            id="outlined-disabled"
-            label="Username"
-            name="username"
-            defaultValue={userName}
-            onChange={handleChange}
-          />
-          <TextField
-            required
-            disabled={formDisabled}
-            id="outlined-textarea"
-            label="Email"
-            name="email"
-            defaultValue={email}
-            onChange={handleChange}
-          />
-          <TextField
-            required
-            disabled={formDisabled}
-            id="outlined-textarea"
-            label="Phone number"
-            name="phone"
-            defaultValue={phone}
-            onChange={handleChange}
-          />
-
-          <TextField
-            required
-            disabled={formDisabled}
-            id="outlined-textarea"
-            name="region"
-            label="Country"
-            defaultValue={region}
-            onChange={handleChange}
-          />
-        </div>
-        <div
-          style={{ display: "flex", justifyContent: "center", padding: "5px" }}
-        >
-          {formDisabled == false ? (
-            <Button
-              type="primary"
-              style={{ width: "20%" }}
-              onClick={handleSubmit}
+    <Tabs
+      tabPosition="left"
+      defaultActiveKey="1"
+      items={[
+        {
+          label: `Basic Information`,
+          key: "1",
+          children: (
+            <div
+              style={{
+                boxSizing: "border-box",
+                paddingLeft: "10%",
+              }}
             >
-              Save Changes
-            </Button>
-          ) : null}
-        </div>
-      </div>
-      <Space>
-        <Link to="/changePassword">
-          <Button type="primary">Change Password</Button>
-        </Link>
-        {user == "individual" ? (
-          <Link to="/insertCard">
-            <Button type="primary">Insert Credit Card</Button>
-          </Link>
-        ) : null}
-        {user == "instructor" ? (
-          <Link to="/instructorDashboard/editBio">
-            <Button type="primary">Change Bio</Button>
-          </Link>
-        ) : null}
-      </Space>
-    </div>
+              <h1>Basic Information</h1>
+              <Button
+                icon={<EditOutlined />}
+                onClick={() => setFormDisabled(!formDisabled)}
+              ></Button>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  width: "100%",
+                  height: "80vh",
+                }}
+              >
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "5%",
+                    justifyContent: "flex-start",
+                    alignItems: "center",
+                    width: "40%",
+                  }}
+                >
+                  <Image
+                    width="50%"
+                    src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+                  />
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "flex-start",
+                      alignItems: "center",
+                      width: "100%",
+                      gap: "20%",
+                    }}
+                  >
+                    <h1>{userName}</h1>
+                    {user == "instructor" ? (
+                      <TextField
+                        style={{
+                          width: "60%",
+                          height: "50%",
+                        }}
+                        required
+                        disabled={formDisabled}
+                        id="outlined-textarea"
+                        label="Bio"
+                        name="bio"
+                        defaultValue={bio}
+                        onChange={handleChange}
+                      />
+                    ) : null}
+                  </div>
+                </div>
+
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "5%",
+                    justifyContent: "flex-start",
+                    alignItems: "flex-start",
+
+                    width: "40%",
+                  }}
+                >
+                  <TextField
+                    disabled
+                    id="outlined-disabled"
+                    label="Username"
+                    name="username"
+                    defaultValue={userName}
+                    onChange={handleChange}
+                  />
+                  <TextField
+                    required
+                    disabled={formDisabled}
+                    id="outlined-textarea"
+                    label="Email"
+                    name="email"
+                    defaultValue={email}
+                    onChange={handleChange}
+                  />
+                  <TextField
+                    required
+                    disabled={formDisabled}
+                    id="outlined-textarea"
+                    label="Phone number"
+                    name="phone"
+                    defaultValue={phone}
+                    onChange={handleChange}
+                  />
+
+                  <TextField
+                    required
+                    disabled={formDisabled}
+                    id="outlined-textarea"
+                    name="region"
+                    label="Country"
+                    defaultValue={region}
+                    onChange={handleChange}
+                  />
+                  {formDisabled == false ? (
+                    <Button
+                      type="primary"
+                      style={{ width: "20%" }}
+                      onClick={handleSubmit}
+                    >
+                      Save Changes
+                    </Button>
+                  ) : null}
+                </div>
+              </div>
+              <Space>
+                {user == "individual" ? (
+                  <Link to="/insertCard">
+                    <Button type="primary">Insert Credit Card</Button>
+                  </Link>
+                ) : null}
+              </Space>
+            </div>
+          ),
+        },
+        {
+          label: `Security`,
+          key: "2",
+          children: <ChangePasswordPageWrapper />,
+        },
+        user == "individual"
+          ? {
+              label: `Payment Methods`,
+              key: "3",
+              children: <InsertCreditCardInfoWrapper />,
+            }
+          : null,
+      ]}
+    />
   );
 };
 

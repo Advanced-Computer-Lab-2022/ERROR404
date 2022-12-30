@@ -243,21 +243,6 @@ const InstructorCategories = () => {
       >
         View All courses
       </Link>
-      <Link
-        to="/rateAndReviewInstructor"
-        style={{ color: "white", textDecoration: "none" }}
-      >
-        Rate Instructor
-      </Link>
-      <Link
-        to="/rateAndReviewCourse"
-        style={{ color: "white", textDecoration: "none" }}
-      >
-        Rate a course
-      </Link>
-      <Link style={{ color: "white", textDecoration: "none" }}>
-        Request refund
-      </Link>
     </div>
   );
 };
@@ -361,7 +346,6 @@ const FooterWrapper = () => {
         <CourseraCategories />
         <MoreCategories />
         <InstructorCategories />
-        <TeamCategories />
         <ContactInfoCategories />
       </div>
     </div>

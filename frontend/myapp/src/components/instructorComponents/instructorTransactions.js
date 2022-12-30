@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Avatar, List, message, Card, Statistic } from "antd";
 import { DollarOutlined } from "@ant-design/icons";
 import VirtualList from "rc-virtual-list";
+import DemoLine from "./instructorPayments";
 
 const fakeDataUrl =
   "https://randomuser.me/api/?results=20&inc=name,gender,email,nat,picture&noinfo";
@@ -139,28 +140,7 @@ const InstructorMonthlyBalances = () => {
   return (
     <div>
       <h1>My Monthly Balance</h1>
-      <List>
-        <VirtualList
-          data={monthlyBalance}
-          height={ContainerHeight}
-          itemHeight={10}
-          itemKey="email"
-        >
-          {(item) => (
-            <List.Item key={item.email}>
-              <Card>
-                <Statistic
-                  title={"Total Balance for " + item.month}
-                  value={item.balance}
-                  precision={2}
-                  valueStyle={{ color: "#3f8600" }}
-                  prefix={<DollarOutlined />}
-                />
-              </Card>
-            </List.Item>
-          )}
-        </VirtualList>
-      </List>
+      <DemoLine />
     </div>
   );
 };

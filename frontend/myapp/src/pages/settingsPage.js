@@ -24,7 +24,7 @@ const SettingsPageWrapper = () => {
   const [user, setUser] = userType;
   if (user == "instructor") {
     return (
-      <InstructorDashboard>
+      <InstructorDashboard pageName="Setting">
         <UserSettingPageMain />
       </InstructorDashboard>
     );
@@ -44,59 +44,39 @@ const SettingsPageWrapper = () => {
 };
 
 const UserSettingPageMain = () => {
-  return (
-    <UserSettingPage>
-      <PersonalInformationTab />
-    </UserSettingPage>
-  );
+  return <PersonalInformationTab />;
 };
 
 const UserSettingPage = ({ children, Settings }) => (
-  <Layout>
-    <Header className="header">
-      <div className="logo" />
-    </Header>
-    <Content
+  <Content
+    style={{
+      padding: "0 50px",
+    }}
+  >
+    <Breadcrumb
       style={{
-        padding: "0 50px",
+        margin: "16px 0",
+      }}
+    ></Breadcrumb>
+    <Layout
+      className="site-layout-background"
+      style={{
+        padding: "24px 0",
       }}
     >
-      <Breadcrumb
+      <Sider>
+        <SettingsPageSider />
+      </Sider>
+      <Content
         style={{
-          margin: "16px 0",
+          padding: "20px",
+          minHeight: 280,
         }}
       >
-        <Breadcrumb.Item>
-          <Link to="/">Home</Link>
-        </Breadcrumb.Item>
-        <Breadcrumb.Item>
-          <Link to="/settings">Account</Link>
-        </Breadcrumb.Item>
-        <Breadcrumb.Item>{Settings}</Breadcrumb.Item>
-      </Breadcrumb>
-      <Layout
-        className="site-layout-background"
-        style={{
-          padding: "24px 0",
-        }}
-      >
-        <Sider>
-          <SettingsPageSider />
-        </Sider>
-        <Content
-          style={{
-            padding: "0 24px",
-            minHeight: 280,
-          }}
-        >
-          {children}
-        </Content>
-      </Layout>
-    </Content>
-    <Footer
-      style={{ padding: 0, textAlign: "center", margin: "0 0px" }}
-    ></Footer>
-  </Layout>
+        {children}
+      </Content>
+    </Layout>
+  </Content>
 );
 
 export { UserSettingPage };
