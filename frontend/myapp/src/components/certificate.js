@@ -39,7 +39,6 @@ const CertificateWrapper = () => {
       icon: (
         <SaveIcon
           onClick={() => {
-            window.print();
             console.log("aaaaaaaaa");
             const input = document.getElementById("pdf-element");
             const pdf = new jsPDF("p", "pt", "a2");
@@ -63,7 +62,6 @@ const CertificateWrapper = () => {
         style={{
           display: "Flex",
           flexDirection: "column",
-          gap: "20%",
           justifyContent: "center",
           alignItems: "center",
           fontSize: "25px",
@@ -76,120 +74,103 @@ const CertificateWrapper = () => {
       </div>
       <br></br>
       <br></br>
-      <div>
+      <div
+        id="pdf-element"
+        style={{
+          display: "Flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          fontSize: "25px",
+        }}
+      >
         <div
-          id="pdf-element"
+          className="content"
           style={{
-            position: "absolute",
-            left: "160mm",
-            top: "55mm",
-            height: "130mm",
-            width: "147mm",
+            height: "118mm",
+            width: "125mm",
             border: "1mm solid #991B1B",
-            backgroundcolor: "#d6d6e4",
+            background: "white",
           }}
         >
           <div
-            className="content"
+            className="inner-content"
             style={{
-              position: "absolute",
-              left: "10mm",
-              top: "10mm",
-              height: "108mm",
-              width: "125mm",
               border: "1mm solid #991B1B",
-              background: "white",
+              margin: "4mm",
+              padding: "10mm",
+              height: "108mm",
+              textAlign: "center",
             }}
           >
-            <div
-              className="inner-content"
+            <h1
               style={{
-                border: "1mm solid #991B1B",
-                margin: "4mm",
-                padding: "10mm",
-                height: "98mm",
-                textAlign: "center",
+                textTransform: "uppercase",
+                fontSize: "30pt",
+                marginBottom: "0",
               }}
             >
-              <h1
-                style={{
-                  textTransform: "uppercase",
-                  fontSize: "30pt",
-                  marginBottom: "0",
-                }}
-              >
-                Certificate
-              </h1>
-              <h2
-                style={{
-                  fontSize: "24pt",
-                  marginTop: "0",
-                  paddingBottom: "1mm",
-                  display: "inline-block",
-                  borderBottom: "1mm solid #991B1B",
-                }}
-              >
-                of Excellence
-              </h2>
-              <h3
-                style={{
-                  fontSize: "20pt",
-                  marginBottom: "0",
-                  marginTop: "1mm",
-                }}
-              >
-                This Certificate Is Proudly Presented To
-              </h3>
-              <p
-                style={{
-                  fontSize: "12pt",
-                }}
-              >
-                {name}
-              </p>
-              <h3
-                style={{
-                  fontSize: "20pt",
-                  marginBottom: "0",
-                  marginTop: "2mm",
-                }}
-              >
-                Has Completed
-              </h3>
-              <p
-                style={{
-                  fontSize: "12pt",
-                }}
-              >
-                PrintCSS Basics Course
-              </p>
-              <h3
-                style={{
-                  fontSize: "20pt",
-                  marginBottom: "0",
-                  marginTop: "2mm",
-                }}
-              >
-                On
-              </h3>
-              <p
-                style={{
-                  fontSize: "12pt",
-                }}
-              >
-                Feburary 5, 2021
-              </p>
-              <div
-                className="badge"
-                style={{
-                  width: "40mm",
-                  height: "40mm",
-                  position: "static",
-                  right: "10mm",
-                  bottom: "10mm",
-                }}
-              ></div>
-            </div>
+              Certificate
+            </h1>
+            <h2
+              style={{
+                fontSize: "24pt",
+                marginTop: "0",
+                paddingBottom: "1mm",
+                display: "inline-block",
+                borderBottom: "1mm solid #991B1B",
+              }}
+            >
+              of Excellence
+            </h2>
+            <h3
+              style={{
+                fontSize: "20pt",
+                marginBottom: "0",
+                marginTop: "1mm",
+              }}
+            >
+              This Certificate Is Proudly Presented To
+            </h3>
+            <p
+              style={{
+                fontSize: "12pt",
+              }}
+            >
+              {name}
+            </p>
+            <h3
+              style={{
+                fontSize: "20pt",
+                marginBottom: "0",
+                marginTop: "2mm",
+              }}
+            >
+              Has Completed
+            </h3>
+            <p
+              style={{
+                fontSize: "12pt",
+              }}
+            >
+              PrintCSS Basics Course
+            </p>
+            <h3
+              style={{
+                fontSize: "20pt",
+                marginBottom: "0",
+                marginTop: "2mm",
+              }}
+            >
+              On
+            </h3>
+            <p
+              style={{
+                fontSize: "12pt",
+              }}
+            >
+              Feburary 5, 2021
+            </p>
           </div>
         </div>
       </div>
@@ -197,9 +178,9 @@ const CertificateWrapper = () => {
         style={{
           width: "40mm",
           height: "40mm",
-          position: "static",
-          right: "10mm",
-          bottom: "10mm",
+          position: "absolute",
+          top: "30%",
+          left: "10%",
         }}
       >
         <h5>Enter the name to be shown on the certificate</h5>
@@ -211,8 +192,8 @@ const CertificateWrapper = () => {
       <div>
         <Box
           sx={{
-            height: 350,
-            width: 1050,
+            height: "50%",
+            width: "80%",
             transform: "translateZ(100px)",
             flexGrow: 2,
           }}
@@ -241,10 +222,7 @@ const CertificateWrapper = () => {
             fontSize: "25px",
           }}
         >
-          <h4>
-            We will be sending you an email to {useremail} to change the
-            password
-          </h4>
+          <h4>We will be sending you an email to {useremail}</h4>
           <Form
             name="normal_login"
             className="change-password-form"
