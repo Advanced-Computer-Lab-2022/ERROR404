@@ -188,7 +188,6 @@ const CourseComponent = ({ courses, viewType }) => {
         style={{
           width: "20%",
           height: "100vh",
-          backgroundColor: "black",
         }}
       >
         <SearchByForm />

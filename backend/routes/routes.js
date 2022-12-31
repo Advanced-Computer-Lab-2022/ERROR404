@@ -52,12 +52,11 @@ const createIndividualTrainee = async (req, res) => {
   } else if (x == 1) {
     return res.status(409).json("username already in use");
   } else {
-    await usernames.create({ name: username });
-
-    await individualTrainee.create(userData, function (err, small) {
+    await individualTrainee.create(userData, async function (err, small) {
       if (err) {
         res.status(500).send("Database not responding  => " + err);
       } else {
+        await usernames.create({ name: username });
         res.status(200).send("Individual Trainee Created Successfully");
       }
     });
@@ -278,7 +277,6 @@ const createAdmin = async (req, res) => {
   } else if (x == 1) {
     return res.status(409).json("username already in use");
   } else {
-    await usernames.create({ name: username });
     await admin
       .find({ username: Admin }, (err, data) => {
         if (err) {
@@ -291,7 +289,7 @@ const createAdmin = async (req, res) => {
               password: password,
               username: username,
             };
-            admin.create(adminData, function (err, small) {
+            admin.create(adminData, async function (err, small) {
               if (err) {
                 res
                   .status(500)
@@ -300,6 +298,8 @@ const createAdmin = async (req, res) => {
                 return;
               }
               // this means record created
+
+              await usernames.create({ name: username });
               res
                 .status(200)
                 .send("admin " + username + " created Successfully");
@@ -409,14 +409,14 @@ const createInstructor = async (req, res) => {
   } else if (x == 1) {
     return res.status(409).json("username already in use");
   } else {
-    await usernames.create({ name: username });
     await admin
-      .find({ username: Admin }, (err, result) => {
+      .find({ username: Admin }, async (err, result) => {
         if (err) {
           res.status(500).send(err.message);
         } else if (result == "") {
           res.status(404).send("not an admin");
         } else {
+          await usernames.create({ name: username });
           instructor.create(instData, (error, data) => {
             if (error) {
               res.status(400).send(error.message);
@@ -454,32 +454,24 @@ const createCorporateTrainee = async (req, res) => {
     gender: "Not Defined",
     username: username,
     password: password,
+    email: "",
   };
-  if (
-    username == null ||
-    password == null
-    // firstname == null ||
-    // lastname == null ||
-    // age == null ||
-    // gender == null ||
-    // email == null ||
-    // country == null
-  ) {
+  if (username == null || password == null) {
     res.status(400).json("Enter a valid data ");
   } else if (x == 1) {
     return res.status(409).json("username already in use");
   } else {
-    await usernames.create({ name: username });
     await admin
       .findOne({ username: Admin }, (err, result) => {
         if (err) {
           res.status(400).send("Error: " + err);
         } else {
-          corporateTrainee.create(corpData, (error, small) => {
+          corporateTrainee.create(corpData, async (error, small) => {
             if (error) {
               res.status(500).send(error);
               console.log(error);
             } else {
+              await usernames.create({ name: username });
               res.status(200).send("user is created");
             }
           });
@@ -611,18 +603,51 @@ const filterCourses = async (req, res) => {
       });
   }
 };
-const filterByPrice = async (req, res) => {
-  const { min, max } = req.params;
-  courses.find(
-    { $and: [{ price: { $lte: max } }, { price: { $gte: min } }] },
-    (err, result) => {
-      if (err) {
-        res.status(500).send();
-      } else {
-        res.status(200).json(result);
-      }
+const filterByCategory = async (req, res) => {
+  const category = req.params.category;
+  courses.find({ category: category }, (err, result) => {
+    if (err) {
+      res.status(500).send(err.message);
+    } else {
+      res.status(200).json(result);
     }
-  );
+  });
+};
+const getCategory = async (req, res) => {
+  courses.distinct("category", (err, result) => {
+    if (err) {
+      res.status(500).send(err.message);
+    } else {
+      res.status(200).json(result);
+    }
+  });
+};
+const filterByPriceOrRate = async (req, res) => {
+  const { type, min, max } = req.params;
+  if (type == "price") {
+    courses.find(
+      { $and: [{ price: { $lte: max } }, { price: { $gte: min } }] },
+      (err, result) => {
+        if (err) {
+          res.status(500).send();
+        } else {
+          res.status(200).json(result);
+        }
+      }
+    );
+  }
+  if (type == "rate") {
+    courses.find(
+      { $and: [{ rating: { $lte: max } }, { rating: { $gte: min } }] },
+      (err, result) => {
+        if (err) {
+          res.status(500).send();
+        } else {
+          res.status(200).json(result);
+        }
+      }
+    );
+  }
 };
 const updateViews = async (req, res) => {
   const id = req.body.id;
@@ -1559,7 +1584,9 @@ module.exports = {
   instructorFilterCourses,
   instructorFilterByPrice,
   approveInstructor,
-  filterByPrice,
+  filterByPriceOrRate,
   getAllSubtitles,
   login,
+  filterByCategory,
+  getCategory,
 };

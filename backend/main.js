@@ -48,7 +48,7 @@ const {
   getmyGrade,
   createReport,
   updateReportStatus,
-  filterByPrice,
+  filterByPriceOrRate,
   createCourseChat,
   getCourseChats,
   approveInstructor,
@@ -61,6 +61,8 @@ const {
   traineebalance,
   getAllSubtitles,
   login,
+  filterByCategory,
+  getCategory,
 } = require("./routes/routes");
 
 //App variables
@@ -99,13 +101,12 @@ app.get("/instViewCourses/:userId", instViewCourses);
 app.get("/filter/:filterType/:key", filterCourses);
 app.get("/viewReviewAndRating/:username", viewReviewAndRatingForInstructor);
 app.get("/viewRatingAndReviews/:username", viewRatingAndReviews);
-app.get("/filterByPrice/:min/:max", filterByPrice);
 //app.get("/getChats/:username/:usertype", getChats);
 app.get("/getCourseChats/:id", getCourseChats);
 app.get("/getAllRequests", getAllRequests);
 //app.get("/getExam/:id", getExamById);
 app.get("/getAllRequests", getAllRequests);
-app.get("/filterByPrice/:min/:max", filterByPrice);
+app.get("/filterByPriceOrRate/:type/:min/:max", filterByPriceOrRate);
 app.get("/getMyBalance/:username", traineebalance);
 app.get("/getAllSubtitles/:id", getAllSubtitles);
 app.get(
@@ -116,10 +117,10 @@ app.get(
   "/instructorFilterCourses/:username/:filterType/:key",
   instructorFilterCourses
 );
-app.get("/filterByPrice/:min/:max", filterByPrice);
 //app.get("/getChats/:username/:usertype", getChats);
 app.get("/login/:username", login);
-
+app.get("/filterByCategory/:category", filterByCategory);
+app.get("/getCategory", getCategory);
 app.post("/createCorporateTrainee", createCorporateTrainee);
 app.post("/createAdmin", createAdmin);
 app.post("/createCourse", createCourse);
