@@ -38,7 +38,7 @@ const instructor = new Schema(
     },
     email: {
       type: String,
-      unique: true,
+      // unique: true,
     },
     country: {
       type: String,

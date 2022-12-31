@@ -42,8 +42,8 @@ const individualTrainee = new Schema(
     },
     email: {
       type: String,
-      unique: true,
-      required: [true, "Vaild email is required"],
+      // unique: true,
+      // required: [true, "Vaild email is required"],
     },
     country: {
       type: String,

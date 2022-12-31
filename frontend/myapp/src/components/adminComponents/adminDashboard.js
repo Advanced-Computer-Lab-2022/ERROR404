@@ -119,7 +119,7 @@ const AdminDashboard = ({ children, pageName }) => {
             position: "sticky",
             top: "0px",
             width: "100%",
-            height: "8vh",
+            height: "10vh",
             zIndex: "100",
             color: "white",
             display: "flex",

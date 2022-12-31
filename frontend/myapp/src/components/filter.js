@@ -2,8 +2,6 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import App from "../App";
-import { Button, message, Modal, Tooltip } from "antd";
-import { FilterOutlined } from "@ant-design/icons";
 import CourseComponent from "./coursesListComponent";
 import SearchByForm from "./getCourses";
 const Filter = () => {
@@ -12,15 +10,6 @@ const Filter = () => {
   const [courses, setCourses] = useState([]);
   let location = useLocation();
 
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
-  const handleOk = () => {
-    setIsModalOpen(false);
-  };
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
   useEffect(() => {
     setIsModalOpen(false);
     const idSearch = window.location.search;
@@ -30,7 +19,43 @@ const Filter = () => {
       const min = urlParams.get("min");
       const max = urlParams.get("max");
       axios
-        .get("http://localhost:2020/filterByPrice/" + min + "/" + max)
+        .get(
+          "http://localhost:2020/filterByPriceOrRate/" +
+            filterType +
+            "/" +
+            min +
+            "/" +
+            max
+        )
+        .then((response) => {
+          setCourses(response.data);
+        })
+        .catch((error) => {
+          console.log("erorr ", error.message);
+          setCourses([]);
+        });
+    } else if (filterType == "rate") {
+      let min = urlParams.get("min");
+      axios
+        .get(
+          "http://localhost:2020/filterByPriceOrRate/" +
+            "rate" +
+            "/" +
+            min +
+            "/" +
+            5
+        )
+        .then((response) => {
+          setCourses(response.data);
+        })
+        .catch((error) => {
+          console.log("erorr ", error.message);
+          setCourses([]);
+        });
+    } else if (filterType == "category") {
+      const category = urlParams.get("category");
+      axios
+        .get("http://localhost:2020/filterByCategory/" + category)
         .then((response) => {
           setCourses(response.data);
         })
@@ -54,22 +79,6 @@ const Filter = () => {
 
   return (
     <App>
-      <Tooltip title="search">
-        <Button
-          type="primary"
-          shape="circle"
-          icon={<FilterOutlined />}
-          onClick={showModal}
-        />
-      </Tooltip>
-      <Modal
-        title="Filter"
-        open={isModalOpen}
-        onOk={handleOk}
-        onCancel={handleCancel}
-      >
-        <SearchByForm />
-      </Modal>
       <CourseComponent courses={courses} />
     </App>
   );
