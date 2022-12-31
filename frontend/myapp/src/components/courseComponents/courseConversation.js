@@ -60,11 +60,18 @@ const CourseConversation = () => {
     if (message == null || message == "") {
       return;
     } else {
+      let usert = "";
+      if (user == "individual" || user == "corporate") {
+        usert = "student";
+      } else {
+        usert = user;
+      }
       setLoading(true);
       form.resetFields();
       const body = {
         id: courseId,
         sender: userName,
+        usertype: usert,
         message: message,
       };
 
@@ -104,7 +111,7 @@ const CourseConversation = () => {
                   avatar={
                     <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
                   }
-                  title={item.sender}
+                  title={item.sender + "(" + item.usertype + ")"}
                   description={item.message}
                 />
               </Skeleton>

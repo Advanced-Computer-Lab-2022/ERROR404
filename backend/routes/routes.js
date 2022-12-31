@@ -1347,6 +1347,7 @@ const createCourseChat = (req, res) => {
   const chat = {
     sender: req.body.sender,
     message: req.body.message,
+    usertype: req.body.usertype,
   };
 
   Courses.findByIdAndUpdate(

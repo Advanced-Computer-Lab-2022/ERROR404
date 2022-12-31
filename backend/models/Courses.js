@@ -90,6 +90,10 @@ const courses = new Schema(
           type: String,
           default: "",
         },
+        usertype: {
+          type: String,
+          default: "",
+        },
         message: {
           type: String,
           default: "",
