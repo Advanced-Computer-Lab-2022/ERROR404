@@ -63,6 +63,13 @@ const AdminDashboard = ({ children, pageName }) => {
       <QuestionOutlined />
     ),
     getItem(
+      <Link className="link" to="/adminDashboard/refundrequests">
+        Refund Requests
+      </Link>,
+      "11",
+      <QuestionOutlined />
+    ),
+    getItem(
       <Link className="link" to="/adminCreateAdmin">
         Create New User
       </Link>,

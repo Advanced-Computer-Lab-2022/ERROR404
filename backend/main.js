@@ -63,6 +63,10 @@ const {
   login,
   filterByCategory,
   getCategory,
+  requestRefund,
+  deleteCourse,
+  getAllRefundRequests,
+  updateRefundRequestStatus,
 } = require("./routes/routes");
 
 //App variables
@@ -118,9 +122,12 @@ app.get(
   instructorFilterCourses
 );
 //app.get("/getChats/:username/:usertype", getChats);
-app.get("/login/:username", login);
 app.get("/filterByCategory/:category", filterByCategory);
 app.get("/getCategory", getCategory);
+app.get("/filterByPrice/:min/:max", filterByPrice);
+app.get("/login/:username", login);
+app.get("/getAllRefundRequests", getAllRefundRequests);
+
 app.post("/createCorporateTrainee", createCorporateTrainee);
 app.post("/createAdmin", createAdmin);
 app.post("/createCourse", createCourse);
@@ -130,6 +137,7 @@ app.post("/createQuestions", createQuestions);
 app.post("/createQuiz", createQuiz);
 app.post("/createReport", createReport);
 app.post("/createCorporateRequest", createCorporateRequest);
+app.post("/requestRefund", requestRefund);
 
 app.patch("/country", chooseCountry);
 app.patch("/rateAndReviewInstructor", rateAndReviewInstructor);
@@ -139,16 +147,17 @@ app.patch("/addCreditCardInfo", addCreditCardInfo);
 app.patch("/createCourseChat", createCourseChat);
 app.patch("/updateCourseProgress", updateCourseProgress);
 
+
 app.put("/uploadPreviewVideoForCourse", uploadPreviewVideoForCourse);
 app.put("/editEmail", editEmail);
 app.put("/editBio", editBio);
 app.put("/changePassword", changePassword);
-//app.put("/noOfSubscribers", noOfSubscribers);
 app.put("/salary", salary);
 app.put("/addCourseToStudent", addCourseToStudent);
 app.put("/submitDiscount", submitDiscount);
 app.put("/updateReportStatus", updateReportStatus);
 app.put("/updateViews", updateViews);
-//app.get("/getChats/:username/:usertype", getChats);
 app.put("/approveInstructor", approveInstructor);
 app.put("/updateRequestStatus", updateRequestStatus);
+app.put("/deleteCourse", deleteCourse);
+app.put("/updateRefundRequestStatus",updateRefundRequestStatus);

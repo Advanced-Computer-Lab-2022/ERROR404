@@ -10,6 +10,7 @@ const quizzes = require("../models/quizzes");
 const Reports = require("../models/reports");
 const chats = require("../models/chats");
 const usernames = require("../models/usernames");
+const refundRequests = require("../models/refundRequests");
 
 //Methods
 const createIndividualTrainee = async (req, res) => {
@@ -1003,9 +1004,10 @@ const salary = async (req, res) => {
           }
         }
       )
-      .clone();
+    .clone();
   }
 };
+
 const createQuestions = async (req, res) => {
   const username = req.body.username;
   const question1 = req.body.question1;
@@ -1190,7 +1192,7 @@ const addCourseToStudent = async (req, res) => {
                   }
                 }
               )
-              .clone();
+            .clone();
           }
         }
       )
@@ -1199,6 +1201,7 @@ const addCourseToStudent = async (req, res) => {
     res.status(404).send("Student not found");
   }
 };
+
 const getCourseById = async (req, res) => {
   const courseId = req.params.id;
   await courses
@@ -1397,6 +1400,7 @@ const getCourseChats = async (req, res) => {
     }
   }).clone();
 };
+
 const createCorporateRequest = (req, res) => {
   console.log(req.body);
   const username = req.body.username;
@@ -1424,6 +1428,8 @@ const createCorporateRequest = (req, res) => {
     });
   }
 };
+
+
 
 const getAllRequests = async (req, res) => {
   await corporateRequests
@@ -1535,6 +1541,136 @@ const instructorFilterByPrice = async (req, res) => {
     }
   );
 };
+
+const requestRefund =async(req,res)=> {
+  console.log(req.body);
+  const username = req.body.username;
+  const courseId = req.body.courseId;
+  const userType = req.body.userType;
+  const _id = courseId.split("=")[1];
+  const p = await individualTrainee.findOne({username:username},{Regcourses:_id});
+//   const _id = courseId.split("=")[1];
+//   const x = await courses.findById(_id);
+
+  //const x= await individualTrainee.findById({Regcourses:courseId})
+  if (p==null){
+    return res.status(401).send("Course not found");
+  }
+  else if (userType !== "corporate") {
+    return res.status(400).send("Error occured");
+  }
+  else if (username == null || username.length == 0) {
+    return res.status(400).send("Please enter your username");
+  } else if (courseId == null || courseId.length == 0) {
+    return res.status(400).send("Please enter the course");
+  } else {
+    const body = {
+      username: username,
+      userType: userType,
+      courseId: courseId,
+    };
+    refundRequests.create(body, (err, data) => {
+      if (err) {
+        res.status(500).json(err);
+      } else {
+        res.status(200).send(data);
+      }
+    });
+  }
+};
+
+const getAllRefundRequests = async (req, res) => {
+  await refundRequests
+    .find({}, (err, data) => {
+      if (err) {
+        res.status(500).json(err);
+      } else if (data) {
+        res.status(200).json(data);
+      } else {
+        res.status(404).send();
+      }
+    })
+  .clone();
+};
+
+const updateRefundRequestStatus = (req, res) => {
+  const requestId = req.body.id;
+  if (requestId == null || requestId.length == 0) {
+    return res.status(400).send("Id not provided");
+  } else {
+    refundRequests
+      .findByIdAndUpdate(
+        { _id: requestId },
+        { $set: { status: req.body.status } },
+        { runValidators: true },
+        (err, data) => {
+          if (err) {
+            res.status(500).json(err);
+          } else {
+            res.status(200).send();
+          }
+        }
+      )
+    .clone();
+  }
+};
+
+const deleteCourse = async(req,res) => {
+  console.log("helllz ", req.body);
+  const username = req.body.username;
+  const courseId = req.body.courseId;
+
+  await individualTrainee.findOneAndUpdate({username:username}, {$pull:{Regcourses:{_id:courseId}}}, 
+    (err, result) => {
+      if (err) {
+        res.status(500).send();
+      } else {
+        courses.updateOne(
+          { _id: courseId },
+          { $inc: { numberOfSubscribers: -1 } },
+          (err, result) => {
+            if (err) {
+              res.status(500).send();
+            } else {
+              res.status(200).send(result);
+            }
+          }
+        ).clone();
+      }
+    }      
+  ).clone();  
+};
+
+// const adminRefundTrainee = async(req,res) => {
+//   const username = req.body.username;
+//   const courseId = req.body.courseId;
+
+//   const p = await individualTrainee.findOne({username:username}, {balance:1});
+//   const _id = courseId.split("=")[1];
+//   const x = await courses.findById(_id);
+  
+//   let price = x.price;
+//   let newBalance = p.balance;
+//   newBalance= newBalance + price;
+//   console.log(newBalance);
+//   console.log(x.instructor);
+//   console.log(x.price);
+//   await individualTrainee
+//     .updateOne(
+//       { username: username },
+//       { balance: newBalance })
+//       .exec((err, result) => {
+//         if (err) {
+//           res.status(500).send();
+//         } else {
+//           res.status(200).send(result);
+//         }
+//       }
+//     )
+//   .clone();    
+// };
+
+
 module.exports = {
   getUser,
   search,
@@ -1589,4 +1725,9 @@ module.exports = {
   login,
   filterByCategory,
   getCategory,
+  requestRefund,
+  getAllRefundRequests,
+  updateRefundRequestStatus,
+  deleteCourse,
+  //adminRefundTrainee,
 };
