@@ -1,7 +1,7 @@
 import { Descriptions, Menu, List } from "antd";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import TakeNotesWrapper from "../takeNotes";
 import TraineeDashboard from "../traineeComponents/TraineeDashboard";
 
@@ -10,7 +10,7 @@ const CoursePreview = () => {
   const [courseId, setcourseId] = useState([]);
   const [video, setVideo] = useState("");
 
-  const location = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const idSearch = window.location.search;
@@ -122,7 +122,7 @@ const CourseSubtitleViewWrapper = () => {
   const [description, setDescription] = useState("");
   const [subtitles, setSubtitles] = useState([]);
   const [courseId, setcourseId] = useState([]);
-  const location = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const idSearch = window.location.search;

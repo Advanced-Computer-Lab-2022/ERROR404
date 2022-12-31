@@ -37,7 +37,7 @@ const TakeNotesWrapper = () => {
       </Button>
       <Drawer
         title="Taking Notes......."
-        placement="left"
+        placement="bottom"
         width="20vw"
         onClose={handleCancel}
         open={isModalOpen}
