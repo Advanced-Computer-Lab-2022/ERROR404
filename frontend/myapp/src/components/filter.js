@@ -3,10 +3,8 @@ import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import App from "../App";
 import CourseComponent from "./coursesListComponent";
-import SearchByForm from "./getCourses";
 const Filter = () => {
-  const [data, setData] = useState([]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [, setIsModalOpen] = useState(false);
   const [courses, setCourses] = useState([]);
   let location = useLocation();
 
@@ -15,7 +13,7 @@ const Filter = () => {
     const idSearch = window.location.search;
     const urlParams = new URLSearchParams(idSearch);
     const filterType = urlParams.get("filterType");
-    if (filterType == "price") {
+    if (filterType === "price") {
       const min = urlParams.get("min");
       const max = urlParams.get("max");
       axios
@@ -34,7 +32,7 @@ const Filter = () => {
           console.log("erorr ", error.message);
           setCourses([]);
         });
-    } else if (filterType == "rate") {
+    } else if (filterType === "rate") {
       let min = urlParams.get("min");
       axios
         .get(
@@ -52,7 +50,7 @@ const Filter = () => {
           console.log("erorr ", error.message);
           setCourses([]);
         });
-    } else if (filterType == "category") {
+    } else if (filterType === "category") {
       const category = urlParams.get("category");
       axios
         .get("http://localhost:2020/filterByCategory/" + category)

@@ -19,7 +19,6 @@ const { Option } = Select;
 const { Panel } = Collapse;
 const SearchByForm = ({ values }) => {
   const { Search } = Input;
-  const [data, setData] = useState([]);
   const [FilterType, setFilterType] = useState("");
   let [min, setMin] = useState();
   let [max, setMax] = useState();
@@ -40,10 +39,9 @@ const SearchByForm = ({ values }) => {
 
   const onSearch = (value) => {
     setValue(value);
-    navigate("/filter?filterType=" + FilterType + "&value=" + value);
+    navigate(`/filter?filterType=${FilterType}&value=${value}`);
   };
   const c = (value) => {
-    console.log(value);
     setFilterType(value);
   };
   const change = async (value) => {
@@ -51,19 +49,16 @@ const SearchByForm = ({ values }) => {
     setMin(value[0]);
   };
   const onChange = (e) => {
-    console.log("radio checked", e.target.value);
     setValue(e.target.value);
   };
   const rating = (event) => {
-    navigate(
-      "/filter?filterType=" + "rate" + "&min=" + event.rating + "&max=" + 5
-    );
+    navigate(`/filter?filterType=rate&min=${event.rating}&max=5`);
   };
-  const price = (event) => {
-    navigate("/filter?filterType=" + "price" + "&min=" + min + "&max=" + max);
+  const price = () => {
+    navigate(`/filter?filterType=price&min=${min}&max=${max}`);
   };
-  const category = (event) => {
-    navigate("/filter?filterType=" + "category" + "&category=" + value);
+  const category = () => {
+    navigate("/filter?filterType=category&category=" + value);
   };
   return (
     <>
