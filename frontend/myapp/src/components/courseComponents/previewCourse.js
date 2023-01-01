@@ -56,7 +56,6 @@ const PreviewCourseWrapper = () => {
       .catch((err) => {
         console.log(err);
       });
-
     axios
       .get("http://localhost:2020/getCourse/" + courseId)
       .then((response) => {
