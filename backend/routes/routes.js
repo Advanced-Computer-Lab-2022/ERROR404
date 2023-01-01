@@ -1547,36 +1547,39 @@ const requestRefund =async(req,res)=> {
   const username = req.body.username;
   const courseId = req.body.courseId;
   const userType = req.body.userType;
-  const _id = courseId.split("=")[1];
-  const p = await individualTrainee.findOne({username:username},{Regcourses:_id});
-//   const _id = courseId.split("=")[1];
-//   const x = await courses.findById(_id);
-
-  //const x= await individualTrainee.findById({Regcourses:courseId})
-  if (p==null){
-    return res.status(401).send("Course not found");
-  }
-  else if (userType !== "corporate") {
+  //const _id = courseId.split("=")[1];
+  
+  if (userType !== "individual" ||username == null) {
     return res.status(400).send("Error occured");
   }
-  else if (username == null || username.length == 0) {
-    return res.status(400).send("Please enter your username");
-  } else if (courseId == null || courseId.length == 0) {
-    return res.status(400).send("Please enter the course");
-  } else {
-    const body = {
-      username: username,
-      userType: userType,
-      courseId: courseId,
-    };
-    refundRequests.create(body, (err, data) => {
-      if (err) {
-        res.status(500).json(err);
-      } else {
-        res.status(200).send(data);
-      }
-    });
+   else if (courseId == null) {
+     res.status(400).send("Please enter the course");
   }
+  else{
+    await individualTrainee.find({username:username,Regcourses:courseId},(err,result)=>{
+      if (err) {
+        res.status(500).send(err);
+      }
+      else if(result == null){
+        res.status(404).send("The course not found");
+
+      } 
+      else{
+        refundRequests.create({
+          username:username,
+          userType:userType,
+          courseId:courseId
+        },(err,result)=>{
+          if (err) {
+            res.status(500).send(err);
+          }
+          else{
+            res.status(200).send(result);
+          }
+        })
+      }
+    }).clone();
+  } 
 };
 
 const getAllRefundRequests = async (req, res) => {
@@ -1619,12 +1622,16 @@ const deleteCourse = async(req,res) => {
   console.log("helllz ", req.body);
   const username = req.body.username;
   const courseId = req.body.courseId;
-
-  await individualTrainee.findOneAndUpdate({username:username}, {$pull:{Regcourses:{_id:courseId}}}, 
-    (err, result) => {
-      if (err) {
-        res.status(500).send();
-      } else {
+  const status = req.body.status  
+  if (username==null || courseId==null){
+    return res.status(400).send("Please enter valid data");
+  }
+  else if(status == "approved"){
+    await individualTrainee.updateOne({username: username},{$pull:{Regcourses:courseId}},(err,result)=>{
+      if(err){
+        res.status(500).send(err);
+      }
+      else if(result!=null){
         courses.updateOne(
           { _id: courseId },
           { $inc: { numberOfSubscribers: -1 } },
@@ -1636,9 +1643,9 @@ const deleteCourse = async(req,res) => {
             }
           }
         ).clone();
-      }
-    }      
-  ).clone();  
+      }  
+    }).clone();
+  }   
 };
 
 // const adminRefundTrainee = async(req,res) => {
@@ -1669,6 +1676,36 @@ const deleteCourse = async(req,res) => {
 //     )
 //   .clone();    
 // };
+
+const payfromBalance = async(req,res) => {
+  const username = req.body.username;
+  const courseId = req.body.courseId;
+  
+  const p = await individualTrainee.findOne({username:username}, {balance:1});
+  const x = await courses.findOne({_id:courseId},{price:1});
+
+  if(p.balance == 0 || p.balance < x.price){
+    res.status(401).json("Balance is insufficient");
+  }
+  else{
+    console.log(x.price);
+    let newBalance = p.balance;
+    newBalance= newBalance - x.price;
+    console.log(newBalance);
+    console.log(x.price);
+    await individualTrainee.updateOne({ username: username },{ $set:{balance: newBalance} },(err,result) => {
+      if(err){
+        res.status(500).json(err);
+
+      }
+      else{
+        res.status(200).json(result);
+
+      }
+    }).clone();
+        
+  }
+};
 
 
 module.exports = {
@@ -1730,4 +1767,5 @@ module.exports = {
   updateRefundRequestStatus,
   deleteCourse,
   //adminRefundTrainee,
+  payfromBalance,
 };

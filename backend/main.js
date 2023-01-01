@@ -67,6 +67,7 @@ const {
   deleteCourse,
   getAllRefundRequests,
   updateRefundRequestStatus,
+  payfromBalance,
 } = require("./routes/routes");
 
 //App variables
@@ -161,3 +162,4 @@ app.put("/approveInstructor", approveInstructor);
 app.put("/updateRequestStatus", updateRequestStatus);
 app.put("/deleteCourse", deleteCourse);
 app.put("/updateRefundRequestStatus",updateRefundRequestStatus);
+app.put("/payfromBalance", payfromBalance);

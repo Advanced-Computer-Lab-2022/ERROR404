@@ -152,7 +152,7 @@ const RefundRequests = () => {
       }
     });
     console.log("the request => ", requests);
-    console.log(requests.username + " " + requests.userType);
+    console.log(RefundRequests.username + " " + RefundRequests.userType);
     axios
       .get(
         "http://localhost:2020/getUser/" +
@@ -192,7 +192,7 @@ const RefundRequests = () => {
                             <Descriptions title="Updating status...">
                               <Descriptions.Item label="Current Status">
                                 <span>
-                                  <Badge status={type} text={requests.status} />
+                                  <Badge status={type} text={RefundRequests.status} />
                                 </span>
                               </Descriptions.Item>
                             </Descriptions>
@@ -236,7 +236,7 @@ const RefundRequests = () => {
                                 onOpenChange={() => console.log("open change")}
                               >
                                 <Button type="primary" htmlType="submit">
-                                  Submit Statuss
+                                  Submit Status
                                 </Button>
                               </Popconfirm>
                             </Form.Item>
