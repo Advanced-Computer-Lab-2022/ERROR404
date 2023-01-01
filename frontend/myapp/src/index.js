@@ -78,6 +78,8 @@ import CourseSubtitles from "./components/courseComponents/courseSyllabes";
 import CourseSubtitleViewWrapper, {
   CoursePreview,
 } from "./components/courseComponents/courseSubtitlesView";
+import RefundRequestsWrapper from "./components/adminComponents/adminRequestRefunds"
+
 export default function MainApp() {
   const [username, setUsername] = useState("");
   const [userEmail, setUserEmail] = useState("");
@@ -222,6 +224,11 @@ export default function MainApp() {
           <Route
             path="/adminDashboard/requests"
             element={<AdminRequestsWrapper />}
+          />
+
+          <Route
+            path="/adminDashboard/refundrequests"
+            element={<RefundRequestsWrapper />}
           />
 
           <Route path="*" element={<NoPage />} />

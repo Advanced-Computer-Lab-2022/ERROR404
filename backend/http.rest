@@ -1,10 +1,10 @@
-PUT http://localhost:2020/addCourseToStudent 
+PUT http://localhost:2020/deleteCourse
 Content-Type: application/json
 
 {
-    "usertype": "individual",
-    "username": "bruno",
-    "courseId": "63af72c8dc50987ddd1e1848"
+    "username": "malak",
+    "status" :"approved",
+    "courseId": "638501f2a9b064e47ee7e0ed"
 }
 
 # {
