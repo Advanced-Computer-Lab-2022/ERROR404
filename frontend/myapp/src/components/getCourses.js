@@ -49,6 +49,7 @@ const SearchByForm = ({ values }) => {
     setMin(value[0]);
   };
   const onChange = (e) => {
+    console.log(e.target.value);
     setValue(e.target.value);
   };
   const rating = (event) => {
@@ -65,7 +66,7 @@ const SearchByForm = ({ values }) => {
       <h1 style={{ color: "black" }}>Filter</h1>
       <Collapse
         bordered={true}
-        defaultActiveKey={["0"]}
+        defaultActiveKey={["1", "2", "3", "4"]}
         expandIcon={({ isActive }) => (
           <CaretRightOutlined rotate={isActive ? 90 : 0} />
         )}
@@ -192,7 +193,11 @@ const SearchByForm = ({ values }) => {
                 dataSource={Category}
                 renderItem={(item) => (
                   <List.Item>
-                    <Radio.Group onChange={onChange} value={null}>
+                    <Radio.Group
+                      onChange={onChange}
+                      value={value}
+                      name="radioCategory"
+                    >
                       <Space direction="vertical">
                         <Radio value={item}>{item}</Radio>
                       </Space>

@@ -125,7 +125,6 @@ app.get(
 //app.get("/getChats/:username/:usertype", getChats);
 app.get("/filterByCategory/:category", filterByCategory);
 app.get("/getCategory", getCategory);
-app.get("/filterByPrice/:min/:max", filterByPrice);
 app.get("/login/:username", login);
 app.get("/getAllRefundRequests", getAllRefundRequests);
 
@@ -148,7 +147,6 @@ app.patch("/addCreditCardInfo", addCreditCardInfo);
 app.patch("/createCourseChat", createCourseChat);
 app.patch("/updateCourseProgress", updateCourseProgress);
 
-
 app.put("/uploadPreviewVideoForCourse", uploadPreviewVideoForCourse);
 app.put("/editEmail", editEmail);
 app.put("/editBio", editBio);
@@ -161,5 +159,5 @@ app.put("/updateViews", updateViews);
 app.put("/approveInstructor", approveInstructor);
 app.put("/updateRequestStatus", updateRequestStatus);
 app.put("/deleteCourse", deleteCourse);
-app.put("/updateRefundRequestStatus",updateRefundRequestStatus);
+app.put("/updateRefundRequestStatus", updateRefundRequestStatus);
 app.put("/payfromBalance", payfromBalance);
