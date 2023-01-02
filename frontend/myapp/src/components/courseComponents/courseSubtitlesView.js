@@ -158,7 +158,7 @@ const CourseSubtitleViewWrapper = () => {
     const video = urlParams.get("video");
     const description = urlParams.get("description");
     const courseId = urlParams.get("courseId");
-
+    setcourseId(courseId);
     setVideo("https://" + video);
     setDescription(description);
     setSubtitle(subtitle);
@@ -221,6 +221,7 @@ const CourseSubtitleViewWrapper = () => {
             <h2>All Subtitles</h2>
             <TakeNotesWrapper />
             <RequestRefund courseId={courseId} />
+            <Link to={"/trainee/takequiz?courseId=" + courseId}>Take Quiz</Link>
             <List
               itemLayout="horizontal"
               dataSource={subtitles}

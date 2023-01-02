@@ -74,6 +74,7 @@ import ForgotPasswordPageWrapper from "./components/forgotPassword";
 
 import AdminViewCourseComponent from "./components/adminComponents/adminViewCourses";
 import PayForCourse from "./components/traineeComponents/payForCourse";
+import TakeQuiz from "./components/traineeComponents/takeQuiz";
 export default function MainApp() {
   const [username, setUsername] = useState("");
   const [userEmail, setUserEmail] = useState("");
@@ -136,6 +137,7 @@ export default function MainApp() {
             path="/instructorDashBoard/editEmail"
             element={<ChangeEmail />}
           />
+          <Route path="/trainee/takequiz" element={<TakeQuiz />} />
 
           <Route exact path="/" element={<HomePageWrapper />} />
           <Route path="/courses" element={<GetCoursesByPrice />} />
