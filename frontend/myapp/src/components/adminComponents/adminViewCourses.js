@@ -17,6 +17,7 @@ import {
   message,
   DatePicker,
   Radio,
+  Checkbox,
 } from "antd";
 import axios from "axios";
 import SearchByForm from "../getCourses";
@@ -33,28 +34,8 @@ const AdminViewCourseComponent = () => {
   const [data, setData] = useState("");
   const [id, setId] = useState("");
   const [value, setValue] = useState(1);
-
-  const onChange = (e) => {
-    console.log("radio checked", e.target.value);
-    setValue(e.target.value);
-  };
-  const onFinish1 = (values) => {
-    console.log("Success:", values);
-    const body = {
-      courseId: id,
-      discount: values.discountValue,
-      date: values.endDate,
-    };
-
-    axios
-      .put("http://localhost:2020/submitDiscount", body)
-      .then(() => {
-        message.success("discount added", 3);
-      })
-      .catch((err) => {
-        message.error("error " + err.response.data, 3);
-      });
-  };
+  const [checkedCourses, setcheckedCourses] = useState([]);
+  const [allCourses, setAll] = useState([]);
 
   useEffect(() => {
     axios({
@@ -63,7 +44,12 @@ const AdminViewCourseComponent = () => {
     })
       .then((response) => {
         setData(response.data);
-        console.log("dataaaaa ", response.data);
+        let data = [];
+        response.data.map((course) => {
+          data.push(course._id);
+        });
+
+        setAll(data);
       })
       .catch((error) => {
         console.log("erorr ", error.message);
@@ -72,50 +58,38 @@ const AdminViewCourseComponent = () => {
   const onFinishFailed1 = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
-  const openDis = (id, courseTitle) => {
-    const modal = Modal.confirm();
 
-    modal.update({
-      title: "Updated " + courseTitle,
-      content: (
-        <Form
-          onFinish={onFinish1}
-          onFinishFailed={onFinishFailed1}
-          autoComplete="off"
-        >
-          <Form.Item
-            label="Dicount Value"
-            name="discountValue"
-            rules={[
-              {
-                required: true,
-                message: "Please input your Dicount Value!",
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
+  const handleChange = (checkedList) => {
+    console.log(checkedList);
+    setcheckedCourses(checkedList);
+  };
 
-          <Form.Item
-            label="End Date"
-            name="endDate"
-            rules={[
-              {
-                required: true,
-                message: "Please input your End Date!",
-              },
-            ]}
-          >
-            <DatePicker />
-          </Form.Item>
-          <Form.Item>
-            <Button type="primary" htmlType="submit">
-              Submit
-            </Button>
-          </Form.Item>
-        </Form>
-      ),
-    });
+  const submitPromotion = (e) => {
+    console.log(checkedCourses);
+    let body = {
+      courseId: checkedCourses,
+      value: e.value,
+      endDate: e.endDate,
+    };
+    axios
+      .put("http://localhost:2020/setDiscountForAllCourses", body)
+      .then((respnse) => {
+        console.log(respnse);
+        message.success("Dscount Applied ");
+        setcheckedCourses([]);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const submitAll = (e) => {
+    if (e.target.checked) {
+      console.log(e.target.checked);
+      setcheckedCourses(allCourses);
+    } else {
+      setcheckedCourses([]);
+    }
   };
 
   return (
@@ -132,11 +106,42 @@ const AdminViewCourseComponent = () => {
       >
         <div
           style={{
-            width: "20%",
-            height: "100vh",
+            width: "30%",
           }}
         >
-          <SearchByForm />
+          <Form onFinish={submitPromotion}>
+            <Checkbox onChange={submitAll}>Check all</Checkbox>
+
+            <Form.Item
+              name="value"
+              label="Value"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input your Discount Value!",
+                },
+              ]}
+            >
+              <Input />
+            </Form.Item>
+            <Form.Item
+              name="enDate"
+              label="End Date"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input your Discount End Date!",
+                },
+              ]}
+            >
+              <DatePicker />
+            </Form.Item>
+            <Form.Item>
+              <Button type="primary" htmlType="submit">
+                Submit Promotion
+              </Button>
+            </Form.Item>
+          </Form>
         </div>
         <div
           style={{
@@ -146,76 +151,42 @@ const AdminViewCourseComponent = () => {
             gap: "40px",
           }}
         >
-          <Radio.Group onChange={onChange}>
-            <Radio value={1}>item</Radio>
+          <Checkbox.Group onChange={handleChange} value={checkedCourses}>
             <List
-              itemLayout="vertical"
-              size="large"
-              pagination={{
-                onChange: (page) => {
-                  console.log(page);
-                },
-                pageSize: 6,
+              style={{
+                height: "80vh",
               }}
+              itemLayout="vertical"
+              size="small"
               dataSource={data}
               renderItem={(item) => (
                 <div>
-                  <List.Item
-                    key={item._id}
-                    actions={[
-                      <IconText
-                        icon={EyeOutlined}
-                        text={item.views}
-                        key="list-vertical-like-o"
-                      />,
-
-                      <IconText
-                        icon={MessageOutlined}
-                        text={item.review.length}
-                        key="list-vertical-message"
-                      />,
-                      <IconText
-                        icon={HourglassOutlined}
-                        text={item.totalHours + " hours"}
-                        key="list-vertical-message"
-                      />,
-                      <IconText
-                        icon={DollarOutlined}
-                        text={item.price == 0 ? "FREE" : item.price}
-                        key="list-vertical-message"
-                      />,
-                      <IconText
-                        icon={UsergroupDeleteOutlined}
-                        text={item.numberOfSubscribers}
-                        key="list-vertical-message"
-                      />,
-                    ]}
-                    extra={
-                      <Space>
-                        <img
-                          width={250}
-                          alt="logo"
-                          src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
-                        />
-                      </Space>
-                    }
-                  >
-                    <List.Item.Meta
-                      title={<a href={item.href}>{item.title}</a>}
-                      description={item.summary}
-                    />
-                    {
+                  <List.Item key={item._id} actions={[]}>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        gap: "10px",
+                      }}
+                    >
+                      <Checkbox value={item._id}></Checkbox>
+                      <List.Item.Meta
+                        title={<a href={item.href}>{item.title}</a>}
+                        description={item.summary}
+                      />
                       <Rate
                         allowHalf
                         defaultValue={item.rating}
                         disabled={true}
                       />
-                    }
+                    </div>
                   </List.Item>
                 </div>
               )}
             />
-          </Radio.Group>
+          </Checkbox.Group>
         </div>
       </div>
     </App>
