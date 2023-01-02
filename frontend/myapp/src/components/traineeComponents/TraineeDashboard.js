@@ -8,6 +8,7 @@ import {
   SettingFilled,
   DislikeOutlined,
   LikeOutlined,
+  ReconciliationOutlined,
   UsergroupDeleteOutlined,
   LogoutOutlined,
 } from "@ant-design/icons";
@@ -66,6 +67,13 @@ const TraineeDashboard = ({ children, pageName }) => {
       <Link to="/traineeDashboard/viewGrade">View My Grades</Link>,
       "18",
       <GradeIcon />
+    ),
+    getItem(
+      <Link className="link" to="/user/reports">
+        My Tickets
+      </Link>,
+      "18",
+      <ReconciliationOutlined />
     ),
     getItem(<Link to="/settings">Settings</Link>, "15", <SettingFilled />),
 

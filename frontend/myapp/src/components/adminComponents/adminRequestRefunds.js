@@ -56,13 +56,13 @@ const RefundRequests = () => {
               })
               .catch((err) => console.log("error at updating courses" + err));
 
-            axios
-              .get(
-                "http://localhost:2020/getUser/" + RefundRequests.user + "/" + RefundRequests.usertype)
-                  
-              
-          } 
-          else {
+            axios.get(
+              "http://localhost:2020/getUser/" +
+                RefundRequests.user +
+                "/" +
+                RefundRequests.usertype
+            );
+          } else {
             message.success("status has been changed to " + status);
             console.log(res);
           }
@@ -142,28 +142,29 @@ const RefundRequests = () => {
   };
 
   const showModal = (requestId) => {
-    const modal = Modal.info();
     let requests;
     data.map((request) => {
       if (request._id == requestId) {
         console.log("ccccccccc ", request);
         requests = request;
+        console.log("5ara 3aleeko");
         return;
       }
     });
-    console.log("the request => ", requests);
-    console.log(RefundRequests.username + " " + RefundRequests.userType);
+    console.log("the request => ", requests.username);
+    console.log("the request  name => ", requests.username);
+    console.log("the request  type => ", requests.userType);
     axios
       .get(
         "http://localhost:2020/getUser/" +
-          RefundRequests.username +
+          requests.username +
           "/" +
-          RefundRequests.userType
+          requests.userType
       )
       .then((response) => {
-        console.log("hello");
-        let data = response.data;
-        console.log(response.data);
+        const modal = Modal.info();
+        console.log("hello" + response);
+
         let type = "default";
         if (requests.status == "approved") {
           type = "success";
@@ -172,7 +173,6 @@ const RefundRequests = () => {
         } else if (requests.status == "rejected") {
           type = "fail";
         }
-        console.log("hello world", requests._id, " " + requests.username);
         modal
           .update({
             title: "Request Id " + requests._id,
@@ -192,7 +192,7 @@ const RefundRequests = () => {
                             <Descriptions title="Updating status...">
                               <Descriptions.Item label="Current Status">
                                 <span>
-                                  <Badge status={type} text={RefundRequests.status} />
+                                  <Badge status={type} text={requests.status} />
                                 </span>
                               </Descriptions.Item>
                             </Descriptions>

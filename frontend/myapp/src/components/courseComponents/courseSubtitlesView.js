@@ -217,6 +217,7 @@ const CourseSubtitleViewWrapper = () => {
           >
             <h2>All Subtitles</h2>
             <TakeNotesWrapper />
+
             <List
               itemLayout="horizontal"
               dataSource={subtitles}

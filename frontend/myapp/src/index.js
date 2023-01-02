@@ -73,6 +73,7 @@ import RefundRequestsWrapper from "./components/adminComponents/adminRequestRefu
 import ForgotPasswordPageWrapper from "./components/forgotPassword";
 
 import AdminViewCourseComponent from "./components/adminComponents/adminViewCourses";
+import PayForCourse from "./components/traineeComponents/payForCourse";
 export default function MainApp() {
   const [username, setUsername] = useState("");
   const [userEmail, setUserEmail] = useState("");
@@ -218,11 +219,6 @@ export default function MainApp() {
             path="/adminDashboard/requests"
             element={<AdminRequestsWrapper />}
           />
-
-          <Route
-            path="/adminDashboard/refundrequests"
-            element={<RefundRequestsWrapper />}
-          />
           <Route
             path="/AdminViewCourseComponent"
             element={<AdminViewCourseComponent />}
@@ -242,19 +238,9 @@ export default function MainApp() {
           <Route path="/TakeNotes" element={<TakeNotesWrapper />} />
           <Route path="/AdminFilterReports" element={<AdminFilterReports />} />
           <Route
-            path="/corporateCreateRequest"
-            element={<CreateRequestWrapper />}
+            path="/adminDashboard/refundrequests"
+            element={<RefundRequestsWrapper />}
           />
-
-          <Route path="*" element={<NoPage />} />
-
-          <Route path="/TakeNotes" element={<TakeNotesWrapper />} />
-          <Route path="/AdminFilterReports" element={<AdminFilterReports />} />
-
-          <Route path="*" element={<NoPage />} />
-
-          <Route path="/TakeNotes" element={<TakeNotesWrapper />} />
-          <Route path="/AdminFilterReports" element={<AdminFilterReports />} />
           <Route
             path="/corporateCreateRequest"
             element={<CreateRequestWrapper />}
@@ -269,6 +255,7 @@ export default function MainApp() {
             path="/trainee/course/subtitle"
             element={<CourseSubtitleViewWrapper />}
           />
+          <Route path="/pay" element={<PayForCourse />} />
         </Routes>
       </Router>
     </AppContext.Provider>
