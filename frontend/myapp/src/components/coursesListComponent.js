@@ -21,7 +21,7 @@ import {
 } from "antd";
 import { AppContext } from "../AppContext";
 import axios from "axios";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { json, Link, Navigate, useNavigate } from "react-router-dom";
 import SubmitDiscount from "./instructorComponents/instructorSubmitDiscount";
 import CreateRequestWrapper from "./corporateCreateRequest";
 import SearchByForm from "./getCourses";
@@ -222,7 +222,7 @@ const CourseComponent = ({ courses, viewType }) => {
             onChange: (page) => {
               console.log(page);
             },
-            pageSize: 6,
+            pageSize: 3,
           }}
           dataSource={courses}
           renderItem={(item) => (
@@ -358,11 +358,18 @@ const CourseComponent = ({ courses, viewType }) => {
                   description={item.summary}
                 />
                 {<Rate allowHalf defaultValue={item.rating} disabled={true} />}
-                <Collapse bordered={true}>
+                <Collapse bordered={false}>
                   <Panel header="More Info" key={item._id}>
-                    <p>{"Subtitles " + JSON.stringify(item.subtitles)}</p>
-                    <p>{"Exercises " + item.questions}</p>
-                    <p>{"Total hours " + item.totalHours}</p>
+                    <p>
+                      <List
+                        header={<div>Subtitles</div>}
+                        dataSource={item.subtitles}
+                        renderItem={(sub) => (
+                          <List.Item>{sub.subtitle}</List.Item>
+                        )}
+                      />
+                    </p>
+                    <p>{"Exercises " + item.questions.length}</p>
                     <p>{"Price " + item.price}</p>
                     <p>{"Discount " + item.discount.value}</p>
                   </Panel>
