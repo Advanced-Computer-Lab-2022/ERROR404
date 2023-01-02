@@ -21,6 +21,7 @@ import axios from "axios";
 import InstructorTransactions, {
   InstructorMonthlyBalances,
 } from "./instructorTransactions";
+import DemoLine from "./instructorPayments";
 const onChange = (key) => {
   console.log(key);
 };
@@ -92,6 +93,9 @@ const InstructorBalanceWrapper = () => {
             suffix="$"
           />
         </Card>
+        <br />
+        <DemoLine />
+        <br />
         <Tabs
           defaultActiveKey="1"
           onChange={onChange}
@@ -100,11 +104,6 @@ const InstructorBalanceWrapper = () => {
               label: `Transactions history`,
               key: "1",
               children: <InstructorTransactions />,
-            },
-            {
-              label: `Statistics`,
-              key: "2",
-              children: <InstructorStatistics />,
             },
           ]}
         />
