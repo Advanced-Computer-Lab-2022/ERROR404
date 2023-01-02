@@ -33,16 +33,6 @@ const config = {
   ],
 };
 
-// const InsertCreditCardInfoWrapper = () => {
-//   return (
-//     <TraineeDashboard>
-//       <UserSettingPage Settings="Insert Credit Card">
-//         <InsertCreditCardInfo />
-//       </UserSettingPage>
-//     </TraineeDashboard>
-//   );
-// };
-
 const InsertCreditCardInfoWrapper = () => {
   const { userEmail, username } = useContext(AppContext);
   const [email, setEmail] = userEmail;
@@ -53,25 +43,38 @@ const InsertCreditCardInfoWrapper = () => {
     const cardNumber = values.cardNumber;
     const expDate = values.expDate;
     const cvv = values.cvv;
-    let body = {
-      holderName: holderName,
-      cardNumber: cardNumber,
-      expirationDate: expDate,
-      cvv: cvv,
-      username: user,
-    };
-
-    // insert axios/fetch callout to api
-    axios
-      .patch("http://localhost:2020/addCreditCardInfo", body)
-      .then(() => {
-        message.success("Credit card info has been saved successfully", 5);
-      })
-      .catch((error) => {
-        message.error("An unexpected error has occured", 5);
-        console.log("error at credit card info ", JSON.stringify(error));
-      });
-    console.log("Received values of form: ", values);
+    var GivenDate = new Date(values.expDate);
+    var currentDate = new Date();
+    if (values.cardNumber.length != 14) {
+      message.error("Card number must be 14 digits long");
+      return;
+    } else if (GivenDate < currentDate) {
+      message.error(
+        "The expiration data must be Bigger or Equal to today's date"
+      );
+      return;
+    } else if (values.cvv.length != 3) {
+      message.error("cvv must be 3 numbers");
+      return;
+    } else {
+      let body = {
+        holderName: holderName,
+        cardNumber: cardNumber,
+        expirationDate: expDate,
+        cvv: cvv,
+        username: user,
+      };
+      axios
+        .patch("http://localhost:2020/addCreditCardInfo", body)
+        .then(() => {
+          message.success("Credit card info has been saved successfully", 5);
+        })
+        .catch((error) => {
+          message.error("An unexpected error has occured", 5);
+          console.log("error at credit card info ", JSON.stringify(error));
+        });
+      console.log("Received values of form: ", values);
+    }
   };
 
   return (

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   MessageOutlined,
   EyeOutlined,
@@ -20,7 +20,6 @@ import {
 } from "antd";
 import axios from "axios";
 import SearchByForm from "../getCourses";
-import { AppContext } from "../../AppContext";
 import App from "../../App";
 
 const IconText = ({ icon, text }) => (
@@ -31,11 +30,6 @@ const IconText = ({ icon, text }) => (
 );
 
 const AdminViewCourseComponent = () => {
-  const { userType, traineeCourses } = useContext(AppContext);
-  const [user, setUser] = userType;
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isModalOpenDis, setIsModalOpenDis] = useState(false);
-  const [courseTitle, setTitle] = useState("");
   const [data, setData] = useState("");
   const [id, setId] = useState("");
   const [value, setValue] = useState(1);
@@ -44,7 +38,6 @@ const AdminViewCourseComponent = () => {
     console.log("radio checked", e.target.value);
     setValue(e.target.value);
   };
-
   const onFinish1 = (values) => {
     console.log("Success:", values);
     const body = {
@@ -153,7 +146,8 @@ const AdminViewCourseComponent = () => {
             gap: "40px",
           }}
         >
-          <Radio.Group onChange={onChange} value={value}>
+          <Radio.Group onChange={onChange}>
+            <Radio value={1}>item</Radio>
             <List
               itemLayout="vertical"
               size="large"
@@ -164,7 +158,7 @@ const AdminViewCourseComponent = () => {
                 pageSize: 6,
               }}
               dataSource={data}
-              renderItem={(item, index) => (
+              renderItem={(item) => (
                 <div>
                   <List.Item
                     key={item._id}
@@ -174,6 +168,7 @@ const AdminViewCourseComponent = () => {
                         text={item.views}
                         key="list-vertical-like-o"
                       />,
+
                       <IconText
                         icon={MessageOutlined}
                         text={item.review.length}
