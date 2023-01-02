@@ -22,7 +22,7 @@ import React, { useEffect, useState } from "react";
 import { alignPropType } from "react-bootstrap/esm/types";
 import PreviewCourses from "../CourseViewWrapper";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import CourseSubtitles from "./courseSyllabes";
 
 const { Panel } = Collapse;
@@ -99,7 +99,7 @@ const PreviewCourseWrapper = () => {
           <div class="video">
             <iframe
               width="100%"
-              height="300"
+              height="550"
               src={"https://" + courseData.preview}
               title="YouTube video player"
               frameborder="0"
@@ -107,7 +107,74 @@ const PreviewCourseWrapper = () => {
               allowfullscreen
             ></iframe>
           </div>
-          <div class="content">
+          <div>
+            <div
+              style={{
+                width: "100%",
+                height: "100%",
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "center",
+                boxSizing: "border-box",
+                padding: "10px",
+              }}
+            >
+              <>
+                E£{newPrice}{" "}
+                {newPrice != courseData.price ? (
+                  <s>E£{courseData.price}</s>
+                ) : null}
+              </>
+              <div class=" text">
+                {newPrice != courseData.price ? (
+                  <>
+                    {oldPrice}% discount valid till {date}!
+                  </>
+                ) : null}
+              </div>
+              <Rate disabled allowHalf value={courseData.rating}></Rate>
+              <Button type="primary">
+                <Link to={"/pay?courseId=" + courseData._id}>Buy Now</Link>
+              </Button>
+            </div>
+            <div className="course info">
+              <h3>This course includes:</h3>
+              <ul>
+                <li>{courseData.totalHours} hours of content</li>
+                <li>
+                  {courseData.questions == null
+                    ? 0
+                    : courseData.questions.length}{" "}
+                  Exercises
+                </li>
+                <li>Certificate of completion</li>
+              </ul>
+            </div>
+            <Collapse ghost defaultActiveKey={1}>
+              <Panel header="Subtitles" key="1">
+                <List
+                  itemLayout="horizontal"
+                  dataSource={subtitles}
+                  renderItem={(item) => (
+                    <List.Item>
+                      <List.Item.Meta
+                        title={item.subtitle}
+                        description={item.description}
+                      />
+                    </List.Item>
+                  )}
+                />
+              </Panel>
+            </Collapse>
+          </div>
+          {/* <div
+            style={{
+              width: "100%",
+              height: "100%",
+              backgroundColor: "black",
+            }}
+          >
             E£{newPrice}
             <s>E£{courseData.price}</s>
             <div class="meta">
@@ -117,17 +184,6 @@ const PreviewCourseWrapper = () => {
                 <Rate disabled allowHalf value={courseData.rating}></Rate>
               </div>
             </div>
-            <p></p>
-            <p></p>
-            {/* <div class="ui blue animated button">
-            <div class="visible content">
-                Add to cart
-            </div>
-            <div class="hidden content">
-            <i class="icon cart "></i>
-            </div>
-        </div> */}
-            <p></p>
             <div class="ui blue animated button">
               <div class="visible content">Buy now!</div>
               <div class="hidden content">PAY E£{newPrice}</div>
@@ -197,8 +253,8 @@ const PreviewCourseWrapper = () => {
                   </Panel>
                 </Collapse>
               </div>
-            </div>
-          </div>
+            </div> */}
+          {/* </div> */}
         </div>
       </grid>
     </PreviewCourses>
