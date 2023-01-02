@@ -11,6 +11,7 @@ import {
   ReconciliationOutlined,
   UsergroupDeleteOutlined,
   LogoutOutlined,
+  WalletOutlined,
 } from "@ant-design/icons";
 import ViewWeekIcon from "@mui/icons-material/ViewWeek";
 import DashboardIcon from "@mui/icons-material/Dashboard";
@@ -33,6 +34,7 @@ import AddBoxIcon from "@mui/icons-material/AddBox";
 import { AppContext } from "../../AppContext";
 import Alert from "@mui/material/Alert";
 import FooterWrapper from "../footer";
+import TraineeBalanceWrapper from "./traineeBalance";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -52,31 +54,13 @@ const TraineeDashboard = ({ children, pageName }) => {
   //const [visible, setVisibility] = useState(false);
 
   const items = [
-    getItem(<Link to="/">Home</Link>, "1", <HomeOutlined />),
     getItem(
-      <Link to="/traineeDashboard">My Dashboard</Link>,
-      "13",
-      <DashboardIcon />
-    ),
-    getItem(
-      <Link to="/traineeDashboard">My Balance</Link>,
-      "17",
-      <AccountBalanceWalletIcon />
-    ),
-    getItem(
-      <Link to="/traineeDashboard/viewGrade">View My Grades</Link>,
-      "18",
-      <GradeIcon />
-    ),
-    getItem(
-      <Link className="link" to="/user/reports">
-        My Tickets
+      <Link className="link" to="/">
+        Home
       </Link>,
-      "18",
-      <ReconciliationOutlined />
+      "1",
+      <HomeOutlined />
     ),
-    getItem(<Link to="/settings">Settings</Link>, "15", <SettingFilled />),
-
     {
       label: (
         <Link className="link" to="/user/myPrograms">
@@ -85,6 +69,28 @@ const TraineeDashboard = ({ children, pageName }) => {
       ),
       key: "myClassroom",
     },
+    getItem(
+      <Link className="link" to="/traineeDashboard/viewGrade">
+        View My Grades
+      </Link>,
+      "18",
+      <GradeIcon />
+    ),
+    getItem(
+      <Link className="link" to="/user/reports">
+        My Tickets
+      </Link>,
+      "20",
+      <ReconciliationOutlined />
+    ),
+    getItem(
+      <Link className="link">My Balance</Link>,
+      "17",
+      <AccountBalanceWalletIcon />,
+      [getItem(<TraineeBalanceWrapper />, "50", <WalletOutlined />)]
+    ),
+    getItem(<Link to="/settings">Settings</Link>, "15", <SettingFilled />),
+
     getItem(
       <Link
         to="/"
@@ -125,6 +131,9 @@ const TraineeDashboard = ({ children, pageName }) => {
       >
         <div className="logo" />
         <Menu
+          style={{
+            width: "100%",
+          }}
           theme="dark"
           mode="horizontal"
           defaultSelectedKeys={["2"]}
