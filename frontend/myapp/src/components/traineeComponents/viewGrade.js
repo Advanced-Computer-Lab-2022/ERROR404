@@ -1,8 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
-import { Form } from "antd";
-import { Collapse, Table } from "antd";
-import App from "../../App";
+import { Table } from "antd";
 import { AppContext } from "../../AppContext";
 import TraineeDashboard from "./TraineeDashboard";
 const { Column, ColumnGroup } = Table;
@@ -11,8 +9,8 @@ const ViewGradeWrapper = () => {
   const [data, setData] = useState([]);
   const { userType, userMongoId } = useContext(AppContext);
 
-  const [user, setUser] = userType;
-  const [userId, setId] = userMongoId;
+  const [user] = userType;
+  const [userId] = userMongoId;
 
   useEffect(() => {
     axios
