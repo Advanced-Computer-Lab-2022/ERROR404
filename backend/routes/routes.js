@@ -1680,9 +1680,11 @@ const setDiscountForAllCourses = async (req, res) => {
     .updateMany(
       { _id: courseId },
       {
-        discount: {
-          value: value,
-          endDate: endDate,
+        $set: {
+          discount: {
+            value: value,
+            endDate: endDate,
+          },
         },
       },
       { multi: true },
@@ -1697,6 +1699,56 @@ const setDiscountForAllCourses = async (req, res) => {
     .clone();
 };
 
+const putGrades = async (req, res) => {
+  const username = req.body.username;
+  const usertype = req.body.usertype;
+  const grade = req.body.grade;
+  const subject = req.body.subject;
+  if (usertype == "individual") {
+    await individualTrainee
+      .updateOne(
+        { username: username },
+        {
+          $push: {
+            grades: {
+              subject: subject,
+              grade: grade,
+            },
+          },
+        },
+        (err, result) => {
+          if (err) {
+            res.status(500).json(err);
+          } else {
+            res.status(200).json(result);
+          }
+        }
+      )
+      .clone();
+  }
+  if (usertype == "corporate") {
+    await corporateTrainee
+      .updateOne(
+        { username: username },
+        {
+          $push: {
+            grades: {
+              subject: subject,
+              grade: grade,
+            },
+          },
+        },
+        (err, result) => {
+          if (err) {
+            res.status(500).json(err);
+          } else {
+            res.status(200).json(result);
+          }
+        }
+      )
+      .clone();
+  }
+};
 module.exports = {
   getUser,
   search,
@@ -1760,4 +1812,5 @@ module.exports = {
   filterByPriceOrRate,
   setDiscountForAllCourses,
   getRefundRequestsByCourseIdUsername,
+  putGrades,
 };

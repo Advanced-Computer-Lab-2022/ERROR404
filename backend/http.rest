@@ -1,47 +1,56 @@
-POST http://localhost:2020/createQuiz
+PUT http://localhost:2020/putGrades
 Content-Type: application/json
 
-{
-    "username":"abdelrahman",
-    "courseId": "63af72c8dc50987ddd1e1848",
-    "subtitle" :"Brazil",
-    "questions": {
-      "subtitle" :"Brazil",
-      "questions": [
-      {
-      "question": "When did Brazil win World Cup",
-      "answerA":"2018",
-      "answerB":"2009",
-      "answerC":"2002",
-      "answerD":"2022",
-      "correctAnswer": "c"
-    },
-    {
-      "question": "Who play in Brazil of the following",
-      "answerA":"Neyman",
-      "answerB":"Pele",
-      "answerC":"Messi",
-      "answerD":"Salah",
-      "correctAnswer": "a"
-    },
-    {
-      "question": "When did Brazil win World Cup",
-      "answerA":"2018",
-      "answerB":"2009",
-      "answerC":"2002",
-      "answerD":"2022",
-      "correctAnswer": "c"
-    },
-    {
-      "question": "When did Brazil win World Cup",
-      "answerA":"2018",
-      "answerB":"2009",
-      "answerC":"2002",
-      "answerD":"2022",
-      "correctAnswer": "c"
-    }]
-    }
-}
+  {
+    "username":"bruno",
+    "usertype":"individual",
+    "grade":"3",
+    "subject":"network"
+
+  }
+
+
+# {
+#     "username":"abdelrahman",
+#     "courseId": "63af72c8dc50987ddd1e1848",
+#     "subtitle" :"Brazil",
+#     "questions": {
+#       "subtitle" :"Brazil",
+#       "questions": [
+#       {
+#       "question": "When did Brazil win World Cup",
+#       "answerA":"2018",
+#       "answerB":"2009",
+#       "answerC":"2002",
+#       "answerD":"2022",
+#       "correctAnswer": "c"
+#     },
+#     {
+#       "question": "Who play in Brazil of the following",
+#       "answerA":"Neyman",
+#       "answerB":"Pele",
+#       "answerC":"Messi",
+#       "answerD":"Salah",
+#       "correctAnswer": "a"
+#     },
+#     {
+#       "question": "When did Brazil win World Cup",
+#       "answerA":"2018",
+#       "answerB":"2009",
+#       "answerC":"2002",
+#       "answerD":"2022",
+#       "correctAnswer": "c"
+#     },
+#     {
+#       "question": "When did Brazil win World Cup",
+#       "answerA":"2018",
+#       "answerB":"2009",
+#       "answerC":"2002",
+#       "answerD":"2022",
+#       "correctAnswer": "c"
+#     }]
+#     }
+# }
 
 # {
 #    "username" :"abdelrahman", 

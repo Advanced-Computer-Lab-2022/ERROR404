@@ -70,6 +70,7 @@ const {
   payfromBalance,
   setDiscountForAllCourses,
   getRefundRequestsByCourseIdUsername,
+  putGrades,
 } = require("./routes/routes");
 
 //App variables
@@ -167,3 +168,4 @@ app.put("/deleteCourse", deleteCourse);
 app.put("/updateRefundRequestStatus", updateRefundRequestStatus);
 app.put("/payfromBalance", payfromBalance);
 app.put("/setDiscountForAllCourses", setDiscountForAllCourses);
+app.put("/putGrades", putGrades);
