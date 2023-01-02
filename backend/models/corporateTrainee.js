@@ -43,10 +43,7 @@ const corporateTrainee = new Schema(
     },
     email: {
       type: String,
-
       default: "",
-      //  unique: true,
-      //required: [true, "Vaild email is required"],
     },
     country: {
       type: String,
