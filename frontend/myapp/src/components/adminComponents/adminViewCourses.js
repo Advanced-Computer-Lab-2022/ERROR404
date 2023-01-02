@@ -16,9 +16,9 @@ import {
   Input,
   message,
   DatePicker,
+  Radio,
 } from "antd";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import SearchByForm from "../getCourses";
 import { AppContext } from "../../AppContext";
 import App from "../../App";
@@ -30,16 +30,21 @@ const IconText = ({ icon, text }) => (
   </Space>
 );
 
-const AdminViewCourseComponent = ({ courses }) => {
+const AdminViewCourseComponent = () => {
   const { userType, traineeCourses } = useContext(AppContext);
   const [user, setUser] = userType;
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalOpenDis, setIsModalOpenDis] = useState(false);
   const [courseTitle, setTitle] = useState("");
-
+  const [data, setData] = useState("");
   const [id, setId] = useState("");
+  const [value, setValue] = useState(1);
 
-  let navigation = useNavigate();
+  const onChange = (e) => {
+    console.log("radio checked", e.target.value);
+    setValue(e.target.value);
+  };
+
   const onFinish1 = (values) => {
     console.log("Success:", values);
     const body = {
@@ -57,21 +62,23 @@ const AdminViewCourseComponent = ({ courses }) => {
         message.error("error " + err.response.data, 3);
       });
   };
+
+  useEffect(() => {
+    axios({
+      method: "get",
+      url: "http://localhost:2020/viewCourses ",
+    })
+      .then((response) => {
+        setData(response.data);
+        console.log("dataaaaa ", response.data);
+      })
+      .catch((error) => {
+        console.log("erorr ", error.message);
+      });
+  }, []);
   const onFinishFailed1 = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
-  useEffect(() => {
-    console.log(courses);
-  }, []);
-
-  const handleOk = () => {
-    setIsModalOpen(false);
-  };
-
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
-
   const openDis = (id, courseTitle) => {
     const modal = Modal.confirm();
 
@@ -146,72 +153,74 @@ const AdminViewCourseComponent = ({ courses }) => {
             gap: "40px",
           }}
         >
-          <List
-            itemLayout="vertical"
-            size="large"
-            pagination={{
-              onChange: (page) => {
-                console.log(page);
-              },
-              pageSize: 6,
-            }}
-            dataSource={courses}
-            renderItem={(item) => (
-              <div>
-                <List.Item
-                  key={item._id}
-                  actions={[
-                    <IconText
-                      icon={EyeOutlined}
-                      text={item.views}
-                      key="list-vertical-like-o"
-                    />,
-                    <IconText
-                      icon={MessageOutlined}
-                      text={item.review.length}
-                      key="list-vertical-message"
-                    />,
-                    <IconText
-                      icon={HourglassOutlined}
-                      text={item.totalHours + " hours"}
-                      key="list-vertical-message"
-                    />,
-                    <IconText
-                      icon={DollarOutlined}
-                      text={item.price == 0 ? "FREE" : item.price}
-                      key="list-vertical-message"
-                    />,
-                    <IconText
-                      icon={UsergroupDeleteOutlined}
-                      text={item.numberOfSubscribers}
-                      key="list-vertical-message"
-                    />,
-                  ]}
-                  extra={
-                    <Space>
-                      <img
-                        width={250}
-                        alt="logo"
-                        src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
-                      />
-                    </Space>
-                  }
-                >
-                  <List.Item.Meta
-                    title={<a href={item.href}>{item.title}</a>}
-                    description={item.summary}
-                  />
-                  {
-                    <Rate
-                      allowHalf
-                      defaultValue={item.rating}
-                      disabled={true}
+          <Radio.Group onChange={onChange} value={value}>
+            <List
+              itemLayout="vertical"
+              size="large"
+              pagination={{
+                onChange: (page) => {
+                  console.log(page);
+                },
+                pageSize: 6,
+              }}
+              dataSource={data}
+              renderItem={(item, index) => (
+                <div>
+                  <List.Item
+                    key={item._id}
+                    actions={[
+                      <IconText
+                        icon={EyeOutlined}
+                        text={item.views}
+                        key="list-vertical-like-o"
+                      />,
+                      <IconText
+                        icon={MessageOutlined}
+                        text={item.review.length}
+                        key="list-vertical-message"
+                      />,
+                      <IconText
+                        icon={HourglassOutlined}
+                        text={item.totalHours + " hours"}
+                        key="list-vertical-message"
+                      />,
+                      <IconText
+                        icon={DollarOutlined}
+                        text={item.price == 0 ? "FREE" : item.price}
+                        key="list-vertical-message"
+                      />,
+                      <IconText
+                        icon={UsergroupDeleteOutlined}
+                        text={item.numberOfSubscribers}
+                        key="list-vertical-message"
+                      />,
+                    ]}
+                    extra={
+                      <Space>
+                        <img
+                          width={250}
+                          alt="logo"
+                          src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
+                        />
+                      </Space>
+                    }
+                  >
+                    <List.Item.Meta
+                      title={<a href={item.href}>{item.title}</a>}
+                      description={item.summary}
                     />
-                  }
-                </List.Item>
-              </div>
-            )}
-          />
+                    {
+                      <Rate
+                        allowHalf
+                        defaultValue={item.rating}
+                        disabled={true}
+                      />
+                    }
+                  </List.Item>
+                </div>
+              )}
+            />
+          </Radio.Group>
         </div>
       </div>
     </App>

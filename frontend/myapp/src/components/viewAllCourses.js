@@ -61,8 +61,6 @@ const ViewAllCourses = () => {
   return (
     <>
       <CourseComponent courses={data} viewType="view" />
-
-      <AdminViewCourseComponent courses={data} />
     </>
   );
 };

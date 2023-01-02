@@ -1,70 +1,116 @@
-# Getting Started with Create React App
+# Online Learning Website
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The goal of the project is to build a full online learning 
+system. An online learning system is a website where people 
+can take courses that have already been recorded. The Scrum 
+Agile Methodology was used to create this project using the 
+MERN stack (MongoDB, Express JS, React JS, and Node JS). We 
+used Java Script as our main language, so throw it all away. 
+This project was easy and simple to do.
 
-## Available Scripts
 
-In the project directory, you can run:
+## Table of contents 
+* [Technologies](#technologies)
+* [Environment Variables](#environmentVariables)
+* [Run Locally Installation](#runLocallyInstallation)
+* [API Reference](#APIreference)
+* [Our Roadmap](#ourRoadmap)
+* [Feedback](#feedback)
+* [Authors](#authors)
+## Technologies
+![MongoDB](https://img.shields.io/badge/MongoDB%20-%2347A248.svg?&style=for-the-badge&logo=MongoDB&logoColor=white) 
 
-### `npm start`
+![React](https://img.shields.io/badge/React%20-%2361DAFB.svg?&style=for-the-badge&logo=React&logoColor=white)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+![MongoDB](https://img.shields.io/badge/Express%20-%23000000.svg?&style=for-the-badge&logo=Express&logoColor=white)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+![Node.js](https://img.shields.io/badge/Node.js%20-%23339933.svg?&style=for-the-badge&logo=Node.js&logoColor=white)
 
-### `npm test`
+![html](https://img.shields.io/badge/HTML5%20-%23E34F26.svg?&style=for-the-badge&logo=HTML5&logoColor=white)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+![css](https://img.shields.io/badge/CSS3%20-%231572B6.svg?&style=for-the-badge&logo=CSS3&logoColor=white)
 
-### `npm run build`
+![json](https://img.shields.io/badge/JSON%20-%23000000.svg?&style=for-the-badge&logo=JSON&logoColor=white)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Our Roadmap
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Additional browser support
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- Add more integrations
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Environment Variables
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+To run this project, you will need to add the following environment variables to your .env file
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+`Add your Mongo database url at MongoURI=`
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+`Add your Port at Port= `
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Run Locally Installation
 
-### Code Splitting
+Install the used libraries for the backEnd
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```bash
+  cd backend
+  then
+  npm install
+```
 
-### Analyzing the Bundle Size
+Install the used libraries for the frontEnd
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+```bash
+  cd frontend
+  then
+  npm install
+```
+To run the backEnd
+```bash
+  node backend/main.js
+```
+To run the frontEnd
+```bash
+  cd frontend/myapp 
+  then
+  npm start
+```
 
-### Making a Progressive Web App
+## API Reference
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+#### Get all items
 
-### Advanced Configuration
+```http
+  GET /api/items
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+| Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `api_key` | `string` | **Required**. Your API key |
 
-### Deployment
+#### Get item
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+```http
+  GET /api/items/${id}
+```
 
-### `npm run build` fails to minify
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `id`      | `string` | **Required**. Id of item to fetch |
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+#### add(num1, num2)
+
+Takes two numbers and returns the sum.
+
+
+## Feedback
+
+If you have any feedback, please reach out to us at 
+[Our linkedin page](https://www.linkedin.com/company/thestartupcompany)
+or email us via [gmail](https://mail.google.com/mail/u/0/?fs=1&to=theStartupCompany@gmail.com&su=ContactUs&tf=cm)
+
+## Authors
+- [@Ali Ghieth](https://www.github.com/alighieth)
+- [@Abdelrahman Ali](https://www.github.com/AbdelrahmanAli12)
+

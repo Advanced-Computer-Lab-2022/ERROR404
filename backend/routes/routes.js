@@ -189,7 +189,7 @@ const reportProblem = async (req, res) => {
       problemType: req.body.problemType,
       problem: req.body.problem,
     };
-    reports.create(reportDetails, (err, small) => {
+    Reports.create(reportDetails, (err, small) => {
       if (err) {
         console.log("error with report ", err.message);
       } else {
@@ -1317,7 +1317,6 @@ const getAllReports = async (req, res) => {
     }
   }).clone();
 };
-
 const createReport = async (req, res) => {
   console.log(req.body);
   const username = req.body.username;
@@ -1338,10 +1337,11 @@ const createReport = async (req, res) => {
       user: username,
       usertype: usertype,
       description: description,
-      reportType: reportType,
+      problemType: reportType,
     };
     Reports.create(body, (err, result) => {
       if (err) {
+        console.log(err);
         res.status(500).json(err);
       } else {
         res.status(200).send(result);
