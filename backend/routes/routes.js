@@ -1450,7 +1450,6 @@ const updateCourseProgress = async (req, res) => {
   } else if (req.body.usertype == "corporate") {
     model = corporateTrainee;
   }
-
   await model
     .findOneAndUpdate(
       { _id: req.body.id, "progress.course": req.body.courseId },

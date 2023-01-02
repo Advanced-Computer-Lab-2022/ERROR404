@@ -54,9 +54,21 @@ const individualTrainee = new Schema(
       default: "individual",
     },
     Regcourses: {
-      type: Array,
-      default: [],
+      type: Map,
+      default: "",
     },
+    Procourses: [
+      {
+        courseId: {
+          type: String,
+          default: "",
+        },
+        progress: {
+          type: Number,
+          default: 0,
+        },
+      },
+    ],
     grades: {
       type: Map,
       default: "",

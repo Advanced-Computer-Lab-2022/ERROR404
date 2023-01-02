@@ -62,7 +62,6 @@ const data = [
 const InstructorTransactions = () => {
   return (
     <div>
-      <h1>My Last Transactions</h1>
       <List>
         <VirtualList
           data={data}

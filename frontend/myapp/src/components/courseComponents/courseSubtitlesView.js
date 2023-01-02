@@ -1,16 +1,19 @@
-import { Descriptions, Menu, List } from "antd";
+import { Descriptions, Menu, List, Progress } from "antd";
 import axios from "axios";
-import { useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import TakeNotesWrapper from "../takeNotes";
+import { useEffect, useState, useContext } from "react";
+import { AppContext } from "../../AppContext";
+import { Link } from "react-router-dom";
 import TraineeDashboard from "../traineeComponents/TraineeDashboard";
+import TakeNotesWrapper from "../takeNotes";
 
 const CoursePreview = () => {
   const [subtitles, setSubtitles] = useState([]);
   const [courseId, setcourseId] = useState([]);
   const [video, setVideo] = useState("");
-
-  const location = useLocation();
+  const [progress, setProgress] = useState(0);
+  const { username, userType } = useContext(AppContext);
+  const [userName, setUserName] = username;
+  const [usertype, setUserType] = userType;
 
   useEffect(() => {
     const idSearch = window.location.search;
@@ -30,12 +33,26 @@ const CoursePreview = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, [location]);
+
+    axios
+      .get(`http://localhost:2020/getUser/${userName}/${usertype}`)
+      .then((response) => {
+        console.log("HNNNNA");
+        console.log(response.data.progress);
+        response.data.progress.map((course) => {
+          if (course.course == courseId) {
+            setProgress(course.progress);
+          }
+        });
+      });
+  }, []);
   return (
     <TraineeDashboard pageName="Course Preview">
       {" "}
       <h1>Les</h1>
-      <div>{/* 7ot el progress hena */}</div>
+      <div>
+        <Progress percent={progress} />
+      </div>
       <div
         style={{
           width: "100%",
@@ -122,7 +139,10 @@ const CourseSubtitleViewWrapper = () => {
   const [description, setDescription] = useState("");
   const [subtitles, setSubtitles] = useState([]);
   const [courseId, setcourseId] = useState([]);
-  const location = useLocation();
+  const [progress, setProgress] = useState(0);
+  const { username, userType } = useContext(AppContext);
+  const [userName, setUserName] = username;
+  const [usertype, setUserType] = userType;
 
   useEffect(() => {
     const idSearch = window.location.search;
@@ -147,9 +167,24 @@ const CourseSubtitleViewWrapper = () => {
       .catch((err) => {
         console.log(err.response);
       });
-  }, [location]);
+
+    axios
+      .get(`http://localhost:2020/getUser/${userName}/${usertype}`)
+      .then((response) => {
+        console.log("HNNNNA");
+        console.log(response.data.progress);
+        response.data.progress.map((course) => {
+          if (course.course == courseId) {
+            setProgress(course.progress);
+          }
+        });
+      });
+  }, []);
   return (
     <TraineeDashboard pageName={subtitle}>
+      <div>
+        <Progress percent={progress} />
+      </div>
       <div
         style={{
           width: "100%",
