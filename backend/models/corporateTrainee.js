@@ -57,10 +57,18 @@ const corporateTrainee = new Schema(
       type: Array,
       default: [],
     },
-    grades: {
-      type: Map,
-      default: "",
-    },
+    grades: [
+      {
+        subject: {
+          type: String,
+          default: "",
+        },
+        grade: {
+          type: String,
+          default: "",
+        },
+      },
+    ],
     chats: {
       type: ObjectId,
       ref: "Chats",
