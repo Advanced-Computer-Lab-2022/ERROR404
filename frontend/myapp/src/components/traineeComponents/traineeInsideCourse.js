@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   LaptopOutlined,
   NotificationOutlined,
@@ -14,9 +14,14 @@ import ReviewsIcon from "@mui/icons-material/Reviews";
 import PreviewIcon from "@mui/icons-material/Preview";
 import ViewTimelineIcon from "@mui/icons-material/ViewTimeline";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import ViewWeekIcon from "@mui/icons-material/ViewWeek";
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import GradeIcon from "@mui/icons-material/Grade";
+import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 import { Breadcrumb, Button, Layout, Menu, Rate } from "antd";
 import { Link } from "react-router-dom";
 import FooterWrapper from "../footer";
+import { AppContext } from "../../AppContext";
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -29,7 +34,11 @@ function getItem(label, key, icon, children) {
   };
 }
 
-const TraineeInsideCourse = ({ children, courseId }) => {
+const TraineeInsideCourse = ({ children, courseId, courseName }) => {
+  const { userType, username } = useContext(AppContext);
+  const [userName, setUserName] = username;
+  const [user, setUser] = userType;
+
   const items = [
     getItem(
       <Link className="link" to="/">
@@ -61,15 +70,80 @@ const TraineeInsideCourse = ({ children, courseId }) => {
       <ReviewsIcon />
     ),
     getItem(
-      <Link className="link">Course Conversations</Link>,
+      <Link className="link" to={"/course/conversation?courseId=" + courseId}>
+        Course Conversations
+      </Link>,
       "6",
       <ShoppingCartIcon />
     ),
+    getItem(
+      <Link to="/traineeDashboard">My Dashboard</Link>,
+      "13",
+      <DashboardIcon />
+    ),
+    getItem(
+      <Link to="/traineeDashboard">My Balance</Link>,
+      "17",
+      <AccountBalanceWalletIcon />
+    ),
+    getItem(
+      <Link to="/traineeDashboard/viewGrade">View My Grades</Link>,
+      "18",
+      <GradeIcon />
+    ),
+    getItem(<Link to="/settings">Settings</Link>, "15", <SettingFilled />),
+
+    {
+      label: (
+        <Link className="link" to="/user/myPrograms">
+          <Button ghost>My Programs</Button>
+        </Link>
+      ),
+      key: "myClassroom",
+    },
+    getItem(
+      <Link
+        to="/"
+        onClick={() => {
+          logout();
+        }}
+      >
+        Log Out
+      </Link>,
+      "3",
+      <LoginOutlined />
+    ),
   ];
+
+  const logout = () => {
+    setUserName("");
+    setUser("");
+  };
   return (
     <Layout>
-      <Header className="header">
-        <Menu theme="dark" mode="horizontal" items={items} />
+      <Header
+        className="header"
+        style={{
+          position: "relative",
+          position: "sticky",
+          top: "0px",
+          width: "100%",
+          height: "8vh",
+          zIndex: "100",
+          color: "white",
+          display: "flex",
+          flexDirection: "row",
+          gap: "20px",
+          minHeight: "10vh",
+          alignItems: "center",
+        }}
+      >
+        <Menu
+          theme="dark"
+          mode="horizontal"
+          items={items}
+          style={{ width: "100%" }}
+        />
       </Header>
       <Content
         style={{
@@ -87,7 +161,7 @@ const TraineeInsideCourse = ({ children, courseId }) => {
           <Breadcrumb.Item>
             <Link to="/viewAllCourses">Courses</Link>
           </Breadcrumb.Item>
-          <Breadcrumb.Item>Web Development</Breadcrumb.Item>
+          <Breadcrumb.Item>{courseName}</Breadcrumb.Item>
         </Breadcrumb>
         <Layout
           className="site-layout-background"
@@ -95,16 +169,6 @@ const TraineeInsideCourse = ({ children, courseId }) => {
             padding: "24px 0",
           }}
         >
-          <Sider className="site-layout-background" width={200}>
-            <Menu
-              theme="dark"
-              mode="inline"
-              style={{
-                height: "60vh",
-              }}
-              items={items}
-            />
-          </Sider>
           <Content
             style={{
               padding: "0 24px",

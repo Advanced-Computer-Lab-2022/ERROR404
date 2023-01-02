@@ -210,6 +210,7 @@ const LoginComponent = ({ values }) => {
         <Button type="primary" icon={<Fingerprint />} onClick={handleClick}>
           Login
         </Button>
+        <Link to="/forgotpassword">Forgot Password</Link>
         <br />
         <br />
         <h6>Have not joined us yet?</h6>

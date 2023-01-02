@@ -78,7 +78,8 @@ import CourseSubtitles from "./components/courseComponents/courseSyllabes";
 import CourseSubtitleViewWrapper, {
   CoursePreview,
 } from "./components/courseComponents/courseSubtitlesView";
-import RefundRequestsWrapper from "./components/adminComponents/adminRequestRefunds"
+import RefundRequestsWrapper from "./components/adminComponents/adminRequestRefunds";
+import ForgotPasswordPageWrapper from "./components/forgotPassword";
 
 export default function MainApp() {
   const [username, setUsername] = useState("");
@@ -264,6 +265,11 @@ export default function MainApp() {
             element={<CreateRequestWrapper />}
           />
           <Route path="/trainee/course" element={<CoursePreview />} />
+          <Route
+            path="/forgotpassword"
+            element={<ForgotPasswordPageWrapper />}
+          />
+
           <Route
             path="/trainee/course/subtitle"
             element={<CourseSubtitleViewWrapper />}

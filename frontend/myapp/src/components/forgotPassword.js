@@ -5,7 +5,7 @@ import { AppContext } from "../AppContext";
 import emailjs from "@emailjs/browser";
 import { UserSettingPage } from "../pages/settingsPage";
 import App from "../App";
-import InstructorDashboard from "../pages/InstructorDashboard";
+import InstructorDashboard from "./instructorComponents/InstructorDashboard";
 
 const ForgotPasswordPageWrapper = () => {
   const { userType } = useContext(AppContext);
@@ -13,17 +13,13 @@ const ForgotPasswordPageWrapper = () => {
   if (user == "instructor") {
     return (
       <InstructorDashboard>
-        <UserSettingPage>
-          <ForgotPasswordPage />
-        </UserSettingPage>
+        <ForgotPasswordPage />
       </InstructorDashboard>
     );
   } else {
     return (
       <App>
-        <UserSettingPage>
-          <ForgotPasswordPage />
-        </UserSettingPage>
+        <ForgotPasswordPage />
       </App>
     );
   }
@@ -42,14 +38,14 @@ const ForgotPasswordPage = () => {
       name: name,
       userId: userId,
       userType: typeUser,
-      recepientEmail: useremail,
+      recepientEmail: values.email,
     };
     emailjs
       .send("service_5di6lsf", "template_mo9m7xe", data, "hIXXOv4x76p3JXKWU")
       .then(
         (result) => message.success("An Email has been sent successfully!! "),
         (error) => {
-          message.error("Oops... " + err.response.data);
+          message.error("Oops... " + error.response.data);
           console.log(JSON.stringify(error));
         }
       );
@@ -64,9 +60,7 @@ const ForgotPasswordPage = () => {
         alignItems: "center",
       }}
     >
-      <h4>
-        We will be sending you an email to {useremail} to change the password
-      </h4>
+      <h4>We will be sending an email to the input email</h4>
 
       <Form
         name="normal_login"
@@ -76,6 +70,21 @@ const ForgotPasswordPage = () => {
         }}
         onFinish={onFinish}
       >
+        <Form.Item
+          label="Email"
+          name="email"
+          required
+          rules={[{ required: true, message: "Please input your email!" }]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
+          label="Username"
+          name="username"
+          rules={[{ required: true, message: "Please input your username!" }]}
+        >
+          <Input />
+        </Form.Item>
         <Form.Item>
           <Button
             type="primary"

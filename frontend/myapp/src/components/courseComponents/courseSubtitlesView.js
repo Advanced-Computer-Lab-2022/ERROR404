@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import TakeNotesWrapper from "../takeNotes";
 import TraineeDashboard from "../traineeComponents/TraineeDashboard";
+import TraineeInsideCourse from "../traineeComponents/traineeInsideCourse";
 
 const CoursePreview = () => {
   const [subtitles, setSubtitles] = useState([]);
@@ -32,7 +33,7 @@ const CoursePreview = () => {
       });
   }, [location]);
   return (
-    <TraineeDashboard pageName="Course Preview">
+    <TraineeInsideCourse pageName="Course Preview">
       {" "}
       <h1>Les</h1>
       <div>{/* 7ot el progress hena */}</div>
@@ -112,7 +113,7 @@ const CoursePreview = () => {
           </div>
         </div>
       </div>
-    </TraineeDashboard>
+    </TraineeInsideCourse>
   );
 };
 
@@ -149,7 +150,7 @@ const CourseSubtitleViewWrapper = () => {
       });
   }, [location]);
   return (
-    <TraineeDashboard pageName={subtitle}>
+    <TraineeInsideCourse pageName={subtitle}>
       <div
         style={{
           width: "100%",
@@ -242,7 +243,7 @@ const CourseSubtitleViewWrapper = () => {
           </div>
         </div>
       </div>
-    </TraineeDashboard>
+    </TraineeInsideCourse>
   );
 };
 
