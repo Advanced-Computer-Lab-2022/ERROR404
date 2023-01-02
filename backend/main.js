@@ -69,6 +69,7 @@ const {
   updateRefundRequestStatus,
   payfromBalance,
   setDiscountForAllCourses,
+  getRefundRequestsByCourseIdUsername,
 } = require("./routes/routes");
 
 //App variables
@@ -111,7 +112,6 @@ app.get("/viewRatingAndReviews/:username", viewRatingAndReviews);
 app.get("/getCourseChats/:id", getCourseChats);
 app.get("/getAllRequests", getAllRequests);
 //app.get("/getExam/:id", getExamById);
-app.get("/getAllRequests", getAllRequests);
 app.get("/filterByPriceOrRate/:type/:min/:max", filterByPriceOrRate);
 app.get("/getMyBalance/:username", traineebalance);
 app.get("/getAllSubtitles/:id", getAllSubtitles);
@@ -128,6 +128,10 @@ app.get("/filterByCategory/:category", filterByCategory);
 app.get("/getCategory", getCategory);
 app.get("/login/:username", login);
 app.get("/getAllRefundRequests", getAllRefundRequests);
+app.get(
+  "/getRefundRequestsByCourseIdUsername/:username/:courseId",
+  getRefundRequestsByCourseIdUsername
+);
 
 app.post("/createCorporateTrainee", createCorporateTrainee);
 app.post("/createAdmin", createAdmin);

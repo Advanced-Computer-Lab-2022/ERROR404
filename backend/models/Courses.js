@@ -51,6 +51,42 @@ const courses = new Schema(
       type: Array,
       default: [],
     },
+    questions: [
+      {
+        subtitle: {
+          type: String,
+        },
+        questions: [
+          {
+            question: {
+              type: String,
+              required: true,
+            },
+            answerA: {
+              type: String,
+              required: true,
+            },
+            answerB: {
+              type: String,
+              required: true,
+            },
+            answerC: {
+              type: String,
+              required: true,
+            },
+            answerD: {
+              type: String,
+              required: true,
+            },
+            correctAnswer: {
+              type: String,
+              enum: ["a", "b", "c", "d"],
+              required: true,
+            },
+          },
+        ],
+      },
+    ],
 
     summary: {
       type: String,

@@ -49,55 +49,52 @@ const CreateExam = () => {
   const createExam = async () => {
     const requestBody = {
       username: userName,
-      courseId: courseId,
-      question1: q1Form.getFieldValue("q1"),
-      answer1: q1Form.getFieldValue("q1a"),
-      answer2: q1Form.getFieldValue("q1b"),
-      answer3: q1Form.getFieldValue("q1c"),
-      answer4: q1Form.getFieldValue("q1d"),
-      answerQes1: q1Form.getFieldValue("q1Answer"),
-      question2: q2Form.getFieldValue("q2"),
-      answer21: q2Form.getFieldValue("q2a"),
-      answer22: q2Form.getFieldValue("q2b"),
-      answer23: q2Form.getFieldValue("q2c"),
-      answer24: q2Form.getFieldValue("q2d"),
-      answerQes2: q2Form.getFieldValue("q2Answer"),
-      question3: q3Form.getFieldValue("q3"),
-      answer31: q3Form.getFieldValue("q3a"),
-      answer32: q3Form.getFieldValue("q3b"),
-      answer33: q3Form.getFieldValue("q3c"),
-      answer34: q3Form.getFieldValue("q3d"),
-      answerQes3: q3Form.getFieldValue("q3Answer"),
-      question4: q4Form.getFieldValue("q4"),
-      answer41: q4Form.getFieldValue("q4a"),
-      answer42: q4Form.getFieldValue("q4b"),
-      answer43: q4Form.getFieldValue("q4c"),
-      answer44: q4Form.getFieldValue("q4d"),
-      answerQes4: q4Form.getFieldValue("q4Answer"),
+      courseId: "63af72c8dc50987ddd1e1848",
+      questions: {
+        subtitle: q1Form.getFieldValue("subtitle"),
+        questions: [
+          {
+            question: q1Form.getFieldValue("q1"),
+            answerA: q1Form.getFieldValue("q1a"),
+            answerB: q1Form.getFieldValue("q1b"),
+            answerC: q1Form.getFieldValue("q1c"),
+            answerD: q1Form.getFieldValue("q1d"),
+            correctAnswer: q1Form.getFieldValue("q1Answer"),
+          },
+          {
+            question: q2Form.getFieldValue("q2"),
+            answerA: q2Form.getFieldValue("q2a"),
+            answerB: q2Form.getFieldValue("q2b"),
+            answerC: q2Form.getFieldValue("q2c"),
+            answerD: q2Form.getFieldValue("q2d"),
+            correctAnswer: q2Form.getFieldValue("q2Answer"),
+          },
+          {
+            question: q3Form.getFieldValue("q3"),
+            answerA: q3Form.getFieldValue("q3a"),
+            answerB: q3Form.getFieldValue("q3b"),
+            answerC: q3Form.getFieldValue("q3c"),
+            answerD: q3Form.getFieldValue("q3d"),
+            correctAnswer: q3Form.getFieldValue("q3Answer"),
+          },
+          {
+            question: q4Form.getFieldValue("q4"),
+            answerA: q4Form.getFieldValue("q4a"),
+            answerB: q4Form.getFieldValue("q4b"),
+            answerC: q4Form.getFieldValue("q4c"),
+            answerD: q4Form.getFieldValue("q4d"),
+            correctAnswer: q4Form.getFieldValue("q4Answer"),
+          },
+        ],
+      },
     };
     console.log(requestBody);
 
     axios
-      .post("http://localhost:2020/createQuestions", requestBody)
+      .post("http://localhost:2020/createQuiz", requestBody)
       .then((data) => {
-        let ids = [];
-        data.data.map((question) => {
-          console.log(question);
-          ids.push(question._id);
-        });
-        console.log(ids);
-        let quizBody = {
-          username: userName,
-          courseId: courseId,
-          questions: ids,
-        };
-        axios
-          .post("http://localhost:2020/createQuiz", quizBody)
-          .then((data) => {
-            message.success("Quiz created");
-          })
-          .catch((err) => console.log(err));
-        console.log("data => " + JSON.stringify(data));
+        console.log(data);
+        message.success("Quiz created");
       })
       .catch((err) => console.log(err));
   };
@@ -129,6 +126,12 @@ const CreateExam = () => {
             width: "50%",
           }}
         >
+          <Form.Item name="subtitle">
+            <Input
+              placeholder="enter the wanted subtitle"
+              style={{ borderRadius: 10 }}
+            />
+          </Form.Item>
           <Form.Item name="q1">
             <Input placeholder="Question 1" style={{ borderRadius: 10 }} />
           </Form.Item>

@@ -6,6 +6,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import TakeNotesWrapper from "../takeNotes";
 import TraineeDashboard from "../traineeComponents/TraineeDashboard";
 import TraineeInsideCourse from "../traineeComponents/traineeInsideCourse";
+import RequestRefund from "../traineeComponents/requestRefund";
 
 const CoursePreview = () => {
   const [subtitles, setSubtitles] = useState([]);
@@ -82,6 +83,8 @@ const CoursePreview = () => {
             }}
           >
             <h2>All Subtitles</h2>
+            <TakeNotesWrapper />
+            <RequestRefund courseId={courseId} />
             <List
               itemLayout="horizontal"
               dataSource={subtitles}
@@ -217,7 +220,7 @@ const CourseSubtitleViewWrapper = () => {
           >
             <h2>All Subtitles</h2>
             <TakeNotesWrapper />
-
+            <RequestRefund courseId={courseId} />
             <List
               itemLayout="horizontal"
               dataSource={subtitles}

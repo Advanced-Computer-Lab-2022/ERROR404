@@ -1,10 +1,46 @@
-PUT http://localhost:2020/setDiscountForAllCourses
+POST http://localhost:2020/createQuiz
 Content-Type: application/json
 
 {
-    "courseId": ["638501f2a9b064e47ee7e0ed","6385033679d2f9c049db1606","638775f1aa3227ac76bb2de1"],
-    "value" :"50",
-    "endDate":"6-5-2024"
+    "username":"abdelrahman",
+    "courseId": "63af72c8dc50987ddd1e1848",
+    "subtitle" :"Brazil",
+    "questions": {
+      "subtitle" :"Brazil",
+      "questions": [
+      {
+      "question": "When did Brazil win World Cup",
+      "answerA":"2018",
+      "answerB":"2009",
+      "answerC":"2002",
+      "answerD":"2022",
+      "correctAnswer": "c"
+    },
+    {
+      "question": "Who play in Brazil of the following",
+      "answerA":"Neyman",
+      "answerB":"Pele",
+      "answerC":"Messi",
+      "answerD":"Salah",
+      "correctAnswer": "a"
+    },
+    {
+      "question": "When did Brazil win World Cup",
+      "answerA":"2018",
+      "answerB":"2009",
+      "answerC":"2002",
+      "answerD":"2022",
+      "correctAnswer": "c"
+    },
+    {
+      "question": "When did Brazil win World Cup",
+      "answerA":"2018",
+      "answerB":"2009",
+      "answerC":"2002",
+      "answerD":"2022",
+      "correctAnswer": "c"
+    }]
+    }
 }
 
 # {
