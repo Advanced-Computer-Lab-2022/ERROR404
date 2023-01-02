@@ -17,15 +17,16 @@ import {
   Input,
   message,
   DatePicker,
+  Collapse,
 } from "antd";
 import { AppContext } from "../AppContext";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import SubmitDiscount from "./instructorComponents/instructorSubmitDiscount";
 import CreateRequestWrapper from "./corporateCreateRequest";
 import SearchByForm from "./getCourses";
 import TopCourses from "./topCourses";
-
+const { Panel } = Collapse;
 const IconText = ({ icon, text }) => (
   <Space>
     {React.createElement(icon)}
@@ -70,6 +71,9 @@ const CourseComponent = ({ courses, viewType }) => {
 
   const handleOk = () => {
     setIsModalOpen(false);
+  };
+  const showModal = () => {
+    setIsModalOpen(true);
   };
 
   const handleCancel = () => {
@@ -239,10 +243,7 @@ const CourseComponent = ({ courses, viewType }) => {
                       (user == "individual" || user == "corporate") &&
                       traineeRegCourses.includes(item._id)
                     ) {
-                      console.log("hell");
                       navigation("/trainee/course?courseId=" + item._id);
-                    } else {
-                      navigation("/course/about?courseId=" + item._id);
                     }
                   }
                 }}
@@ -275,6 +276,15 @@ const CourseComponent = ({ courses, viewType }) => {
                 ]}
                 extra={
                   <Space>
+                    <div style={{ display: "flex", flexDirection: "column" }}>
+                      <Button
+                        onClick={() => {
+                          navigation("/course/about?courseId=" + item._id);
+                        }}
+                      >
+                        Open course
+                      </Button>
+                    </div>
                     {user == "corporate" ? (
                       <>
                         <CreateRequestWrapper courseId={item._id} />{" "}
@@ -348,6 +358,15 @@ const CourseComponent = ({ courses, viewType }) => {
                   description={item.summary}
                 />
                 {<Rate allowHalf defaultValue={item.rating} disabled={true} />}
+                <Collapse bordered={true}>
+                  <Panel header="More Info" key={item._id}>
+                    <p>{"Subtitles " + JSON.stringify(item.subtitles)}</p>
+                    <p>{"Exercises " + item.questions}</p>
+                    <p>{"Total hours " + item.totalHours}</p>
+                    <p>{"Price " + item.price}</p>
+                    <p>{"Discount " + item.discount.value}</p>
+                  </Panel>
+                </Collapse>
               </List.Item>
             </div>
           )}
