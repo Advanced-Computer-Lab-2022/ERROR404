@@ -53,7 +53,7 @@ const AcceptAgreWrapper = () => {
           fontSize: "20px",
         }}
       >
-        <h1>Insructor Agreement </h1>
+        <h1>Instructor Agreement </h1>
 
         <div
           id="pdf-element"
@@ -85,7 +85,7 @@ const AcceptAgreWrapper = () => {
           </p>
           <p>
             <h5> 3. Promotion of other Courses:</h5> Contractor agrees that
-            Instructor will not promote other nonCCIM courses or course
+            Instructor will not promote other non CCIM courses or course
             providers on site at the Course which is the subject of this
             Agreement.
           </p>
@@ -121,7 +121,7 @@ const AcceptAgreWrapper = () => {
             others for personal injury or property damage; c) cancellation of
             the subject event; d) any circumstance beyond the control of either
             party. Reasonable cause on the part of the Contractor does not
-            include a low number of fullypaid registrars resulting in a
+            include a low number of fully paid registrars resulting in a
             commensurate reduction in Teaching Fees.
           </p>
           <p>

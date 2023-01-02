@@ -315,7 +315,7 @@ const WrapperSignUp = ({ values }) => {
       })
       .catch((error) => {
         console.log("erorr ", error);
-        message.error("Unexpected Error occured" + error.response.message, 5);
+        message.error(error.response.data, 5);
       });
   };
 
