@@ -77,7 +77,7 @@ const AdminDashboard = ({ children, pageName }) => {
       <PlusCircleOutlined />
     ),
     getItem(
-      <Link className="link" to="/viewAllCourses">
+      <Link className="link" to="/AdminViewCourseComponent">
         View All Courses
       </Link>,
 

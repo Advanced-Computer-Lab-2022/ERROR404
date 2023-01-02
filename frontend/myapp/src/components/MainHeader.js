@@ -25,6 +25,7 @@ import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import BugReportIcon from "@mui/icons-material/BugReport";
 import WrapperSignUp from "./loginComponents/signUp";
 import LoginComponent from "./loginComponents/mainHome";
+import AdminViewCourseComponent from "./adminComponents/adminViewCourses";
 
 const { Header, Footer, Sider, Content } = Layout;
 const { Search } = Input;
@@ -205,7 +206,7 @@ const MainHeader = ({ values }) => {
         <BugReportIcon />
       ),
       getItem(
-        <Link className="link" to="/viewAllCourses">
+        <Link className="link" to="/AdminViewCourseComponent">
           Explore All Courses
         </Link>,
         "4"

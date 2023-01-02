@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import App from "./App";
 import "antd/dist/antd.css";
 import GetCoursesByPrice from "./components/getCourses";
 import GetAllInstructorCoursesWrapper from "./components/instructorComponents/getAllInstructorCourses";
@@ -11,12 +10,7 @@ import SelectCountryWrapper from "./components/selectCountry";
 import ViewAllCoursesWrapper from "./components/viewAllCourses";
 import InstViewCoursesWrapper from "./components/instViewCourses";
 import HomePageWrapper from "./components/homePage";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  useNavigate,
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import ChangePasswordPageWrapper from "./components/changePassword";
 import ChangingPaswword from "./components/changePasswordAfterEmail";
 import { AppContext } from "./AppContext";
@@ -41,7 +35,6 @@ import CreateExamWrapper from "./components/createExam";
 import SolveExamWrapper from "./components/solveExam";
 import PreviewCourseWrapper from "./components/courseComponents/previewCourse";
 import CourseReview from "./components/courseComponents/courseReview";
-import CourseSyllabus from "./components/courseComponents/courseSyllabes";
 import UserCourses from "./components/courseComponents/userClassRoom";
 import ReviewCourseComponent from "./components/rateAndReviewCourse";
 import SubmitDiscount from "./components/instructorComponents/instructorSubmitDiscount";
@@ -58,14 +51,12 @@ import MyPrograms from "./components/traineeComponents/myPrograms";
 import WrapperLessonPage from "./components/lessonPage";
 import WrapperSignUp from "./components/loginComponents/signUp";
 import TraineeSettingsWrapper from "./components/traineeComponents/traineeSettings";
-import TraineeViewCourses from "./components/traineeComponents/traineeViewCourses";
 import ReportaProblemWrapper from "./components/reportProblem";
 import FooterWrapper from "./components/footer";
 import CertificateWrapper from "./components/certificate";
 import ProgressWrapper from "./components/courseComponents/courseProgress";
 import AboutWrapper from "./components/about";
 import Terms from "./components/termsAndConditions";
-import TraineeInsideCourse from "./components/traineeComponents/traineeInsideCourse";
 import CourseConversation from "./components/courseComponents/courseConversation";
 import TraineeReportsWrapper from "./components/traineeComponents/reportsFollowUp";
 import AdminFilterReports from "./components/adminComponents/adminFilterReports";
@@ -78,6 +69,9 @@ import CourseSubtitles from "./components/courseComponents/courseSyllabes";
 import CourseSubtitleViewWrapper, {
   CoursePreview,
 } from "./components/courseComponents/courseSubtitlesView";
+import RefundRequestsWrapper from "./components/adminComponents/adminRequestRefunds";
+import AdminViewCourseComponent from "./components/adminComponents/adminViewCourses";
+
 export default function MainApp() {
   const [username, setUsername] = useState("");
   const [userEmail, setUserEmail] = useState("");
@@ -224,6 +218,14 @@ export default function MainApp() {
             element={<AdminRequestsWrapper />}
           />
 
+          <Route
+            path="/adminDashboard/refundrequests"
+            element={<RefundRequestsWrapper />}
+          />
+          <Route
+            path="/AdminViewCourseComponent"
+            element={<AdminViewCourseComponent />}
+          />
           <Route path="*" element={<NoPage />} />
           <Route path="/signUp" element={<WrapperSignUp />} />
           <Route path="/traineeDashBoard" element={<TraineeMainDashboard />} />
@@ -260,7 +262,3 @@ root.render(
     <MainApp />
   </React.StrictMode>
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
