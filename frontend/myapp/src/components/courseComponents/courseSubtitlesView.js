@@ -4,6 +4,7 @@ import { useEffect, useState, useContext } from "react";
 import { AppContext } from "../../AppContext";
 import { Link } from "react-router-dom";
 import TraineeDashboard from "../traineeComponents/TraineeDashboard";
+import TakeNotesWrapper from "../takeNotes";
 
 const CoursePreview = () => {
   const [subtitles, setSubtitles] = useState([]);
@@ -13,8 +14,6 @@ const CoursePreview = () => {
   const { username, userType } = useContext(AppContext);
   const [userName, setUserName] = username;
   const [usertype, setUserType] = userType;
-
-  const location = useLocation();
 
   useEffect(() => {
     const idSearch = window.location.search;
