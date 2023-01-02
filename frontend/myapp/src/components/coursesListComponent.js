@@ -232,19 +232,6 @@ const CourseComponent = ({ courses, viewType }) => {
                 onClick={() => {
                   if (user == "instructor" && viewType == "instructor") {
                     setIsModalOpen(true);
-                  } else if (
-                    user == "individual" ||
-                    user == "admin" ||
-                    user == "" ||
-                    user == null
-                  ) {
-                    console.log(user);
-                    if (
-                      (user == "individual" || user == "corporate") &&
-                      traineeRegCourses.includes(item._id)
-                    ) {
-                      navigation("/trainee/course?courseId=" + item._id);
-                    }
                   }
                 }}
                 actions={[

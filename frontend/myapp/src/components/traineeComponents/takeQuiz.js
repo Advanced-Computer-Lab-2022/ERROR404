@@ -436,8 +436,15 @@ const TakeQuiz = () => {
     <>
       <App>
         <Steps current={current} items={items} />
-        <div className="steps-content">{steps[current].content}</div>
-        <div className="steps-action"></div>
+        <div
+          className="steps-content"
+          style={{
+            boxSizing: "border-box",
+            padding: "20px",
+          }}
+        >
+          {steps[current].content}
+        </div>
       </App>
     </>
   );
