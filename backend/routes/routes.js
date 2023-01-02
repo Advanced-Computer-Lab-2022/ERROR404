@@ -432,14 +432,6 @@ const createInstructor = async (req, res) => {
   }
 };
 const createCorporateTrainee = async (req, res) => {
-  // const username = req.body.username;
-  // const password = req.body.password;
-  // const firstname = req.body.firstname;
-  // const lastname = req.body.lastname;
-  // const age = req.body.age;
-  // const gender = req.body.gender;
-  // const email = req.body.email;
-  // const country = req.body.country;
   const Admin = req.body.admin;
   const password = req.body.password;
   const username = req.body.username;
@@ -456,7 +448,7 @@ const createCorporateTrainee = async (req, res) => {
     gender: "Not Defined",
     username: username,
     password: password,
-    email: "",
+    email: username,
   };
   if (username == null || password == null) {
     res.status(400).json("Enter a valid data ");
@@ -468,12 +460,12 @@ const createCorporateTrainee = async (req, res) => {
         if (err) {
           res.status(400).send("Error: " + err);
         } else {
-          corporateTrainee.create(corpData, async (error, small) => {
+          corporateTrainee.create(corpData, (error, small) => {
             if (error) {
               res.status(500).send(error);
               console.log(error);
             } else {
-              await usernames.create({ name: username });
+              usernames.create({ name: username });
               res.status(200).send("user is created");
             }
           });
@@ -1533,7 +1525,7 @@ const instructorFilterByPrice = async (req, res) => {
 };
 
 const requestRefund = async (req, res) => {
-  console.log(req.body);
+  console.log("request " + req.body);
   const username = req.body.username;
   const courseId = req.body.courseId;
   const userType = req.body.userType;
@@ -1563,15 +1555,13 @@ const requestRefund = async (req, res) => {
 const getRefundRequestsByCourseIdUsername = async (req, res) => {
   console.log(req.params);
   await refundRequests
-    .find(
+    .findOne(
       { username: req.params.username, courseId: req.params.courseId },
       (err, data) => {
         if (err) {
-          res.status(500).json(err);
-        } else if (data) {
-          res.status(200).json(data);
+          res.status(500).send(err);
         } else {
-          res.status(404).send();
+          res.status(200).json(data);
         }
       }
     )

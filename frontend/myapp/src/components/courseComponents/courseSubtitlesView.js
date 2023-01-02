@@ -1,4 +1,4 @@
-import { Descriptions, Menu, List, Progress } from "antd";
+import { Descriptions, Menu, List, Progress, Button, message } from "antd";
 import axios from "axios";
 import { useEffect, useState, useContext } from "react";
 import { AppContext } from "../../AppContext";
@@ -50,6 +50,50 @@ const CoursePreview = () => {
         console.log(err);
       });
   }, [location]);
+
+  const requestRefund = () => {
+    if (progress > 50) {
+      message.warning(
+        "Sorrry, You are not eligible for course refund, You have exceeded 50% of the course"
+      );
+    } else {
+      axios
+        .get(
+          " http://localhost:2020/getRefundRequestsByCourseIdUsername/" +
+            userName +
+            "/" +
+            courseId
+        )
+        .then((response) => {
+          console.log("RESULT " + response.data);
+          if (response.data != null) {
+            message.warning(
+              "You have already requested a refund for this course, You will be refunded shortly"
+            );
+          } else {
+            let body = {
+              courseId: courseId,
+              username: userName,
+              userType: usertype,
+            };
+            axios
+              .post("http://localhost:2020/requestRefund", body)
+              .then((response) => {
+                console.log(response);
+                message.success("Refund issued successfully");
+              })
+              .catch((err) => {
+                console.log(err);
+                message.error(err);
+              });
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
+
   return (
     <TraineeInsideCourse pageName="Course Preview">
       {" "}
@@ -84,7 +128,10 @@ const CoursePreview = () => {
           >
             <h2>All Subtitles</h2>
             <TakeNotesWrapper />
-            <RequestRefund courseId={courseId} />
+            {/* <RequestRefund courseId={courseId} /> */}
+            <Button type="primary" onClick={requestRefund}>
+              Request Refund
+            </Button>
             <List
               itemLayout="horizontal"
               dataSource={subtitles}
@@ -187,6 +234,50 @@ const CourseSubtitleViewWrapper = () => {
         console.log(err.response);
       });
   }, [location]);
+
+  const requestRefund = () => {
+    if (progress > 50) {
+      message.warning(
+        "Sorrry, You are not eligible for course refund, You have exceeded 50% of the course"
+      );
+    } else {
+      axios
+        .get(
+          " http://localhost:2020/getRefundRequestsByCourseIdUsername/" +
+            userName +
+            "/" +
+            courseId
+        )
+        .then((response) => {
+          console.log("RESULT " + response.data);
+          if (JSON.stringify(response.data).length > 0) {
+            message.warning(
+              "You have already requested a refund for this course, You will be refunded shortly"
+            );
+          } else {
+            let body = {
+              courseId: courseId,
+              username: userName,
+              userType: usertype,
+            };
+            axios
+              .post("http://localhost:2020/requestRefund", body)
+              .then((response) => {
+                console.log(response);
+                message.success("Refund issued successfully");
+              })
+              .catch((err) => {
+                console.log(err);
+                message.error(err);
+              });
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
+
   return (
     <TraineeInsideCourse pageName={subtitle}>
       <div>
@@ -220,7 +311,9 @@ const CourseSubtitleViewWrapper = () => {
           >
             <h2>All Subtitles</h2>
             <TakeNotesWrapper />
-            <RequestRefund courseId={courseId} />
+            <Button type="primary" onClick={requestRefund}>
+              Request Refund
+            </Button>
             <Link to={"/trainee/takequiz?courseId=" + courseId}>Take Quiz</Link>
             <List
               itemLayout="horizontal"
