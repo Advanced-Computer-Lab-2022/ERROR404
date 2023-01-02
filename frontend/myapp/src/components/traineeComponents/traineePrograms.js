@@ -59,9 +59,6 @@ const TraineePrograms = ({ courses, viewType }) => {
           <div>
             <List.Item
               key={item._id}
-              onClick={() => {
-                navigation("/trainee/course?courseId=" + item._id);
-              }}
               actions={[
                 <IconText
                   icon={EyeOutlined}
@@ -91,6 +88,14 @@ const TraineePrograms = ({ courses, viewType }) => {
               ]}
               extra={
                 <Space>
+                  <Button
+                    onClick={() => {
+                      navigation("/trainee/course?courseId=" + item._id);
+                    }}
+                  >
+                    View Course
+                  </Button>
+
                   <img
                     width={250}
                     alt="logo"

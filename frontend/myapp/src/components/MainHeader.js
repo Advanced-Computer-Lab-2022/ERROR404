@@ -81,7 +81,7 @@ const MainHeader = ({ values }) => {
         key: "home",
       },
       getItem(
-        <Link className="link" to="instructorDashboard">
+        <Link className="link" to="/instructorDashboard">
           My Dashboard
         </Link>,
         "2",

@@ -536,6 +536,7 @@ const chooseCountry = async (req, res) => {
 };
 
 const submitDiscount = (req, res) => {
+  console.log(req.body);
   const courseId = req.body.courseId;
   const discount = req.body.discount;
   const date = req.body.date;
@@ -897,6 +898,7 @@ const traineebalance = async (req, res) => {
 };
 
 const uploadPreviewVideoForCourse = async (req, res) => {
+  console.log(req.body);
   const id = req.body.id;
   const url = req.body.url;
   courses.updateOne({ _id: id }, { preview: url }, (err, result) => {

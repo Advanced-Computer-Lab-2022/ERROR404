@@ -40,6 +40,7 @@ const CourseComponent = ({ courses, viewType }) => {
   const [isModalOpenDis, setIsModalOpenDis] = useState(false);
   const [courseTitle, setTitle] = useState("");
   const [traineeRegCourses, setTraineeCourses] = traineeCourses;
+  const [cid, setcId] = useState("");
 
   const [id, setId] = useState("");
 
@@ -47,7 +48,7 @@ const CourseComponent = ({ courses, viewType }) => {
   const onFinish1 = (values) => {
     console.log("Success:", values);
     const body = {
-      courseId: id,
+      courseId: values.id,
       discount: values.discountValue,
       date: values.endDate,
     };
@@ -78,6 +79,7 @@ const CourseComponent = ({ courses, viewType }) => {
 
   const openDis = (id, courseTitle) => {
     const modal = Modal.confirm();
+    setcId(id);
 
     modal.update({
       title: "Updated " + courseTitle,
@@ -87,6 +89,15 @@ const CourseComponent = ({ courses, viewType }) => {
           onFinishFailed={onFinishFailed1}
           autoComplete="off"
         >
+          <Form.Item
+            label="id"
+            name="id"
+            style={{
+              display: "none",
+            }}
+          >
+            <Input defaultValue={id} disabled />
+          </Form.Item>
           <Form.Item
             label="Dicount Value"
             name="discountValue"
@@ -122,13 +133,40 @@ const CourseComponent = ({ courses, viewType }) => {
     });
   };
 
+  const onFinish = (values) => {
+    setIsModalOpen(false);
+    console.log("hallo ", values);
+    console.log(id);
+    const url = values.url;
+
+    let body = {
+      id: id,
+      url: url,
+    };
+
+    axios
+      .put("http://localhost:2020/uploadPreviewVideoForCourse", body)
+      .then(() => {
+        message.success("URL added succesffully", 3);
+      })
+      .catch((err) => {
+        console.log("error at add preview url ", err);
+        message.error("Unexpected error has occured " + err, 3);
+      });
+  };
+
   const openPreview = (id, courseTitle) => {
-    const modal = Modal.success();
+    const modal = Modal.confirm();
+    console.log(id, "222222222222 ");
+    setId(id);
 
     modal.update({
       title: "Updated " + courseTitle,
       content: (
         <Form onFinish={onFinish}>
+          <Form.Item label="id" name="id">
+            <Input defaultValue={id} />
+          </Form.Item>
           <Form.Item
             label="Preview Video URL"
             name="url"
@@ -150,27 +188,6 @@ const CourseComponent = ({ courses, viewType }) => {
         </Form>
       ),
     });
-  };
-
-  const onFinish = (values) => {
-    setIsModalOpen(false);
-    console.log(values);
-    const url = values.url;
-
-    let body = {
-      id: id,
-      url: url,
-    };
-
-    axios
-      .put("http://localhost:2020/uploadPreviewVideoForCourse", body)
-      .then(() => {
-        message.success("URL added succesffully", 3);
-      })
-      .catch((err) => {
-        console.log("error at add preview url ", JSON.stringify(err));
-        message.error("Unexpected error has occured " + err.response.data, 3);
-      });
   };
 
   return (
@@ -275,16 +292,16 @@ const CourseComponent = ({ courses, viewType }) => {
                 ]}
                 extra={
                   <Space>
+                    <Button
+                      onClick={() => {
+                        navigation("/course/about?courseId=" + item._id);
+                      }}
+                    >
+                      View Course
+                    </Button>
                     {user == "corporate" ? (
                       <>
                         <CreateRequestWrapper courseId={item._id} />{" "}
-                        <Button
-                          onClick={() => {
-                            navigation("/course/about?courseId=" + item._id);
-                          }}
-                        >
-                          View Course
-                        </Button>
                       </>
                     ) : null}
                     {user == "instructor" && viewType == "instructor" ? (
@@ -316,6 +333,7 @@ const CourseComponent = ({ courses, viewType }) => {
                           style={{ width: "100%" }}
                           type="dashed"
                           onClick={() => {
+                            console.log("zzzzzzzzzzzz ", item);
                             openDis(item._id, item.title);
                           }}
                         >
@@ -335,6 +353,7 @@ const CourseComponent = ({ courses, viewType }) => {
                         </Link>
                       </div>
                     ) : null}
+
                     <img
                       width={250}
                       alt="logo"

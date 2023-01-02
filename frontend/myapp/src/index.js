@@ -78,8 +78,6 @@ import CourseSubtitles from "./components/courseComponents/courseSyllabes";
 import CourseSubtitleViewWrapper, {
   CoursePreview,
 } from "./components/courseComponents/courseSubtitlesView";
-import RefundRequestsWrapper from "./components/adminComponents/adminRequestRefunds"
-
 export default function MainApp() {
   const [username, setUsername] = useState("");
   const [userEmail, setUserEmail] = useState("");
@@ -226,11 +224,6 @@ export default function MainApp() {
             element={<AdminRequestsWrapper />}
           />
 
-          <Route
-            path="/adminDashboard/refundrequests"
-            element={<RefundRequestsWrapper />}
-          />
-
           <Route path="*" element={<NoPage />} />
           <Route path="/signUp" element={<WrapperSignUp />} />
           <Route path="/traineeDashBoard" element={<TraineeMainDashboard />} />
@@ -250,19 +243,6 @@ export default function MainApp() {
             element={<CreateRequestWrapper />}
           />
 
-          <Route path="*" element={<NoPage />} />
-
-          <Route path="/TakeNotes" element={<TakeNotesWrapper />} />
-          <Route path="/AdminFilterReports" element={<AdminFilterReports />} />
-
-          <Route path="*" element={<NoPage />} />
-
-          <Route path="/TakeNotes" element={<TakeNotesWrapper />} />
-          <Route path="/AdminFilterReports" element={<AdminFilterReports />} />
-          <Route
-            path="/corporateCreateRequest"
-            element={<CreateRequestWrapper />}
-          />
           <Route path="/trainee/course" element={<CoursePreview />} />
           <Route
             path="/trainee/course/subtitle"
