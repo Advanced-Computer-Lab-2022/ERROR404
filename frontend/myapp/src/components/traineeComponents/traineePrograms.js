@@ -1,26 +1,13 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import {
   MessageOutlined,
   EyeOutlined,
   HourglassOutlined,
   DollarOutlined,
-  PlusOutlined,
   UsergroupDeleteOutlined,
 } from "@ant-design/icons";
-import {
-  List,
-  Space,
-  Rate,
-  Button,
-  Modal,
-  Form,
-  Input,
-  message,
-  DatePicker,
-} from "antd";
-import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
-import { AppContext } from "../../AppContext";
+import { List, Space, Rate } from "antd";
+import { useNavigate } from "react-router-dom";
 
 const IconText = ({ icon, text }) => (
   <Space>
@@ -29,14 +16,7 @@ const IconText = ({ icon, text }) => (
   </Space>
 );
 
-const TraineePrograms = ({ courses, viewType }) => {
-  const { userType } = useContext(AppContext);
-  const [user, setUser] = userType;
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isModalOpenDis, setIsModalOpenDis] = useState(false);
-  const [courseTitle, setTitle] = useState("");
-  const [id, setId] = useState("");
-
+const TraineePrograms = ({ courses }) => {
   let navigation = useNavigate();
 
   useEffect(() => {
@@ -77,7 +57,7 @@ const TraineePrograms = ({ courses, viewType }) => {
                 />,
                 <IconText
                   icon={DollarOutlined}
-                  text={item.price == 0 ? "FREE" : item.price}
+                  text={item.price === 0 ? "FREE" : item.price}
                   key="list-vertical-message"
                 />,
                 <IconText

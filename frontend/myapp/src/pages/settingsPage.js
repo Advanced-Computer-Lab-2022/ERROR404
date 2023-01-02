@@ -1,34 +1,25 @@
 import React, { useContext } from "react";
 import App from "../App";
-import {
-  LaptopOutlined,
-  NotificationOutlined,
-  UserOutlined,
-  HomeOutlined,
-  LoginOutlined,
-} from "@ant-design/icons";
-import { Breadcrumb, Layout, Menu } from "antd";
+import { Breadcrumb, Layout } from "antd";
 import {
   PersonalInformationTab,
   SettingsPageSider,
 } from "../components/settingsPage";
-import { Link } from "react-router-dom";
 import InstructorDashboard from "../components/instructorComponents/InstructorDashboard";
 import TraineeDashboard from "../components/traineeComponents/TraineeDashboard";
 import { AppContext } from "../AppContext";
-import FooterWrapper from "../components/footer";
-const { Header, Content, Footer, Sider } = Layout;
+const { Content, Sider } = Layout;
 
 const SettingsPageWrapper = () => {
   const { userType } = useContext(AppContext);
-  const [user, setUser] = userType;
-  if (user == "instructor") {
+  const [user] = userType;
+  if (user === "instructor") {
     return (
       <InstructorDashboard pageName="Setting">
         <UserSettingPageMain />
       </InstructorDashboard>
     );
-  } else if (user == "individual") {
+  } else if (user === "individual") {
     return (
       <TraineeDashboard>
         <UserSettingPageMain />
@@ -47,7 +38,7 @@ const UserSettingPageMain = () => {
   return <PersonalInformationTab />;
 };
 
-const UserSettingPage = ({ children, Settings }) => (
+const UserSettingPage = ({ children }) => (
   <Content
     style={{
       padding: "0 50px",

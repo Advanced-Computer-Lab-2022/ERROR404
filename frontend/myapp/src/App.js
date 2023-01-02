@@ -64,7 +64,9 @@ const App = ({ children }) => {
         style={{ minHeight: "90vh", backgroundColor: "white" }}
         theme="dark"
       >
-        <Content style={{ margin: "0 0px", padding: "5%" }}>{children}</Content>
+        <Content style={{ margin: "0 0px", padding: "5%", minHeight: "80vh" }}>
+          {children}
+        </Content>
       </Layout>
       <Footer style={{ padding: 0, textAlign: "center", margin: "0 0px" }}>
         <FooterWrapper />
