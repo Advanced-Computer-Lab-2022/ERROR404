@@ -1540,6 +1540,7 @@ const requestRefund = async (req, res) => {
         username: username,
         userType: userType,
         courseId: courseId,
+        coursePrice: req.body.coursePrice,
       },
       (err, result) => {
         if (err) {
@@ -1566,6 +1567,23 @@ const getRefundRequestsByCourseIdUsername = async (req, res) => {
       }
     )
     .clone();
+};
+
+const addToIndivisualTraineeWallet = (req, res) => {
+  const username = req.body.username;
+  const refund = req.body.refund;
+
+  individualTrainee.findOneAndUpdate(
+    { username: username },
+    { $inc: { balance: refund } },
+    (err, data) => {
+      if (err) {
+        res.status(500).send(err);
+      } else {
+        res.sendStatus(200);
+      }
+    }
+  );
 };
 
 const getAllRefundRequests = async (req, res) => {
@@ -1605,38 +1623,38 @@ const updateRefundRequestStatus = (req, res) => {
 };
 
 const deleteCourse = async (req, res) => {
+  console.log(req.body);
   const username = req.body.username;
   const courseId = req.body.courseId;
-  const status = req.body.status;
+
   if (username == null || courseId == null) {
     return res.status(400).send("Please enter valid data");
-  } else if (status == "approved") {
-    await individualTrainee
-      .updateOne(
-        { username: username },
-        { $pull: { Regcourses: courseId } },
-        (err, result) => {
-          if (err) {
-            res.status(500).send(err);
-          } else if (result != null) {
-            courses
-              .updateOne(
-                { _id: courseId },
-                { $inc: { numberOfSubscribers: -1 } },
-                (err, result) => {
-                  if (err) {
-                    res.status(500).send();
-                  } else {
-                    res.status(200).send(result);
-                  }
-                }
-              )
-              .clone();
-          }
-        }
-      )
-      .clone();
   }
+  await individualTrainee
+    .findOneAndUpdate(
+      { username: username },
+      { $pull: { Regcourses: courseId } },
+      (err, result) => {
+        if (err) {
+          res.status(500).send(err);
+        } else {
+          courses
+            .updateOne(
+              { _id: courseId },
+              { $inc: { numberOfSubscribers: -1 } },
+              (err, result) => {
+                if (err) {
+                  res.status(500).send();
+                } else {
+                  res.status(200).send(result);
+                }
+              }
+            )
+            .clone();
+        }
+      }
+    )
+    .clone();
 };
 
 const payfromBalance = async (req, res) => {
@@ -1813,4 +1831,5 @@ module.exports = {
   setDiscountForAllCourses,
   getRefundRequestsByCourseIdUsername,
   putGrades,
+  addToIndivisualTraineeWallet,
 };

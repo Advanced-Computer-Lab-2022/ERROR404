@@ -71,6 +71,7 @@ const {
   setDiscountForAllCourses,
   getRefundRequestsByCourseIdUsername,
   putGrades,
+  addToIndivisualTraineeWallet,
 } = require("./routes/routes");
 
 //App variables
@@ -169,3 +170,4 @@ app.put("/updateRefundRequestStatus", updateRefundRequestStatus);
 app.put("/payfromBalance", payfromBalance);
 app.put("/setDiscountForAllCourses", setDiscountForAllCourses);
 app.put("/putGrades", putGrades);
+app.put("/addToIndivisualTraineeWallet", addToIndivisualTraineeWallet);

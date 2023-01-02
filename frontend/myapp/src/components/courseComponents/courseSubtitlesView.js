@@ -16,6 +16,7 @@ const CoursePreview = () => {
   const { username, userType } = useContext(AppContext);
   const [userName, setUserName] = username;
   const [usertype, setUserType] = userType;
+  const [price, setPrice] = useState("");
 
   const location = useLocation();
 
@@ -45,6 +46,7 @@ const CoursePreview = () => {
         setVideo("https://" + response.data.preview);
         console.log(response.data.subtitles);
         setSubtitles(response.data.subtitles);
+        setPrice(response.data.price);
       })
       .catch((err) => {
         console.log(err);
@@ -75,6 +77,7 @@ const CoursePreview = () => {
               courseId: courseId,
               username: userName,
               userType: usertype,
+              coursePrice: price,
             };
             axios
               .post("http://localhost:2020/requestRefund", body)
@@ -128,7 +131,7 @@ const CoursePreview = () => {
           >
             <h2>All Subtitles</h2>
             <TakeNotesWrapper />
-            {/* <RequestRefund courseId={courseId} /> */}
+
             <Button type="primary" onClick={requestRefund}>
               Request Refund
             </Button>
@@ -311,9 +314,6 @@ const CourseSubtitleViewWrapper = () => {
           >
             <h2>All Subtitles</h2>
             <TakeNotesWrapper />
-            <Button type="primary" onClick={requestRefund}>
-              Request Refund
-            </Button>
             <Link to={"/trainee/takequiz?courseId=" + courseId}>Take Quiz</Link>
             <List
               itemLayout="horizontal"

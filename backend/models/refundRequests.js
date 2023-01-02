@@ -8,7 +8,7 @@ const refundRequests = new Schema(
       enum: ["unseen", "approved", "rejected"],
       default: "unseen",
     },
-    
+
     username: {
       type: String,
       required: true,
@@ -21,13 +21,18 @@ const refundRequests = new Schema(
 
     courseId: {
       type: String,
-      required: true, 
+      required: true,
     },
-   
-  issueDate: {
-    type: Date,
-    default: Date.now(),
-  },
+
+    coursePrice: {
+      type: Number,
+      required: true,
+    },
+
+    issueDate: {
+      type: Date,
+      default: Date.now(),
+    },
   },
   { timestamps: true }
 );

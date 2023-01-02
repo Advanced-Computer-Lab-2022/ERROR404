@@ -1,12 +1,9 @@
-PUT http://localhost:2020/putGrades
+PUT http://localhost:2020/addToIndivisualTraineeWallet
 Content-Type: application/json
 
   {
     "username":"bruno",
-    "usertype":"individual",
-    "grade":"3",
-    "subject":"network"
-
+    "refund": 50
   }
 
 

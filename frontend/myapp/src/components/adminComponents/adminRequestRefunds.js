@@ -17,6 +17,7 @@ import {
 import AdminDashboard from "./adminDashboard";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { border } from "@mui/system";
 
 const { Option } = Select;
 
@@ -34,9 +35,10 @@ const RefundRequests = () => {
   const [filter, setFilter] = useState([]);
   const [form] = Form.useForm();
 
-  const confirm = (status, id, courseId, username, userType) =>
+  const confirm = (status, id, courseId, username, userType, refund) =>
     new Promise((resolve) => {
       console.log("sssssssss ", status);
+      console.log("sssssssss2 ", refund);
       const requestBody = {
         id: id,
         status: status,
@@ -48,20 +50,27 @@ const RefundRequests = () => {
             courseId: courseId,
             username: username,
           };
+          const body = {
+            username: username,
+            refund: refund,
+          };
           if (status == "approved") {
             axios
               .put("http://localhost:2020/deleteCourse", reqBody)
               .then(() => {
-                message.success("request approved");
+                axios
+                  .put(
+                    "http://localhost:2020/addToIndivisualTraineeWallet",
+                    body
+                  )
+                  .then(() => {
+                    message.success(
+                      "request approved and money refunded to trainee balance"
+                    );
+                  })
+                  .catch((err) => console.log(err));
               })
               .catch((err) => console.log("error at updating courses" + err));
-
-            axios.get(
-              "http://localhost:2020/getUser/" +
-                RefundRequests.user +
-                "/" +
-                RefundRequests.usertype
-            );
           } else {
             message.success("status has been changed to " + status);
             console.log(res);
@@ -151,7 +160,7 @@ const RefundRequests = () => {
         return;
       }
     });
-    console.log("the request => ", requests.username);
+    console.log("the request => ", requests);
     console.log("the request  name => ", requests.username);
     console.log("the request  type => ", requests.userType);
     axios
@@ -173,85 +182,102 @@ const RefundRequests = () => {
         } else if (requests.status == "rejected") {
           type = "fail";
         }
-        modal
-          .update({
-            title: "Request Id " + requests._id,
+        if (requests.status == "approved") {
+          modal.update({
+            title: "Request Id " + requests.courseId,
 
-            content: (
-              <>
-                <Tabs
-                  defaultActiveKey="1"
-                  onChange={onChange}
-                  items={[
-                    {
-                      label: `Change Request Status`,
-                      key: "1",
-                      children: (
-                        <>
-                          <Card>
-                            <Descriptions title="Updating status...">
-                              <Descriptions.Item label="Current Status">
-                                <span>
-                                  <Badge status={type} text={requests.status} />
-                                </span>
-                              </Descriptions.Item>
-                            </Descriptions>
-                          </Card>
-                          <Form
-                            form={form}
-                            onFinish={(e) => {
-                              console.log("entaaaa", e);
-                            }}
-                          >
-                            <Form.Item
-                              name="status"
-                              label="Update Status to "
-                              rules={[
-                                {
-                                  required: true,
-                                },
-                              ]}
-                            >
-                              <Select
-                                placeholder="Select a option and change input text above"
-                                allowClear
-                              >
-                                <Option value="pending">Pending</Option>
-                                <Option value="approved">Approved</Option>
-                                <Option value="rejected">Rejected</Option>
-                              </Select>
-                            </Form.Item>
-                            <Form.Item>
-                              <Popconfirm
-                                title="Are you sure you want to submit this new status"
-                                onConfirm={() =>
-                                  confirm(
-                                    form.getFieldValue("status"),
-                                    requests._id,
-                                    requests.courseId,
-                                    requests.username,
-                                    requests.userType
-                                  )
-                                }
-                                onOpenChange={() => console.log("open change")}
-                              >
-                                <Button type="primary" htmlType="submit">
-                                  Submit Status
-                                </Button>
-                              </Popconfirm>
-                            </Form.Item>
-                          </Form>
-                        </>
-                      ),
-                    },
-                  ]}
-                />
-              </>
-            ),
-          })
-          .catch((err) => {
-            console.log(err.response.data);
+            content: <>Request Already Approved</>,
           });
+        } else {
+          modal
+            .update({
+              title: "Request Id " + requests.courseId,
+
+              content: (
+                <>
+                  <Tabs
+                    defaultActiveKey="1"
+                    onChange={onChange}
+                    items={[
+                      {
+                        label: `Change Request Status`,
+                        key: "1",
+                        children: (
+                          <>
+                            <Card>
+                              <Descriptions title="Updating status...">
+                                <Descriptions.Item label="Current Status">
+                                  <span>
+                                    <Badge
+                                      status={type}
+                                      text={requests.status}
+                                    />
+                                    User to be refunded {requests.username}
+                                    <br />
+                                    Amount to be refunded {requests.coursePrice}
+                                  </span>
+                                </Descriptions.Item>
+                              </Descriptions>
+                            </Card>
+                            <Form
+                              form={form}
+                              onFinish={(e) => {
+                                console.log("entaaaa", e);
+                              }}
+                            >
+                              <Form.Item
+                                name="status"
+                                label="Update Status to "
+                                rules={[
+                                  {
+                                    required: true,
+                                  },
+                                ]}
+                              >
+                                <Select
+                                  placeholder="Select a option and change input text above"
+                                  allowClear
+                                >
+                                  <Option value="pending">Pending</Option>
+                                  <Option value="approved">Approved</Option>
+                                  <Option value="rejected">Rejected</Option>
+                                </Select>
+                              </Form.Item>
+                              <Form.Item>
+                                <Popconfirm
+                                  title="Are you sure you want to submit this new status"
+                                  onConfirm={() =>
+                                    confirm(
+                                      form.getFieldValue("status"),
+                                      requests._id,
+                                      requests.courseId,
+                                      requests.username,
+                                      requests.userType,
+                                      requests.coursePrice
+                                    )
+                                  }
+                                  onOpenChange={() =>
+                                    console.log("open change")
+                                  }
+                                >
+                                  <Button type="primary" htmlType="submit">
+                                    Submit Status
+                                  </Button>
+                                </Popconfirm>
+                              </Form.Item>
+                            </Form>
+                          </>
+                        ),
+                      },
+                    ]}
+                  />
+                </>
+              ),
+            })
+            .catch((err) => {
+              console.log(err.response.data);
+            });
+        }
       });
   };
 
