@@ -16,6 +16,7 @@ import AdminDashboard from "./adminDashboard";
 import { AppContext } from "../../AppContext";
 
 import { CloseCircleOutlined, SmileOutlined } from "@ant-design/icons";
+import { Link } from "react-router-dom";
 const { Option } = Select;
 
 const CreateAdmin = () => {
@@ -229,7 +230,13 @@ const CreateAdmin = () => {
       <Result
         icon={<SmileOutlined />}
         title="Great, we have done all the operations!"
-        extra={<Button type="primary">Next</Button>}
+        extra={
+          <Button type="primary">
+            <Link className="link" to="/adminDashboard">
+              Next
+            </Link>
+          </Button>
+        }
       />
     );
   } else if (submitted == 2) {
