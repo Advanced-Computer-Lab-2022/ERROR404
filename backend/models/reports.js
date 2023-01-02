@@ -11,7 +11,6 @@ const reports = new Schema(
     problem: {
       type: String,
       minLength: 5,
-      required: true,
     },
     issueDate: {
       type: Date,
@@ -21,11 +20,6 @@ const reports = new Schema(
       type: String,
       enum: ["unseen", "pending", "resolved"],
       default: "unseen",
-    },
-    reportType: {
-      type: String,
-      enum: ["technical", "financial", "other"],
-      required: [true, "report type Required"],
     },
     description: {
       type: String,
@@ -41,11 +35,6 @@ const reports = new Schema(
       type: String,
       required: true,
       enum: ["instructor", "individual", "corporate", "admin"],
-    },
-
-    issueDate: {
-      type: Date,
-      default: Date.now(),
     },
   },
   { timestamps: true }

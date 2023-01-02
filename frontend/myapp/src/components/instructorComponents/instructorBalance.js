@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import InstructorDashboard from "./InstructorDashboard";
 import ReviewNavigation from "../reviewComponents";
-import { Button, Table } from "antd";
+import { Tabs } from "antd";
 import {
   ArrowDownOutlined,
   ArrowUpOutlined,
   DollarOutlined,
+  WalletOutlined,
   PlusOutlined,
 } from "@ant-design/icons";
 import { Card, Col, Row, Statistic, Breadcrumb } from "antd";
@@ -13,111 +14,103 @@ import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import Pagination from "@mui/material/Pagination";
 import PaginationItem from "@mui/material/PaginationItem";
 import Stack from "@mui/material/Stack";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import VirtualList from "rc-virtual-list";
+import { useContext, useEffect, useState } from "react";
+import { AppContext } from "../../AppContext";
+import axios from "axios";
 import InstructorTransactions, {
   InstructorMonthlyBalances,
 } from "./instructorTransactions";
+const onChange = (key) => {
+  console.log(key);
+};
 
+const InstructorStatistics = () => {
+  return (
+    <div className="site-statistic-demo-card">
+      <Row gutter={16}>
+        <Col span={12}>
+          <Card>
+            <Statistic
+              title="Active"
+              value={11.28}
+              precision={2}
+              valueStyle={{
+                color: "#3f8600",
+              }}
+              prefix={<ArrowUpOutlined />}
+              suffix="%"
+            />
+          </Card>
+        </Col>
+        <Col span={12}>
+          <Card>
+            <Statistic
+              title="Idle"
+              value={9.3}
+              precision={2}
+              valueStyle={{
+                color: "#cf1322",
+              }}
+              prefix={<ArrowDownOutlined />}
+              suffix="%"
+            />
+          </Card>
+        </Col>
+      </Row>
+    </div>
+  );
+};
 const InstructorBalanceWrapper = () => {
+  const { username, userType } = useContext(AppContext);
+  const [value, setvalue] = useState(0);
+  const [userName, setUserName] = username;
+  const [usertype, setUserType] = userType;
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:2020/getUser/${userName}/${usertype}`)
+      .then((response) => {
+        console.log(response.data.wallet);
+        setvalue(response.data.wallet);
+      });
+  }, []);
+
   return (
     <InstructorDashboard>
-      {/* <InstructorBalanceAdditions value={1000} />
-      <InstructorBalanceAdditions value={125} />
-      <InstructorBalanceAdditions value={1500} />
-      <InstructorBalanceAdditions value={2000} />
-      <InstructorBalanceAdditions value={2500} /> */}
-      <InstructorMonthlyBalances />
-      <InstructorTransactions />
+      <div>
+        <h1>My Monthly Balance</h1>
+        <Card>
+          <Statistic
+            title="Active"
+            value={value}
+            precision={2}
+            valueStyle={{
+              color: "#3f8600",
+            }}
+            prefix={<WalletOutlined />}
+            suffix="$"
+          />
+        </Card>
+        <Tabs
+          defaultActiveKey="1"
+          onChange={onChange}
+          items={[
+            {
+              label: `Transactions history`,
+              key: "1",
+              children: <InstructorTransactions />,
+            },
+            {
+              label: `Statistics`,
+              key: "2",
+              children: <InstructorMonthlyBalances />,
+            },
+          ]}
+        />
+      </div>
     </InstructorDashboard>
   );
 };
-
-// const InstructorBalance = () => {
-//   const [current, setCurrent] = useState(3);
-//   const onChange = (page) => {
-//     console.log(page);
-//     setCurrent(page);
-//   };
-//   return (
-//     <>
-//       <Breadcrumb>
-//         <Breadcrumb.Item>My Balance</Breadcrumb.Item>
-//       </Breadcrumb>
-//       <Stack spacing={2}>
-//         <Pagination
-//           count={12}
-//           renderItem={(item) => (
-//             <PaginationItem
-//               slots={{ previous: ArrowBackIcon, next: ArrowForwardIcon }}
-//               {...item}
-//             />
-//           )}
-//         />
-//       </Stack>
-//       <div
-//         style={{
-//           display: "flex",
-//           flexDirection: "row",
-//           justifyContent: "center",
-//           alignItems: "center",
-//           gap: "20px",
-//         }}
-//       >
-//         <MonthBalance balance={1000} month="January" />
-//         <MonthBalance balance={1000} month="Febreary" />
-//         <MonthBalance balance={1000} month="March" />
-//         <MonthBalance balance={1000} month="April" />
-//         <MonthBalance balance={1000} month="May" />
-//       </div>
-//       <div
-//         style={{
-//           display: "flex",
-//           flexDirection: "row",
-//           justifyContent: "center",
-//           alignItems: "center",
-//           gap: "20px",
-//           overflow: "scroll",
-//         }}
-//       >
-//         <MonthBalance balance={1000} month="June" />
-//         <MonthBalance balance={1000} month="July" />
-//         <MonthBalance balance={1000} month="August" />
-//         <MonthBalance balance={1000} month="September" />
-//         <MonthBalance balance={1000} month="October" />
-//         <MonthBalance balance={1000} month="November" />
-//         <MonthBalance balance={1000} month="December" />
-//       </div>
-//     </>
-//   );
-// };
-
-// const MonthBalance = ({ balance, month }) => {
-//   return (
-//     <Card>
-//       <Statistic
-//         title={"Total Balance for " + month}
-//         value={balance}
-//         precision={2}
-//         valueStyle={{ color: "#3f8600" }}
-//         prefix={<DollarOutlined />}
-//       />
-//     </Card>
-//   );
-//};
-
-// const InstructorBalanceAdditions = ({ value }) => {
-//   return (
-//     <Card>
-//       <Statistic
-//         title="Added"
-//         value={value}
-//         precision={2}
-//         valueStyle={{ color: "#3f8600" }}
-//         prefix={<PlusOutlined />}
-//       />
-//     </Card>
-//   );
-// };
 
 export default InstructorBalanceWrapper;

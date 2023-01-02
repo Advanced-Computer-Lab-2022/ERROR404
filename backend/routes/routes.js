@@ -11,6 +11,7 @@ const Reports = require("../models/reports");
 const chats = require("../models/chats");
 const usernames = require("../models/usernames");
 const refundRequests = require("../models/refundRequests");
+const { truncate } = require("fs");
 
 //Methods
 const createIndividualTrainee = async (req, res) => {
@@ -188,7 +189,7 @@ const reportProblem = async (req, res) => {
       problemType: req.body.problemType,
       problem: req.body.problem,
     };
-    reports.create(reportDetails, (err, small) => {
+    Reports.create(reportDetails, (err, small) => {
       if (err) {
         console.log("error with report ", err.message);
       } else {
@@ -1136,7 +1137,6 @@ const createQuiz = async (req, res) => {
   }
 };
 const addCourseToStudent = async (req, res) => {
-  console.log("helllz ", req.body);
   const username = req.body.username;
   const courseId = req.body.courseId;
   const usertype = req.body.usertype;
@@ -1317,7 +1317,6 @@ const getAllReports = async (req, res) => {
     }
   }).clone();
 };
-
 const createReport = async (req, res) => {
   console.log(req.body);
   const username = req.body.username;
@@ -1338,10 +1337,11 @@ const createReport = async (req, res) => {
       user: username,
       usertype: usertype,
       description: description,
-      reportType: reportType,
+      problemType: reportType,
     };
     Reports.create(body, (err, result) => {
       if (err) {
+        console.log(err);
         res.status(500).json(err);
       } else {
         res.status(200).send(result);
@@ -1545,7 +1545,6 @@ const requestRefund = async (req, res) => {
   const username = req.body.username;
   const courseId = req.body.courseId;
   const userType = req.body.userType;
-  //const _id = courseId.split("=")[1];
 
   if (userType !== "individual" || username == null) {
     return res.status(400).send("Error occured");
@@ -1616,7 +1615,6 @@ const updateRefundRequestStatus = (req, res) => {
 };
 
 const deleteCourse = async (req, res) => {
-  console.log("helllz ", req.body);
   const username = req.body.username;
   const courseId = req.body.courseId;
   const status = req.body.status;
@@ -1651,35 +1649,6 @@ const deleteCourse = async (req, res) => {
   }
 };
 
-// const adminRefundTrainee = async(req,res) => {
-//   const username = req.body.username;
-//   const courseId = req.body.courseId;
-
-//   const p = await individualTrainee.findOne({username:username}, {balance:1});
-//   const _id = courseId.split("=")[1];
-//   const x = await courses.findById(_id);
-
-//   let price = x.price;
-//   let newBalance = p.balance;
-//   newBalance= newBalance + price;
-//   console.log(newBalance);
-//   console.log(x.instructor);
-//   console.log(x.price);
-//   await individualTrainee
-//     .updateOne(
-//       { username: username },
-//       { balance: newBalance })
-//       .exec((err, result) => {
-//         if (err) {
-//           res.status(500).send();
-//         } else {
-//           res.status(200).send(result);
-//         }
-//       }
-//     )
-//   .clone();
-// };
-
 const payfromBalance = async (req, res) => {
   const username = req.body.username;
   const courseId = req.body.courseId;
@@ -1712,6 +1681,30 @@ const payfromBalance = async (req, res) => {
       )
       .clone();
   }
+};
+const setDiscountForAllCourses = async (req, res) => {
+  const courseId = req.body.courseId;
+  const value = req.body.value;
+  const endDate = req.body.endDate;
+  courses
+    .updateMany(
+      { _id: courseId },
+      {
+        discount: {
+          value: value,
+          endDate: endDate,
+        },
+      },
+      { multi: true },
+      (err, result) => {
+        if (err) {
+          res.status(500).json(err);
+        } else {
+          res.status(200).json(result);
+        }
+      }
+    )
+    .clone();
 };
 
 module.exports = {
@@ -1775,4 +1768,5 @@ module.exports = {
   //adminRefundTrainee,
   payfromBalance,
   filterByPriceOrRate,
+  setDiscountForAllCourses,
 };

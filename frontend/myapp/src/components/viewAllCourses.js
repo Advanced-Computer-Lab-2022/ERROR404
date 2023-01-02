@@ -7,6 +7,7 @@ import { FilterOutlined } from "@ant-design/icons";
 import SearchByForm from "./getCourses";
 import CourseComponent from "./coursesListComponent";
 import TopCourses from "./topCourses";
+import AdminViewCourseComponent from "./adminComponents/adminViewCourses";
 
 const { Option } = Select;
 
