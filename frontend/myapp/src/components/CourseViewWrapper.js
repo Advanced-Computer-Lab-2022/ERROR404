@@ -145,7 +145,7 @@ const PreviewCourses = ({ children, courseId }) => {
           <Content
             style={{
               padding: "0 24px",
-              minHeight: 280,
+              minHeight: "80vh",
             }}
           >
             {children}
