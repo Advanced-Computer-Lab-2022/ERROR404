@@ -3,6 +3,7 @@ import axios from "axios";
 import React, { useContext, useState, useEffect } from "react";
 
 const desc = [1, 2, 3, 4, 5];
+const { TextArea } = Input;
 const ReviewComponent = ({ username }) => {
   const [value, setValue] = useState(0);
   const [componentDisabled, setComponentDisabled] = useState(false);
@@ -39,13 +40,12 @@ const ReviewComponent = ({ username }) => {
 
         <Form.Item
           name="review"
-          label="Enter your review"
           rules={[
             { required: true, message: "Please enter your review" },
             { minLength: 5 },
           ]}
         >
-          <Input type="review" placeholder="Enter your review" />
+          <TextArea type="review" placeholder="Enter your review" rows={5} />
         </Form.Item>
         <span>
           <Rate tooltips={desc} onChange={setValue} value={value} />
@@ -55,16 +55,18 @@ const ReviewComponent = ({ username }) => {
             ""
           )}
         </span>
-        <Form.Item>
+        <Form.Item
+          style={{
+            width: "70%",
+            marginTop: "10%",
+            alignItems: "center",
+            alignContent: "center",
+          }}
+        >
           <Button
             type="primary"
             htmlType="submit"
             className="login-form-button"
-            style={{
-              width: "70%",
-              marginTop: "10%",
-              alignItems: "center",
-            }}
           >
             Submit Review
           </Button>

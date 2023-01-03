@@ -1,7 +1,7 @@
 import { Button, Form, Input, Rate, message, Space } from "antd";
 import axios from "axios";
 import React, { useState } from "react";
-
+const textArea = Input;
 const desc = [1, 2, 3, 4, 5];
 function ReviewCourseComponent({ Id }) {
   const [value, setValue] = useState(0);
@@ -33,24 +33,23 @@ function ReviewCourseComponent({ Id }) {
         className="reviewIntructor-form"
         onFinish={reviewCourse}
         style={{
-          width: "70%",
+          width: "20vw",
         }}
       >
         <Form.Item
           name="review"
-          label="Enter your review"
           rules={[
             { required: true, message: "Please enter your review" },
             { minLength: 5 },
           ]}
+          style={{ width: "100%" }}
         >
-          <Input
+          <br />
+          <br />
+          <Input.TextArea
             type="review"
             placeholder="Enter your review"
-            autoSize={{
-              minRows: 2,
-              maxRows: 6,
-            }}
+            rows={5}
           />
         </Form.Item>
         <span>
@@ -61,16 +60,17 @@ function ReviewCourseComponent({ Id }) {
             ""
           )}
         </span>
-        <Form.Item>
+        <Form.Item
+          style={{
+            width: "100%",
+            marginTop: "10%",
+            alignItems: "center",
+          }}
+        >
           <Button
             type="primary"
             htmlType="submit"
             className="login-form-button"
-            style={{
-              width: "70%",
-              marginTop: "10%",
-              alignItems: "center",
-            }}
           >
             Submit Review
           </Button>

@@ -45,11 +45,12 @@ const TraineePrograms = ({ courses }) => {
       content: <ReviewComponent username={user} />,
     });
   };
-  const openReviewCourse = (id) => {
+  const openReviewCourse = (id, title) => {
     const modal = Modal.info();
 
     modal.update({
-      content: <ReviewCourseComponent Id={id} />,
+      title: "Rate course " + title,
+      content: <ReviewCourseComponent Id={id} title={title} />,
     });
   };
   return (
@@ -94,6 +95,17 @@ const TraineePrograms = ({ courses }) => {
                   text={item.numberOfSubscribers}
                   key="list-vertical-message"
                 />,
+                <Button
+                  type="link"
+                  style={{
+                    alignItems: "flex-start",
+                  }}
+                  onClick={() => {
+                    navigation("/trainee/course?courseId=" + item._id);
+                  }}
+                >
+                  Continue Learning
+                </Button>,
               ]}
               extra={
                 <Space>
@@ -118,24 +130,13 @@ const TraineePrograms = ({ courses }) => {
                       style={{ width: "100%" }}
                       type="dashed"
                       onClick={() => {
-                        openReviewCourse(item._id);
+                        openReviewCourse(item._id, item.title);
                       }}
                     >
                       Review Course
                     </Button>
                   </div>
-                  <div>
-                    <Button
-                      style={{
-                        alignItems: "flex-start",
-                      }}
-                      onClick={() => {
-                        navigation("/trainee/course?courseId=" + item._id);
-                      }}
-                    >
-                      Continue Learning
-                    </Button>
-                  </div>
+
                   <img
                     width={250}
                     alt="logo"
@@ -148,6 +149,7 @@ const TraineePrograms = ({ courses }) => {
                 title={<a href={item.href}>{item.title}</a>}
                 description={item.summary}
               />
+
               {<Rate allowHalf defaultValue={item.rating} disabled={true} />}
             </List.Item>
           </div>
