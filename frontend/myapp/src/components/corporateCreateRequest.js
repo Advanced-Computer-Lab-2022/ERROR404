@@ -48,24 +48,18 @@ const CreateRequestWrapper = ({ courseId }) => {
       });
   };
 
-  const componentRef = useRef();
-
   return (
     <>
-      <Button type="primary" onClick={showModal}>
-        Access course
-      </Button>
+      <Button onClick={showModal}>Access course</Button>
       <Modal
+        centered
         title="Request Course Acces"
         open={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}
-        style={{ marginTop: 120, marginLeft: 420, height: 500 }}
       >
         <h2> Are you sure you want to request access?</h2>
-        <Button type="primary" onClick={creatRequest}>
-          Send Request
-        </Button>
+        <Button onClick={creatRequest}>Send Request</Button>
       </Modal>
     </>
   );

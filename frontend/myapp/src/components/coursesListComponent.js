@@ -117,9 +117,7 @@ const CourseComponent = ({ courses, viewType }) => {
             <DatePicker />
           </Form.Item>
           <Form.Item>
-            <Button type="primary" htmlType="submit">
-              Submit
-            </Button>
+            <Button htmlType="submit">Submit</Button>
           </Form.Item>
         </Form>
       ),
@@ -147,9 +145,7 @@ const CourseComponent = ({ courses, viewType }) => {
           </Form.Item>
 
           <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-            <Button type="primary" htmlType="submit">
-              Add URL
-            </Button>
+            <Button htmlType="submit">Add URL</Button>
           </Form.Item>
         </Form>
       ),
@@ -296,7 +292,6 @@ const CourseComponent = ({ courses, viewType }) => {
                       >
                         <Button
                           style={{ width: "100%" }}
-                          type="dashed"
                           onClick={() => {
                             openPreview(item._id, item.title);
                           }}
@@ -305,7 +300,6 @@ const CourseComponent = ({ courses, viewType }) => {
                         </Button>
                         <Button
                           style={{ width: "100%" }}
-                          type="dashed"
                           onClick={() => {
                             navigation("createQuiz?courseId=" + item._id);
                           }}
@@ -314,7 +308,6 @@ const CourseComponent = ({ courses, viewType }) => {
                         </Button>
                         <Button
                           style={{ width: "100%" }}
-                          type="dashed"
                           onClick={() => {
                             openDis(item._id, item.title);
                           }}
@@ -324,7 +317,6 @@ const CourseComponent = ({ courses, viewType }) => {
                         <Link to={"reviews?courseId=" + item._id}>
                           <Button
                             style={{ width: "100%" }}
-                            type="dashed"
                             onClick={() => {
                               setTitle(item.title);
                               setId(item._id);

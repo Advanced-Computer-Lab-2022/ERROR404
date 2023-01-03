@@ -18,16 +18,19 @@ import button from "react-bootstrap/Button";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "semantic-ui-css/semantic.min.css";
 import { Header, header as semanticHeader } from "semantic-ui-react";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { alignPropType } from "react-bootstrap/esm/types";
 import PreviewCourses from "../CourseViewWrapper";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import CourseSubtitles from "./courseSyllabes";
+import CreateRequestWrapper from "../corporateCreateRequest";
+import { AppContext } from "../../AppContext";
 
 const { Panel } = Collapse;
 
 const PreviewCourseWrapper = () => {
+  const { userType } = useContext(AppContext);
+  const [user, setUser] = userType;
   const [courseId, setCourseId] = useState("");
   const [courseData, setCourseData] = useState([]);
   const [newPrice, setNewPrice] = useState("");
@@ -134,9 +137,13 @@ const PreviewCourseWrapper = () => {
                 ) : null}
               </div>
               <Rate disabled allowHalf value={courseData.rating}></Rate>
-              <Button type="primary">
-                <Link to={"/pay?courseId=" + courseData._id}>Buy Now</Link>
-              </Button>
+              {user == "individual" ? (
+                <Button type="primary">
+                  <Link to={"/pay?courseId=" + courseData._id}>Buy Now</Link>
+                </Button>
+              ) : (
+                <CreateRequestWrapper />
+              )}
             </div>
             <div className="course info">
               <h3>This course includes:</h3>
