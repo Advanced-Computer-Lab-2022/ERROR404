@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import App from "../App";
 import Box from "@mui/material/Box";
 import SpeedDial from "@mui/material/SpeedDial";
@@ -7,22 +7,43 @@ import SpeedDialAction from "@mui/material/SpeedDialAction";
 import SaveIcon from "@mui/icons-material/Save";
 import { AppContext } from "../AppContext";
 import emailjs from "@emailjs/browser";
+import AttachEmailIcon from "@mui/icons-material/AttachEmail";
 import "../App.css";
 import { jsPDF } from "jspdf";
 import { Input, message, Form, Button } from "antd";
-const CertificateWrapper = () => {
-  const { userEmail, userMongoId, userType, username } = useContext(AppContext);
-  const [useremail, setUserEmail] = userEmail;
-  const [userId, setId] = userMongoId;
-  const [name, setName] = username;
+import axios from "axios";
+import { useLocation } from "react-router-dom";
 
-  const onFinish = (values) => {
-    console.log("Received values of form: ", values);
+const CertificateWrapper = () => {
+  const [user, setUser] = useState({});
+  const [title, setTitle] = useState("");
+  const [email, setemail] = useState("");
+  const [name, setName] = useState("");
+
+  const location = useLocation();
+  useEffect(() => {
+    const idSearch = window.location.search;
+    const urlParams = new URLSearchParams(idSearch);
+    const course = urlParams.get("courseTitle");
+    const user = urlParams.get("user");
+
+    setTitle(course);
+    axios.get(`http://localhost:2020/login/${user}`).then((response) => {
+      console.log(response.data);
+      setUser(response.data);
+      setemail(response.data.email);
+    });
+  }, [location]);
+
+  const onFinish = () => {
     var data = {
       name: name,
-      userId: userId,
-      certificate_url: "http://localhost:3000/certificate",
-      recepientEmail: useremail,
+      certificate_url:
+        "http://localhost:3000/certificate?courseTitle=" +
+        title +
+        "&user=" +
+        user.username,
+      recepientEmail: email,
     };
     emailjs
       .send("service_5di6lsf", "template_ug4a51m", data, "hIXXOv4x76p3JXKWU")
@@ -50,6 +71,17 @@ const CertificateWrapper = () => {
       ),
       name: "Save",
     },
+    {
+      icon: (
+        <AttachEmailIcon
+          onClick={() => {
+            console.log("aaaaaaaaa");
+            onFinish();
+          }}
+        />
+      ),
+      name: "Send Via Email",
+    },
   ];
   const handleChange = (event) => {
     console.log(event.target.value);
@@ -69,7 +101,7 @@ const CertificateWrapper = () => {
       >
         <h3>
           Congratulations on completing the course , We wish you enjoyed our
-          platforum content
+          platform content
         </h3>
       </div>
       <br></br>
@@ -153,7 +185,7 @@ const CertificateWrapper = () => {
                 fontSize: "12pt",
               }}
             >
-              PrintCSS Basics Course
+              {title}
             </p>
             <h3
               style={{
@@ -169,7 +201,7 @@ const CertificateWrapper = () => {
                 fontSize: "12pt",
               }}
             >
-              Feburary 5, 2021
+              {new Date().toLocaleDateString("de-DE")}
             </p>
           </div>
         </div>
@@ -189,63 +221,29 @@ const CertificateWrapper = () => {
           placeholder="Enter you name please"
         />
       </div>
-      <div>
-        <Box
-          sx={{
-            height: "50%",
-            width: "80%",
-            transform: "translateZ(100px)",
-            flexGrow: 2,
-          }}
+
+      <Box
+        sx={{
+          height: "50%",
+          width: "80%",
+          transform: "translateZ(100px)",
+          flexGrow: 2,
+        }}
+      >
+        <SpeedDial
+          ariaLabel="SpeedDial basic example"
+          sx={{ position: "absolute", bottom: 16, right: 16 }}
+          icon={<SpeedDialIcon />}
         >
-          <SpeedDial
-            ariaLabel="SpeedDial basic example"
-            sx={{ position: "absolute", bottom: 16, right: 16 }}
-            icon={<SpeedDialIcon />}
-          >
-            {actions.map((action) => (
-              <SpeedDialAction
-                key={action.name}
-                icon={action.icon}
-                tooltipTitle={action.name}
-              />
-            ))}
-          </SpeedDial>
-        </Box>
-        <div
-          style={{
-            display: "Flex",
-            flexDirection: "column",
-            gap: "20%",
-            justifyContent: "center",
-            alignItems: "center",
-            fontSize: "25px",
-          }}
-        >
-          <h4>We will be sending you an email to {useremail}</h4>
-          <Form
-            name="normal_login"
-            className="change-password-form"
-            initialValues={{
-              remember: true,
-            }}
-            onFinish={onFinish}
-          >
-            <Form.Item>
-              <Button
-                type="primary"
-                htmlType="submit"
-                className="login-form-button"
-                style={{
-                  width: "100%",
-                }}
-              >
-                Send
-              </Button>
-            </Form.Item>
-          </Form>
-        </div>
-      </div>
+          {actions.map((action) => (
+            <SpeedDialAction
+              key={action.name}
+              icon={action.icon}
+              tooltipTitle={action.name}
+            />
+          ))}
+        </SpeedDial>
+      </Box>
     </App>
   );
 };

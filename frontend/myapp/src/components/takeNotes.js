@@ -32,7 +32,13 @@ const TakeNotesWrapper = () => {
   return (
     <>
       {" "}
-      <Button type="primary" onClick={showModal}>
+      <Button
+        type="primary"
+        style={{
+          width: "200px",
+        }}
+        onClick={showModal}
+      >
         Take notes <EditOutlined />
       </Button>
       <Drawer
@@ -61,37 +67,6 @@ const TakeNotesWrapper = () => {
         </Form>
       </Drawer>
     </>
-    // //</><Modal
-    //   ref={componentRef}
-    //   title="Write your notes!"
-    //   open={isModalOpen}
-    //   onOk={handleOk}
-    //   onCancel={handleCancel}
-    //   style={{ marginTop: 350, marginLeft: 420 }}
-    // >
-    //   <div
-    //     style={{
-    //       display: "flex",
-    //       flexDirection: "column",
-    //       justifyContent: "center",
-    //       alignContent: "center",
-    //       alignItems: "center",
-    //       width: "100%",
-    //     }}
-    //   >
-    //     <Form style={{ width: "100%" }}>
-    //       <Form.Item>
-    //         <Input.TextArea id="input" placeholder="Type here.." />
-    //       </Form.Item>
-    //     </Form>
-    //     <br></br>
-    //     <Button type="primary" onClick={downloadTxtFile}>
-    //       Download
-    //     </Button>
-    //   </div>
-    // </Modal>
-
-    //</div>
   );
 };
 

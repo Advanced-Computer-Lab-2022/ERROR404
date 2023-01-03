@@ -17,6 +17,7 @@ const CoursePreview = () => {
   const [userName, setUserName] = username;
   const [usertype, setUserType] = userType;
   const [price, setPrice] = useState("");
+  const [course, setCourse] = useState({});
 
   const location = useLocation();
 
@@ -42,6 +43,7 @@ const CoursePreview = () => {
     axios
       .get("http://localhost:2020/getCourse/" + courseId)
       .then((response) => {
+        setCourse(response.data);
         console.log(response.data.preview);
         setVideo("https://" + response.data.preview);
         console.log(response.data.subtitles);
@@ -131,8 +133,32 @@ const CoursePreview = () => {
           >
             <h2>All Subtitles</h2>
             <TakeNotesWrapper />
-
-            <Button type="primary" onClick={requestRefund}>
+            {progress >= 100 ? (
+              <Button
+                type="primary"
+                style={{
+                  width: "200px",
+                }}
+              >
+                <Link
+                  to={
+                    "/certificate?courseTitle=" +
+                    course.title +
+                    "&user=" +
+                    userName
+                  }
+                >
+                  Certificate
+                </Link>
+              </Button>
+            ) : null}
+            <Button
+              type="primary"
+              style={{
+                width: "200px",
+              }}
+              onClick={requestRefund}
+            >
               Request Refund
             </Button>
             <List
