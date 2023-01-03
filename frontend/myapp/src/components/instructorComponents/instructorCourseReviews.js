@@ -1,10 +1,11 @@
 import { message } from "antd";
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import InstructorDashboard from "./InstructorDashboard";
 import ReviewNavigation from "../reviewComponents";
-
-const InstructorCourseReview = () => {
+import CourseReviews from "./courseReviews";
+const InstructorCourse = () => {
+  const [reviews, setRev] = useState([]);
   useEffect(() => {
     const idSearch = window.location.search;
     console.log(idSearch);
@@ -16,7 +17,7 @@ const InstructorCourseReview = () => {
       .get("http://localhost:2020/getCourse/" + courseId)
       .then((res) => {
         console.log("course reviews -> ", res.data.review);
-        message.success("loaded reviews of " + res.data.title + " course");
+        setRev(res.data.review);
       })
       .catch((err) => {
         console.log("error at getting course reviews ");
@@ -24,9 +25,9 @@ const InstructorCourseReview = () => {
   }, []);
   return (
     <InstructorDashboard>
-      <ReviewNavigation />
+      <CourseReviews reviews={reviews} />
     </InstructorDashboard>
   );
 };
 
-export default InstructorCourseReview;
+export default InstructorCourse;

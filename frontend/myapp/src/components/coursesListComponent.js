@@ -317,7 +317,7 @@ const CourseComponent = ({ courses, viewType }) => {
                         >
                           Add Dicount
                         </Button>
-                        <Link to={"reviews?courseId=" + item._id}>
+                        <Link to={"/course/reviews?courseId=" + item._id}>
                           <Button
                             style={{ width: "100%" }}
                             onClick={() => {
