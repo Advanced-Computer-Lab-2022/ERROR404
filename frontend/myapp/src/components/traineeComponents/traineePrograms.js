@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   MessageOutlined,
   EyeOutlined,
@@ -6,9 +6,10 @@ import {
   DollarOutlined,
   UsergroupDeleteOutlined,
 } from "@ant-design/icons";
-import { List, Space, Rate } from "antd";
+import { List, Space, Rate, Button, Modal } from "antd";
 import { useNavigate } from "react-router-dom";
-
+import ReviewComponent from "../StudentrateAndReviewInstructor";
+import ReviewCourseComponent from "../rateAndReviewCourse";
 const IconText = ({ icon, text }) => (
   <Space>
     {React.createElement(icon)}
@@ -19,10 +20,38 @@ const IconText = ({ icon, text }) => (
 const TraineePrograms = ({ courses }) => {
   let navigation = useNavigate();
 
-  useEffect(() => {
-    console.log(courses);
-  }, []);
+  useEffect(() => {}, []);
+  const [open, setOpen] = useState(false);
+  const [confirmLoading, setConfirmLoading] = useState(false);
+  const [modalText, setModalText] = useState("Content of the modal");
+  const showModal = () => {
+    setOpen(true);
+  };
+  const handleOk = () => {
+    setModalText("The modal will be closed after two seconds");
+    setConfirmLoading(true);
+    setTimeout(() => {
+      setOpen(false);
+      setConfirmLoading(false);
+    }, 2000);
+  };
+  const handleCancel = () => {
+    console.log("Clicked cancel button");
+    setOpen(false);
+  };
+  const openReviewInstructor = (user) => {
+    const modal = Modal.info();
+    modal.update({
+      content: <ReviewComponent username={user} />,
+    });
+  };
+  const openReviewCourse = (id) => {
+    const modal = Modal.info();
 
+    modal.update({
+      content: <ReviewCourseComponent Id={id} />,
+    });
+  };
   return (
     <>
       <List
@@ -39,9 +68,6 @@ const TraineePrograms = ({ courses }) => {
           <div>
             <List.Item
               key={item._id}
-              onClick={() => {
-                navigation("/trainee/course?courseId=" + item._id);
-              }}
               actions={[
                 <IconText
                   icon={EyeOutlined}
@@ -71,6 +97,45 @@ const TraineePrograms = ({ courses }) => {
               ]}
               extra={
                 <Space>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "left",
+                      alignItems: "left",
+                    }}
+                  >
+                    <Button
+                      style={{ width: "100%" }}
+                      type="dashed"
+                      onClick={() => {
+                        openReviewInstructor(item.instructor);
+                      }}
+                    >
+                      Review Instructor
+                    </Button>
+                    <Button
+                      style={{ width: "100%" }}
+                      type="dashed"
+                      onClick={() => {
+                        openReviewCourse(item._id);
+                      }}
+                    >
+                      Review Course
+                    </Button>
+                  </div>
+                  <div>
+                    <Button
+                      style={{
+                        alignItems: "flex-start",
+                      }}
+                      onClick={() => {
+                        navigation("/trainee/course?courseId=" + item._id);
+                      }}
+                    >
+                      Continue Learning
+                    </Button>
+                  </div>
                   <img
                     width={250}
                     alt="logo"

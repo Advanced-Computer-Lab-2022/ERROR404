@@ -57,7 +57,7 @@ const CourseComponentTrainee = ({ courses, viewType }) => {
     //     console.log("error at add preview url ", JSON.stringify(err));
     //     message.error("Unexpected error has occured ", 3);
     //   });
-    };
+  };
 
   return (
     <>
@@ -75,9 +75,9 @@ const CourseComponentTrainee = ({ courses, viewType }) => {
           <div>
             <List.Item
               key={item._id}
-            //   onClick={() => {
-            //     navigation("/course/about?courseId=" + item._id);
-            //   }}
+              //   onClick={() => {
+              //     navigation("/course/about?courseId=" + item._id);
+              //   }}
               actions={[
                 <IconText
                   icon={EyeOutlined}
@@ -136,7 +136,7 @@ const CourseComponentTrainee = ({ courses, viewType }) => {
                       >
                         Rate and Review Instructor
                       </Button>
-                      </div>
+                    </div>
                   ) : null}
                   <img
                     width={250}
@@ -144,14 +144,13 @@ const CourseComponentTrainee = ({ courses, viewType }) => {
                     src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
                   />
                 </Space>
-
               }
             >
               <List.Item.Meta
                 title={<a href={item.href}>{item.title}</a>}
                 description={item.summary}
                 onClick={() => {
-                   navigation("/course/about?courseId=" + item._id)
+                  navigation("/course/about?courseId=" + item._id);
                 }}
               />
               {<Rate allowHalf defaultValue={item.rating} disabled={true} />}
@@ -188,22 +187,6 @@ const CourseComponentTrainee = ({ courses, viewType }) => {
               </Form.Item>
             </Form>
           </Modal> */}
-          <Modal
-            title={"Rate " + courseTitle}
-            open={isModalOpenC}
-            onOk={() => setIsModalOpenC(false)}
-            onCancel={() => setIsModalOpenC(false)}
-          >
-            <ReviewCourseComponent Id={id} />
-          </Modal>
-          <Modal
-            title= "Rate and Review Instructor"
-            open={isModalOpen}
-            onOk={() => setIsModalOpen(false)}
-            onCancel={() => setIsModalOpen(false)}
-          >
-            <ReviewComponent />
-          </Modal>
         </>
       ) : null}
     </>
