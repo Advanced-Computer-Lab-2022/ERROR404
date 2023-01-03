@@ -6,6 +6,7 @@ import emailjs from "@emailjs/browser";
 import { UserSettingPage } from "../pages/settingsPage";
 import App from "../App";
 import InstructorDashboard from "./instructorComponents/InstructorDashboard";
+import axios from "axios";
 
 const ForgotPasswordPageWrapper = () => {
   const { userType } = useContext(AppContext);
@@ -34,21 +35,42 @@ const ForgotPasswordPage = () => {
 
   const onFinish = (values) => {
     console.log("Received values of form: ", values);
-    var data = {
-      name: name,
-      userId: userId,
-      userType: typeUser,
-      recepientEmail: values.email,
-    };
-    emailjs
-      .send("service_5di6lsf", "template_mo9m7xe", data, "hIXXOv4x76p3JXKWU")
-      .then(
-        (result) => message.success("An Email has been sent successfully!! "),
-        (error) => {
-          message.error("Oops... " + error.response.data);
-          console.log(JSON.stringify(error));
+
+    axios
+      .get(`http://localhost:2020/login/${values.username}`)
+      .then((response) => {
+        console.log(response);
+        if (response.data != null || response.data.length > 0) {
+          var data = {
+            name: values.username,
+            userId: response.data._id,
+            userType: response.data.role,
+            recepientEmail: response.data.email,
+          };
+
+          emailjs
+            .send(
+              "service_5di6lsf",
+              "template_mo9m7xe",
+              data,
+              "hIXXOv4x76p3JXKWU"
+            )
+            .then(
+              (result) =>
+                message.success("An Email has been sent successfully!! ", 1),
+              (error) => {
+                message.error("Oops... " + error.response.data);
+                console.log(JSON.stringify(error));
+              }
+            );
+        } else {
+          message.warning("username not found");
         }
-      );
+      })
+      .catch((err) => {
+        console.log(err);
+        message.warning("username not found");
+      });
   };
   return (
     <div
@@ -60,8 +82,6 @@ const ForgotPasswordPage = () => {
         alignItems: "center",
       }}
     >
-      <h4>We will be sending an email to the input email</h4>
-
       <Form
         name="normal_login"
         className="change-password-form"
@@ -71,19 +91,11 @@ const ForgotPasswordPage = () => {
         onFinish={onFinish}
       >
         <Form.Item
-          label="Email"
-          name="email"
-          required
-          rules={[{ required: true, message: "Please input your email!" }]}
-        >
-          <Input />
-        </Form.Item>
-        <Form.Item
           label="Username"
           name="username"
           rules={[{ required: true, message: "Please input your username!" }]}
         >
-          <Input />
+          <Input placeholder="input your username" />
         </Form.Item>
         <Form.Item>
           <Button

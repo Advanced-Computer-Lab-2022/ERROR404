@@ -86,18 +86,6 @@ const ChangingPaswword = () => {
         initialValues={{ remember: true }}
         onFinish={onFinish}
       >
-        {/* <Form.Item
-          name="oldPassword"
-          label="Old Password"
-          rules={[
-            { required: true, message: "Please input your Old Password!" },
-          ]}
-        >
-          <Input.Password
-            prefix={<LockOutlined className="site-form-item-icon" />}
-            placeholder="Old password"
-          />
-        </Form.Item> */}
         <Form.Item
           name="newPassword"
           label="New Password"
