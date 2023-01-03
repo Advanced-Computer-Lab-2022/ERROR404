@@ -1,18 +1,16 @@
 import { Button, Form, Input, Rate, message, Space } from "antd";
 import axios from "axios";
-import React, {useState} from "react";
+import React, { useState } from "react";
 
 const desc = [1, 2, 3, 4, 5];
-function ReviewCourseComponent({Id}){
-  const [id, setCourseId]= useState(Id);
+function ReviewCourseComponent({ Id }) {
   const [value, setValue] = useState(0);
   const [componentDisabled, setComponentDisabled] = useState(false);
- 
-  const reviewCourse = async (event) => {  
-    setCourseId({Id});
-    console.log(id);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const reviewCourse = async (event) => {
     const requestBody = {
-      courseId: id,
+      courseId: Id,
       review: event.review,
       newRate: value,
     };
@@ -33,13 +31,11 @@ function ReviewCourseComponent({Id}){
       <Form
         name="reviewCourse"
         className="reviewIntructor-form"
-        disabled={componentDisabled}
         onFinish={reviewCourse}
         style={{
           width: "70%",
         }}
       >
-
         <Form.Item
           name="review"
           label="Enter your review"
@@ -48,7 +44,14 @@ function ReviewCourseComponent({Id}){
             { minLength: 5 },
           ]}
         >
-          <Input type="review" placeholder="Enter your review" />
+          <Input
+            type="review"
+            placeholder="Enter your review"
+            autoSize={{
+              minRows: 2,
+              maxRows: 6,
+            }}
+          />
         </Form.Item>
         <span>
           <Rate tooltips={desc} onChange={setValue} value={value} />
@@ -65,10 +68,9 @@ function ReviewCourseComponent({Id}){
             className="login-form-button"
             style={{
               width: "70%",
-              marginTop:"10%",
-              alignItems:"center",
+              marginTop: "10%",
+              alignItems: "center",
             }}
-
           >
             Submit Review
           </Button>
@@ -76,5 +78,5 @@ function ReviewCourseComponent({Id}){
       </Form>
     </>
   );
-};
+}
 export default ReviewCourseComponent;

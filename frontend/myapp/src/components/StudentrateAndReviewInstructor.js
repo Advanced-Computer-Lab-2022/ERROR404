@@ -3,12 +3,12 @@ import axios from "axios";
 import React, { useContext, useState, useEffect } from "react";
 
 const desc = [1, 2, 3, 4, 5];
-const ReviewComponent = () => {
+const ReviewComponent = ({ username }) => {
   const [value, setValue] = useState(0);
   const [componentDisabled, setComponentDisabled] = useState(false);
   const reviewInstructor = async (event) => {
     const requestBody = {
-      username: event.username,
+      username: username,
       review: event.review,
       rate: value,
     };
@@ -28,21 +28,13 @@ const ReviewComponent = () => {
       <Form
         name="reviewIntructor"
         className="reviewIntructor-form"
-        initialValues={{ remember: true }}
-        disabled={componentDisabled}
         onFinish={reviewInstructor}
         style={{
           width: "90%",
         }}
       >
-        <Form.Item
-          name="username"
-          label="Enter your instructor username"
-          rules={[
-            { required: true, message: "Please your Instructor username" },
-          ]}
-        >
-          <Input placeholder="Enter your instructor username" />
+        <Form.Item name="username" label="username" disabled>
+          <Input defaultValue={username} disabled />
         </Form.Item>
 
         <Form.Item
@@ -70,11 +62,8 @@ const ReviewComponent = () => {
             className="login-form-button"
             style={{
               width: "70%",
-              marginTop:"10%",
-              alignItems:"center",
-            }}
-            onClick={() => {
-              setComponentDisabled(true);
+              marginTop: "10%",
+              alignItems: "center",
             }}
           >
             Submit Review
