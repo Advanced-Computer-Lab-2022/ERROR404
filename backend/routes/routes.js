@@ -968,6 +968,7 @@ const topCourses = async (req, res) => {
   const topCourses = await courses.find({}).sort({ views: -1 }).limit(5);
   res.status(200).json(topCourses);
 };
+
 const salary = async (req, res) => {
   const courseId = req.body.courseId;
   const x = await courses.findOne(
@@ -993,7 +994,19 @@ const salary = async (req, res) => {
           if (err) {
             res.status(500).send();
           } else {
-            res.status(200).send(result);
+            courses
+              .updateOne(
+                { _id: req.body.courseId },
+                { $inc: { numberOfSubscribers: 1 } },
+                (err, result) => {
+                  if (err) {
+                    res.status(500).send();
+                  } else {
+                    res.status(200).send(result);
+                  }
+                }
+              )
+              .clone();
           }
         }
       )
@@ -1121,6 +1134,7 @@ const createQuiz = async (req, res) => {
   }
 };
 const addCourseToStudent = async (req, res) => {
+  console.log("helloz " + JSON.stringify(req.body));
   const username = req.body.username;
   const courseId = req.body.courseId;
   const usertype = req.body.usertype;

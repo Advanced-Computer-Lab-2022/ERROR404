@@ -229,11 +229,6 @@ const CourseComponent = ({ courses, viewType }) => {
             <div>
               <List.Item
                 key={item._id}
-                onClick={() => {
-                  if (user == "instructor" && viewType == "instructor") {
-                    setIsModalOpen(true);
-                  }
-                }}
                 actions={[
                   <IconText
                     icon={EyeOutlined}
@@ -266,7 +261,15 @@ const CourseComponent = ({ courses, viewType }) => {
                     <div style={{ display: "flex", flexDirection: "column" }}>
                       <Button
                         onClick={() => {
-                          navigation("/course/about?courseId=" + item._id);
+                          if (
+                            user == "individual" ||
+                            (user == "corporate" &&
+                              traineeRegCourses.includes(item._id))
+                          ) {
+                            navigation("/trainee/course?courseId=" + item._id);
+                          } else {
+                            navigation("/course/about?courseId=" + item._id);
+                          }
                         }}
                       >
                         Open course
