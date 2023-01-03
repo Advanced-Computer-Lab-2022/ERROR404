@@ -166,7 +166,8 @@ const CertificateWrapper = () => {
             </h3>
             <p
               style={{
-                fontSize: "12pt",
+                fontSize: "15pt",
+                fontStyle: "bolder",
               }}
             >
               {name}
@@ -219,6 +220,7 @@ const CertificateWrapper = () => {
         <Input.TextArea
           onChange={handleChange}
           placeholder="Enter you name please"
+          maxLength={30}
         />
       </div>
 

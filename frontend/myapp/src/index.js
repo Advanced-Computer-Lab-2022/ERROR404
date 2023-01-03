@@ -76,6 +76,7 @@ import AdminViewCourseComponent from "./components/adminComponents/adminViewCour
 import PayForCourse from "./components/traineeComponents/payForCourse";
 import TakeQuiz from "./components/traineeComponents/takeQuiz";
 import TraineeBalanceWrapper from "./components/traineeComponents/traineeBalance";
+import InstructorCourse from "./components/instructorComponents/instructorCourseReviews";
 export default function MainApp() {
   const [username, setUsername] = useState("");
   const [userEmail, setUserEmail] = useState("");
@@ -179,7 +180,7 @@ export default function MainApp() {
           <Route path="/searchedItems" element={<LoadSearchedCourses />} />
           <Route path="/course/about" element={<PreviewCourseWrapper />} />
           <Route path="/course/conversation" element={<CourseConversation />} />
-          <Route path="/course/reviews" element={<CourseReview />} />
+          <Route path="/course/reviews" element={<InstructorCourse />} />
           <Route path="/course/syllabus" element={<CourseSubtitles />} />
           <Route path="/SolveExam" element={<SolveExamWrapper />} />
           <Route path="/user/myPrograms" element={<MyPrograms />} />
@@ -189,10 +190,6 @@ export default function MainApp() {
           <Route
             path="/instructorDashBoard/addDiscount"
             element={<SubmitDiscount />}
-          />
-          <Route
-            path="/instructorDashboard/allMyCourses/reviews"
-            element={<InstructorCourseReview />}
           />
 
           <Route path="/Acceptagreement" element={<AcceptAgreWrapper />} />

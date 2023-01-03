@@ -130,7 +130,11 @@ const CourseComponent = ({ courses, viewType }) => {
     modal.update({
       title: "Updated " + courseTitle,
       content: (
-        <Form onFinish={onFinish}>
+        <Form
+          onFinish={(e) => {
+            onFinish(e, id);
+          }}
+        >
           <Form.Item
             label="Preview Video URL"
             name="url"
@@ -152,16 +156,15 @@ const CourseComponent = ({ courses, viewType }) => {
     });
   };
 
-  const onFinish = (values) => {
+  const onFinish = (values, id) => {
     setIsModalOpen(false);
-    console.log(values);
     const url = values.url;
 
     let body = {
       id: id,
       url: url,
     };
-
+    console.log(body);
     axios
       .put("http://localhost:2020/uploadPreviewVideoForCourse", body)
       .then(() => {
@@ -314,7 +317,7 @@ const CourseComponent = ({ courses, viewType }) => {
                         >
                           Add Dicount
                         </Button>
-                        <Link to={"reviews?courseId=" + item._id}>
+                        <Link to={"/course/reviews?courseId=" + item._id}>
                           <Button
                             style={{ width: "100%" }}
                             onClick={() => {
