@@ -314,7 +314,7 @@ const CourseComponent = ({ courses, viewType }) => {
                         <Button
                           style={{ width: "100%" }}
                           onClick={() => {
-                            navigation("createQuiz?courseId=" + item._id);
+                            navigation("/createQuiz?courseId=" + item._id);
                           }}
                         >
                           Create Quiz

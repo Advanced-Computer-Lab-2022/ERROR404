@@ -7,7 +7,16 @@ import {
 } from "@ant-design/icons";
 import "semantic-ui-css/semantic.min.css";
 
-import { Button, Form, Input, InputNumber, message, Space, Card } from "antd";
+import {
+  Button,
+  Form,
+  Input,
+  InputNumber,
+  message,
+  Space,
+  Card,
+  Image,
+} from "antd";
 import InstructorDashboard from "./instructorComponents/InstructorDashboard";
 import { positions } from "@mui/system";
 
@@ -101,10 +110,16 @@ const CreateCourse = () => {
     console.log("Failed:", errorInfo);
   };
   return (
-    <div style={{ textAlign: "center" }}>
-      <h1>Create New Course</h1>
-
+    <div
+      style={{
+        textAlign: "center",
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-between",
+      }}
+    >
       <Form
+        layout="vertical"
         name="basic"
         initialValues={{
           remember: true,
@@ -128,7 +143,6 @@ const CreateCourse = () => {
           style={{
             alignContent: "center",
             borderEndRadius: 200,
-            width: 850,
             fontStyle: "italic",
           }}
         >
@@ -147,7 +161,6 @@ const CreateCourse = () => {
           style={{
             alignContent: "center",
             borderRadius: 200,
-            width: 850,
             fontStyle: "italic",
           }}
         >
@@ -268,7 +281,6 @@ const CreateCourse = () => {
           style={{
             alignContent: "center",
             borderEndRadius: 200,
-            width: 850,
             fontStyle: "italic",
           }}
         >
@@ -281,7 +293,6 @@ const CreateCourse = () => {
           style={{
             alignContent: "center",
             borderEndRadius: 200,
-            width: 850,
             fontStyle: "italic",
           }}
         >
@@ -300,7 +311,7 @@ const CreateCourse = () => {
           style={{
             alignContent: "center",
             borderEndRadius: 200,
-            width: 850,
+
             fontStyle: "italic",
           }}
         >
@@ -313,7 +324,7 @@ const CreateCourse = () => {
           style={{
             alignContent: "center",
             borderEndRadius: 200,
-            width: 850,
+
             fontStyle: "italic",
           }}
         >
@@ -332,7 +343,7 @@ const CreateCourse = () => {
           style={{
             alignContent: "center",
             borderEndRadius: 200,
-            width: 850,
+
             fontStyle: "italic",
           }}
         >
@@ -345,7 +356,6 @@ const CreateCourse = () => {
           style={{
             alignContent: "center",
             borderEndRadius: 200,
-            width: 850,
             fontStyle: "italic",
           }}
         >
@@ -358,6 +368,11 @@ const CreateCourse = () => {
           </Button>
         </Form.Item>
       </Form>
+      <Image
+        width="30%"
+        preview={false}
+        src="https://business.udemy.com/wp-content/uploads/2022/07/homepage-hero.jpg.webp"
+      />
     </div>
   );
 };

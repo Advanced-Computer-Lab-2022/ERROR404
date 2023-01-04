@@ -12,6 +12,7 @@ import {
   Tooltip,
   Radio,
   Select,
+  Popover,
 } from "antd";
 import { useNavigate } from "react-router-dom";
 import { CaretRightOutlined, SearchOutlined } from "@ant-design/icons";
@@ -51,15 +52,17 @@ const InstructorFilterCourses = ({ values }) => {
   const onChange = (e) => {
     console.log(e.target.value);
     setValue(e.target.value);
+    navigate(`/instructorFilter?filterType=rate&min=${e.target.value}&max=5`);
   };
-  const rating = (event) => {
-    navigate(`/instructorFilter?filterType=rate&min=${event.rating}&max=5`);
-  };
+
   const price = () => {
     navigate(`/instructorFilter?filterType=price&min=${min}&max=${max}`);
   };
-  const category = () => {
-    navigate("/instructorFilter?filterType=category&category=" + value);
+  const category = (e) => {
+    setValue(e.target.value);
+    navigate(
+      "/instructorFilter?filterType=category&category=" + e.target.value
+    );
   };
   return (
     <>
@@ -82,59 +85,57 @@ const InstructorFilterCourses = ({ values }) => {
               alignContent: "flex-start",
               gap: "10%",
             }}
-            onFinish={rating}
           >
             <Form.Item name="rating">
               <Radio.Group onChange={onChange} value={value}>
                 <Space direction="vertical">
-                  <Radio value={4.5}>
-                    <Rate
-                      disabled
-                      name="Rate"
-                      precision={0.5}
-                      defaultValue={4.5}
-                      allowHalf
-                    ></Rate>
-                  </Radio>
-                  <Radio value={4}>
-                    <Rate
-                      disabled
-                      name="Rate"
-                      precision={0.5}
-                      defaultValue={4}
-                      allowHalf
-                    ></Rate>
-                  </Radio>
-                  <Radio value={3.5}>
-                    <Rate
-                      disabled
-                      name="Rate"
-                      precision={0.5}
-                      defaultValue={3.5}
-                      allowHalf
-                    ></Rate>
-                  </Radio>
-                  <Radio value={3}>
-                    <Rate
-                      disabled
-                      name="Rate"
-                      precision={0.5}
-                      defaultValue={3}
-                      allowHalf
-                    ></Rate>
-                  </Radio>
+                  <Popover placement="right" content="4.5 & above">
+                    <Radio value={4.5}>
+                      <Rate
+                        disabled
+                        name="Rate"
+                        precision={0.5}
+                        defaultValue={4.5}
+                        allowHalf
+                      ></Rate>
+                    </Radio>
+                  </Popover>
+                  <Popover placement="right" content="4 & above">
+                    <Radio value={4}>
+                      <Rate
+                        disabled
+                        name="Rate"
+                        precision={0.5}
+                        defaultValue={4}
+                        allowHalf
+                      ></Rate>
+                    </Radio>
+                  </Popover>
+                  <Popover placement="right" content="3.5 & above">
+                    <Radio value={3.5}>
+                      <Rate
+                        disabled
+                        name="Rate"
+                        precision={0.5}
+                        defaultValue={3.5}
+                        allowHalf
+                      ></Rate>
+                    </Radio>
+                  </Popover>
+                  <Popover placement="right" content="3 & above">
+                    <Radio value={3}>
+                      <Rate
+                        disabled
+                        name="Rate"
+                        precision={0.5}
+                        defaultValue={3}
+                        allowHalf
+                      ></Rate>
+                    </Radio>
+                  </Popover>
                 </Space>
               </Radio.Group>
             </Form.Item>
-            <Tooltip>
-              <Button
-                type="primary"
-                htmlType="submit"
-                shape="circle"
-                icon={<SearchOutlined />}
-                style={{ alignSelf: "center" }}
-              ></Button>
-            </Tooltip>
           </Form>
         </Panel>
 
@@ -186,7 +187,7 @@ const InstructorFilterCourses = ({ values }) => {
           key="3"
           className="site-collapse-custom-panel"
         >
-          <Form onFinish={category}>
+          <Form>
             <Form.Item>
               <List
                 itemLayout="horizontal"
@@ -194,7 +195,7 @@ const InstructorFilterCourses = ({ values }) => {
                 renderItem={(item) => (
                   <List.Item>
                     <Radio.Group
-                      onChange={onChange}
+                      onChange={category}
                       value={value}
                       name="radioCategory"
                     >
@@ -205,15 +206,6 @@ const InstructorFilterCourses = ({ values }) => {
                   </List.Item>
                 )}
               />
-              <Tooltip>
-                <Button
-                  type="primary"
-                  shape="circle"
-                  htmlType="submit"
-                  icon={<SearchOutlined />}
-                  style={{ alignSelf: "center" }}
-                ></Button>
-              </Tooltip>
             </Form.Item>
           </Form>
         </Panel>

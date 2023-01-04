@@ -5,12 +5,13 @@ import {
   LogoutOutlined,
   ReconciliationOutlined,
   UsergroupDeleteOutlined,
+  UserOutlined,
 } from "@ant-design/icons";
 import ViewWeekIcon from "@mui/icons-material/ViewWeek";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import ReviewsIcon from "@mui/icons-material/Reviews";
 import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
-import { Breadcrumb, Layout, Menu, Result, Button } from "antd";
+import { Breadcrumb, Layout, Menu, Result, Button, Avatar } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import AddBoxIcon from "@mui/icons-material/AddBox";
 import { AppContext } from "../../AppContext";
@@ -44,15 +45,8 @@ const InstructorDashboard = ({ children, pageName }) => {
       <HomeOutlined />
     ),
     getItem(
-      <Link className="link" to="/instructorDashBoard">
-        My Dashboard
-      </Link>,
-      "2",
-      <DashboardIcon />
-    ),
-    getItem(
       <Link className="link" to="/instructorDashBoard/allMyCourses">
-        View all my courses
+        My Classroom
       </Link>,
       "4",
       <ViewWeekIcon />
@@ -80,20 +74,6 @@ const InstructorDashboard = ({ children, pageName }) => {
       <AddBoxIcon />
     ),
     getItem(
-      <Link className="link" to="/instructorDashBoard/createQuiz">
-        Create New Quiz
-      </Link>,
-      "20",
-      <AddBoxIcon />
-    ),
-    getItem(
-      <Link className="link" to="/instructorDashBoard/addDiscount">
-        Add Discount
-      </Link>,
-      "21",
-      <AddBoxIcon />
-    ),
-    getItem(
       <Link className="link" to="/settings">
         Settings
       </Link>,
@@ -110,19 +90,29 @@ const InstructorDashboard = ({ children, pageName }) => {
     getItem(<Link>My Students</Link>, "19", <ReconciliationOutlined />, [
       getItem(<InstructorStudents />, "20", <UsergroupDeleteOutlined />),
     ]),
-    getItem(
-      <Link
-        className="link"
-        to="/"
-        onClick={() => {
-          logout();
-        }}
-      >
-        Log Out
-      </Link>,
-      "3",
-      <LogoutOutlined />
-    ),
+    getItem(<Avatar size="medium" icon={<UserOutlined />} />, "user", <></>, [
+      getItem(<span>{userName}</span>, "4", <UserOutlined />),
+      getItem(
+        <Link className="link" to="/settings">
+          Settings
+        </Link>,
+        "3",
+        <SettingFilled />
+      ),
+      getItem(
+        <Link
+          className="link"
+          to="/"
+          onClick={() => {
+            logout();
+          }}
+        >
+          Logout
+        </Link>,
+        "5",
+        <LogoutOutlined />
+      ),
+    ]),
 
     //   getItem(<InstructorBalance />, "16", <SettingFilled />),
   ];
@@ -158,11 +148,19 @@ const InstructorDashboard = ({ children, pageName }) => {
             mode="horizontal"
             defaultSelectedKeys={["2"]}
             items={items}
+            style={{
+              width: "100%",
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+            }}
           />
         </Header>
         <Content
           style={{
             padding: "0 50px",
+            backgroundColor: "white",
+            minHeight: "150vh",
           }}
         >
           <Breadcrumb
@@ -173,7 +171,9 @@ const InstructorDashboard = ({ children, pageName }) => {
             <Breadcrumb.Item>
               <Link to="/">Home</Link>
             </Breadcrumb.Item>
-            <Breadcrumb.Item>Dashboard</Breadcrumb.Item>
+            <Breadcrumb.Item>
+              <Link to="/instructorDashBoard/allMyCourses">My Classroom</Link>
+            </Breadcrumb.Item>
             <Breadcrumb.Item>{pageName}</Breadcrumb.Item>
           </Breadcrumb>
           <Layout
@@ -184,8 +184,9 @@ const InstructorDashboard = ({ children, pageName }) => {
           >
             <Content
               style={{
-                padding: "0 24px",
+                padding: "30px",
                 minHeight: "80vh",
+                backgroundColor: "white",
               }}
             >
               {children}
