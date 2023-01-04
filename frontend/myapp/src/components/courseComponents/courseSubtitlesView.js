@@ -24,6 +24,7 @@ const { Meta } = Card;
 const { Header, Footer, Sider, Content } = Layout;
 
 const { Panel } = Collapse;
+
 const CoursePreview = () => {
   const [subtitles, setSubtitles] = useState([]);
   const [courseId, setcourseId] = useState([]);
@@ -282,6 +283,7 @@ const CourseSubtitleViewWrapper = () => {
   const [usertype, setUserType] = userType;
   const [courseTitle, setCourseTitle] = useState("");
   const location = useLocation();
+  const [quizes, setQuizes] = useState([]);
 
   const navigate = useNavigate();
 
@@ -310,6 +312,19 @@ const CourseSubtitleViewWrapper = () => {
           }
         });
       });
+    axios
+      .get("http://localhost:2020/getCourse/" + courseId)
+      .then((response) => {
+        console.log(response.data.questions);
+        let data = [];
+        response.data.questions.map((q) => {
+          if (q.subtitle == subtitle) {
+            data.push(q);
+          }
+          console.log("a7a " + data);
+          setQuizes(data);
+        });
+      });
 
     axios
       .get("http://localhost:2020/getAllSubtitles/" + courseId)
@@ -323,49 +338,6 @@ const CourseSubtitleViewWrapper = () => {
         console.log(err.response);
       });
   }, [location]);
-
-  const requestRefund = () => {
-    if (progress > 50) {
-      message.warning(
-        "Sorrry, You are not eligible for course refund, You have exceeded 50% of the course"
-      );
-    } else {
-      axios
-        .get(
-          " http://localhost:2020/getRefundRequestsByCourseIdUsername/" +
-            userName +
-            "/" +
-            courseId
-        )
-        .then((response) => {
-          console.log("RESULT " + response.data);
-          if (JSON.stringify(response.data).length > 0) {
-            message.warning(
-              "You have already requested a refund for this course, You will be refunded shortly"
-            );
-          } else {
-            let body = {
-              courseId: courseId,
-              username: userName,
-              userType: usertype,
-            };
-            axios
-              .post("http://localhost:2020/requestRefund", body)
-              .then((response) => {
-                console.log(response);
-                message.success("Refund issued successfully");
-              })
-              .catch((err) => {
-                console.log(err);
-                message.error(err);
-              });
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-  };
 
   function getItem(label, key, icon, children) {
     return {
@@ -415,7 +387,14 @@ const CourseSubtitleViewWrapper = () => {
     <TraineeInsideCourse
       pageName={subtitle}
       courseName={
-        <>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
           <Breadcrumb.Item>
             <Link to={"/trainee/course?courseId=" + courseId}>
               {courseTitle}
@@ -424,7 +403,7 @@ const CourseSubtitleViewWrapper = () => {
           <Breadcrumb.Item>
             <Link className="link">{subtitle}</Link>
           </Breadcrumb.Item>
-        </>
+        </div>
       }
     >
       <Layout>
@@ -485,6 +464,29 @@ const CourseSubtitleViewWrapper = () => {
                             }
                           >
                             {item.subtitle}
+                          </Link>
+                        </List.Item>
+                      )}
+                    />
+                  </Panel>
+                </Collapse>
+                <Collapse ghost defaultActiveKey={"1"}>
+                  <Panel header={subtitle + " Quizes"} key="1">
+                    <List
+                      itemLayout="vertical"
+                      dataSource={quizes == null ? [] : quizes}
+                      renderItem={(item) => (
+                        <List.Item>
+                          <Link
+                            type="link"
+                            to={
+                              "/trainee/takequiz?courseId=" +
+                              courseId +
+                              "&question=" +
+                              quizes.indexOf(item)
+                            }
+                          >
+                            Take Quiz {quizes.indexOf(item) + 1}
                           </Link>
                         </List.Item>
                       )}

@@ -108,8 +108,6 @@ const TraineeInsideCourse = ({ children, courseId, courseName }) => {
       <Header
         className="header"
         style={{
-          position: "relative",
-          position: "sticky",
           top: "0px",
           width: "100%",
           height: "8vh",
@@ -142,6 +140,7 @@ const TraineeInsideCourse = ({ children, courseId, courseName }) => {
         <Breadcrumb
           style={{
             margin: "16px 0",
+            width: "100%",
           }}
         >
           <Breadcrumb.Item>

@@ -67,38 +67,47 @@ const TakeQuiz = () => {
 
     const urlParams = new URLSearchParams(idSearch);
     const courseId = urlParams.get("courseId");
+    const question = urlParams.get("question");
     setcourseId(courseId);
 
     axios.get("http://localhost:2020/getCourse/" + courseId).then((data) => {
-      setQuestion1(data.data.questions[0].questions[0].question);
-      setaAnswerA1(data.data.questions[0].questions[0].answerA);
-      setAnswerB1(data.data.questions[0].questions[0].answerB);
-      setAnswerC1(data.data.questions[0].questions[0].answerC);
-      setAnswerD1(data.data.questions[0].questions[0].answerD);
-      setQuestionAnswer1(data.data.questions[0].questions[0].correctAnswer);
+      setQuestion1(data.data.questions[question].questions[0].question);
+      setaAnswerA1(data.data.questions[question].questions[0].answerA);
+      setAnswerB1(data.data.questions[question].questions[0].answerB);
+      setAnswerC1(data.data.questions[question].questions[0].answerC);
+      setAnswerD1(data.data.questions[question].questions[0].answerD);
+      setQuestionAnswer1(
+        data.data.questions[question].questions[0].correctAnswer
+      );
 
       //
-      setQuestion2(data.data.questions[0].questions[1].question);
-      setaAnswerA2(data.data.questions[0].questions[1].answerA);
-      setAnswerB2(data.data.questions[0].questions[1].answerB);
-      setAnswerC2(data.data.questions[0].questions[1].answerC);
-      setAnswerD2(data.data.questions[0].questions[1].answerD);
-      setQuestionAnswer2(data.data.questions[0].questions[1].correctAnswer);
+      setQuestion2(data.data.questions[question].questions[1].question);
+      setaAnswerA2(data.data.questions[question].questions[1].answerA);
+      setAnswerB2(data.data.questions[question].questions[1].answerB);
+      setAnswerC2(data.data.questions[question].questions[1].answerC);
+      setAnswerD2(data.data.questions[question].questions[1].answerD);
+      setQuestionAnswer2(
+        data.data.questions[question].questions[1].correctAnswer
+      );
 
       //
-      setQuestion3(data.data.questions[0].questions[2].question);
-      setaAnswerA3(data.data.questions[0].questions[2].answerA);
-      setAnswerB3(data.data.questions[0].questions[2].answerB);
-      setAnswerC3(data.data.questions[0].questions[2].answerC);
-      setAnswerD3(data.data.questions[0].questions[2].answerD);
-      setQuestionAnswer3(data.data.questions[0].questions[2].correctAnswer);
+      setQuestion3(data.data.questions[question].questions[2].question);
+      setaAnswerA3(data.data.questions[question].questions[2].answerA);
+      setAnswerB3(data.data.questions[question].questions[2].answerB);
+      setAnswerC3(data.data.questions[question].questions[2].answerC);
+      setAnswerD3(data.data.questions[question].questions[2].answerD);
+      setQuestionAnswer3(
+        data.data.questions[question].questions[2].correctAnswer
+      );
       //
-      setQuestion4(data.data.questions[0].questions[3].question);
-      setaAnswerA4(data.data.questions[0].questions[3].answerA);
-      setAnswerB4(data.data.questions[0].questions[3].answerB);
-      setAnswerC4(data.data.questions[0].questions[3].answerC);
-      setAnswerD4(data.data.questions[0].questions[3].answerD);
-      setQuestionAnswer4(data.data.questions[0].questions[3].correctAnswer);
+      setQuestion4(data.data.questions[question].questions[3].question);
+      setaAnswerA4(data.data.questions[question].questions[3].answerA);
+      setAnswerB4(data.data.questions[question].questions[3].answerB);
+      setAnswerC4(data.data.questions[question].questions[3].answerC);
+      setAnswerD4(data.data.questions[question].questions[3].answerD);
+      setQuestionAnswer4(
+        data.data.questions[question].questions[3].correctAnswer
+      );
       setcourseTitle(data.data.title);
     });
   }, [location]);
@@ -171,9 +180,14 @@ const TakeQuiz = () => {
             alignItems: "center",
           }}
         >
-          <Form layout="vertical">
-            <h3>Question 1</h3>
-            <h5>{question1}</h5>
+          <Form
+            layout="vertical"
+            style={{
+              width: "100%",
+              height: "100%",
+            }}
+          >
+            <h2>{question1}</h2>
             <Form.Item name="answer">
               <Radio.Group onChange={onChange1} value={studentAnswer1}>
                 <Space direction="vertical">
@@ -205,9 +219,14 @@ const TakeQuiz = () => {
             alignItems: "center",
           }}
         >
-          <Form layout="vertical">
-            <h3>Question 2</h3>
-            <h5>{question2}</h5>
+          <Form
+            layout="vertical"
+            style={{
+              width: "100%",
+              height: "100%",
+            }}
+          >
+            <h2>{question2}</h2>
             <Form.Item name="answer">
               <Radio.Group onChange={onChange2} value={studentAnswer2}>
                 <Space direction="vertical">
@@ -219,18 +238,20 @@ const TakeQuiz = () => {
               </Radio.Group>
             </Form.Item>
           </Form>
-          <Button
-            type="primary"
-            onClick={() => {
-              next();
-            }}
-          >
-            Next
-          </Button>
-          <br />
-          <Button type="primary" onClick={prev}>
-            Previous
-          </Button>
+          <div>
+            {" "}
+            <Button
+              type="primary"
+              onClick={() => {
+                next();
+              }}
+            >
+              Next
+            </Button>{" "}
+            <Button type="primary" onClick={prev}>
+              Previous
+            </Button>
+          </div>
         </div>
       ),
     },
@@ -246,9 +267,14 @@ const TakeQuiz = () => {
             alignItems: "center",
           }}
         >
-          <Form layout="vertical">
-            <h3>Question 3</h3>
-            <h5>{question3}</h5>
+          <Form
+            layout="vertical"
+            style={{
+              width: "100%",
+              height: "100%",
+            }}
+          >
+            <h2>{question3}</h2>
             <Form.Item name="answer">
               <Radio.Group onChange={onChange3} value={studentAnswer3}>
                 <Space direction="vertical">
@@ -260,18 +286,19 @@ const TakeQuiz = () => {
               </Radio.Group>
             </Form.Item>
           </Form>
-          <Button
-            type="primary"
-            onClick={() => {
-              next();
-            }}
-          >
-            Next
-          </Button>
-          <br />
-          <Button type="primary" onClick={prev}>
-            Previous
-          </Button>
+          <div>
+            <Button
+              type="primary"
+              onClick={() => {
+                next();
+              }}
+            >
+              Next
+            </Button>{" "}
+            <Button type="primary" onClick={prev}>
+              Previous
+            </Button>
+          </div>
         </div>
       ),
     },
@@ -287,9 +314,14 @@ const TakeQuiz = () => {
             alignItems: "center",
           }}
         >
-          <Form layout="vertical">
-            <h3>Question 4</h3>
-            <h5>{question4}</h5>
+          <Form
+            layout="vertical"
+            style={{
+              width: "100%",
+              height: "100%",
+            }}
+          >
+            <h2>{question4}</h2>
             <Form.Item name="answer">
               <Radio.Group onChange={onChange4} value={studentAnswer4}>
                 <Space direction="vertical">
@@ -301,20 +333,21 @@ const TakeQuiz = () => {
               </Radio.Group>
             </Form.Item>
           </Form>
-          <Button
-            type="primary"
-            onClick={() => {
-              message.success("Hope you answerd well");
-              finish();
-              next();
-            }}
-          >
-            Done
-          </Button>
-          <br />
-          <Button type="primary" onClick={prev}>
-            Previous
-          </Button>
+          <div>
+            <Button
+              type="primary"
+              onClick={() => {
+                message.success("Hope you answerd well");
+                finish();
+                next();
+              }}
+            >
+              Done
+            </Button>{" "}
+            <Button type="primary" onClick={prev}>
+              Previous
+            </Button>
+          </div>
         </div>
       ),
     },
@@ -418,11 +451,31 @@ const TakeQuiz = () => {
               </Card>
             </Col>
           </Row>
-          <Button
-            style={{ alignItems: "flex-end", justifyContent: "flex-end" }}
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "center",
+              gap: "20px",
+            }}
           >
-            <Link to="/user/myPrograms">Continue Learning</Link>
-          </Button>
+            <Button
+              type="primary"
+              style={{ alignItems: "flex-end", justifyContent: "flex-end" }}
+            >
+              <Link className="link" to="/user/myPrograms">
+                Continue Learning
+              </Link>
+            </Button>
+            <Button
+              type="primary"
+              onClick={() => {
+                setCurrent(0);
+              }}
+            >
+              Retake Quiz
+            </Button>
+          </div>
         </div>
       ),
     },
