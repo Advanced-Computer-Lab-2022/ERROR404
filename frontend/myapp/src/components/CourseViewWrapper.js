@@ -35,7 +35,7 @@ function getItem(label, key, icon, children) {
   };
 }
 
-const PreviewCourses = ({ children, courseId }) => {
+const PreviewCourses = ({ children, courseId, title }) => {
   const { userType, traineeCourses } = useContext(AppContext);
   const [user, setUser] = userType;
   const [traineeRegCourses, setTraineeCourses] = traineeCourses;
@@ -133,7 +133,7 @@ const PreviewCourses = ({ children, courseId }) => {
           <Breadcrumb.Item>
             <Link to="/viewAllCourses">Courses</Link>
           </Breadcrumb.Item>
-          <Breadcrumb.Item>Web Development</Breadcrumb.Item>
+          <Breadcrumb.Item>{title}</Breadcrumb.Item>
         </Breadcrumb>
 
         <Layout
