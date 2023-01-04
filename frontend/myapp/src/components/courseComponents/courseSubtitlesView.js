@@ -483,7 +483,9 @@ const CourseSubtitleViewWrapper = () => {
                               "/trainee/takequiz?courseId=" +
                               courseId +
                               "&question=" +
-                              quizes.indexOf(item)
+                              quizes.indexOf(item) +
+                              "&subtitle=" +
+                              subtitle
                             }
                           >
                             Take Quiz {quizes.indexOf(item) + 1}

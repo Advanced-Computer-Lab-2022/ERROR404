@@ -68,46 +68,48 @@ const TakeQuiz = () => {
     const urlParams = new URLSearchParams(idSearch);
     const courseId = urlParams.get("courseId");
     const question = urlParams.get("question");
+    const subtitle = urlParams.get("subtitle");
     setcourseId(courseId);
 
     axios.get("http://localhost:2020/getCourse/" + courseId).then((data) => {
-      setQuestion1(data.data.questions[question].questions[0].question);
-      setaAnswerA1(data.data.questions[question].questions[0].answerA);
-      setAnswerB1(data.data.questions[question].questions[0].answerB);
-      setAnswerC1(data.data.questions[question].questions[0].answerC);
-      setAnswerD1(data.data.questions[question].questions[0].answerD);
-      setQuestionAnswer1(
-        data.data.questions[question].questions[0].correctAnswer
-      );
+      console.log(data.data.questions);
+      let dataR = [];
+      data.data.questions.map((q) => {
+        console.log(q.subtitle);
+        if (q.subtitle == subtitle) {
+          dataR.push(q);
+        }
+      });
+
+      setQuestion1(dataR[question].questions[0].question);
+      setaAnswerA1(dataR[question].questions[0].answerA);
+      setAnswerB1(dataR[question].questions[0].answerB);
+      setAnswerC1(dataR[question].questions[0].answerC);
+      setAnswerD1(dataR[question].questions[0].answerD);
+      setQuestionAnswer1(dataR[question].questions[0].correctAnswer);
 
       //
-      setQuestion2(data.data.questions[question].questions[1].question);
-      setaAnswerA2(data.data.questions[question].questions[1].answerA);
-      setAnswerB2(data.data.questions[question].questions[1].answerB);
-      setAnswerC2(data.data.questions[question].questions[1].answerC);
-      setAnswerD2(data.data.questions[question].questions[1].answerD);
-      setQuestionAnswer2(
-        data.data.questions[question].questions[1].correctAnswer
-      );
+      setQuestion2(dataR[question].questions[1].question);
+      setaAnswerA2(dataR[question].questions[1].answerA);
+      setAnswerB2(dataR[question].questions[1].answerB);
+      setAnswerC2(dataR[question].questions[1].answerC);
+      setAnswerD2(dataR[question].questions[1].answerD);
+      setQuestionAnswer2(dataR[question].questions[1].correctAnswer);
 
       //
-      setQuestion3(data.data.questions[question].questions[2].question);
-      setaAnswerA3(data.data.questions[question].questions[2].answerA);
-      setAnswerB3(data.data.questions[question].questions[2].answerB);
-      setAnswerC3(data.data.questions[question].questions[2].answerC);
-      setAnswerD3(data.data.questions[question].questions[2].answerD);
-      setQuestionAnswer3(
-        data.data.questions[question].questions[2].correctAnswer
-      );
+      setQuestion3(dataR[question].questions[2].question);
+      setaAnswerA3(dataR[question].questions[2].answerA);
+      setAnswerB3(dataR[question].questions[2].answerB);
+      setAnswerC3(dataR[question].questions[2].answerC);
+      setAnswerD3(dataR[question].questions[2].answerD);
+      setQuestionAnswer3(dataR[question].questions[2].correctAnswer);
       //
-      setQuestion4(data.data.questions[question].questions[3].question);
-      setaAnswerA4(data.data.questions[question].questions[3].answerA);
-      setAnswerB4(data.data.questions[question].questions[3].answerB);
-      setAnswerC4(data.data.questions[question].questions[3].answerC);
-      setAnswerD4(data.data.questions[question].questions[3].answerD);
-      setQuestionAnswer4(
-        data.data.questions[question].questions[3].correctAnswer
-      );
+      setQuestion4(dataR[question].questions[3].question);
+      setaAnswerA4(dataR[question].questions[3].answerA);
+      setAnswerB4(dataR[question].questions[3].answerB);
+      setAnswerC4(dataR[question].questions[3].answerC);
+      setAnswerD4(dataR[question].questions[3].answerD);
+      setQuestionAnswer4(dataR[question].questions[3].correctAnswer);
       setcourseTitle(data.data.title);
     });
   }, [location]);
