@@ -146,7 +146,7 @@ const InsertCreditCardInfoWrapper = () => {
               type="primary"
               htmlType="submit"
               style={{
-                width: "20%",
+                width: "40%",
                 textAlign: "center",
               }}
             >

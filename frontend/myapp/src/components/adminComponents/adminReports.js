@@ -18,6 +18,7 @@ import AdminDashboard from "./adminDashboard";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
+import emailjs from "@emailjs/browser";
 const { Option } = Select;
 
 const AdminReportsWrapper = () => {
@@ -34,12 +35,11 @@ const AdminReports = () => {
   const [filter, setFilter] = useState([]);
   const [reportType, setReportType] = useState([]);
   const [refresh, setRefresh] = useState(true);
-
+  const [email, setEmail] = useState("");
   const [form] = Form.useForm();
 
-  const confirm = (status, id) =>
+  const confirm = (status, id, user, issueDate, description, problem) =>
     new Promise((resolve) => {
-      console.log("sssssssss ", status);
       const requestBody = {
         id: id,
         status: status,
@@ -47,9 +47,47 @@ const AdminReports = () => {
       axios
         .put("http://localhost:2020/updateReportStatus", requestBody)
         .then((res) => {
-          console.log(res);
           message.success("status has been changed to " + status);
           setRefresh(!refresh);
+        })
+        .then(() => {
+          axios.get("http://localhost:2020/login/" + user).then((response) => {
+            console.log(user);
+            console.log(response);
+            if (status == "resolved") {
+              var data = {
+                to_name: user,
+                id: id,
+                date: issueDate,
+                desc: description,
+                email: response.data.email,
+                status: "accepted,we hope that we met your expectations",
+              };
+
+              emailjs.send(
+                "service_cgnfy6h",
+                "template_dxseinf",
+                data,
+                "cfz8yizeBXThAinxz"
+              );
+            } else if (status == "pending") {
+              var data = {
+                to_name: user,
+                id: id,
+                date: issueDate,
+                desc: description,
+                email: response.data.email,
+                status: "viewed and it is now under investigation",
+              };
+
+              emailjs.send(
+                "service_cgnfy6h",
+                "template_dxseinf",
+                data,
+                "cfz8yizeBXThAinxz"
+              );
+            }
+          });
         });
       setTimeout(() => resolve(null), 3000);
     });
@@ -137,11 +175,11 @@ const AdminReports = () => {
     {
       title: "View Report",
       dataIndex: "_id",
-      render: (id) => {
+      render: (id, user, issueDate, description, problem) => {
         return (
           <Link
             onClick={(event) => {
-              showModal(id);
+              showModal(id, user, issueDate, description, problem);
             }}
           >
             View
@@ -162,7 +200,7 @@ const AdminReports = () => {
     console.log("Failed:", errorInfo);
   };
 
-  const showModal = (reportId) => {
+  const showModal = (reportId, user, issueDate, description) => {
     const modal = Modal.info();
     let reports;
     data.map((report) => {
@@ -304,13 +342,17 @@ const AdminReports = () => {
                                 onConfirm={() =>
                                   confirm(
                                     form.getFieldValue("status"),
-                                    reports._id
+                                    reports._id,
+                                    reports.user,
+                                    reports.issueDate,
+                                    reports.description,
+                                    reports.problem
                                   )
                                 }
                                 onOpenChange={() => console.log("open change")}
                               >
                                 <Button type="primary" htmlType="submit">
-                                  Submit Statuss
+                                  Submit Status
                                 </Button>
                               </Popconfirm>
                             </Form.Item>
