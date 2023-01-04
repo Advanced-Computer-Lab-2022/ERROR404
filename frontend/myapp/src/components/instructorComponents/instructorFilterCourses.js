@@ -63,10 +63,10 @@ const InstructorFilterCourses = ({ values }) => {
   };
   return (
     <>
-      <h1 style={{ color: "black" }}>Filter</h1>
+      <h1 style={{ color: "black" }}>Filter By</h1>
       <Collapse
         bordered={true}
-        defaultActiveKey={["1", "2", "3", "4"]}
+        defaultActiveKey={["0"]}
         expandIcon={({ isActive }) => (
           <CaretRightOutlined rotate={isActive ? 90 : 0} />
         )}
