@@ -99,19 +99,29 @@ const MainHeader = ({ values }) => {
         key: "explore",
       },
 
-      getItem(
-        <Link
-          className="link"
-          to="/"
-          onClick={() => {
-            logout();
-          }}
-        >
-          Log Out
-        </Link>,
-        "3",
-        <LogoutOutlined />
-      ),
+      getItem(<Avatar size="medium" icon={<UserOutlined />} />, "user", <></>, [
+        getItem(<span>{userName}</span>, "4", <UserOutlined />),
+        getItem(
+          <Link className="link" to="/settings">
+            Settings
+          </Link>,
+          "3",
+          <SettingFilled />
+        ),
+        getItem(
+          <Link
+            className="link"
+            to="/"
+            onClick={() => {
+              logout();
+            }}
+          >
+            Logout
+          </Link>,
+          "5",
+          <LogoutOutlined />
+        ),
+      ]),
     ];
   } else if (user == "individual" || user == "corporate") {
     items = [
@@ -147,33 +157,30 @@ const MainHeader = ({ values }) => {
         ),
         key: "myClassroom",
       },
-      getItem(
-        <Link className="link" to="/settings">
-          Settings
-        </Link>,
-        "3",
-        <SettingFilled />
-      ),
-      getItem(
-        <Link
-          className="link"
-          to="/"
-          onClick={() => {
-            logout();
-          }}
-        >
-          Logout
-        </Link>,
-        "2",
-        <LogoutOutlined />
-      ),
-      getItem(
-        <Popover content={userName}>
-          <Avatar size="medium" icon={<UserOutlined />} />
-        </Popover>,
-        "user",
-        <LogoutOutlined />
-      ),
+
+      getItem(<Avatar size="medium" icon={<UserOutlined />} />, "user", <></>, [
+        getItem(<span>{userName}</span>, "4", <UserOutlined />),
+        getItem(
+          <Link className="link" to="/settings">
+            Settings
+          </Link>,
+          "3",
+          <SettingFilled />
+        ),
+        getItem(
+          <Link
+            className="link"
+            to="/"
+            onClick={() => {
+              logout();
+            }}
+          >
+            Logout
+          </Link>,
+          "5",
+          <LogoutOutlined />
+        ),
+      ]),
     ];
   } else if (user == "admin") {
     items = [
@@ -204,19 +211,30 @@ const MainHeader = ({ values }) => {
         </Link>,
         "4"
       ),
-      getItem(
-        <Link
-          className="link"
-          to="/"
-          onClick={() => {
-            logout();
-          }}
-        >
-          Logout
-        </Link>,
-        "2",
-        <LogoutOutlined />
-      ),
+
+      getItem(<Avatar size="medium" icon={<UserOutlined />} />, "user", <></>, [
+        getItem(<span>{userName}</span>, "4", <UserOutlined />),
+        getItem(
+          <Link className="link" to="/settings">
+            Settings
+          </Link>,
+          "3",
+          <SettingFilled />
+        ),
+        getItem(
+          <Link
+            className="link"
+            to="/"
+            onClick={() => {
+              logout();
+            }}
+          >
+            Logout
+          </Link>,
+          "5",
+          <LogoutOutlined />
+        ),
+      ]),
     ];
   } else {
     items = [
