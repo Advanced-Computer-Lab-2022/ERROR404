@@ -14,6 +14,7 @@ import { useEffect, useState, useContext } from "react";
 import { Navigate, useLocation, Link } from "react-router-dom";
 import App from "../../App";
 import { AppContext } from "../../AppContext";
+import TraineeInsideCourse from "./traineeInsideCourse";
 
 const TakeQuiz = () => {
   const location = useLocation();
@@ -489,7 +490,7 @@ const TakeQuiz = () => {
 
   return (
     <>
-      <App>
+      <TraineeInsideCourse courseName="Quiz">
         <Steps current={current} items={items} />
         <div
           className="steps-content"
@@ -500,7 +501,7 @@ const TakeQuiz = () => {
         >
           {steps[current].content}
         </div>
-      </App>
+      </TraineeInsideCourse>
     </>
   );
 };

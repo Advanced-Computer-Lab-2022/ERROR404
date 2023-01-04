@@ -65,12 +65,9 @@ const TraineeInsideCourse = ({ children, courseId, courseName }) => {
     ),
 
     getItem(
-      <Link to="/traineeDashboard">My Balance</Link>,
-      "17",
-      <AccountBalanceWalletIcon />
-    ),
-    getItem(
-      <Link to="/traineeDashboard/viewGrade">View My Grades</Link>,
+      <Link className="link" to="/traineeDashboard/viewGrade">
+        View My Grades
+      </Link>,
       "18",
       <GradeIcon />
     ),

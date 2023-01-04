@@ -169,7 +169,12 @@ const CoursePreview = () => {
             backgroundColor: "white",
           }}
         >
-          <Menu theme="light" mode="horizontal" items={items} />
+          <Menu
+            theme="light"
+            mode="horizontal"
+            items={items}
+            style={{ display: "flex", justifyContent: "flex-end" }}
+          />
         </Header>
         <Layout>
           <Content>
@@ -350,18 +355,6 @@ const CourseSubtitleViewWrapper = () => {
 
   const items = [
     getItem(<TakeNotesWrapper />, "1"),
-    getItem(
-      <Button
-        style={{ width: "200px" }}
-        type="link"
-        onClick={() => {
-          navigate("/trainee/takequiz?courseId=" + courseId);
-        }}
-      >
-        Take Quiz
-      </Button>,
-      "2"
-    ),
 
     progress >= 100
       ? getItem(
@@ -408,7 +401,12 @@ const CourseSubtitleViewWrapper = () => {
     >
       <Layout>
         <Header style={{ backgroundColor: "white" }}>
-          <Menu theme="light" mode="horizontal" items={items} />
+          <Menu
+            theme="light"
+            mode="horizontal"
+            items={items}
+            style={{ display: "flex", justifyContent: "flex-end" }}
+          />
         </Header>
         <Content>
           <div>
