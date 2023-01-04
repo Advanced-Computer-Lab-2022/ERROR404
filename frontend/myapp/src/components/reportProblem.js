@@ -11,8 +11,8 @@ import { Button, Space, message, Form, Dropdown, Select } from "antd";
 import { useState } from "react";
 import { Input } from "antd";
 import { AppContext } from "../AppContext";
-import e from "cors";
-import { color } from "@mui/system";
+
+const { Option } = Select;
 const { TextArea } = Input;
 const ReportaProblemWrapper = () => {
   const [value, setValue] = useState("");
@@ -120,6 +120,7 @@ const ReportaProblemWrapper = () => {
 
           <>
             <Form
+              layout="vertical"
               style={{
                 width: "50%",
                 alignItems: "center",
@@ -127,7 +128,21 @@ const ReportaProblemWrapper = () => {
               }}
             >
               <Form.Item
-                label="Description"
+                name="type"
+                label="Report Type"
+                rules={[{ required: true }]}
+              >
+                <Select
+                  placeholder="Select a option and change input text above"
+                  allowClear
+                >
+                  <Option value="financial">Financial</Option>
+                  <Option value="technical">Technical</Option>
+                  <Option value="other">other</Option>
+                </Select>
+              </Form.Item>
+              <Form.Item
+                label="Description :"
                 name="description"
                 rules={[
                   {
