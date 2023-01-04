@@ -1,4 +1,12 @@
-import { Descriptions, Menu, List, Progress, Button, message } from "antd";
+import {
+  Descriptions,
+  Menu,
+  List,
+  Progress,
+  Button,
+  message,
+  Collapse,
+} from "antd";
 import axios from "axios";
 import { useEffect, useState, useContext } from "react";
 import { AppContext } from "../../AppContext";
@@ -8,6 +16,7 @@ import TraineeDashboard from "../traineeComponents/TraineeDashboard";
 import TraineeInsideCourse from "../traineeComponents/traineeInsideCourse";
 import RequestRefund from "../traineeComponents/requestRefund";
 
+const { Panel } = Collapse;
 const CoursePreview = () => {
   const [subtitles, setSubtitles] = useState([]);
   const [courseId, setcourseId] = useState([]);
@@ -101,8 +110,6 @@ const CoursePreview = () => {
 
   return (
     <TraineeInsideCourse pageName="Course Preview">
-      {" "}
-      <h1>Les</h1>
       <div>
         <Progress percent={progress} />
       </div>
@@ -127,11 +134,10 @@ const CoursePreview = () => {
         >
           <div
             style={{
-              width: "10%",
+              width: "20%",
               height: "50%",
             }}
           >
-            <h2>All Subtitles</h2>
             <TakeNotesWrapper />
             {progress >= 100 ? (
               <Button
@@ -161,28 +167,32 @@ const CoursePreview = () => {
             >
               Request Refund
             </Button>
-            <List
-              itemLayout="horizontal"
-              dataSource={subtitles}
-              renderItem={(item) => (
-                <List.Item>
-                  <Link
-                    to={
-                      "/trainee/course/subtitle?subtitle=" +
-                      item.subtitle +
-                      "&description=" +
-                      item.description +
-                      "&video=" +
-                      item.video +
-                      "&courseId=" +
-                      courseId
-                    }
-                  >
-                    {item.subtitle}
-                  </Link>
-                </List.Item>
-              )}
-            />
+            <Collapse>
+              <Panel header="Course Subtitles" key={1}>
+                <List
+                  itemLayout="horizontal"
+                  dataSource={subtitles}
+                  renderItem={(item, index) => (
+                    <List.Item>
+                      <Link
+                        to={
+                          "/trainee/course/subtitle?subtitle=" +
+                          item.subtitle +
+                          "&description=" +
+                          item.description +
+                          "&video=" +
+                          item.video +
+                          "&courseId=" +
+                          courseId
+                        }
+                      >
+                        {item.subtitle}
+                      </Link>
+                    </List.Item>
+                  )}
+                />
+              </Panel>
+            </Collapse>
           </div>
           <div
             style={{
@@ -334,35 +344,43 @@ const CourseSubtitleViewWrapper = () => {
         >
           <div
             style={{
-              width: "10%",
+              width: "25%",
               height: "50%",
             }}
           >
-            <h2>All Subtitles</h2>
             <TakeNotesWrapper />
-            <Link to={"/trainee/takequiz?courseId=" + courseId}>Take Quiz</Link>
-            <List
-              itemLayout="horizontal"
-              dataSource={subtitles}
-              renderItem={(item) => (
-                <List.Item>
-                  <Link
-                    to={
-                      "/trainee/course/subtitle?subtitle=" +
-                      item.subtitle +
-                      "&description=" +
-                      item.description +
-                      "&video=" +
-                      item.video +
-                      "&courseId=" +
-                      courseId
-                    }
-                  >
-                    {item.subtitle}
-                  </Link>
-                </List.Item>
-              )}
-            />
+            <br />
+            <Button style={{ width: "200px" }}>
+              <Link to={"/trainee/takequiz?courseId=" + courseId}>
+                Take Quiz
+              </Link>
+            </Button>
+            <Collapse>
+              <Panel header="Course Subtitles">
+                <List
+                  itemLayout="horizontal"
+                  dataSource={subtitles}
+                  renderItem={(item) => (
+                    <List.Item>
+                      <Link
+                        to={
+                          "/trainee/course/subtitle?subtitle=" +
+                          item.subtitle +
+                          "&description=" +
+                          item.description +
+                          "&video=" +
+                          item.video +
+                          "&courseId=" +
+                          courseId
+                        }
+                      >
+                        {item.subtitle}
+                      </Link>
+                    </List.Item>
+                  )}
+                />
+              </Panel>
+            </Collapse>
           </div>
           <div
             style={{
