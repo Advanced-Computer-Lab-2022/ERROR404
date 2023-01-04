@@ -159,7 +159,7 @@ const TraineeInsideCourse = ({ children, courseId, courseName }) => {
             <Link to="/">Home</Link>
           </Breadcrumb.Item>
           <Breadcrumb.Item>
-            <Link to="/viewAllCourses">Courses</Link>
+            <Link to="/user/myPrograms">My Classroom</Link>
           </Breadcrumb.Item>
           <Breadcrumb.Item>{courseName}</Breadcrumb.Item>
         </Breadcrumb>

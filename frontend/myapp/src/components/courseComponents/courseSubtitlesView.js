@@ -6,6 +6,7 @@ import {
   Button,
   message,
   Collapse,
+  Breadcrumb,
 } from "antd";
 import axios from "axios";
 import { useEffect, useState, useContext } from "react";
@@ -167,8 +168,8 @@ const CoursePreview = () => {
             >
               Request Refund
             </Button>
-            <Collapse ghost>
-              <Panel header="Course Subtitles" key={1}>
+            <Collapse ghost defaultActiveKey="1">
+              <Panel header="Course Subtitles" key="1">
                 <List
                   itemLayout="horizontal"
                   dataSource={subtitles}
@@ -183,7 +184,9 @@ const CoursePreview = () => {
                           "&video=" +
                           item.video +
                           "&courseId=" +
-                          courseId
+                          courseId +
+                          "&courseTitle=" +
+                          course.title
                         }
                       >
                         {item.subtitle}
@@ -235,6 +238,7 @@ const CourseSubtitleViewWrapper = () => {
   const { username, userType } = useContext(AppContext);
   const [userName, setUserName] = username;
   const [usertype, setUserType] = userType;
+  const [courseTitle, setCourseTitle] = useState("");
   const location = useLocation();
 
   useEffect(() => {
@@ -244,10 +248,12 @@ const CourseSubtitleViewWrapper = () => {
     const video = urlParams.get("video");
     const description = urlParams.get("description");
     const courseId = urlParams.get("courseId");
+    const courseTitle = urlParams.get("courseTitle");
     setcourseId(courseId);
     setVideo("https://" + video);
     setDescription(description);
     setSubtitle(subtitle);
+    setCourseTitle(courseTitle);
 
     axios
       .get(`http://localhost:2020/getUser/${userName}/${usertype}`)
@@ -318,7 +324,21 @@ const CourseSubtitleViewWrapper = () => {
   };
 
   return (
-    <TraineeInsideCourse pageName={subtitle}>
+    <TraineeInsideCourse
+      pageName={subtitle}
+      courseName={
+        <>
+          <Breadcrumb.Item>
+            <Link to={"/trainee/course?courseId=" + courseId}>
+              {courseTitle}
+            </Link>
+          </Breadcrumb.Item>
+          <Breadcrumb.Item>
+            <Link className="link">{subtitle}</Link>
+          </Breadcrumb.Item>
+        </>
+      }
+    >
       <div>
         <Progress percent={progress} />
       </div>
@@ -355,8 +375,8 @@ const CourseSubtitleViewWrapper = () => {
                 Take Quiz
               </Link>
             </Button>
-            <Collapse ghost>
-              <Panel header="Course Subtitles">
+            <Collapse ghost defaultActiveKey={"1"}>
+              <Panel header="Course Subtitles" key="1">
                 <List
                   itemLayout="horizontal"
                   dataSource={subtitles}
@@ -371,7 +391,9 @@ const CourseSubtitleViewWrapper = () => {
                           "&video=" +
                           item.video +
                           "&courseId=" +
-                          courseId
+                          courseId +
+                          "&courseTitle=" +
+                          courseTitle
                         }
                       >
                         {item.subtitle}
