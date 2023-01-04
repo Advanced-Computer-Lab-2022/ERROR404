@@ -167,7 +167,7 @@ const CoursePreview = () => {
             >
               Request Refund
             </Button>
-            <Collapse>
+            <Collapse ghost>
               <Panel header="Course Subtitles" key={1}>
                 <List
                   itemLayout="horizontal"
@@ -355,7 +355,7 @@ const CourseSubtitleViewWrapper = () => {
                 Take Quiz
               </Link>
             </Button>
-            <Collapse>
+            <Collapse ghost>
               <Panel header="Course Subtitles">
                 <List
                   itemLayout="horizontal"
