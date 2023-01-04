@@ -1,20 +1,12 @@
 import React from "react";
 import InstructorDashboard from "./InstructorDashboard";
-import ReviewNavigation from "../reviewComponents";
 import { Tabs } from "antd";
 import {
   ArrowDownOutlined,
   ArrowUpOutlined,
-  DollarOutlined,
   WalletOutlined,
-  PlusOutlined,
 } from "@ant-design/icons";
 import { Card, Col, Row, Statistic, Breadcrumb } from "antd";
-import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
-import Pagination from "@mui/material/Pagination";
-import PaginationItem from "@mui/material/PaginationItem";
-import Stack from "@mui/material/Stack";
-import VirtualList from "rc-virtual-list";
 import { useContext, useEffect, useState } from "react";
 import { AppContext } from "../../AppContext";
 import axios from "axios";

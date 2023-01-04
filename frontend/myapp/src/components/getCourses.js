@@ -62,7 +62,7 @@ const SearchByForm = ({ values }) => {
     navigate("/filter?filterType=category&category=" + value);
   };
   return (
-    <>
+    <div>
       <h1 style={{ color: "black" }}>Filter</h1>
       <Collapse
         bordered={true}
@@ -138,7 +138,16 @@ const SearchByForm = ({ values }) => {
           </Form>
         </Panel>
 
-        <Panel header="Price" key="2" className="site-collapse-custom-panel">
+        <Panel
+          header="Price"
+          key="2"
+          className="site-collapse-custom-panel"
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            height: "5%",
+          }}
+        >
           <Form onFinish={price}>
             <Form.Item name="price">
               <Tooltip>
@@ -256,7 +265,7 @@ const SearchByForm = ({ values }) => {
           </Form>
         </Panel>
       </Collapse>
-    </>
+    </div>
   );
 };
 

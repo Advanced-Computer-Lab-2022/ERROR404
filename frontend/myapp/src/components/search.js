@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 const { Search } = Input;
 const { Panel } = Collapse;
 
-const SearchByForm = () => {
+const SearchBar = () => {
   const [data, setData] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
@@ -43,40 +43,17 @@ const SearchByForm = () => {
   return (
     <>
       <Search
-        placeholder="Search anything......"
+        placeholder="Search........."
         onSearch={onSearch}
         enterButton
         size="middle"
         bordered={true}
         style={{
-          maxWidth: "20vw",
+          width: "60%",
         }}
       />{" "}
-      {/* <Modal
-        title="Basic Modal"
-        open={isModalOpen}
-        onOk={handleOk}
-        onCancel={handleCancel}
-      >
-        <Collapse defaultActiveKey={["1"]}>
-          {console.log(data.length)}
-          {data.map((course) => {
-            console.log("here");
-            return (
-              <Panel header={course.title} key={course._id}>
-                <p>Title: {course.title}</p>
-                <p>Summary: {course.summary}</p>
-                <p>Instructor: {course.instructor}</p>
-                <p>Price: {course.price}</p>
-                <p>rating: {course.rating}</p>
-                <p>Total Hours: {course.totalHours}</p>
-              </Panel>
-            );
-          })}
-        </Collapse>
-      </Modal> */}
     </>
   );
 };
 
-export default SearchByForm;
+export default SearchBar;

@@ -153,14 +153,16 @@ const CourseraCategories = () => {
       <Link to="/" style={{ color: "white", textDecoration: "none" }}>
         Home
       </Link>
-      <Link style={{ color: "white", textDecoration: "none" }}>About</Link>
-      <Link style={{ color: "white", textDecoration: "none" }}>Contact Us</Link>
+      <Link style={{ color: "white", textDecoration: "none" }} to="/aboutTeam">
+        About
+      </Link>
+      {/* <Link style={{ color: "white", textDecoration: "none" }}>Contact Us</Link>
       <Link style={{ color: "white", textDecoration: "none" }}>
         What we offer
-      </Link>
-      <Link style={{ color: "white", textDecoration: "none" }}>
+      </Link> */}
+      {/* <Link style={{ color: "white", textDecoration: "none" }}>
         Become an Instructor
-      </Link>
+      </Link> */}
     </div>
   );
 };
@@ -199,18 +201,18 @@ const MoreCategories = () => {
       >
         Report a Problem
       </Link>
-      <Link
+      {/* <Link
         to="/user/reports"
         style={{ color: "white", textDecoration: "none" }}
       >
         Follow up on a ticket
-      </Link>
-      <Link style={{ color: "white", textDecoration: "none" }}>
+      </Link> */}
+      {/* <Link style={{ color: "white", textDecoration: "none" }}>
         Request Access to Course
-      </Link>
-      <Link style={{ color: "white", textDecoration: "none" }}>
+      </Link> */}
+      {/* <Link style={{ color: "white", textDecoration: "none" }}>
         Request refund
-      </Link>
+      </Link> */}
     </div>
   );
 };
@@ -286,7 +288,7 @@ const ContactInfoCategories = () => {
         flexDirection: "column",
         alignItems: "flex-start",
         height: "100%",
-        width: "20%",
+        width: "30%",
         boxSizing: "border-box",
         padding: "1%",
         gap: "1%",
@@ -317,7 +319,7 @@ const FooterWrapper = () => {
 
         backgroundColor: "black",
         color: "White",
-        height: "40vh",
+        height: "50vh",
       }}
     >
       <div

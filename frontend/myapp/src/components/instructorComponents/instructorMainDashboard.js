@@ -5,11 +5,9 @@ import {
   LikeOutlined,
   UsergroupDeleteOutlined,
 } from "@ant-design/icons";
-import { Column } from "@ant-design/plots";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { AppContext } from "../../AppContext";
-import DemoLine from "./instructorPayments";
 
 const InstructorMainDashboard = () => {
   return (

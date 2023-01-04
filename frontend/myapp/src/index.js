@@ -146,6 +146,7 @@ export default function MainApp() {
           <Route path="/courses" element={<GetCoursesByPrice />} />
           <Route path="/adminCreateAdmin" element={<CreateUserWrapper />} />
           <Route path="/createCourse" element={<WrapperCreateCourses />} />
+          <Route path="/aboutTeam" element={<AboutWrapper />} />
           <Route
             path="/getAllInstructorCourses"
             element={<GetAllInstructorCoursesWrapper />}

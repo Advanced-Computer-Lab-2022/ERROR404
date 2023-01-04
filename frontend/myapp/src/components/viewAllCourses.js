@@ -58,11 +58,7 @@ const ViewAllCourses = () => {
     console.log(event);
   };
 
-  return (
-    <>
-      <CourseComponent courses={data} viewType="view" />
-    </>
-  );
+  return <CourseComponent courses={data} viewType="view" />;
 };
 
 export default ViewAllCoursesWrapper;

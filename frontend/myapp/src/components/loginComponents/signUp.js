@@ -330,7 +330,7 @@ const WrapperSignUp = ({ values }) => {
     <>
       <Drawer
         title="Create a new account"
-        width={720}
+        width="40vw"
         onClose={onClose}
         open={open}
         bodyStyle={{

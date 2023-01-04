@@ -281,7 +281,9 @@ const MainHeader = ({ values }) => {
         flexDirection: "row",
         gap: "20px",
         minHeight: "10vh",
+        justifyContent: "space-between",
         alignItems: "center",
+        // backgroundColor: "pink",
       }}
     >
       <Link
@@ -301,12 +303,18 @@ const MainHeader = ({ values }) => {
           height="100%"
         />
       </Link>
-      <SearchByForm />
+      {/* <SearchByForm /> */}
       <Menu
         theme="dark"
         mode="horizontal"
         items={items}
-        style={{ width: "100%" }}
+        style={{
+          width: "100%",
+          // backgroundColor: "black",
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "flex-end",
+        }}
       />
       <Modal
         open={isModalOpen}

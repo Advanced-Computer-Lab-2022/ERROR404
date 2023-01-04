@@ -61,11 +61,11 @@ const HomePage = () => {
             </Link>
           </Button>
         </div>
-        <img
+        {/* <img
           src="https://d3njjcbhbojbot.cloudfront.net/api/utilities/v1/imageproxy/https://images.ctfassets.net/wp1lcwdav1p1/5CFC8u8XiXcbSOlVv6JZQx/4e6f898f57f9d798437b3aa22026e30b/CourseraLearners_C_Composition_Hillary_copy__3_.png?auto=format%2Ccompress&amp;dpr=1&amp;w=459&amp;h=497&amp;q=40"
           class="css-12519x1"
           alt=""
-        ></img>
+        ></img> */}
         <img
           class="non-student-cta--non-student-cta-image--7Y7Ul non-student-cta--on-desktop--2bk9D"
           data-purpose="desktop-non-student-cta-image"

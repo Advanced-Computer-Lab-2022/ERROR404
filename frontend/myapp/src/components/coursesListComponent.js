@@ -26,6 +26,8 @@ import SubmitDiscount from "./instructorComponents/instructorSubmitDiscount";
 import CreateRequestWrapper from "./corporateCreateRequest";
 import SearchByForm from "./getCourses";
 import TopCourses from "./topCourses";
+import SearchBar from "./search";
+import { height } from "@mui/system";
 const { Panel } = Collapse;
 const IconText = ({ icon, text }) => (
   <Space>
@@ -204,15 +206,18 @@ const CourseComponent = ({ courses, viewType }) => {
         }}
       >
         <TopCourses />
-
-        <hr
+        <br />
+        <div
           style={{
-            border: "solid 1px black",
-            width: "96%",
-            color: "#FFFF00",
-            height: "1px",
+            display: "flex",
+            width: "100%",
+            justifyContent: "center",
+            alignItems: "center",
+            gap: "10px",
           }}
-        />
+        >
+          <SearchBar />
+        </div>
 
         <List
           itemLayout="vertical"
