@@ -12,6 +12,7 @@ import {
   Tooltip,
   Radio,
   Select,
+  Popover,
 } from "antd";
 import { useNavigate } from "react-router-dom";
 import { CaretRightOutlined, SearchOutlined } from "@ant-design/icons";
@@ -47,6 +48,7 @@ const SearchByForm = ({ values }) => {
   const change = async (value) => {
     setMax(value[1]);
     setMin(value[0]);
+    navigate(`/filter?filterType=price&min=${value[0]}&max=${value[1]}`);
   };
   const onChange = (e) => {
     console.log(e.target.value);
@@ -54,12 +56,11 @@ const SearchByForm = ({ values }) => {
     navigate(`/filter?filterType=rate&min=${e.target.value}&max=5`);
   };
 
-  const price = () => {
-    navigate(`/filter?filterType=price&min=${min}&max=${max}`);
+  const category = (e) => {
+    setValue(e.target.value);
+    navigate("/filter?filterType=category&category=" + e.target.value);
   };
-  const category = () => {
-    navigate("/filter?filterType=category&category=" + value);
-  };
+
   return (
     <div>
       <h1 style={{ color: "black" }}>Filter By</h1>
@@ -85,42 +86,50 @@ const SearchByForm = ({ values }) => {
             <Form.Item name="rating">
               <Radio.Group onChange={onChange} value={value}>
                 <Space direction="vertical">
-                  <Radio value={4.5}>
-                    <Rate
-                      disabled
-                      name="Rate"
-                      precision={0.5}
-                      defaultValue={4.5}
-                      allowHalf
-                    ></Rate>
-                  </Radio>
-                  <Radio value={4}>
-                    <Rate
-                      disabled
-                      name="Rate"
-                      precision={0.5}
-                      defaultValue={4}
-                      allowHalf
-                    ></Rate>
-                  </Radio>
-                  <Radio value={3.5}>
-                    <Rate
-                      disabled
-                      name="Rate"
-                      precision={0.5}
-                      defaultValue={3.5}
-                      allowHalf
-                    ></Rate>
-                  </Radio>
-                  <Radio value={3}>
-                    <Rate
-                      disabled
-                      name="Rate"
-                      precision={0.5}
-                      defaultValue={3}
-                      allowHalf
-                    ></Rate>
-                  </Radio>
+                  <Popover placement="right" content="4.5 and above">
+                    <Radio value={4.5}>
+                      <Rate
+                        disabled
+                        name="Rate"
+                        precision={0.5}
+                        defaultValue={4.5}
+                        allowHalf
+                      ></Rate>
+                    </Radio>
+                  </Popover>
+                  <Popover placement="right" content="4 and above">
+                    <Radio value={4}>
+                      <Rate
+                        disabled
+                        name="Rate"
+                        precision={0.5}
+                        defaultValue={4}
+                        allowHalf
+                      ></Rate>
+                    </Radio>
+                  </Popover>
+                  <Popover placement="right" content="3.5 and above">
+                    <Radio value={3.5}>
+                      <Rate
+                        disabled
+                        name="Rate"
+                        precision={0.5}
+                        defaultValue={3.5}
+                        allowHalf
+                      ></Rate>
+                    </Radio>
+                  </Popover>
+                  <Popover placement="right" content="3 and above">
+                    <Radio value={3}>
+                      <Rate
+                        disabled
+                        name="Rate"
+                        precision={0.5}
+                        defaultValue={3}
+                        allowHalf
+                      ></Rate>
+                    </Radio>
+                  </Popover>
                 </Space>
               </Radio.Group>
             </Form.Item>
@@ -136,7 +145,7 @@ const SearchByForm = ({ values }) => {
             flexDirection: "column",
           }}
         >
-          <Form onFinish={price}>
+          <Form>
             <Form.Item name="price">
               <Tooltip>
                 <Button
@@ -164,18 +173,6 @@ const SearchByForm = ({ values }) => {
                 max={5000}
               />
             </Form.Item>
-            <br />
-            <Form.Item>
-              <Tooltip>
-                <Button
-                  type="primary"
-                  shape="circle"
-                  icon={<SearchOutlined />}
-                  style={{ alignSelf: "center" }}
-                  htmlType="submit"
-                ></Button>
-              </Tooltip>
-            </Form.Item>
           </Form>
         </Panel>
         <Panel
@@ -183,7 +180,7 @@ const SearchByForm = ({ values }) => {
           key="3"
           className="site-collapse-custom-panel"
         >
-          <Form onFinish={category}>
+          <Form>
             <Form.Item>
               <List
                 itemLayout="horizontal"
@@ -191,7 +188,7 @@ const SearchByForm = ({ values }) => {
                 renderItem={(item) => (
                   <List.Item>
                     <Radio.Group
-                      onChange={onChange}
+                      onChange={category}
                       value={value}
                       name="radioCategory"
                     >
@@ -202,15 +199,6 @@ const SearchByForm = ({ values }) => {
                   </List.Item>
                 )}
               />
-              <Tooltip>
-                <Button
-                  type="primary"
-                  shape="circle"
-                  htmlType="submit"
-                  icon={<SearchOutlined />}
-                  style={{ alignSelf: "center" }}
-                ></Button>
-              </Tooltip>
             </Form.Item>
           </Form>
         </Panel>
