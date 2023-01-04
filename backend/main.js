@@ -57,7 +57,6 @@ const {
   getAllRequests,
   updateRequestStatus,
   instructorFilterCourses,
-  instructorFilterByPrice,
   traineebalance,
   getAllSubtitles,
   login,
@@ -72,6 +71,8 @@ const {
   getRefundRequestsByCourseIdUsername,
   putGrades,
   addToIndivisualTraineeWallet,
+  instructorFilterByCategory,
+  instructorfilterByPriceOrRate,
 } = require("./routes/routes");
 
 //App variables
@@ -118,12 +119,16 @@ app.get("/filterByPriceOrRate/:type/:min/:max", filterByPriceOrRate);
 app.get("/getMyBalance/:username", traineebalance);
 app.get("/getAllSubtitles/:id", getAllSubtitles);
 app.get(
-  "/instructorFilterByPrice/:username/:min/:max",
-  instructorFilterByPrice
+  "/instructorfilterByPriceOrRate/:username/:type/:min/:max",
+  instructorfilterByPriceOrRate
 );
 app.get(
   "/instructorFilterCourses/:username/:filterType/:key",
   instructorFilterCourses
+);
+app.get(
+  "/instructorFilterByCategory/:username/:category",
+  instructorFilterByCategory
 );
 //app.get("/getChats/:username/:usertype", getChats);
 app.get("/filterByCategory/:category", filterByCategory);

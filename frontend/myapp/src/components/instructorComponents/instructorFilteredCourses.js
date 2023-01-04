@@ -11,33 +11,24 @@ import InstructorDashboard from "./InstructorDashboard";
 
 const InstructorFilteredCourses = () => {
   const { username } = useContext(AppContext);
-  const [userName, setUserName] = username;
-  const [data, setData] = useState([]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [, setIsModalOpen] = useState(false);
   const [courses, setCourses] = useState([]);
+  const [userName, setusername] = username;
   let location = useLocation();
 
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
-  const handleOk = () => {
-    setIsModalOpen(false);
-  };
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
   useEffect(() => {
-    setIsModalOpen(false);
     const idSearch = window.location.search;
     const urlParams = new URLSearchParams(idSearch);
     const filterType = urlParams.get("filterType");
-    if (filterType == "price") {
+    if (filterType === "price") {
       const min = urlParams.get("min");
       const max = urlParams.get("max");
       axios
         .get(
-          "http://localhost:2020/InstructorFilterByPrice/" +
+          "http://localhost:2020/instructorfilterByPriceOrRate/" +
             userName +
+            "/" +
+            filterType +
             "/" +
             min +
             "/" +
@@ -50,11 +41,47 @@ const InstructorFilteredCourses = () => {
           console.log("erorr ", error.message);
           setCourses([]);
         });
+    } else if (filterType === "rate") {
+      let min = urlParams.get("min");
+      axios
+        .get(
+          "http://localhost:2020/instructorfilterByPriceOrRate/" +
+            userName +
+            "/" +
+            "rate" +
+            "/" +
+            min +
+            "/" +
+            5
+        )
+        .then((response) => {
+          setCourses(response.data);
+        })
+        .catch((error) => {
+          console.log("erorr ", error.message);
+          setCourses([]);
+        });
+    } else if (filterType === "category") {
+      const category = urlParams.get("category");
+      axios
+        .get(
+          "http://localhost:2020/instructorfilterByCategory/" +
+            userName +
+            "/" +
+            category
+        )
+        .then((response) => {
+          setCourses(response.data);
+        })
+        .catch((error) => {
+          console.log("erorr ", error.message);
+          setCourses([]);
+        });
     } else {
       const value = urlParams.get("value");
       axios
         .get(
-          "http://localhost:2020/instructorFilterCourses/" +
+          "http://localhost:2020/instructorfilter/" +
             userName +
             "/" +
             filterType +
@@ -73,22 +100,6 @@ const InstructorFilteredCourses = () => {
 
   return (
     <InstructorDashboard>
-      <Tooltip title="search">
-        <Button
-          type="primary"
-          shape="circle"
-          icon={<FilterOutlined />}
-          onClick={showModal}
-        />
-      </Tooltip>
-      <Modal
-        title="Filter"
-        open={isModalOpen}
-        onOk={handleOk}
-        onCancel={handleCancel}
-      >
-        <SearchByForm />
-      </Modal>
       <CourseComponent courses={courses} viewType={"instructor"} />
     </InstructorDashboard>
   );

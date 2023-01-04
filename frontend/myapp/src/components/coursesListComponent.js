@@ -28,6 +28,7 @@ import SearchByForm from "./getCourses";
 import TopCourses from "./topCourses";
 import SearchBar from "./search";
 import { height } from "@mui/system";
+import InstructorFilterCourses from "./instructorComponents/instructorFilterCourses";
 const { Panel } = Collapse;
 const IconText = ({ icon, text }) => (
   <Space>
@@ -195,7 +196,11 @@ const CourseComponent = ({ courses, viewType }) => {
           height: "100vh",
         }}
       >
-        <SearchByForm />
+        {user == "instructor" && viewType == "instructor" ? (
+          <InstructorFilterCourses />
+        ) : (
+          <SearchByForm />
+        )}
       </div>
       <div
         style={{
