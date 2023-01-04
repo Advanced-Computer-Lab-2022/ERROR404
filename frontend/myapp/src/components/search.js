@@ -52,6 +52,14 @@ const SearchBar = () => {
           width: "60%",
         }}
       />{" "}
+      <Button
+        type="link"
+        onClick={() => {
+          navigate("/viewAllCourses");
+        }}
+      >
+        clear search
+      </Button>
     </>
   );
 };
