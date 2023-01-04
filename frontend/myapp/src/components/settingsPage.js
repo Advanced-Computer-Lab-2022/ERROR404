@@ -333,7 +333,7 @@ const PersonalInformationTab = () => {
                   {formDisabled == false ? (
                     <Button
                       type="primary"
-                      style={{ width: "20%" }}
+                      style={{ width: "40%" }}
                       onClick={handleSubmit}
                     >
                       Save Changes
@@ -341,13 +341,6 @@ const PersonalInformationTab = () => {
                   ) : null}
                 </div>
               </div>
-              <Space>
-                {user == "individual" ? (
-                  <Link to="/insertCard">
-                    <Button type="primary">Insert Credit Card</Button>
-                  </Link>
-                ) : null}
-              </Space>
             </div>
           ),
         },

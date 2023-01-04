@@ -517,7 +517,7 @@ const WrapperSignUp = ({ values }) => {
               </Form.Item>
 
               <Form.Item label="Age" name="age">
-                <InputNumber style={{ width: "100%" }} />
+                <InputNumber style={{ width: "100%" }} min={10} max={100} />
               </Form.Item>
             </Space>
             <Form.Item name="accept" style={{ alignSelf: "center" }}>
