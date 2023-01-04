@@ -46,16 +46,6 @@ const InstructorViewAllTitlesWrapper = () => {
   };
   return (
     <InstructorDashboard>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-between",
-        }}
-      >
-        <InstructorSearchBar data={values} />
-      </div>
-
       <CourseComponent courses={courses} viewType="instructor" />
     </InstructorDashboard>
   );
