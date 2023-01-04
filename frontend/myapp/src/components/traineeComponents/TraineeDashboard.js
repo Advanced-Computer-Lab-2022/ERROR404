@@ -143,7 +143,7 @@ const TraineeDashboard = ({ children, pageName }) => {
       <Content
         style={{
           padding: "0 50px",
-          height: "100vh",
+          height: "150vh",
         }}
       >
         <Breadcrumb
@@ -155,7 +155,7 @@ const TraineeDashboard = ({ children, pageName }) => {
             <Link to="/">Home</Link>
           </Breadcrumb.Item>
           <Breadcrumb.Item>
-            <Link to="/traineeDashboard">Dashboard</Link>
+            <Link to="/user/myPrograms">My Classroom</Link>
           </Breadcrumb.Item>
           <Breadcrumb.Item>{pageName}</Breadcrumb.Item>
         </Breadcrumb>

@@ -1,43 +1,24 @@
 import React, { useContext, useEffect, useState } from "react";
-import {
-  Badge,
-  Button,
-  Table,
-  Modal,
-  Form,
-  Input,
-  Descriptions,
-  Card,
-  Tabs,
-  Checkbox,
-  Select,
-  Popconfirm,
-  message,
-} from "antd";
+import { Badge, Button, Table, Modal, Form } from "antd";
 import axios from "axios";
-import { Link } from "react-router-dom";
-import AdminDashboard from "../adminComponents/adminDashboard";
-import TraineeDashboard from "../../pages/TraineeDashboard";
-import { AppContext } from "../../AppContext";
-import App from "../../App";
+import TraineeDashboard from "./TraineeDashboard";
 import InstructorDashboard from "../instructorComponents/InstructorDashboard";
-
-const { Option } = Select;
+import { AppContext } from "../../AppContext";
 
 const TraineeReportsWrapper = () => {
   const { userType } = useContext(AppContext);
   const [user, setUser] = userType;
 
-  if (user == "instructor") {
+  if (user === "instructor") {
     return (
       <InstructorDashboard pageName="Reports Follow up">
         <TraineeReports />
       </InstructorDashboard>
     );
-  } else if (user == "individual" || user == "corporate") {
+  } else if (user === "individual" || user === "corporate") {
     return (
-      <TraineeDashboard>
-        <TraineeReports />
+      <TraineeDashboard pageName="Reports Follow up">
+        <TraineeReports />{" "}
       </TraineeDashboard>
     );
   }
@@ -63,9 +44,9 @@ const TraineeReports = () => {
       dataIndex: "status",
       render: (status) => {
         let type = "default";
-        if (status == "resolved") {
+        if (status === "resolved") {
           type = "success";
-        } else if (status == "pending") {
+        } else if (status === "pending") {
           type = "processing";
         }
         return (
@@ -102,45 +83,7 @@ const TraineeReports = () => {
       title: "Last Update On",
       dataIndex: "updatedAt",
     },
-    // {
-    //   title: "View Report",
-    //   dataIndex: "_id",
-    //   render: (id) => {
-    //     return (
-    //       <Link
-    //         onClick={(event) => {
-    //           showModal(id);
-    //         }}
-    //       >
-    //         View
-    //       </Link>
-    //     );
-    //   },
-    // },
   ];
-
-  const onChange = (key) => {
-    console.log(key);
-  };
-
-  const onFinish = (values) => {
-    console.log("Success:", values);
-  };
-  const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
-  };
-
-  const showModal = (reportId) => {
-    let reports;
-    data.map((report) => {
-      if (report._id == reportId) {
-        console.log("ccccccccc ", report);
-        reports = report;
-        return;
-      }
-    });
-    console.log("the report => ", reports);
-  };
 
   const fetchData = () => {
     setLoading(true);
@@ -188,4 +131,5 @@ const TraineeReports = () => {
     </>
   );
 };
+
 export default TraineeReportsWrapper;

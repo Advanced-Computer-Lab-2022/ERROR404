@@ -42,6 +42,7 @@ const TraineePrograms = ({ courses }) => {
   const openReviewInstructor = (user) => {
     const modal = Modal.info();
     modal.update({
+      title: "Review Instructor",
       content: <ReviewComponent username={user} />,
     });
   };
@@ -49,7 +50,7 @@ const TraineePrograms = ({ courses }) => {
     const modal = Modal.info();
 
     modal.update({
-      title: "Rate course " + title,
+      title: "Review course " + title,
       content: <ReviewCourseComponent Id={id} title={title} />,
     });
   };
