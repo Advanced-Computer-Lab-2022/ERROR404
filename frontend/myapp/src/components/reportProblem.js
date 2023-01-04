@@ -7,10 +7,12 @@ import {
   DatabaseOutlined,
   DownOutlined,
 } from "@ant-design/icons";
-import { Button, Space, message, Form, Dropdown } from "antd";
+import { Button, Space, message, Form, Dropdown, Select } from "antd";
 import { useState } from "react";
 import { Input } from "antd";
 import { AppContext } from "../AppContext";
+import e from "cors";
+import { color } from "@mui/system";
 const { TextArea } = Input;
 const ReportaProblemWrapper = () => {
   const [value, setValue] = useState("");
@@ -25,26 +27,6 @@ const ReportaProblemWrapper = () => {
     setDescription(event.target.value);
   };
 
-  const items = [
-    {
-      label: "technical",
-      key: "technical",
-    },
-    {
-      label: "financial",
-      key: "financial",
-    },
-    {
-      label: "other",
-      key: "other",
-    },
-  ];
-
-  const onClick = ({ key }) => {
-    message.info(`Report Type have been set to ${key}`);
-    console.log(key);
-    setReportType(key);
-  };
   const report = () => {
     let body = {
       username: UserName,
@@ -70,15 +52,22 @@ const ReportaProblemWrapper = () => {
         style={{
           display: "flex",
           flexDirection: "column",
-          justifyContent: "left",
-          justifycontent: "Spacebetween",
-          alignItems: "stretch",
           fontSize: "20px",
           gap: "40%",
           fontweight: "bold",
+          textAlign: "center",
         }}
       >
-        <h2>How to make a good report</h2>
+        <h2
+          style={{
+            alignContent: "center",
+            alignItems: "center",
+            justifyContent: "center",
+            justifyItems: "center",
+          }}
+        >
+          How to make a good report
+        </h2>
         <br />
         <div
           style={{
@@ -121,31 +110,39 @@ const ReportaProblemWrapper = () => {
         </div>
         <div>
           <br />
-          <h3>Please provide your report type</h3>
-          <Dropdown
-            menu={{
-              items,
-              onClick,
-            }}
-          >
-            <a onClick={(e) => e.preventDefault()}>
-              <Space>
-                ReportType
-                <DownOutlined />
-              </Space>
-            </a>
-          </Dropdown>
+
           <div
             style={{
               margin: "24px 0",
+              width: "100%",
             }}
           />
-          <h3>Description *</h3>
+
           <>
-            <Form>
-              <Form.Item>
+            <Form
+              style={{
+                width: "50%",
+                alignItems: "center",
+                justifyItems: "center",
+              }}
+            >
+              <Form.Item
+                label="Description"
+                name="description"
+                rules={[
+                  {
+                    required: true,
+                  },
+                ]}
+                style={{ alignItems: "center", justifyItems: "center" }}
+              >
                 <Input.TextArea
                   onChange={handleChange}
+                  rows={5}
+                  style={{
+                    fontStyle: "bolder",
+                    fontSize: "20px",
+                  }}
                   placeholder="To increase our ability to provide a fix, please thoroughly explain the issue and add clear reproduction steps"
                 />
               </Form.Item>
@@ -163,7 +160,6 @@ const ReportaProblemWrapper = () => {
             >
               Submit{" "}
             </Button>
-            <Button type="primary">Cancel</Button>
           </Space>
         </div>
       </div>
