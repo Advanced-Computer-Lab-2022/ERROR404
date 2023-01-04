@@ -51,10 +51,9 @@ const SearchByForm = ({ values }) => {
   const onChange = (e) => {
     console.log(e.target.value);
     setValue(e.target.value);
+    navigate(`/filter?filterType=rate&min=${e.target.value}&max=5`);
   };
-  const rating = (event) => {
-    navigate(`/filter?filterType=rate&min=${event.rating}&max=5`);
-  };
+
   const price = () => {
     navigate(`/filter?filterType=price&min=${min}&max=${max}`);
   };
@@ -82,7 +81,6 @@ const SearchByForm = ({ values }) => {
               alignContent: "flex-start",
               gap: "10%",
             }}
-            onFinish={rating}
           >
             <Form.Item name="rating">
               <Radio.Group onChange={onChange} value={value}>
@@ -126,15 +124,6 @@ const SearchByForm = ({ values }) => {
                 </Space>
               </Radio.Group>
             </Form.Item>
-            <Tooltip>
-              <Button
-                type="primary"
-                htmlType="submit"
-                shape="circle"
-                icon={<SearchOutlined />}
-                style={{ alignSelf: "center" }}
-              ></Button>
-            </Tooltip>
           </Form>
         </Panel>
 
@@ -145,7 +134,6 @@ const SearchByForm = ({ values }) => {
           style={{
             display: "flex",
             flexDirection: "column",
-            height: "5%",
           }}
         >
           <Form onFinish={price}>

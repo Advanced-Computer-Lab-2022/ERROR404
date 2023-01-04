@@ -51,18 +51,6 @@ const DemoPie = () => {
     ],
   };
 
-  const lconfig = {
-    percent: unseen / 100,
-    shape: "rect",
-    outline: {
-      border: 2,
-      distance: 4,
-    },
-    wave: {
-      length: 128,
-    },
-  };
-
   useEffect(() => {
     axios.get("http://localhost:2020/getAllReports").then((results) => {
       const reports = results.data;
