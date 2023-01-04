@@ -65,9 +65,9 @@ const AdminReports = () => {
       dataIndex: "status",
       render: (status) => {
         let type = "default";
-        if (status == "resolved") {
+        if (status === "resolved") {
           type = "success";
-        } else if (status == "pending") {
+        } else if (status === "pending") {
           type = "processing";
         }
         return (
@@ -242,12 +242,20 @@ const AdminReports = () => {
                       children: (
                         <Card>
                           <Descriptions title="User Info">
-                            <Descriptions.Item label="Username">
+                            <Descriptions.Item
+                              label="Username"
+                              style={{ width: "50%" }}
+                            >
                               {data.username}
                             </Descriptions.Item>
-                            <Descriptions.Item label="Email">
+
+                            <Descriptions.Item
+                              label="Email"
+                              style={{ width: "50%" }}
+                            >
                               {data.email}
                             </Descriptions.Item>
+                            <br />
                             <Descriptions.Item label="Role">
                               {data.role}
                             </Descriptions.Item>
