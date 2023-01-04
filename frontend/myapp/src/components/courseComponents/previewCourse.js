@@ -143,9 +143,8 @@ const PreviewCourseWrapper = () => {
                 <Button type="primary">
                   <Link to={"/pay?courseId=" + courseData._id}>Buy Now</Link>
                 </Button>
-              ) : (
-                <CreateRequestWrapper />
-              )}
+              ) : null}
+              {user == "corporate" ? <CreateRequestWrapper /> : null}
             </div>
             <div className="course info">
               <h3>This course includes:</h3>
@@ -160,7 +159,7 @@ const PreviewCourseWrapper = () => {
                 <li>Certificate of completion</li>
               </ul>
             </div>
-            <Collapse ghost defaultActiveKey={1}>
+            <Collapse ghost>
               <Panel header="Subtitles" key="1">
                 <List
                   itemLayout="horizontal"
