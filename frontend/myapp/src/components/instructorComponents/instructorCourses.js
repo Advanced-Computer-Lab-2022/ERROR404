@@ -53,22 +53,6 @@ const InstructorViewAllTitlesWrapper = () => {
           justifyContent: "space-between",
         }}
       >
-        <Tooltip title="Filter">
-          <Button
-            type="primary"
-            shape="round"
-            icon={<FilterOutlined />}
-            onClick={showModal}
-          />
-        </Tooltip>
-        <Modal
-          title="Basic Modal"
-          open={isModalOpen}
-          onOk={handleOk}
-          onCancel={handleCancel}
-        >
-          <InstructorFilter />
-        </Modal>
         <InstructorSearchBar data={values} />
       </div>
 

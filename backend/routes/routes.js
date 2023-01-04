@@ -1508,7 +1508,7 @@ const instructorFilterCourses = async (req, res) => {
     res.status(404).send("enter a filter type");
   } else {
     courses
-      .find({ username: username })
+      .find({ instructor: username })
       .where(filterType, key)
       .exec((err, result) => {
         if (err) {
@@ -1519,25 +1519,51 @@ const instructorFilterCourses = async (req, res) => {
       });
   }
 };
-const instructorFilterByPrice = async (req, res) => {
-  const { username, min, max } = req.params;
-  console.log(req.params);
-  courses.find(
-    {
-      username: username,
-      $and: [{ price: { $lte: max } }, { price: { $gte: min } }],
-    },
-    (err, result) => {
-      if (err) {
-        res.status(500).send();
-        console.log(err);
-      } else {
-        res.status(200).json(result);
-      }
-    }
-  );
-};
 
+const instructorFilterByCategory = async (req, res) => {
+  const username = req.params.username;
+  const category = req.params.category;
+  courses.find({ instructor: username, category: category }, (err, result) => {
+    if (err) {
+      res.status(500).send(err.message);
+    } else {
+      res.status(200).json(result);
+    }
+  });
+};
+const instructorfilterByPriceOrRate = async (req, res) => {
+  const { username, type, min, max } = req.params;
+  if (type == "price") {
+    courses.find(
+      {
+        instructor: username,
+        $and: [{ price: { $lte: max } }, { price: { $gte: min } }],
+      },
+      (err, result) => {
+        if (err) {
+          res.status(500).send();
+        } else {
+          res.status(200).json(result);
+        }
+      }
+    );
+  }
+  if (type == "rate") {
+    courses.find(
+      {
+        instructor: username,
+        $and: [{ rating: { $lte: max } }, { rating: { $gte: min } }],
+      },
+      (err, result) => {
+        if (err) {
+          res.status(500).send();
+        } else {
+          res.status(200).json(result);
+        }
+      }
+    );
+  }
+};
 const requestRefund = async (req, res) => {
   console.log("request " + req.body);
   const username = req.body.username;
@@ -1566,7 +1592,6 @@ const requestRefund = async (req, res) => {
     );
   }
 };
-
 const getRefundRequestsByCourseIdUsername = async (req, res) => {
   console.log(req.params);
   await refundRequests
@@ -1582,7 +1607,6 @@ const getRefundRequestsByCourseIdUsername = async (req, res) => {
     )
     .clone();
 };
-
 const addToIndivisualTraineeWallet = (req, res) => {
   const username = req.body.username;
   const refund = req.body.refund;
@@ -1599,7 +1623,6 @@ const addToIndivisualTraineeWallet = (req, res) => {
     }
   );
 };
-
 const getAllRefundRequests = async (req, res) => {
   await refundRequests
     .find({}, (err, data) => {
@@ -1613,7 +1636,6 @@ const getAllRefundRequests = async (req, res) => {
     })
     .clone();
 };
-
 const updateRefundRequestStatus = (req, res) => {
   const requestId = req.body.id;
   if (requestId == null || requestId.length == 0) {
@@ -1635,7 +1657,6 @@ const updateRefundRequestStatus = (req, res) => {
       .clone();
   }
 };
-
 const deleteCourse = async (req, res) => {
   console.log(req.body);
   const username = req.body.username;
@@ -1670,7 +1691,6 @@ const deleteCourse = async (req, res) => {
     )
     .clone();
 };
-
 const payfromBalance = async (req, res) => {
   const username = req.body.username;
   const courseId = req.body.courseId;
@@ -1730,7 +1750,6 @@ const setDiscountForAllCourses = async (req, res) => {
     )
     .clone();
 };
-
 const putGrades = async (req, res) => {
   const username = req.body.username;
   const usertype = req.body.usertype;
@@ -1828,7 +1847,8 @@ module.exports = {
   createCourseChat,
   updateCourseProgress,
   instructorFilterCourses,
-  instructorFilterByPrice,
+  instructorfilterByPriceOrRate,
+  instructorFilterByCategory,
   approveInstructor,
   filterByPriceOrRate,
   getAllSubtitles,

@@ -203,6 +203,10 @@ export default function MainApp() {
           <Route path="/terms" element={<Terms />} />
           <Route path="/ReportaProblem" element={<ReportaProblemWrapper />} />
           <Route path="/filter" element={<Filter />} />
+          <Route
+            path="/instructorFilter"
+            element={<InstructorFilteredCourses />}
+          />
           <Route path="/footer" element={<FooterWrapper />} />
           <Route path="/certificate" element={<CertificateWrapper />} />
           <Route path="/login" element={<LoginPageWrapper />} />

@@ -9,7 +9,6 @@ const Filter = () => {
   let location = useLocation();
 
   useEffect(() => {
-    setIsModalOpen(false);
     const idSearch = window.location.search;
     const urlParams = new URLSearchParams(idSearch);
     const filterType = urlParams.get("filterType");
