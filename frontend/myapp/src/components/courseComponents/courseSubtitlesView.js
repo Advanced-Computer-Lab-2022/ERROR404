@@ -7,6 +7,7 @@ import {
   message,
   Collapse,
   Breadcrumb,
+  Layout,
 } from "antd";
 import axios from "axios";
 import { useEffect, useState, useContext } from "react";
@@ -16,6 +17,11 @@ import TakeNotesWrapper from "../takeNotes";
 import TraineeDashboard from "../traineeComponents/TraineeDashboard";
 import TraineeInsideCourse from "../traineeComponents/traineeInsideCourse";
 import RequestRefund from "../traineeComponents/requestRefund";
+import { Card } from "antd";
+
+const { Meta } = Card;
+
+const { Header, Footer, Sider, Content } = Layout;
 
 const { Panel } = Collapse;
 const CoursePreview = () => {
@@ -30,6 +36,7 @@ const CoursePreview = () => {
   const [course, setCourse] = useState({});
 
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const idSearch = window.location.search;
@@ -109,121 +116,156 @@ const CoursePreview = () => {
     }
   };
 
+  function getItem(label, key, icon, children) {
+    return {
+      key,
+      icon,
+      children,
+      label,
+    };
+  }
+
+  const items = [
+    getItem(<TakeNotesWrapper />, "1"),
+    getItem(
+      <Button
+        type="link"
+        style={{
+          width: "200px",
+        }}
+        onClick={requestRefund}
+      >
+        Request Refund
+      </Button>,
+      "2"
+    ),
+
+    progress >= 100
+      ? getItem(
+          <Button
+            type="link"
+            style={{
+              width: "200px",
+            }}
+            onClick={() => {
+              navigate(
+                "/certificate?courseTitle=" + course.title + "&user=" + userName
+              );
+            }}
+          >
+            Certificate
+          </Button>,
+          "4"
+        )
+      : null,
+  ];
+
   return (
     <TraineeInsideCourse pageName="Course Preview">
-      <div>
-        <Progress percent={progress} />
-      </div>
-      <div
-        style={{
-          width: "100%",
-          height: "100vh",
-          display: "flex",
-          justifyContent: "flex-start",
-          alignItems: "center",
-          gap: "5%",
-        }}
-      >
-        <div
+      <Layout>
+        <Header
           style={{
-            width: "100%",
-            height: "100%",
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "flex-start",
+            backgroundColor: "white",
           }}
         >
-          <div
-            style={{
-              width: "20%",
-              height: "50%",
-            }}
-          >
-            <TakeNotesWrapper />
-            {progress >= 100 ? (
-              <Button
-                type="primary"
+          <Menu theme="light" mode="horizontal" items={items} />
+        </Header>
+        <Layout>
+          <Content>
+            <div>
+              <Progress percent={progress == null ? 0 : progress} />
+            </div>
+            <div
+              style={{
+                width: "100%",
+                height: "100vh",
+                display: "flex",
+                justifyContent: "flex-start",
+                alignItems: "center",
+                gap: "5%",
+              }}
+            >
+              <div
                 style={{
-                  width: "200px",
+                  width: "100%",
+                  height: "100%",
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "flex-start",
                 }}
               >
-                <Link
-                  to={
-                    "/certificate?courseTitle=" +
-                    course.title +
-                    "&user=" +
-                    userName
-                  }
+                <div
+                  style={{
+                    width: "20%",
+                    height: "50%",
+                  }}
                 >
-                  Certificate
-                </Link>
-              </Button>
-            ) : null}
-            <Button
-              type="primary"
-              style={{
-                width: "200px",
-              }}
-              onClick={requestRefund}
-            >
-              Request Refund
-            </Button>
-            <Collapse ghost defaultActiveKey="1">
-              <Panel header="Course Subtitles" key="1">
-                <List
-                  itemLayout="horizontal"
-                  dataSource={subtitles}
-                  renderItem={(item, index) => (
-                    <List.Item>
-                      <Link
-                        to={
-                          "/trainee/course/subtitle?subtitle=" +
-                          item.subtitle +
-                          "&description=" +
-                          item.description +
-                          "&video=" +
-                          item.video +
-                          "&courseId=" +
-                          courseId +
-                          "&courseTitle=" +
-                          course.title
-                        }
-                      >
-                        {item.subtitle}
-                      </Link>
-                    </List.Item>
-                  )}
-                />
-              </Panel>
-            </Collapse>
-          </div>
-          <div
-            style={{
-              width: "90%",
-              height: "100%",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "flex-start",
-              alignItems: "center",
-              gap: "5%",
-            }}
-          >
-            <iframe
-              style={{
-                marginLeft: 150,
-                marginTop: 10,
-              }}
-              width="70%"
-              height="50%"
-              src={video}
-              title="YouTube video player"
-              frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen
-            ></iframe>
-          </div>
-        </div>
-      </div>
+                  <Collapse ghost defaultActiveKey="1">
+                    <Panel header="Course Subtitles" key="1">
+                      <List
+                        itemLayout="horizontal"
+                        dataSource={subtitles}
+                        renderItem={(item, index) => (
+                          <List.Item>
+                            <Link
+                              to={
+                                "/trainee/course/subtitle?subtitle=" +
+                                item.subtitle +
+                                "&description=" +
+                                item.description +
+                                "&video=" +
+                                item.video +
+                                "&courseId=" +
+                                courseId +
+                                "&courseTitle=" +
+                                course.title
+                              }
+                            >
+                              {item.subtitle}
+                            </Link>
+                          </List.Item>
+                        )}
+                      />
+                    </Panel>
+                  </Collapse>
+                </div>
+                <div
+                  style={{
+                    width: "90%",
+                    height: "100%",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "flex-start",
+                    alignItems: "center",
+                    gap: "5%",
+                  }}
+                >
+                  <Card
+                    style={{
+                      boxSizing: "border-box",
+                      padding: "20px",
+                      width: "100%",
+                    }}
+                    hoverable
+                    // style={{ width: 240 }}
+                    cover={
+                      <iframe
+                        width="850"
+                        height="500"
+                        src={video}
+                        title="YouTube video player"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen
+                      ></iframe>
+                    }
+                  ></Card>
+                </div>
+              </div>
+            </div>
+          </Content>
+        </Layout>
+      </Layout>
     </TraineeInsideCourse>
   );
 };
@@ -240,6 +282,8 @@ const CourseSubtitleViewWrapper = () => {
   const [usertype, setUserType] = userType;
   const [courseTitle, setCourseTitle] = useState("");
   const location = useLocation();
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const idSearch = window.location.search;
@@ -323,6 +367,50 @@ const CourseSubtitleViewWrapper = () => {
     }
   };
 
+  function getItem(label, key, icon, children) {
+    return {
+      key,
+      icon,
+      children,
+      label,
+    };
+  }
+
+  const items = [
+    getItem(<TakeNotesWrapper />, "1"),
+    getItem(
+      <Button
+        style={{ width: "200px" }}
+        type="link"
+        onClick={() => {
+          navigate("/trainee/takequiz?courseId=" + courseId);
+        }}
+      >
+        Take Quiz
+      </Button>,
+      "2"
+    ),
+
+    progress >= 100
+      ? getItem(
+          <Button
+            type="link"
+            style={{
+              width: "200px",
+            }}
+            onClick={() => {
+              navigate(
+                "/certificate?courseTitle=" + courseTitle + "&user=" + userName
+              );
+            }}
+          >
+            Certificate
+          </Button>,
+          "4"
+        )
+      : null,
+  ];
+
   return (
     <TraineeInsideCourse
       pageName={subtitle}
@@ -339,75 +427,18 @@ const CourseSubtitleViewWrapper = () => {
         </>
       }
     >
-      <div>
-        <Progress percent={progress} />
-      </div>
-      <div
-        style={{
-          width: "100%",
-          height: "100vh",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "flex-start",
-          alignItems: "center",
-          gap: "5%",
-        }}
-      >
-        <div
-          style={{
-            width: "100%",
-            height: "100%",
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "flex-start",
-          }}
-        >
-          <div
-            style={{
-              width: "25%",
-              height: "50%",
-            }}
-          >
-            <TakeNotesWrapper />
-            <br />
-            <Button style={{ width: "200px" }}>
-              <Link to={"/trainee/takequiz?courseId=" + courseId}>
-                Take Quiz
-              </Link>
-            </Button>
-            <Collapse ghost defaultActiveKey={"1"}>
-              <Panel header="Course Subtitles" key="1">
-                <List
-                  itemLayout="horizontal"
-                  dataSource={subtitles}
-                  renderItem={(item) => (
-                    <List.Item>
-                      <Link
-                        to={
-                          "/trainee/course/subtitle?subtitle=" +
-                          item.subtitle +
-                          "&description=" +
-                          item.description +
-                          "&video=" +
-                          item.video +
-                          "&courseId=" +
-                          courseId +
-                          "&courseTitle=" +
-                          courseTitle
-                        }
-                      >
-                        {item.subtitle}
-                      </Link>
-                    </List.Item>
-                  )}
-                />
-              </Panel>
-            </Collapse>
+      <Layout>
+        <Header style={{ backgroundColor: "white" }}>
+          <Menu theme="light" mode="horizontal" items={items} />
+        </Header>
+        <Content>
+          <div>
+            <Progress percent={progress == null ? 0 : progress} />
           </div>
           <div
             style={{
-              width: "90%",
-              height: "100%",
+              width: "100%",
+              height: "100vh",
               display: "flex",
               flexDirection: "column",
               justifyContent: "flex-start",
@@ -415,36 +446,98 @@ const CourseSubtitleViewWrapper = () => {
               gap: "5%",
             }}
           >
-            <iframe
-              style={{
-                marginLeft: 150,
-                marginTop: 10,
-              }}
-              width="70%"
-              height="50%"
-              src={video}
-              title="YouTube video player"
-              frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen
-            ></iframe>
-
             <div
               style={{
-                height: "20%",
                 width: "100%",
-                backgroundColor: "white",
-                border: "1px solid black",
-                fontSize: "24px",
-                overflow: "scroll",
+                height: "100%",
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "flex-start",
+                boxSizing: "border-box",
+                padding: "3%",
               }}
             >
-              <h1>Summary :</h1>
-              {description}
+              <div
+                style={{
+                  width: "25%",
+                  height: "50%",
+                }}
+              >
+                <Collapse ghost defaultActiveKey={"1"}>
+                  <Panel header="Course Subtitles" key="1">
+                    <List
+                      itemLayout="horizontal"
+                      dataSource={subtitles}
+                      renderItem={(item) => (
+                        <List.Item>
+                          <Link
+                            to={
+                              "/trainee/course/subtitle?subtitle=" +
+                              item.subtitle +
+                              "&description=" +
+                              item.description +
+                              "&video=" +
+                              item.video +
+                              "&courseId=" +
+                              courseId +
+                              "&courseTitle=" +
+                              courseTitle
+                            }
+                          >
+                            {item.subtitle}
+                          </Link>
+                        </List.Item>
+                      )}
+                    />
+                  </Panel>
+                </Collapse>
+              </div>
+              <div
+                style={{
+                  width: "90%",
+                  height: "100%",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "flex-start",
+                  alignItems: "center",
+                  gap: "5%",
+                }}
+              >
+                <Card
+                  style={{
+                    boxSizing: "border-box",
+                    padding: "20px",
+                    width: "100%",
+                  }}
+                  hoverable
+                  // style={{ width: 240 }}
+                  cover={
+                    <iframe
+                      width="850"
+                      height="500"
+                      src={video}
+                      title="YouTube video player"
+                      frameborder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowfullscreen
+                    ></iframe>
+                  }
+                >
+                  <Meta title={courseTitle} />
+                  <div
+                    style={{
+                      height: "300px",
+                      overflow: "scroll",
+                    }}
+                  >
+                    {description}
+                  </div>
+                </Card>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
+        </Content>
+      </Layout>
     </TraineeInsideCourse>
   );
 };

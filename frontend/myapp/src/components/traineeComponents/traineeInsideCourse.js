@@ -9,6 +9,7 @@ import {
   DislikeOutlined,
   LikeOutlined,
   UsergroupDeleteOutlined,
+  LogoutOutlined,
 } from "@ant-design/icons";
 import ReviewsIcon from "@mui/icons-material/Reviews";
 import PreviewIcon from "@mui/icons-material/Preview";
@@ -18,7 +19,7 @@ import ViewWeekIcon from "@mui/icons-material/ViewWeek";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import GradeIcon from "@mui/icons-material/Grade";
 import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
-import { Breadcrumb, Button, Layout, Menu, Rate } from "antd";
+import { Breadcrumb, Button, Layout, Menu, Rate, Avatar } from "antd";
 import { Link } from "react-router-dom";
 import FooterWrapper from "../footer";
 import { AppContext } from "../../AppContext";
@@ -47,20 +48,6 @@ const TraineeInsideCourse = ({ children, courseId, courseName }) => {
       "1",
       <HomeOutlined />
     ),
-    getItem(
-      <Link className="link" to={`/course/about?courseId=${courseId}`}>
-        Course Overview
-      </Link>,
-      "2",
-      <PreviewIcon />
-    ),
-    getItem(
-      <Link className="link" to={`/course/syllabus?courseId=${courseId}`}>
-        Syllabus
-      </Link>,
-      "3",
-      <ViewTimelineIcon />
-    ),
 
     getItem(
       <Link className="link" to={`/course/reviews?courseId=${courseId}`}>
@@ -76,11 +63,7 @@ const TraineeInsideCourse = ({ children, courseId, courseName }) => {
       "6",
       <ShoppingCartIcon />
     ),
-    getItem(
-      <Link to="/traineeDashboard">My Dashboard</Link>,
-      "13",
-      <DashboardIcon />
-    ),
+
     getItem(
       <Link to="/traineeDashboard">My Balance</Link>,
       "17",
@@ -91,28 +74,29 @@ const TraineeInsideCourse = ({ children, courseId, courseName }) => {
       "18",
       <GradeIcon />
     ),
-    getItem(<Link to="/settings">Settings</Link>, "15", <SettingFilled />),
-
-    {
-      label: (
-        <Link className="link" to="/user/myPrograms">
-          <Button ghost>My Programs</Button>
-        </Link>
+    getItem(<Avatar size="medium" icon={<UserOutlined />} />, "user", <></>, [
+      getItem(<span>{userName}</span>, "4", <UserOutlined />),
+      getItem(
+        <Link className="link" to="/settings">
+          Settings
+        </Link>,
+        "3",
+        <SettingFilled />
       ),
-      key: "myClassroom",
-    },
-    getItem(
-      <Link
-        to="/"
-        onClick={() => {
-          logout();
-        }}
-      >
-        Log Out
-      </Link>,
-      "3",
-      <LoginOutlined />
-    ),
+      getItem(
+        <Link
+          className="link"
+          to="/"
+          onClick={() => {
+            logout();
+          }}
+        >
+          Logout
+        </Link>,
+        "5",
+        <LogoutOutlined />
+      ),
+    ]),
   ];
 
   const logout = () => {
@@ -142,7 +126,12 @@ const TraineeInsideCourse = ({ children, courseId, courseName }) => {
           theme="dark"
           mode="horizontal"
           items={items}
-          style={{ width: "100%" }}
+          style={{
+            width: "100%",
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+          }}
         />
       </Header>
       <Content
@@ -172,7 +161,7 @@ const TraineeInsideCourse = ({ children, courseId, courseName }) => {
           <Content
             style={{
               padding: "0 24px",
-              minHeight: 280,
+              minHeight: " 150vh",
             }}
           >
             {children}

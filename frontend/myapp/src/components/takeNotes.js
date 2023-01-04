@@ -33,18 +33,18 @@ const TakeNotesWrapper = () => {
     <>
       {" "}
       <Button
-        type="primary"
+        type="link"
         style={{
           width: "200px",
         }}
         onClick={showModal}
       >
-        Take notes <EditOutlined />
+        Take Notes <EditOutlined />
       </Button>
       <Drawer
-        title="Taking Notes......."
-        placement="bottom"
-        width="20vw"
+        title="Taking Note.."
+        placement="left"
+        width="25vw"
         onClose={handleCancel}
         open={isModalOpen}
         extra={
@@ -59,7 +59,7 @@ const TakeNotesWrapper = () => {
         <Form style={{ width: "100%", height: "100%" }}>
           <Form.Item
             style={{
-              height: "50%",
+              height: "50vh",
             }}
           >
             <Input.TextArea id="input" placeholder="Type here........" />
