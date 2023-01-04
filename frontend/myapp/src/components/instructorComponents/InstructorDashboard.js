@@ -73,13 +73,7 @@ const InstructorDashboard = ({ children, pageName }) => {
       "19",
       <AddBoxIcon />
     ),
-    getItem(
-      <Link className="link" to="/settings">
-        Settings
-      </Link>,
-      "15",
-      <SettingFilled />
-    ),
+
     getItem(
       <Link className="link" to="/user/reports">
         My Tickets

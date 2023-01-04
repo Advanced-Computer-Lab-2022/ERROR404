@@ -22,7 +22,7 @@ const { Option } = Select;
 
 const CreateExamWrapper = () => {
   return (
-    <InstructorDashboard>
+    <InstructorDashboard pageName="Create Quiz">
       <CreateExam />
     </InstructorDashboard>
   );

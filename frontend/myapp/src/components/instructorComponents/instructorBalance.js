@@ -69,7 +69,7 @@ const InstructorBalanceWrapper = () => {
   }, []);
 
   return (
-    <InstructorDashboard>
+    <InstructorDashboard pageName="My Balance">
       <div>
         <h1>My Monthly Balance</h1>
         <Card>

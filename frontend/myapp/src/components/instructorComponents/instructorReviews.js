@@ -6,13 +6,11 @@ import { Breadcrumb, Rate } from "antd";
 const InstructorReviewWrapper = () => {
   // create a backend callout to get user
   return (
-    <InstructorDashboard>
-      <>
-        <Breadcrumb>
-          <Breadcrumb.Item>My Reviews</Breadcrumb.Item>
-        </Breadcrumb>
-        <ReviewNavigation />
-      </>
+    <InstructorDashboard pageName="My Reviews">
+      <Breadcrumb>
+        <Breadcrumb.Item>My Reviews</Breadcrumb.Item>
+      </Breadcrumb>
+      <ReviewNavigation />
     </InstructorDashboard>
   );
 };
