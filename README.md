@@ -12,12 +12,11 @@ This project was easy and simple to do.
 
 ## Table of contents 
 * [Technologies](#technologies)
-* [Environment Variables](#environmentvariables)
+* [Environment Variables](#environment-variables)
 * [Features](#features)
-* [Run Locally Installation](#runLocallyInstallation)
-* [Code Examples](#codeExamples)
-* [API Reference](#APIreference)
-* [Our Roadmap](#ourRoadmap)
+* [Run Locally Installation](#run-locally-installation)
+* [Code Examples](#code-examples)
+* [API Reference](#api-reference)
 * [Feedback](#feedback)
 * [Authors](#authors)
 ## Technologies
@@ -636,22 +635,6 @@ To run the frontEnd
 | `age`  | `string` | **Required**.  trainee age                  |
 | `gender`  | `string` | **Required**.  trainee gender                 |
 | `email`  | `string` | **Required**.  trainee email                   |
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
