@@ -64,10 +64,11 @@ const DemoPie = () => {
           pending++;
         }
       });
+
       setTotalUnseen(unseen);
-      setUnseen((unseen / total) * 100);
-      setPending((pending / total) * 100);
-      setResolved((resolved / total) * 100);
+      setUnseen(Number(((unseen / total) * 100).toFixed(2)));
+      setPending(Number(((pending / total) * 100).toFixed(2)));
+      setResolved(Number(((resolved / total) * 100).toFixed(2)));
     });
   }, []);
 
