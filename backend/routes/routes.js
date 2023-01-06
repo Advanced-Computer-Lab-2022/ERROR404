@@ -237,7 +237,6 @@ const createCourse = async (req, res) => {
       prerequisite: req.body.prerequisite,
       preview: req.body.previewURL,
       category: req.body.category,
-      totalHours: req.body.totalHours,
     };
     courses.create(courseDetails, (err, small) => {
       if (err) {

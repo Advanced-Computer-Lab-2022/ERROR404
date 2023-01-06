@@ -19,7 +19,7 @@ const TopCourses = () => {
     axios
       .get("http://localhost:2020/getTopCourses")
       .then((courses) => {
-        console.log(courses.data);
+        console.log("hala ", courses.data);
         setTopCourses(courses.data);
       })
       .catch((err) => {
