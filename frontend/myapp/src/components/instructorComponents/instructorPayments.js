@@ -26,47 +26,47 @@ const DemoLine = () => {
   const data = [
     {
       year: "January",
-      value: 0,
+      value: 500,
     },
     {
       year: "Februeray",
-      value: 0,
+      value: 1000,
     },
     {
       year: "March",
-      value: 0,
+      value: 400,
     },
     {
       year: "April",
-      value: 0,
+      value: 1250,
     },
     {
       year: "May",
-      value: 0,
+      value: 4000,
     },
     {
       year: "June",
-      value: 0,
+      value: 3200,
     },
     {
       year: "July",
-      value: 0,
+      value: 2000,
     },
     {
       year: "August",
-      value: 0,
+      value: 1800,
     },
     {
       year: "September",
-      value: 0,
+      value: 2000,
     },
     {
       year: "October",
-      value: 0,
+      value: 1235,
     },
     {
       year: "November",
-      value: 0,
+      value: 5000,
     },
     {
       year: "December",

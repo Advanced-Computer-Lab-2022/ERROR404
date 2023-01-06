@@ -62,7 +62,6 @@ const data = [
 const InstructorTransactions = () => {
   return (
     <div>
-      <h1>My Last Transactions</h1>
       <List>
         <VirtualList
           data={data}
@@ -139,7 +138,6 @@ const monthlyBalance = [
 const InstructorMonthlyBalances = () => {
   return (
     <div>
-      <h1>My Monthly Balance</h1>
       <DemoLine />
     </div>
   );

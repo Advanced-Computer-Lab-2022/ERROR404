@@ -92,9 +92,9 @@ const ForgotPasswordPage = () => {
         <Form.Item
           label="Username"
           name="username"
-          rules={[{ required: true, message: "Please input your username!" }]}
+          rules={[{ required: true, message: "Please enter your username!" }]}
         >
-          <Input placeholder="input your username" />
+          <Input placeholder="enter your username" />
         </Form.Item>
         <Form.Item>
           <Button
