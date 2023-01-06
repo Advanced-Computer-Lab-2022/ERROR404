@@ -3,11 +3,12 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 var cors = require("cors");
-//DB connections to be put in .env file
-const MongoURI = "mongodb+srv://admin:admin@cluster0.vm6qaas.mongodb.net/test";
-// const stripe = require ("stripe")(
-//   "sk_test_51MItYHEGgskyidzzbKBojcag9DhVxeE6ejqQcGGMFJZvEKEJYqbMjA2MKFZAqeaOrGtbm6dlfogqOGcKcb1F3J73003K1qMk3b"
-//   );
+
+//.env variables
+require("dotenv").config();
+const { Mongo_URI, Backend_Port } = process.env;
+const port = Backend_Port;
+const MongoURI = Mongo_URI;
 const {
   getUser,
   search,
@@ -37,8 +38,6 @@ const {
   insertVideoLinkToCourse,
   addCreditCardInfo,
   getAllReports,
-  // noOfSubscribers,
-  //reviewInstructor,
   salary,
   createQuestions,
   createQuiz,
@@ -77,7 +76,6 @@ const {
 
 //App variables
 const app = express();
-const port = process.env.PORT || "2020";
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cors());

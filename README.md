@@ -213,6 +213,7 @@ emailjs
           </Breadcrumb>
           
 ```
+### Taking notes
 ```html
   <Button
         type="link"
@@ -254,12 +255,9 @@ emailjs
 
 To run this project, you will need to add the following environment variables to your .env file
 
-`Add your Mongo database url at mongoURI=`
+`Add your Mongo database url at Mongo_URI=`
 
-`Add your backend server Port at backendPort= `
-
-`Add your frontend server Port at frontendPort= `
-
+`Add your backend server Port at Backend_Port= `
 
 
 ## Run Locally Installation
