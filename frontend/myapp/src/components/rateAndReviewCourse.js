@@ -53,7 +53,14 @@ function ReviewCourseComponent({ Id }) {
           />
         </Form.Item>
         <span>
-          <Rate tooltips={desc} onChange={setValue} value={value} />
+          <Rate
+            tooltips={desc}
+            onChange={setValue}
+            value={value}
+            style={{
+              color: "red",
+            }}
+          />
           {value ? (
             <span className="ant-rate-text">{desc[value - 1]}</span>
           ) : (

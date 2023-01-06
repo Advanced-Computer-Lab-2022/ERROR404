@@ -14,12 +14,12 @@ import {
   DatePicker,
 } from "antd";
 import axios from "axios";
-import { AppContext } from "../AppContext";
+import { AppContext } from "../../AppContext";
 import CreditCardIcon from "@mui/icons-material/CreditCard";
 import DialpadIcon from "@mui/icons-material/Dialpad";
-import App from "../App";
-import { UserSettingPage } from "../pages/settingsPage";
-import TraineeDashboard from "./traineeComponents/TraineeDashboard";
+import App from "../../App";
+import { UserSettingPage } from "../../pages/settingsPage";
+import TraineeDashboard from "./TraineeDashboard";
 
 const monthFormat = "YYYY/MM";
 
@@ -93,8 +93,7 @@ const InsertCreditCardInfoWrapper = () => {
         }}
       >
         <Form
-          labelCol={{ span: 8 }}
-          wrapperCol={{ span: 16 }}
+          layout="vertical"
           name="creditCard-inerting-form"
           className="changingpassword-form"
           initialValues={{ remember: true }}
@@ -150,6 +149,7 @@ const InsertCreditCardInfoWrapper = () => {
               style={{
                 width: "40%",
                 textAlign: "center",
+                justifySelf: "center",
               }}
             >
               Add Credit Card

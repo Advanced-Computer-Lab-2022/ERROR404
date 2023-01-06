@@ -109,6 +109,9 @@ const InstructorFilterCourses = ({ values }) => {
                         precision={0.5}
                         defaultValue={4.5}
                         allowHalf
+                        style={{
+                          color: "red",
+                        }}
                       ></Rate>
                     </Radio>
                   </Popover>
@@ -120,6 +123,9 @@ const InstructorFilterCourses = ({ values }) => {
                         precision={0.5}
                         defaultValue={4}
                         allowHalf
+                        style={{
+                          color: "red",
+                        }}
                       ></Rate>
                     </Radio>
                   </Popover>
@@ -131,6 +137,9 @@ const InstructorFilterCourses = ({ values }) => {
                         precision={0.5}
                         defaultValue={3.5}
                         allowHalf
+                        style={{
+                          color: "red",
+                        }}
                       ></Rate>
                     </Radio>
                   </Popover>
@@ -142,6 +151,9 @@ const InstructorFilterCourses = ({ values }) => {
                         precision={0.5}
                         defaultValue={3}
                         allowHalf
+                        style={{
+                          color: "red",
+                        }}
                       ></Rate>
                     </Radio>
                   </Popover>

@@ -13,6 +13,7 @@ import { jsPDF } from "jspdf";
 import { Input, message, Form, Button } from "antd";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
+import TraineeInsideCourse from "./traineeComponents/traineeInsideCourse";
 
 const CertificateWrapper = () => {
   const [user, setUser] = useState({});
@@ -62,7 +63,7 @@ const CertificateWrapper = () => {
           onClick={() => {
             console.log("aaaaaaaaa");
             const input = document.getElementById("pdf-element");
-            const pdf = new jsPDF("p", "pt", "a2");
+            const pdf = new jsPDF("p", "pt", "a3");
             pdf.html(input).then(() => {
               pdf.save("certificate.pdf");
             });
@@ -88,7 +89,7 @@ const CertificateWrapper = () => {
     setName(event.target.value);
   };
   return (
-    <App>
+    <TraineeInsideCourse>
       <div
         id="Hello"
         style={{
@@ -106,7 +107,8 @@ const CertificateWrapper = () => {
       </div>
       <br></br>
       <br></br>
-      <div
+
+      {/* <div
         id="pdf-element"
         style={{
           display: "Flex",
@@ -115,8 +117,8 @@ const CertificateWrapper = () => {
           alignItems: "center",
           fontSize: "25px",
         }}
-      >
-        <div
+      > */}
+      {/* <div
           className="content"
           style={{
             height: "118mm",
@@ -205,33 +207,51 @@ const CertificateWrapper = () => {
               {new Date().toLocaleDateString("de-DE")}
             </p>
           </div>
-        </div>
-      </div>
+        </div> */}
+      {/* </div> */}
       <div
         style={{
-          width: "40mm",
-          height: "40mm",
-          position: "absolute",
-          top: "30%",
-          left: "10%",
+          width: "100%",
+          height: "100%",
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "center",
+          alignItems: "center",
         }}
       >
-        <h5>Enter the name to be shown on the certificate</h5>
-        <Input.TextArea
-          onChange={handleChange}
-          placeholder="Enter you name please"
-          maxLength={30}
-        />
-      </div>
+        <div
+          style={{
+            width: "20%",
+          }}
+        >
+          <h5>Enter the name to be shown on the certificate</h5>
+          <Input
+            onChange={handleChange}
+            placeholder="Enter you name please"
+            maxLength={30}
+          />
+        </div>{" "}
+        <div
+          id="pdf-element"
+          class="container"
+          style={{ width: "50%", height: "60%" }}
+        >
+          <div class="logo">ERROR 404 Development Team</div>
 
-      <Box
-        sx={{
-          height: "50%",
-          width: "80%",
-          transform: "translateZ(100px)",
-          flexGrow: 2,
-        }}
-      >
+          <div class="marquee">Certificate of Completion</div>
+
+          <div class="assignment">This certificate is presented to</div>
+
+          <div class="person">
+            {name == "" ? "Your Name will show here" : name}
+          </div>
+
+          <div class="reason">
+            For deftly defying the laws of gravity
+            <br />
+            and flying high, by completing the course "{title}"
+          </div>
+        </div>
         <SpeedDial
           ariaLabel="SpeedDial basic example"
           sx={{ position: "absolute", bottom: 16, right: 16 }}
@@ -245,8 +265,8 @@ const CertificateWrapper = () => {
             />
           ))}
         </SpeedDial>
-      </Box>
-    </App>
+      </div>
+    </TraineeInsideCourse>
   );
 };
 export default CertificateWrapper;

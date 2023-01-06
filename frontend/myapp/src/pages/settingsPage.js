@@ -42,6 +42,7 @@ const UserSettingPage = ({ children }) => (
   <Content
     style={{
       padding: "0 50px",
+      backgroundColor: "white",
     }}
   >
     <Breadcrumb
@@ -62,6 +63,7 @@ const UserSettingPage = ({ children }) => (
         style={{
           padding: "20px",
           minHeight: 280,
+          backgroundColor: "white",
         }}
       >
         {children}

@@ -46,7 +46,14 @@ const ReviewNavigation = () => {
     <div>
       <br />
       My Rate :
-      <Rate allowHalf value={rate} disabled={true} />
+      <Rate
+        allowHalf
+        value={rate}
+        disabled={true}
+        style={{
+          color: "red",
+        }}
+      />
       <List
         itemLayout="vertical"
         size="small"

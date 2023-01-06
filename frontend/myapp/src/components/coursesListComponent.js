@@ -342,7 +342,13 @@ const CourseComponent = ({ courses, viewType }) => {
                     <img
                       width={250}
                       alt="logo"
-                      src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
+                      src={
+                        item.image == null ||
+                        item.image == undefined ||
+                        item.image == ""
+                          ? "https://m.media-amazon.com/images/I/61nKTBvX5GL.jpg"
+                          : item.image
+                      }
                     />
                   </Space>
                 }
@@ -351,7 +357,16 @@ const CourseComponent = ({ courses, viewType }) => {
                   title={<a href={item.href}>{item.title}</a>}
                   description={item.summary}
                 />
-                {<Rate allowHalf defaultValue={item.rating} disabled={true} />}
+                {
+                  <Rate
+                    allowHalf
+                    defaultValue={item.rating}
+                    disabled={true}
+                    style={{
+                      color: "red",
+                    }}
+                  />
+                }
                 <Collapse bordered={false} ghost>
                   <Panel header="More Info" key={item._id}>
                     <List

@@ -143,7 +143,7 @@ const AdminDashboard = ({ children, pageName }) => {
               width: "100%",
               display: "flex",
               flexDirection: "row",
-              justifyContent: "flex-start",
+              justifyContent: "space-evenly",
               alignItems: "center",
             }}
             theme="dark"
@@ -151,7 +151,7 @@ const AdminDashboard = ({ children, pageName }) => {
             items={items}
           />
         </Header>
-        <Content style={{ padding: "0 50px", zindex: 1 }}>
+        <Content style={{ padding: "0 50px", zindex: 1, minHeight: "80vh" }}>
           <Breadcrumb style={{ margin: "16px 0" }}>
             <Breadcrumb.Item>
               <Link to="/">Home</Link>
@@ -161,11 +161,11 @@ const AdminDashboard = ({ children, pageName }) => {
             </Breadcrumb.Item>
             <Breadcrumb.Item>{pageName}</Breadcrumb.Item>
           </Breadcrumb>
-          <Layout style={{ padding: "24px 0" }}>
+          <Layout style={{ padding: "24px 0", minHeight: "80vh" }}>
             <Content
               style={{
                 padding: "0 24px",
-                minHeight: "80vh",
+
                 position: "relative",
               }}
             >

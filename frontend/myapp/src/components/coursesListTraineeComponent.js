@@ -154,7 +154,16 @@ const CourseComponentTrainee = ({ courses, viewType }) => {
                   navigation("/course/about?courseId=" + item._id);
                 }}
               />
-              {<Rate allowHalf defaultValue={item.rating} disabled={true} />}
+              {
+                <Rate
+                  allowHalf
+                  defaultValue={item.rating}
+                  disabled={true}
+                  style={{
+                    color: "red",
+                  }}
+                />
+              }
             </List.Item>
           </div>
         )}

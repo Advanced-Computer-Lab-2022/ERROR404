@@ -155,12 +155,16 @@ const AdminViewCourseComponent = () => {
         >
           <Checkbox.Group onChange={handleChange} value={checkedCourses}>
             <List
-              style={{
-                height: "80vh",
-              }}
               itemLayout="vertical"
               size="small"
               dataSource={data}
+              pagination={{
+                onChange: (page) => {
+                  console.log(page);
+                  window.scrollTo(0, 0);
+                },
+                pageSize: 20,
+              }}
               renderItem={(item) => (
                 <div>
                   <List.Item key={item._id} actions={[]}>
@@ -182,6 +186,9 @@ const AdminViewCourseComponent = () => {
                         allowHalf
                         defaultValue={item.rating}
                         disabled={true}
+                        style={{
+                          color: "red",
+                        }}
                       />
                     </div>
                   </List.Item>

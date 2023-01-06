@@ -20,7 +20,7 @@ import axios from "axios";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import ChangePasswordPageWrapper from "./changePassword";
-import InsertCreditCardInfoWrapper from "./insertCreditCardinfo";
+import InsertCreditCardInfoWrapper from "./traineeComponents/insertCreditCardinfo";
 
 const SettingsPageSider = () => {
   const { userType } = useContext(AppContext);

@@ -20,7 +20,7 @@ import InstructorReviewWrapper from "./components/instructorComponents/instructo
 import InstructorBalanceWrapper from "./components/instructorComponents/instructorBalance";
 import InstructorSettingsWrapper from "./components/instructorComponents/instructorSettings";
 import InstructorMainDashboard from "./components/instructorComponents/instructorMainDashboard";
-import InsertCreditCardInfoWrapper from "./components/insertCreditCardinfo";
+import InsertCreditCardInfoWrapper from "./components/traineeComponents/insertCreditCardinfo";
 import SettingsPageWrapper from "./pages/settingsPage";
 import InstructorViewAllTitlesWrapper from "./components/instructorComponents/instructorCourses";
 import TraineeMainDashboard from "./components/traineeComponents/traineeMainDashboard";

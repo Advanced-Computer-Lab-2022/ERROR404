@@ -63,14 +63,6 @@ const TraineeInsideCourse = ({ children, courseId, courseName }) => {
       "6",
       <WechatOutlined />
     ),
-
-    getItem(
-      <Link className="link" to="/traineeDashboard/viewGrade">
-        View My Grades
-      </Link>,
-      "18",
-      <GradeIcon />
-    ),
     getItem(<Avatar size="medium" icon={<UserOutlined />} />, "user", <></>, [
       getItem(<span>{userName}</span>, "4", <UserOutlined />),
       getItem(
@@ -125,7 +117,7 @@ const TraineeInsideCourse = ({ children, courseId, courseName }) => {
             width: "100%",
             display: "flex",
             flexDirection: "row",
-            justifyContent: "space-between",
+            justifyContent: "space-evenly",
           }}
         />
       </Header>

@@ -80,6 +80,7 @@ const PreviewCourseWrapper = () => {
         setOldPrice(response.data.discount.value);
         setDate(response.data.discount.endDate);
         setTitle(response.data.title);
+
         let newPrice =
           response.data.discount.value == 0
             ? response.data.price
@@ -140,7 +141,14 @@ const PreviewCourseWrapper = () => {
                   </>
                 ) : null}
               </div>
-              <Rate disabled allowHalf value={courseData.rating}></Rate>
+              <Rate
+                disabled
+                allowHalf
+                value={courseData.rating}
+                style={{
+                  color: "red",
+                }}
+              />
               {user == "individual" || user == "" ? (
                 <Button type="primary">
                   <Link className="link" to={"/pay?courseId=" + courseData._id}>

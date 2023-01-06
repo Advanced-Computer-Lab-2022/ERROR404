@@ -32,7 +32,17 @@ const ViewGradeWrapper = () => {
 
   return (
     <TraineeDashboard pageName="Previous Grades">
-      <Table dataSource={data} key={data.subject}>
+      <Table
+        dataSource={data}
+        key={data.subject}
+        pagination={{
+          onChange: (page) => {
+            console.log(page);
+            window.scrollTo(0, 0);
+          },
+          pageSize: 6,
+        }}
+      >
         <ColumnGroup>
           <Column title="Subject" dataIndex="subject" key="subject" />
         </ColumnGroup>

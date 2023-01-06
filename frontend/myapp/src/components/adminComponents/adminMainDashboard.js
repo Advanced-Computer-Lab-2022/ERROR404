@@ -28,7 +28,7 @@ const AdminMainDashboard = () => {
         <>
           Welcome Back {userName}, This is a summary for all your reports and
           requests
-          <DemoPie />
+          {/* <DemoPie /> */}
         </>
       }
     />

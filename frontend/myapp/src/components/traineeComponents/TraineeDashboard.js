@@ -91,10 +91,17 @@ const TraineeDashboard = ({ children, pageName }) => {
           [getItem(<TraineeBalanceWrapper />, "50", <WalletOutlined />)]
         )
       : null,
-    getItem(<Link to="/settings">Settings</Link>, "15", <SettingFilled />),
+    getItem(
+      <Link className="link" to="/settings">
+        Settings
+      </Link>,
+      "15",
+      <SettingFilled />
+    ),
 
     getItem(
       <Link
+        className="link"
         to="/"
         onClick={() => {
           logout();
@@ -176,7 +183,7 @@ const TraineeDashboard = ({ children, pageName }) => {
         >
           <Content
             style={{
-              padding: "0 24px",
+              padding: "50px",
             }}
           >
             {children}
