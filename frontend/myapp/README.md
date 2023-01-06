@@ -290,7 +290,7 @@ To run the frontEnd
   npm start
 ```
 
-## API Reference examples
+## API Reference
 
 #### Get all Reports
 
