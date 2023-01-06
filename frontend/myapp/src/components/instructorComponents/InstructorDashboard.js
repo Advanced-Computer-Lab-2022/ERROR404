@@ -78,10 +78,10 @@ const InstructorDashboard = ({ children, pageName }) => {
       <Link className="link" to="/user/reports">
         My Tickets
       </Link>,
-      "18",
+      "23",
       <ReconciliationOutlined />
     ),
-    getItem(<Link>My Students</Link>, "19", <ReconciliationOutlined />, [
+    getItem(<Link>My Students</Link>, "22", <ReconciliationOutlined />, [
       getItem(<InstructorStudents />, "20", <UsergroupDeleteOutlined />),
     ]),
     getItem(<Avatar size="medium" icon={<UserOutlined />} />, "user", <></>, [
