@@ -290,7 +290,7 @@ To run the frontEnd
   npm start
 ```
 
-## API Reference examples
+## API Reference
 
 #### Get all Reports
 
@@ -635,6 +635,22 @@ To run the frontEnd
 | `age`  | `string` | **Required**.  trainee age                  |
 | `gender`  | `string` | **Required**.  trainee gender                 |
 | `email`  | `string` | **Required**.  trainee email                   |
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
