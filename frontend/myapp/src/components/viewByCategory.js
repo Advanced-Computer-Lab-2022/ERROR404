@@ -1,5 +1,4 @@
 import { Col, Row } from "antd";
-import "../App.css";
 
 const Categories = () => {
   return (

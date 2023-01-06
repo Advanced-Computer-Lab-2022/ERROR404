@@ -48,7 +48,6 @@
   background-repeat: no-repeat;
   background-size: cover;
   background-color: black;
-  
 }
 
 .changePasswordWrapper {
@@ -66,20 +65,19 @@
   color: "white";
   text-decoration: "none";
 }
-.scrolling{
+.scrolling {
   position: relative;
   width: 100%;
-  height:80px;
+  height: 80px;
   overflow: hidden;
   margin-top: 0;
-
 }
 
-.scrolling h1{
-  position:absolute;
+.scrolling h1 {
+  position: absolute;
   width: 100%;
-  height:30px;
-  margin:0;
+  height: 30px;
+  margin: 0;
   padding: 30;
   font-size: 2em;
   text-align: center;
@@ -90,26 +88,24 @@
 }
 
 @keyframes scrolling {
-  0%{
-    transform: translateX(80%)
+  0% {
+    transform: translateX(80%);
   }
 
   /* 50%{
     transform: translateX(0%)
   } */
 
-  100%{
-    transform: translateX(-80%)
+  100% {
+    transform: translateX(-80%);
   }
-  
 }
 
-
-.scrolling h1{
-  position:absolute;
+.scrolling h1 {
+  position: absolute;
   width: 100%;
-  height:30px;
-  margin:0;
+  height: 30px;
+  margin: 0;
   padding: 30;
   font-size: 2em;
   text-align: center;
@@ -120,28 +116,24 @@
 }
 
 @keyframes scrolling {
-  0%{
-    transform: translateX(80%)
+  0% {
+    transform: translateX(80%);
   }
 
   /* 50%{
     transform: translateX(0%)
   } */
 
-  100%{
-    transform: translateX(-80%)
+  100% {
+    transform: translateX(-80%);
   }
-  
 }
 
-
-
-
-.scrolling h1{
-  position:absolute;
+.scrolling h1 {
+  position: absolute;
   width: 100%;
-  height:30px;
-  margin:0;
+  height: 30px;
+  margin: 0;
   padding: 30;
   font-size: 2em;
   text-align: center;
@@ -152,27 +144,25 @@
 }
 
 @keyframes scrolling {
-  0%{
-    transform: translateX(80%)
+  0% {
+    transform: translateX(80%);
   }
 
   /* 50%{
     transform: translateX(0%)
   } */
 
-  100%{
-    transform: translateX(-80%)
+  100% {
+    transform: translateX(-80%);
   }
-  
 }
-
 
 .link {
   text-decoration: none;
 }
 
 .button {
-    background-color: "#001529",
+  background-color: "#001529";
 }
 
 .divaya {
@@ -180,5 +170,170 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  gap: "5%"
+  gap: "5%";
+}
+
+@import url("https://fonts.googleapis.com/css?family=Open+Sans|Pinyon+Script|Rochester");
+
+.cursive {
+  font-family: "Pinyon Script", cursive;
+}
+
+.sans {
+  font-family: "Open Sans", sans-serif;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.block {
+  display: block;
+}
+
+.underline {
+  border-bottom: 1px solid #777;
+  padding: 5px;
+  margin-bottom: 15px;
+}
+
+.margin-0 {
+  margin: 0;
+}
+
+.padding-0 {
+  padding: 0;
+}
+
+.pm-empty-space {
+  height: 40px;
+  width: 100%;
+}
+
+.pm-certificate-container {
+  position: relative;
+  width: 800px;
+  height: 600px;
+  background-color: #618597;
+  padding: 30px;
+  color: #333;
+  font-family: "Open Sans", sans-serif;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  /*background: -webkit-repeating-linear-gradient(
+    45deg,
+    #618597,
+    #618597 1px,
+    #b2cad6 1px,
+    #b2cad6 2px
+  );
+  background: repeating-linear-gradient(
+    90deg,
+    #618597,
+    #618597 1px,
+    #b2cad6 1px,
+    #b2cad6 2px
+  );*/
+
+  .outer-border {
+    width: 794px;
+    height: 594px;
+    position: absolute;
+    left: 50%;
+    margin-left: -397px;
+    top: 50%;
+    margin-top: -297px;
+    border: 2px solid #fff;
+  }
+
+  .inner-border {
+    width: 730px;
+    height: 530px;
+    position: absolute;
+    left: 50%;
+    margin-left: -365px;
+    top: 50%;
+    margin-top: -265px;
+    border: 2px solid #fff;
+  }
+
+  .pm-certificate-border {
+    position: relative;
+    width: 720px;
+    height: 520px;
+    padding: 0;
+    border: 1px solid #e1e5f0;
+    background-color: rgba(255, 255, 255, 1);
+    background-image: none;
+    left: 50%;
+    margin-left: -360px;
+    top: 50%;
+    margin-top: -260px;
+
+    .pm-certificate-block {
+      width: 650px;
+      height: 200px;
+      position: relative;
+      left: 50%;
+      margin-left: -325px;
+      top: 70px;
+      margin-top: 0;
+    }
+
+    .pm-certificate-header {
+      margin-bottom: 10px;
+    }
+
+    .pm-certificate-title {
+      position: relative;
+      top: 40px;
+
+      h2 {
+        font-size: 34px !important;
+      }
+    }
+
+    .pm-certificate-body {
+      padding: 20px;
+
+      .pm-name-text {
+        font-size: 20px;
+      }
+    }
+
+    .pm-earned {
+      margin: 15px 0 20px;
+      .pm-earned-text {
+        font-size: 20px;
+      }
+      .pm-credits-text {
+        font-size: 15px;
+      }
+    }
+
+    .pm-course-title {
+      .pm-earned-text {
+        font-size: 20px;
+      }
+      .pm-credits-text {
+        font-size: 15px;
+      }
+    }
+
+    .pm-certified {
+      font-size: 12px;
+
+      .underline {
+        margin-bottom: 5px;
+      }
+    }
+
+    .pm-certificate-footer {
+      width: 650px;
+      height: 100px;
+      position: relative;
+      left: 50%;
+      margin-left: -325px;
+      bottom: -105px;
+    }
+  }
 }

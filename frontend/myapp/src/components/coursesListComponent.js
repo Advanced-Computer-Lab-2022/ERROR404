@@ -357,10 +357,9 @@ const CourseComponent = ({ courses, viewType }) => {
                         <List.Item>{sub.subtitle}</List.Item>
                       )}
                     />
-
+                    <p>{"Instructor " + item.instructor}</p>
                     <p>{"Exercises " + item.questions.length}</p>
-                    <p>{"Price " + item.price}</p>
-                    <p>{"Discount " + item.discount.value}</p>
+                    <p>{"Discount " + item.discount.value + "%"}</p>
                   </Panel>
                 </Collapse>
               </List.Item>

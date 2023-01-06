@@ -8,7 +8,10 @@ import {
   Card,
   Col,
   Row,
+  Breadcrumb,
+  Image,
 } from "antd";
+import BreadcrumbItem from "antd/lib/breadcrumb/BreadcrumbItem";
 import axios from "axios";
 import { useEffect, useState, useContext } from "react";
 import { Navigate, useLocation, Link } from "react-router-dom";
@@ -23,6 +26,8 @@ const TakeQuiz = () => {
   const [data, setData] = useState([]);
   const [value, setValue] = useState([]);
   const [grade, setGrade] = useState("");
+  const [subtitle, setSubtitle] = useState("");
+  const [index, setIndex] = useState(0);
 
   const { userType, username } = useContext(AppContext);
   const [user, setUser] = userType;
@@ -71,6 +76,8 @@ const TakeQuiz = () => {
     const question = urlParams.get("question");
     const subtitle = urlParams.get("subtitle");
     setcourseId(courseId);
+    setSubtitle(subtitle);
+    setIndex(question);
 
     axios.get("http://localhost:2020/getCourse/" + courseId).then((data) => {
       console.log(data.data.questions);
@@ -242,7 +249,9 @@ const TakeQuiz = () => {
             </Form.Item>
           </Form>
           <div>
-            {" "}
+            <Button type="primary" onClick={prev}>
+              Previous
+            </Button>{" "}
             <Button
               type="primary"
               onClick={() => {
@@ -251,9 +260,6 @@ const TakeQuiz = () => {
             >
               Next
             </Button>{" "}
-            <Button type="primary" onClick={prev}>
-              Previous
-            </Button>
           </div>
         </div>
       ),
@@ -290,6 +296,9 @@ const TakeQuiz = () => {
             </Form.Item>
           </Form>
           <div>
+            <Button type="primary" onClick={prev}>
+              Previous
+            </Button>{" "}
             <Button
               type="primary"
               onClick={() => {
@@ -298,9 +307,6 @@ const TakeQuiz = () => {
             >
               Next
             </Button>{" "}
-            <Button type="primary" onClick={prev}>
-              Previous
-            </Button>
           </div>
         </div>
       ),
@@ -337,6 +343,9 @@ const TakeQuiz = () => {
             </Form.Item>
           </Form>
           <div>
+            <Button type="primary" onClick={prev}>
+              Previous
+            </Button>{" "}
             <Button
               type="primary"
               onClick={() => {
@@ -347,9 +356,6 @@ const TakeQuiz = () => {
             >
               Done
             </Button>{" "}
-            <Button type="primary" onClick={prev}>
-              Previous
-            </Button>
           </div>
         </div>
       ),
@@ -490,8 +496,31 @@ const TakeQuiz = () => {
 
   return (
     <>
-      <TraineeInsideCourse courseName="Quiz">
+      <TraineeInsideCourse
+        courseName={
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <Breadcrumb.Item>
+              <Link to={"/trainee/course?courseId=" + courseId}>
+                {subtitle}
+              </Link>
+            </Breadcrumb.Item>
+            <Breadcrumb.Item>
+              <Link className="link">Quiz {Number(index) + 1}</Link>
+            </Breadcrumb.Item>
+          </div>
+        }
+      >
         <Steps current={current} items={items} />
+        {/* <Link to={"/trainee/course?courseId=" + courseId}>
+              {courseTitle}
+            </Link> */}
         <div
           className="steps-content"
           style={{
@@ -499,8 +528,17 @@ const TakeQuiz = () => {
             padding: "20px",
           }}
         >
-          {steps[current].content}
+          <div
+            style={{
+              border: "1px solid black",
+              boxSizing: "border-box",
+              padding: "20px",
+            }}
+          >
+            {steps[current].content}
+          </div>
         </div>
+        <Image src="https://marketplace.canva.com/EAE2cQaUHVA/1/0/1600w/canva-black-minimal-motivation-quote-linkedin-banner-HoRi-2buBWk.jpg" />
       </TraineeInsideCourse>
     </>
   );

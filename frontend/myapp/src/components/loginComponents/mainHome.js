@@ -118,6 +118,13 @@ const LoginComponent = ({ values }) => {
                 console.log(traineeEnrolledCourses);
               }
               setIsModalOpen(false);
+              if (data.role == "individual" || data.role == "corporate") {
+                navigate("/user/myPrograms");
+              } else if (data.role == "admin") {
+                navigate("/admindashboard");
+              } else if (data.role == "instructor") {
+                navigate("/instructorDashBoard/allMyCourses");
+              }
             } else {
               setVisible(true);
               // message.error(

@@ -22,6 +22,7 @@ import {
 import axios from "axios";
 import SearchByForm from "../getCourses";
 import App from "../../App";
+import AdminDashboard from "./adminDashboard";
 
 const IconText = ({ icon, text }) => (
   <Space>
@@ -93,7 +94,7 @@ const AdminViewCourseComponent = () => {
   };
 
   return (
-    <App>
+    <AdminDashboard pageName="Viewing Courses">
       <div
         style={{
           display: "flex",
@@ -109,8 +110,9 @@ const AdminViewCourseComponent = () => {
             width: "30%",
           }}
         >
-          <Form onFinish={submitPromotion}>
+          <Form onFinish={submitPromotion} layout="vertical">
             <Checkbox onChange={submitAll}>Check all</Checkbox>
+            <hr />
 
             <Form.Item
               name="value"
@@ -189,7 +191,7 @@ const AdminViewCourseComponent = () => {
           </Checkbox.Group>
         </div>
       </div>
-    </App>
+    </AdminDashboard>
   );
 };
 

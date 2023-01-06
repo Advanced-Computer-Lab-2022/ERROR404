@@ -83,12 +83,14 @@ const TraineeDashboard = ({ children, pageName }) => {
       "20",
       <ReconciliationOutlined />
     ),
-    getItem(
-      <Link className="link">My Balance</Link>,
-      "17",
-      <AccountBalanceWalletIcon />,
-      [getItem(<TraineeBalanceWrapper />, "50", <WalletOutlined />)]
-    ),
+    user == "individual"
+      ? getItem(
+          <Link className="link">My Balance</Link>,
+          "17",
+          <AccountBalanceWalletIcon />,
+          [getItem(<TraineeBalanceWrapper />, "50", <WalletOutlined />)]
+        )
+      : null,
     getItem(<Link to="/settings">Settings</Link>, "15", <SettingFilled />),
 
     getItem(
@@ -126,6 +128,7 @@ const TraineeDashboard = ({ children, pageName }) => {
           flexDirection: "row",
           gap: "20px",
           minHeight: "10vh",
+          justifyContent: "space-between",
           alignItems: "center",
         }}
       >
@@ -133,6 +136,12 @@ const TraineeDashboard = ({ children, pageName }) => {
         <Menu
           style={{
             width: "100%",
+            display: "flex",
+            flexDirection: "row",
+
+            minHeight: "10vh",
+            justifyContent: "space-between",
+            alignItems: "center",
           }}
           theme="dark"
           mode="horizontal"

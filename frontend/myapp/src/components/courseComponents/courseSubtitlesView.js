@@ -533,17 +533,15 @@ const CourseSubtitleViewWrapper = () => {
                   }
                 >
                   <Meta title={courseTitle} />
-                  <div
-                    style={{
-                      height: "300px",
-                      overflow: "scroll",
-                    }}
-                  >
-                    {description}
-                  </div>
                 </Card>
               </div>
             </div>
+          </div>
+          <div>
+            <h4>Description</h4>
+            <hr />
+            <br />
+            {description}
           </div>
         </Content>
       </Layout>

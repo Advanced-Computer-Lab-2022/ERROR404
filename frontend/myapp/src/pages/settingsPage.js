@@ -15,13 +15,13 @@ const SettingsPageWrapper = () => {
   const [user] = userType;
   if (user === "instructor") {
     return (
-      <InstructorDashboard pageName="Setting">
+      <InstructorDashboard pageName="Settings">
         <UserSettingPageMain />
       </InstructorDashboard>
     );
-  } else if (user === "individual") {
+  } else if (user === "individual" || user === "corporate") {
     return (
-      <TraineeDashboard>
+      <TraineeDashboard pageName="Settings">
         <UserSettingPageMain />
       </TraineeDashboard>
     );

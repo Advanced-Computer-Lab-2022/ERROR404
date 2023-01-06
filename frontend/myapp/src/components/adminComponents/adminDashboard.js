@@ -156,7 +156,9 @@ const AdminDashboard = ({ children, pageName }) => {
             <Breadcrumb.Item>
               <Link to="/">Home</Link>
             </Breadcrumb.Item>
-
+            <Breadcrumb.Item>
+              <Link to="/adminDashboard">My Dashboard</Link>
+            </Breadcrumb.Item>
             <Breadcrumb.Item>{pageName}</Breadcrumb.Item>
           </Breadcrumb>
           <Layout style={{ padding: "24px 0" }}>
