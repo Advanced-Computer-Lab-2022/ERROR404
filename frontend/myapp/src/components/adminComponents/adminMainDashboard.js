@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import { Alert } from "antd";
-import Marquee from "react-fast-marquee";
 import AdminDashboard from "./adminDashboard";
 import { AppContext } from "../../AppContext";
 import DemoPie from "./adminReportsStatistics";
@@ -29,7 +28,7 @@ const AdminMainDashboard = () => {
         <>
           Welcome Back {userName}, This is a summary for all your reports and
           requests
-          <DemoPie />
+          {/* <DemoPie /> */}
         </>
       }
     />

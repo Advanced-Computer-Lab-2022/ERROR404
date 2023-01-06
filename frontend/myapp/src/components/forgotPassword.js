@@ -1,29 +1,23 @@
 import React, { useContext, useState, useEffect } from "react";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
-import { Button, Checkbox, Form, Input, message, Avatar } from "antd";
+import { Button, Checkbox, Form, Input, message, Avatar, Image } from "antd";
 import { AppContext } from "../AppContext";
 import emailjs from "@emailjs/browser";
 import { UserSettingPage } from "../pages/settingsPage";
 import App from "../App";
 import InstructorDashboard from "./instructorComponents/InstructorDashboard";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const ForgotPasswordPageWrapper = () => {
   const { userType } = useContext(AppContext);
   const [user, setUser] = userType;
-  if (user == "instructor") {
-    return (
-      <InstructorDashboard>
-        <ForgotPasswordPage />
-      </InstructorDashboard>
-    );
-  } else {
-    return (
-      <App>
-        <ForgotPasswordPage />
-      </App>
-    );
-  }
+
+  return (
+    <App>
+      <ForgotPasswordPage />
+    </App>
+  );
 };
 
 const ForgotPasswordPage = () => {
@@ -77,12 +71,17 @@ const ForgotPasswordPage = () => {
       style={{
         textAlign: "center",
         display: "flex",
-        flexDirection: "column",
+        flexDirection: "row",
         justifyContent: "center",
         alignItems: "center",
+        gap: "20%",
       }}
     >
       <Form
+        layout="vertical"
+        style={{
+          width: "30%",
+        }}
         name="normal_login"
         className="change-password-form"
         initialValues={{
@@ -106,10 +105,25 @@ const ForgotPasswordPage = () => {
               width: "100%",
             }}
           >
-            Change Password
+            Send Email
           </Button>
         </Form.Item>
+        <div>
+          <h5>
+            <b>Have you forgotton your username?</b>
+          </h5>
+          <span>
+            If you no longer remeber the username associated with your ERROR404
+            account, you may contact{" "}
+            <Link to="/reportaproblem">Customer Service</Link> for help
+            restoring access to your account.
+          </span>
+        </div>
       </Form>
+      <Image
+        width="50%"
+        src="https://s.udemycdn.com/teaching/billboard-desktop-v4.jpg"
+      />
     </div>
   );
 };

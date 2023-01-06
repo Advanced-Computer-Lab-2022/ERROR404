@@ -139,9 +139,11 @@ const PreviewCourseWrapper = () => {
                 ) : null}
               </div>
               <Rate disabled allowHalf value={courseData.rating}></Rate>
-              {user == "individual" ? (
+              {user == "individual" || user == "" ? (
                 <Button type="primary">
-                  <Link to={"/pay?courseId=" + courseData._id}>Buy Now</Link>
+                  <Link className="link" to={"/pay?courseId=" + courseData._id}>
+                    Buy Now
+                  </Link>
                 </Button>
               ) : null}
               {user == "corporate" ? <CreateRequestWrapper /> : null}

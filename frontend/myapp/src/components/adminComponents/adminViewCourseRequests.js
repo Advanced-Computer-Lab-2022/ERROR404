@@ -54,11 +54,11 @@ const AdminRequests = () => {
             axios
               .put("http://localhost:2020/addCourseToStudent", reqBody)
               .then(() => {
-                message.success("request approved");
+                message.success("request approved", 1);
               })
               .catch((err) => console.log("error at updating courses" + err));
           } else {
-            message.success("status has been changed to " + status);
+            message.success("status has been changed to " + status, 1);
             console.log(res);
           }
         });

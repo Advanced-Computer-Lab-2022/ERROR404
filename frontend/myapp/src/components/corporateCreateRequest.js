@@ -40,17 +40,17 @@ const CreateRequestWrapper = ({ courseId }) => {
       .post("http://localhost:2020/createCorporateRequest", requestBody)
 
       .then((response) => {
-        message.success("request sent");
+        message.success("request sent", 1);
       })
       .catch((error) => {
         console.log("erorr ", error.response.data);
-        message.error("Unexpected Error occured", 5);
+        message.error("Unexpected Error occured", 1);
       });
   };
 
   return (
     <>
-      <Button onClick={showModal}>Access course</Button>
+      <Button onClick={showModal}>Request Access</Button>
       <Modal
         centered
         title="Request Course Acces"

@@ -123,12 +123,12 @@ const PayForCourse = () => {
       <div
         style={{
           width: "100%",
-          height: "80vh",
+
           boxSizing: "border-box",
           padding: "20px",
           display: "flex",
           flexDirection: "column",
-          gap: "10%",
+          gap: "20px",
         }}
       >
         <Steps
@@ -211,7 +211,7 @@ const PayForCourse = () => {
             <>
               <Statistic
                 value={course.discount.value}
-                suffix="% - Discount"
+                suffix="% (Discount)"
                 prefix="-"
               />
               <hr />

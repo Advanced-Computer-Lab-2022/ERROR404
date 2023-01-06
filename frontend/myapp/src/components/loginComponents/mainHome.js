@@ -92,12 +92,12 @@ const LoginComponent = ({ values }) => {
         .then((response) => {
           console.log(response);
           if (response.data == null) {
-            message.error("You have entered a wrong password, or username", 3);
+            message.error("You have entered a wrong password, or username", 1);
           } else {
             console.log(response.data);
             let data = response.data;
             if (value.password == response.data.password) {
-              message.success(`Welcome Back ${response.data.username}`, 2);
+              message.success(`Welcome Back ${response.data.username}`, 1);
               // setting up context
               setIsLoggedIn(true);
               setRegion(data.country);
@@ -120,10 +120,10 @@ const LoginComponent = ({ values }) => {
               setIsModalOpen(false);
             } else {
               setVisible(true);
-              message.error(
-                "You have entered a wrong username, or password",
-                3
-              );
+              // message.error(
+              //   "You have entered a wrong username, or password",
+              //   3
+              // );
             }
           }
         })
@@ -210,6 +210,7 @@ const LoginComponent = ({ values }) => {
         <Button type="primary" icon={<Fingerprint />} onClick={handleClick}>
           Login
         </Button>
+        <br />
         <Link to="/forgotpassword">Forgot Password</Link>
         <br />
         <br />

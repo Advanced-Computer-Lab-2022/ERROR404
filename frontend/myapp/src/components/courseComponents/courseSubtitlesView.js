@@ -76,7 +76,8 @@ const CoursePreview = () => {
   const requestRefund = () => {
     if (progress > 50) {
       message.warning(
-        "Sorrry, You are not eligible for course refund, You have exceeded 50% of the course"
+        "Sorrry, You are not eligible for course refund, You have exceeded 50% of the course",
+        3
       );
     } else {
       axios
@@ -90,7 +91,8 @@ const CoursePreview = () => {
           console.log("RESULT " + response.data);
           if (response.data != null) {
             message.warning(
-              "You have already requested a refund for this course, You will be refunded shortly"
+              "You have already requested a refund for this course, You will be refunded shortly",
+              3
             );
           } else {
             let body = {
@@ -162,7 +164,7 @@ const CoursePreview = () => {
   ];
 
   return (
-    <TraineeInsideCourse pageName="Course Preview">
+    <TraineeInsideCourse courseId={courseId} pageName="Course Preview">
       <Layout>
         <Header
           style={{
@@ -178,9 +180,11 @@ const CoursePreview = () => {
         </Header>
         <Layout>
           <Content>
+            <br />
             <div>
               <Progress percent={progress == null ? 0 : progress} />
             </div>
+            <br />
             <div
               style={{
                 width: "100%",
@@ -378,6 +382,7 @@ const CourseSubtitleViewWrapper = () => {
 
   return (
     <TraineeInsideCourse
+      courseId={courseId}
       pageName={subtitle}
       courseName={
         <div
@@ -409,9 +414,11 @@ const CourseSubtitleViewWrapper = () => {
           />
         </Header>
         <Content>
+          <br />
           <div>
             <Progress percent={progress == null ? 0 : progress} />
           </div>
+          <br />
           <div
             style={{
               width: "100%",

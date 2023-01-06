@@ -26,6 +26,8 @@ import BugReportIcon from "@mui/icons-material/BugReport";
 import WrapperSignUp from "./loginComponents/signUp";
 import LoginComponent from "./loginComponents/mainHome";
 import AdminViewCourseComponent from "./adminComponents/adminViewCourses";
+import LanguageIcon from "@mui/icons-material/Language";
+import CountrySelect from "./guestComponents.js/chooseCountry";
 
 const { Header, Footer, Sider, Content } = Layout;
 const { Search } = Input;
@@ -141,14 +143,7 @@ const MainHeader = ({ values }) => {
         ),
         key: "explore",
       },
-      {
-        label: (
-          <Link className="link" to="/traineeDashboard/viewGrade">
-            My Grades
-          </Link>
-        ),
-        key: "grades",
-      }, // which is required
+
       {
         label: (
           <Link className="link" to="/user/myPrograms">
@@ -279,6 +274,10 @@ const MainHeader = ({ values }) => {
           </Link>
         ),
         key: "signup",
+      },
+      {
+        label: <CountrySelect />,
+        key: "language",
       },
     ];
   }

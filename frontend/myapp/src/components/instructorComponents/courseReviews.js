@@ -40,6 +40,7 @@ const CourseReviews = ({ reviews }) => {
         pagination={{
           onChange: (page) => {
             console.log(page);
+            window.scrollTo(0, 0);
           },
 
           pageSize: 10,

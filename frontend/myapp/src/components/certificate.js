@@ -50,7 +50,7 @@ const CertificateWrapper = () => {
       .then(
         (result) => message.success("An Email has been sent successfully!! "),
         (error) => {
-          message.error("Oops... " + JSON.stringify(error));
+          message.error("Oops... " + JSON.stringify(error), 1);
           console.log(JSON.stringify(error));
         }
       );

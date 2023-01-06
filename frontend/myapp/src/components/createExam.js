@@ -94,7 +94,7 @@ const CreateExam = () => {
       .post("http://localhost:2020/createQuiz", requestBody)
       .then((data) => {
         console.log(data);
-        message.success("Quiz created");
+        message.success("Quiz created", 1);
       })
       .catch((err) => console.log(err));
   };

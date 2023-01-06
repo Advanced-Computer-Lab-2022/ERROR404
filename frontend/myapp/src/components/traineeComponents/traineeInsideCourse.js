@@ -8,7 +8,7 @@ import {
   SettingFilled,
   DislikeOutlined,
   LikeOutlined,
-  UsergroupDeleteOutlined,
+  WechatOutlined,
   LogoutOutlined,
 } from "@ant-design/icons";
 import ReviewsIcon from "@mui/icons-material/Reviews";
@@ -61,7 +61,7 @@ const TraineeInsideCourse = ({ children, courseId, courseName }) => {
         Course Conversations
       </Link>,
       "6",
-      <ShoppingCartIcon />
+      <WechatOutlined />
     ),
 
     getItem(
@@ -132,6 +132,7 @@ const TraineeInsideCourse = ({ children, courseId, courseName }) => {
       <Content
         style={{
           padding: "0 50px",
+          minHeight: "80vh",
         }}
       >
         <Breadcrumb
@@ -157,7 +158,6 @@ const TraineeInsideCourse = ({ children, courseId, courseName }) => {
           <Content
             style={{
               padding: "0 24px",
-              minHeight: " 150vh",
             }}
           >
             {children}

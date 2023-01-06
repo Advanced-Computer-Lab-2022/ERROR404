@@ -1,15 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Pie, Liquid } from "@ant-design/plots";
+import { Pie } from "@ant-design/plots";
 import { LikeOutlined, EyeInvisibleOutlined } from "@ant-design/icons";
-import { AppContext } from "../../AppContext";
 import axios from "axios";
 import { Col, Row, Statistic } from "antd";
-import AdminPanelSettings from "@mui/icons-material/AdminPanelSettings";
-import { AdminReports } from "./adminReports";
 
 const DemoPie = () => {
-  const { username } = useContext(AppContext);
-  const [userName, setUserName] = username;
   const [unseen, setUnseen] = useState(0);
   const [resolved, setResolved] = useState(0);
   const [pending, setPending] = useState(0);

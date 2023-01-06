@@ -59,10 +59,10 @@ const CourseComponent = ({ courses, viewType }) => {
     axios
       .put("http://localhost:2020/submitDiscount", body)
       .then(() => {
-        message.success("discount added", 3);
+        message.success("discount added", 1);
       })
       .catch((err) => {
-        message.error("error " + err.response.data, 3);
+        message.error("error " + err.response.data, 1);
       });
   };
   const onFinishFailed1 = (errorInfo) => {
@@ -230,6 +230,7 @@ const CourseComponent = ({ courses, viewType }) => {
           pagination={{
             onChange: (page) => {
               console.log(page);
+              window.scrollTo(0, 0);
             },
             pageSize: 3,
           }}
@@ -271,9 +272,8 @@ const CourseComponent = ({ courses, viewType }) => {
                       <Button
                         onClick={() => {
                           if (
-                            user == "individual" ||
-                            (user == "corporate" &&
-                              traineeRegCourses.includes(item._id))
+                            (user == "corporate" || user == "individual") &&
+                            traineeRegCourses.includes(item._id)
                           ) {
                             navigation("/trainee/course?courseId=" + item._id);
                           } else {
@@ -284,16 +284,10 @@ const CourseComponent = ({ courses, viewType }) => {
                         Open course
                       </Button>
                     </div>
-                    {user == "corporate" ? (
+                    {user == "corporate" &&
+                    !traineeRegCourses.includes(item._id) ? (
                       <>
                         <CreateRequestWrapper courseId={item._id} />{" "}
-                        <Button
-                          onClick={() => {
-                            navigation("/course/about?courseId=" + item._id);
-                          }}
-                        >
-                          View Course
-                        </Button>
                       </>
                     ) : null}
                     {user == "instructor" && viewType == "instructor" ? (
@@ -353,17 +347,17 @@ const CourseComponent = ({ courses, viewType }) => {
                   description={item.summary}
                 />
                 {<Rate allowHalf defaultValue={item.rating} disabled={true} />}
-                <Collapse bordered={false}>
+                <Collapse bordered={false} ghost>
                   <Panel header="More Info" key={item._id}>
-                    <p>
-                      <List
-                        header={<div>Subtitles</div>}
-                        dataSource={item.subtitles}
-                        renderItem={(sub) => (
-                          <List.Item>{sub.subtitle}</List.Item>
-                        )}
-                      />
-                    </p>
+                    <List
+                      size="small"
+                      header={<div>Subtitles</div>}
+                      dataSource={item.subtitles}
+                      renderItem={(sub) => (
+                        <List.Item>{sub.subtitle}</List.Item>
+                      )}
+                    />
+
                     <p>{"Exercises " + item.questions.length}</p>
                     <p>{"Price " + item.price}</p>
                     <p>{"Discount " + item.discount.value}</p>

@@ -150,10 +150,22 @@ const CourseraCategories = () => {
       >
         <b>ERROR 404</b>
       </h4>
-      <Link to="/" style={{ color: "white", textDecoration: "none" }}>
+      <Link
+        onClick={() => {
+          window.scrollTo(0, 0);
+        }}
+        to="/"
+        style={{ color: "white", textDecoration: "none" }}
+      >
         Home
       </Link>
-      <Link style={{ color: "white", textDecoration: "none" }} to="/aboutTeam">
+      <Link
+        onClick={() => {
+          window.scrollTo(0, 0);
+        }}
+        style={{ color: "white", textDecoration: "none" }}
+        to="/aboutTeam"
+      >
         About
       </Link>
       {/* <Link style={{ color: "white", textDecoration: "none" }}>Contact Us</Link>
@@ -240,6 +252,9 @@ const InstructorCategories = () => {
         <b>Courses</b>
       </h4>
       <Link
+        onClick={() => {
+          window.scrollTo(0, 0);
+        }}
         to="/viewAllCourses"
         style={{ color: "white", textDecoration: "none" }}
       >

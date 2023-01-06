@@ -33,11 +33,11 @@ const CreateCorporate = () => {
     axios
       .post("http://localhost:2020/createCorporateTrainee", requestBody)
       .then((response) => {
-        message.success("user " + username + " has been created", 5);
+        message.success("user " + username + " has been created", 1);
       })
       .catch((error) => {
         console.log("erorr ", error.message);
-        message.error("Unexpected Error occured" + error.response.message, 5);
+        message.error("Unexpected Error occured" + error.response.message, 1);
       });
   };
   const onFinishFailed = (errorInfo) => {

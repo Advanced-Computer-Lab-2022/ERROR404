@@ -1,11 +1,21 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Avatar, Button, Form, Input, List, Skeleton } from "antd";
+import {
+  Avatar,
+  Button,
+  Empty,
+  Form,
+  Image,
+  Input,
+  List,
+  Skeleton,
+} from "antd";
 import PreviewCourseWrapper from "./previewCourse";
 import PreviewCourses from "../CourseViewWrapper";
 import axios from "axios";
-import { SendOutlined, DeleteOutlined } from "@ant-design/icons";
+import { WechatOutlined, DeleteOutlined } from "@ant-design/icons";
 
 import { AppContext } from "../../AppContext";
+import TraineeInsideCourse from "../traineeComponents/traineeInsideCourse";
 
 const count = 3;
 
@@ -87,66 +97,125 @@ const CourseConversation = () => {
     }
   };
 
-  return (
-    <PreviewCourses courseId={courseId}>
-      <div
-        style={{
-          width: "100%",
-          height: "100%",
-
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-between",
-        }}
-      >
-        <List
-          className="demo-loadmore-list"
-          itemLayout="horizontal"
-          loading={loading}
-          dataSource={list}
-          renderItem={(item) => (
-            <List.Item>
-              <Skeleton avatar title={false} loading={item.loading} active>
-                <List.Item.Meta
-                  avatar={
-                    <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
-                  }
-                  title={item.sender + "(" + item.usertype + ")"}
-                  description={item.message}
-                />
-              </Skeleton>
-              {user == "admin" ? (
-                <DeleteOutlined style={{ color: "red" }} />
-              ) : null}
-            </List.Item>
-          )}
-        />
-        <Form
-          form={form}
+  if (list.length == 0) {
+    return (
+      <TraineeInsideCourse courseId={courseId}>
+        <div
           style={{
             display: "flex",
-            flexDirection: "row",
+            flexDirection: "column",
+            justifyContent: "center",
+            gap: "20px",
           }}
-          onFinish={onFinish}
         >
-          <Form.Item
-            allowClear
-            name="message"
+          <WechatOutlined
             style={{
-              width: "95%",
+              fontSize: "30px",
             }}
+          />
+          <Empty description="No Chats, be the first to send a message?" />
+          <Form
+            form={form}
+            style={{
+              display: "flex",
+              flexDirection: "row",
+            }}
+            onFinish={onFinish}
           >
-            <Input allowClear placeholder="send message..." />
-          </Form.Item>
-          <Form.Item>
-            <Button type="primary" htmlType="send">
-              Send
-            </Button>
-          </Form.Item>
-        </Form>
-      </div>
-    </PreviewCourses>
-  );
+            <Form.Item
+              allowClear
+              name="message"
+              style={{
+                width: "95%",
+              }}
+            >
+              <Input allowClear placeholder="send message..." />
+            </Form.Item>
+            <Form.Item>
+              <Button type="primary" htmlType="send">
+                Send
+              </Button>
+            </Form.Item>
+          </Form>
+        </div>
+      </TraineeInsideCourse>
+    );
+  } else {
+    return (
+      <TraineeInsideCourse courseId={courseId}>
+        <div
+          style={{
+            width: "100%",
+            height: "100%",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-between",
+          }}
+        >
+          {/* <Image
+            preview={false}
+            height="20%"
+            src="https://marketplace.canva.com/EAENvT5r2kw/1/0/1600w/canva-black-and-gray-abstract-linkedin-banner-2CkD5P2xUDo.jpg"
+          /> */}
+          <WechatOutlined
+            style={{
+              fontSize: "30px",
+            }}
+          />
+          <List
+            className="demo-loadmore-list"
+            itemLayout="horizontal"
+            style={{
+              minHeight: "40vh",
+              maxHeight: "60vh",
+              overflow: "auto",
+            }}
+            loading={loading}
+            dataSource={list}
+            renderItem={(item) => (
+              <List.Item>
+                <Skeleton avatar title={false} loading={item.loading} active>
+                  <List.Item.Meta
+                    avatar={
+                      <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+                    }
+                    title={item.sender + " (" + item.usertype + ")"}
+                    description={item.message}
+                  />
+                </Skeleton>
+                {user === "admin" ? (
+                  <DeleteOutlined style={{ color: "red" }} />
+                ) : null}
+              </List.Item>
+            )}
+          />
+          <Form
+            form={form}
+            style={{
+              display: "flex",
+              flexDirection: "row",
+            }}
+            onFinish={onFinish}
+          >
+            <Form.Item
+              allowClear
+              name="message"
+              style={{
+                width: "95%",
+              }}
+            >
+              <Input allowClear placeholder="send message..." />
+            </Form.Item>
+            <Form.Item>
+              <Button type="primary" htmlType="send">
+                Send
+              </Button>
+            </Form.Item>
+          </Form>
+        </div>
+      </TraineeInsideCourse>
+    );
+  }
 };
 
 export default CourseConversation;

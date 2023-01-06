@@ -15,7 +15,11 @@ import {
   Popover,
 } from "antd";
 import { useNavigate } from "react-router-dom";
-import { CaretRightOutlined, SearchOutlined } from "@ant-design/icons";
+import {
+  CaretRightOutlined,
+  SearchOutlined,
+  FilterFilled,
+} from "@ant-design/icons";
 const { Option } = Select;
 const { Panel } = Collapse;
 const SearchByForm = ({ values }) => {
@@ -61,17 +65,31 @@ const SearchByForm = ({ values }) => {
     navigate("/filter?filterType=category&category=" + e.target.value);
   };
 
+  const marks = {
+    0: "0",
+    1000: "1000",
+    2000: "2000",
+    3000: "3000",
+    4000: "4000",
+  };
+
   return (
     <div>
-      <h1 style={{ color: "black" }}>Filter By</h1>
+      <h1 style={{ color: "black" }}> Filter By</h1>
       <Collapse
         bordered={true}
-        defaultActiveKey={["0"]}
+        defaultActiveKey={["0", "reset", "1"]}
         expandIcon={({ isActive }) => (
           <CaretRightOutlined rotate={isActive ? 90 : 0} />
         )}
         className="site-collapse-custom-collapse"
+        ghost
       >
+        <Panel header="Reset Filter" key="reset">
+          <Button type="link" onClick={() => navigate("/viewallcourses")}>
+            clear filter
+          </Button>
+        </Panel>
         <Panel header="Rating" key="1" className="site-collapse-custom-panel">
           <Form
             style={{
@@ -147,22 +165,21 @@ const SearchByForm = ({ values }) => {
         >
           <Form>
             <Form.Item name="price">
-              <Tooltip>
-                <Button
-                  htmlType="submit"
-                  type="primary"
-                  shape="circle"
-                  icon={<SearchOutlined />}
-                  onClick={() => {
-                    setMax(0);
-                    setMin(0);
-                  }}
-                ></Button>
-                Our free courses
-              </Tooltip>
+              <Button
+                htmlType="submit"
+                type="link"
+                icon={<SearchOutlined />}
+                onClick={() => {
+                  navigate(`/filter?filterType=price&min=0&max=0`);
+                }}
+              >
+                Our free courses{" "}
+              </Button>
             </Form.Item>
             <Form.Item>
+              <span>Use slider to set min and max based on ur preferneces</span>
               <Slider
+                marks={marks}
                 label="Budget"
                 id="slider"
                 onChange={change}
@@ -204,7 +221,7 @@ const SearchByForm = ({ values }) => {
         </Panel>
 
         <Panel
-          header="Title,Subject or Instructor"
+          header="filter by title, subject or instructor"
           key="4"
           className="site-collapse-custom-panel"
         >

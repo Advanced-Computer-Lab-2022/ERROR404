@@ -15,7 +15,11 @@ import {
   Popover,
 } from "antd";
 import { useNavigate } from "react-router-dom";
-import { CaretRightOutlined, SearchOutlined } from "@ant-design/icons";
+import {
+  CaretRightOutlined,
+  SearchOutlined,
+  FilterFilled,
+} from "@ant-design/icons";
 const { Option } = Select;
 const { Panel } = Collapse;
 const InstructorFilterCourses = ({ values }) => {
@@ -68,13 +72,21 @@ const InstructorFilterCourses = ({ values }) => {
     <>
       <h1 style={{ color: "black" }}>Filter By</h1>
       <Collapse
-        bordered={true}
-        defaultActiveKey={["0"]}
+        ghost
+        defaultActiveKey={["0", "1", "reset"]}
         expandIcon={({ isActive }) => (
           <CaretRightOutlined rotate={isActive ? 90 : 0} />
         )}
         className="site-collapse-custom-collapse"
       >
+        <Panel header="Reset Filter" key="reset">
+          <Button
+            type="link"
+            onClick={() => navigate("/instructorDashBoard/allMyCourses")}
+          >
+            clear filter
+          </Button>
+        </Panel>
         <Panel header="Rating" key="1" className="site-collapse-custom-panel">
           <Form
             style={{

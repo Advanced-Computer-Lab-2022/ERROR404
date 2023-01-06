@@ -143,7 +143,7 @@ const TraineeDashboard = ({ children, pageName }) => {
       <Content
         style={{
           padding: "0 50px",
-          height: "150vh",
+          minHeight: "100vh",
         }}
       >
         <Breadcrumb
@@ -168,7 +168,6 @@ const TraineeDashboard = ({ children, pageName }) => {
           <Content
             style={{
               padding: "0 24px",
-              minHeight: 280,
             }}
           >
             {children}

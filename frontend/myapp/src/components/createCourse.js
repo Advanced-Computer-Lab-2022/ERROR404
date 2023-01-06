@@ -99,11 +99,11 @@ const CreateCourse = () => {
     axios
       .post("http://localhost:2020/createCourse", requestBody)
       .then((response) => {
-        message.success("Course " + title + " has been created", 5);
+        message.success("Course " + title + " has been created", 1);
       })
       .catch((error) => {
         console.log("erorr ", error);
-        message.error("Unexpected Error occured" + error.response.message, 5);
+        message.error("Unexpected Error occured" + error.response.message, 1);
       });
   };
   const onFinishFailed = (errorInfo) => {

@@ -71,12 +71,12 @@ const SelectCountry = () => {
     axios
       .patch("http://localhost:2020/country", requestBody)
       .then((response) => {
-        message.success("Country " + country + " has been selected", 5);
+        message.success("Country " + country + " has been selected", 1);
         setCountry(country);
       })
       .catch((error) => {
         console.log("erorr ", error.message);
-        message.error("Unexpected Error occured" + error.response.message, 5);
+        message.error("Unexpected Error occured" + error.response.message, 1);
       });
   };
 

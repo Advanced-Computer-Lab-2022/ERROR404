@@ -64,7 +64,7 @@ const ChangePasswordPageWrapper = () => {
       axios
         .put("http://localhost:2020/changePassword", body)
         .then(() => {
-          message.success("you have changed your password successfully", 3);
+          message.success("you have changed your password successfully", 1);
           setOldPassword(newPassword);
           console.log("hello2");
         })

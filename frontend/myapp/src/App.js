@@ -68,7 +68,6 @@ const App = ({ children }) => {
           style={{
             margin: "0 0px",
             padding: "5%",
-            minHeight: "200vh",
           }}
         >
           {children}
