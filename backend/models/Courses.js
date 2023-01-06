@@ -152,6 +152,10 @@ const courses = new Schema(
       type: Boolean,
       default: false,
     },
+    averageMark: {
+      type: Number,
+      default: -1,
+    },
   },
   { timestamps: true }
 );

@@ -1,10 +1,10 @@
-PUT http://localhost:2020/addToIndivisualTraineeWallet
+PUT http://localhost:2020/addAveragemark
 Content-Type: application/json
 
-  {
-    "username":"bruno",
-    "refund": 50
-  }
+{
+  "courseId":"63af72c8dc50987ddd1e1848",
+  "mark": 4
+}
 
 
 # {

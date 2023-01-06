@@ -10,7 +10,9 @@ import {
   Row,
   Breadcrumb,
   Image,
+  Result,
 } from "antd";
+import { SmileOutlined, FrownOutlined } from "@ant-design/icons";
 import BreadcrumbItem from "antd/lib/breadcrumb/BreadcrumbItem";
 import axios from "axios";
 import { useEffect, useState, useContext } from "react";
@@ -171,6 +173,11 @@ const TakeQuiz = () => {
       .then((response) => {
         message.success("Your Grade has been submited");
         console.log(response.data);
+        let body = {
+          courseId: courseId,
+          mark: g,
+        };
+        axios.put("http://localhost:2020/addAveragemark", body);
       })
       .catch((error) => {
         message.error("Error submiting your grades report a problem");
@@ -198,13 +205,13 @@ const TakeQuiz = () => {
             }}
           >
             <h2>{question1}</h2>
-            <Form.Item name="answer">
+            <Form.Item name="answer1">
               <Radio.Group onChange={onChange1} value={studentAnswer1}>
                 <Space direction="vertical">
-                  <Radio value={"a"}>{answerA1}</Radio>
-                  <Radio value={"b"}>{answerB1}</Radio>
-                  <Radio value={"c"}>{answerC1}</Radio>
-                  <Radio value={"d"}>{answerD1}</Radio>
+                  <Radio value="a">{answerA1}</Radio>
+                  <Radio value="b">{answerB1}</Radio>
+                  <Radio value="c">{answerC1}</Radio>
+                  <Radio value="d">{answerD1}</Radio>
                 </Space>
               </Radio.Group>
             </Form.Item>
@@ -237,13 +244,13 @@ const TakeQuiz = () => {
             }}
           >
             <h2>{question2}</h2>
-            <Form.Item name="answer">
+            <Form.Item name="answer2">
               <Radio.Group onChange={onChange2} value={studentAnswer2}>
                 <Space direction="vertical">
-                  <Radio value={"a"}>{answerA2}</Radio>
-                  <Radio value={"b"}>{answerB2}</Radio>
-                  <Radio value={"c"}>{answerC2}</Radio>
-                  <Radio value={"d"}>{answerD2}</Radio>
+                  <Radio value="a">{answerA2}</Radio>
+                  <Radio value="b">{answerB2}</Radio>
+                  <Radio value="c">{answerC2}</Radio>
+                  <Radio value="d">{answerD2}</Radio>
                 </Space>
               </Radio.Group>
             </Form.Item>
@@ -284,13 +291,13 @@ const TakeQuiz = () => {
             }}
           >
             <h2>{question3}</h2>
-            <Form.Item name="answer">
+            <Form.Item name="answer3">
               <Radio.Group onChange={onChange3} value={studentAnswer3}>
                 <Space direction="vertical">
-                  <Radio value={"a"}>{answerA3}</Radio>
-                  <Radio value={"b"}>{answerB3}</Radio>
-                  <Radio value={"c"}>{answerC3}</Radio>
-                  <Radio value={"d"}>{answerD3}</Radio>
+                  <Radio value="a">{answerA3}</Radio>
+                  <Radio value="b">{answerB3}</Radio>
+                  <Radio value="c">{answerC3}</Radio>
+                  <Radio value="d">{answerD3}</Radio>
                 </Space>
               </Radio.Group>
             </Form.Item>
@@ -331,13 +338,13 @@ const TakeQuiz = () => {
             }}
           >
             <h2>{question4}</h2>
-            <Form.Item name="answer">
+            <Form.Item name="answer4">
               <Radio.Group onChange={onChange4} value={studentAnswer4}>
                 <Space direction="vertical">
-                  <Radio value={"a"}>{answerA4}</Radio>
-                  <Radio value={"b"}>{answerB4}</Radio>
-                  <Radio value={"c"}>{answerC4}</Radio>
-                  <Radio value={"d"}>{answerD4}</Radio>
+                  <Radio value="a">{answerA4}</Radio>
+                  <Radio value="b">{answerB4}</Radio>
+                  <Radio value="c">{answerC4}</Radio>
+                  <Radio value="d">{answerD4}</Radio>
                 </Space>
               </Radio.Group>
             </Form.Item>
@@ -361,7 +368,50 @@ const TakeQuiz = () => {
       ),
     },
     {
-      title: "Your Grade",
+      title: "Final Grade",
+      content: (
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignContent: "center",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Result
+            icon={grade == 0 ? <FrownOutlined /> : <SmileOutlined />}
+            title={
+              grade == 0
+                ? "None of the answers were correct, you got " + grade + "/4"
+                : "Great, you have recieved " + grade + "/4 in this quiz"
+            }
+          />
+          <div>
+            {grade < 2 ? (
+              <Button
+                type="primary"
+                onClick={() => {
+                  setCurrent(0);
+                }}
+              >
+                Retake Quiz
+              </Button>
+            ) : null}{" "}
+            <Button
+              type="primary"
+              onClick={() => {
+                next();
+              }}
+            >
+              View Solution
+            </Button>{" "}
+          </div>
+        </div>
+      ),
+    },
+    {
+      title: "Quiz Solution",
       content: (
         <div
           className="site-card-wrapper"
@@ -476,14 +526,6 @@ const TakeQuiz = () => {
                 Continue Learning
               </Link>
             </Button>
-            <Button
-              type="primary"
-              onClick={() => {
-                setCurrent(0);
-              }}
-            >
-              Retake Quiz
-            </Button>
           </div>
         </div>
       ),
@@ -538,7 +580,10 @@ const TakeQuiz = () => {
             {steps[current].content}
           </div>
         </div>
-        <Image src="https://marketplace.canva.com/EAE2cQaUHVA/1/0/1600w/canva-black-minimal-motivation-quote-linkedin-banner-HoRi-2buBWk.jpg" />
+        <Image
+          preview={false}
+          src="https://marketplace.canva.com/EAE2cQaUHVA/1/0/1600w/canva-black-minimal-motivation-quote-linkedin-banner-HoRi-2buBWk.jpg"
+        />
       </TraineeInsideCourse>
     </>
   );

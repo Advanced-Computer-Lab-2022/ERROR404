@@ -72,6 +72,7 @@ const {
   addToIndivisualTraineeWallet,
   instructorFilterByCategory,
   instructorfilterByPriceOrRate,
+  addAverageMark,
 } = require("./routes/routes");
 
 //App variables
@@ -174,3 +175,4 @@ app.put("/payfromBalance", payfromBalance);
 app.put("/setDiscountForAllCourses", setDiscountForAllCourses);
 app.put("/putGrades", putGrades);
 app.put("/addToIndivisualTraineeWallet", addToIndivisualTraineeWallet);
+app.put("/addAverageMark", addAverageMark);

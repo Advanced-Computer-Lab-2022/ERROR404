@@ -25,6 +25,7 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import CreateRequestWrapper from "../corporateCreateRequest";
 import { AppContext } from "../../AppContext";
+import DemoGauge from "../instructorComponents/instrcutorAverageMark";
 
 const { Panel } = Collapse;
 
@@ -177,6 +178,9 @@ const PreviewCourseWrapper = () => {
                 />
               </Panel>
             </Collapse>
+            {user == "instructor" ? (
+              <DemoGauge value={courseData.averageMark} />
+            ) : null}
           </div>
           {/* <div
             style={{

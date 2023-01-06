@@ -62,7 +62,7 @@ const CoursePreview = () => {
       .get("http://localhost:2020/getCourse/" + courseId)
       .then((response) => {
         setCourse(response.data);
-        console.log(response.data.preview);
+        console.log(response.data);
         setVideo("https://" + response.data.preview);
         console.log(response.data.subtitles);
         setSubtitles(response.data.subtitles);
@@ -313,7 +313,6 @@ const CourseSubtitleViewWrapper = () => {
     axios
       .get(`http://localhost:2020/getUser/${userName}/${usertype}`)
       .then((response) => {
-        console.log("HNNNNA");
         console.log(response.data.progress);
         response.data.progress.map((course) => {
           if (course.course == courseId) {
@@ -324,13 +323,12 @@ const CourseSubtitleViewWrapper = () => {
     axios
       .get("http://localhost:2020/getCourse/" + courseId)
       .then((response) => {
-        console.log(response.data.questions);
+        console.log("hello ", response.data);
         let data = [];
         response.data.questions.map((q) => {
           if (q.subtitle == subtitle) {
             data.push(q);
           }
-          console.log("a7a " + data);
           setQuizes(data);
         });
       });

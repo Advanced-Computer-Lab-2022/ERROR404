@@ -616,6 +616,7 @@ const getCategory = async (req, res) => {
     }
   });
 };
+
 const filterByPriceOrRate = async (req, res) => {
   const { type, min, max } = req.params;
   if (type == "price") {
@@ -1800,6 +1801,36 @@ const putGrades = async (req, res) => {
       .clone();
   }
 };
+
+const addAverageMark = async (req, res) => {
+  const courseId = req.body.courseId;
+  const mark = req.body.mark;
+
+  await Courses.findOne({ _id: courseId }, (err, result) => {
+    if (err) {
+      res.status(500).json(err);
+    } else {
+      let newResult;
+
+      if (result.averageMark == -1) {
+        newResult = mark;
+      } else {
+        newResult = (result.averageMark + mark) / 2;
+      }
+      Courses.findOneAndUpdate(
+        { _id: courseId },
+        { averageMark: newResult },
+        (err, result) => {
+          if (err) {
+            res.status(500).json(err);
+          } else {
+            res.status(200).json(result);
+          }
+        }
+      ).clone();
+    }
+  }).clone();
+};
 module.exports = {
   getUser,
   search,
@@ -1866,4 +1897,5 @@ module.exports = {
   getRefundRequestsByCourseIdUsername,
   putGrades,
   addToIndivisualTraineeWallet,
+  addAverageMark,
 };
