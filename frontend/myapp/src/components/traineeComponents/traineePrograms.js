@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   MessageOutlined,
   EyeOutlined,
@@ -10,6 +10,7 @@ import { List, Space, Rate, Button, Modal } from "antd";
 import { useNavigate } from "react-router-dom";
 import ReviewComponent from "../StudentrateAndReviewInstructor";
 import ReviewCourseComponent from "../rateAndReviewCourse";
+import { AppContext } from "../../AppContext";
 const IconText = ({ icon, text }) => (
   <Space>
     {React.createElement(icon)}
@@ -19,6 +20,8 @@ const IconText = ({ icon, text }) => (
 
 const TraineePrograms = ({ courses }) => {
   let navigation = useNavigate();
+  const { username } = useContext(AppContext);
+  const [userName, setUserName] = username;
 
   useEffect(() => {}, []);
   const [open, setOpen] = useState(false);
@@ -43,15 +46,17 @@ const TraineePrograms = ({ courses }) => {
     const modal = Modal.info();
     modal.update({
       title: "Review Instructor",
-      content: <ReviewComponent username={user} />,
+      content: <ReviewComponent instructor={user} username={userName} />,
     });
   };
-  const openReviewCourse = (id, title) => {
+  const openReviewCourse = (id, title, user) => {
     const modal = Modal.info();
 
     modal.update({
       title: "Review course " + title,
-      content: <ReviewCourseComponent Id={id} title={title} />,
+      content: (
+        <ReviewCourseComponent Id={id} title={title} username={userName} />
+      ),
     });
   };
   return (

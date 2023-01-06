@@ -1,28 +1,30 @@
 import { Button, Form, Input, Rate, message, Space } from "antd";
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { AppContext } from "../AppContext";
 const textArea = Input;
 const desc = [1, 2, 3, 4, 5];
-function ReviewCourseComponent({ Id }) {
+const ReviewCourseComponent = ({ Id, username }) => {
   const [value, setValue] = useState(0);
   const [componentDisabled, setComponentDisabled] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const reviewCourse = async (event) => {
+  const reviewCourse = (event) => {
     const requestBody = {
       courseId: Id,
       review: event.review,
+      reviewer: username,
       newRate: value,
     };
     axios
       .patch("http://localhost:2020/rateAndReviewCourse", requestBody)
       .then((response) => {
-        message.success("Your review has been submitted successfully", 5);
+        message.success("Your review has been submitted successfully", 2);
         console.log(response);
       })
       .catch((error) => {
         console.log("erorr ", error);
-        message.error("Unexpected Error occured " + error, 5);
+        message.error("Unexpected Error occured " + error, 2);
       });
   };
 
@@ -34,24 +36,15 @@ function ReviewCourseComponent({ Id }) {
         onFinish={reviewCourse}
         style={{
           width: "20vw",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          boxSizing: "border-box",
+          padding: "10px",
+          gap: "10px",
         }}
       >
-        <Form.Item
-          name="review"
-          rules={[
-            { required: true, message: "Please enter your review" },
-            { minLength: 5 },
-          ]}
-          style={{ width: "100%" }}
-        >
-          <br />
-          <br />
-          <Input.TextArea
-            type="review"
-            placeholder="Enter your review"
-            rows={5}
-          />
-        </Form.Item>
         <span>
           <Rate
             tooltips={desc}
@@ -68,12 +61,21 @@ function ReviewCourseComponent({ Id }) {
           )}
         </span>
         <Form.Item
-          style={{
-            width: "100%",
-            marginTop: "10%",
-            alignItems: "center",
-          }}
+          name="review"
+          rules={[
+            { required: true, message: "Please enter your review" },
+            { minLength: 5 },
+          ]}
+          style={{ width: "100%" }}
         >
+          <Input.TextArea
+            type="review"
+            placeholder="Enter your review"
+            rows={5}
+          />
+        </Form.Item>
+
+        <Form.Item>
           <Button
             type="primary"
             htmlType="submit"
@@ -85,5 +87,5 @@ function ReviewCourseComponent({ Id }) {
       </Form>
     </>
   );
-}
+};
 export default ReviewCourseComponent;

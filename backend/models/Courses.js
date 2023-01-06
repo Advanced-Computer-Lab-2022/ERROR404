@@ -120,10 +120,18 @@ const courses = new Schema(
       type: Number,
       default: 0,
     },
-    review: {
-      type: Array,
-      default: [],
-    },
+    review: [
+      {
+        username: {
+          type: String,
+          default: "",
+        },
+        review: {
+          type: String,
+          default: "",
+        },
+      },
+    ],
     chat: [
       {
         sender: {

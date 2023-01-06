@@ -661,7 +661,10 @@ const updateViews = async (req, res) => {
 const rateAndReviewInstructor = async (req, res) => {
   const username = req.body.username;
   const rate = req.body.rate;
-  const review = req.body.review;
+  const review = {
+    username: req.body.reviewer,
+    review: req.body.review,
+  };
   let oldrate = 0;
   if (isNaN(rate)) {
     res.status(400).send("invalid rate");
@@ -696,7 +699,10 @@ const rateAndReviewInstructor = async (req, res) => {
 };
 const rateAndReviewCourse = async (req, res) => {
   const courseId = req.body.courseId;
-  const review = req.body.review;
+  const review = {
+    username: req.body.reviewer,
+    review: req.body.review,
+  };
   const newRate = req.body.newRate;
   console.log(req.body);
   let oldRate = 0;

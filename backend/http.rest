@@ -1,9 +1,11 @@
-PUT http://localhost:2020/addAveragemark
+PATCH http://localhost:2020/rateAndReviewCourse
 Content-Type: application/json
 
 {
-  "courseId":"63af72c8dc50987ddd1e1848",
-  "mark": 4
+  "courseId":"63b87ada014c1e7f649eb93a",
+  "newRate": 4,
+  "reviewer": "dina",
+  "review": "one of the best courses i had"
 }
 
 
