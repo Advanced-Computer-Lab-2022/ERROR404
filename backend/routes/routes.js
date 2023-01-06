@@ -237,6 +237,7 @@ const createCourse = async (req, res) => {
       prerequisite: req.body.prerequisite,
       preview: req.body.previewURL,
       category: req.body.category,
+      totalHours: req.body.totalHours,
     };
     courses.create(courseDetails, (err, small) => {
       if (err) {
@@ -529,6 +530,7 @@ const chooseCountry = async (req, res) => {
 };
 
 const submitDiscount = (req, res) => {
+  console.log(req.body);
   const courseId = req.body.courseId;
   const discount = req.body.discount;
   const date = req.body.date;
@@ -543,7 +545,7 @@ const submitDiscount = (req, res) => {
     { discount: discountBody },
     (err, response) => {
       if (err) {
-        res.status(500).send();
+        res.status(500).send(err);
       } else {
         res.status(200).send();
       }

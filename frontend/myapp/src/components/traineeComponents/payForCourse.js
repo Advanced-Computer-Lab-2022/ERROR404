@@ -76,7 +76,7 @@ const PayForCourse = () => {
   const buyCourse = (price) => {
     if (value == "balance") {
       if (userData.balance < price) {
-        message.error("insufficient funds, choose another payment method", 1);
+        message.error("insufficient funds, choose another payment method", 2);
         return;
       } else {
         const reqBody = {

@@ -48,8 +48,8 @@ const CourseComponent = ({ courses, viewType }) => {
   const [id, setId] = useState("");
 
   let navigation = useNavigate();
-  const onFinish1 = (values) => {
-    console.log("Success:", values);
+  const onFinish1 = (values, id) => {
+    console.log("Success:", id);
     const body = {
       courseId: id,
       discount: values.discountValue,
@@ -62,6 +62,7 @@ const CourseComponent = ({ courses, viewType }) => {
         message.success("discount added", 1);
       })
       .catch((err) => {
+        console.log("hal;a ", err);
         message.error("error " + err.response.data, 1);
       });
   };
@@ -90,7 +91,10 @@ const CourseComponent = ({ courses, viewType }) => {
       title: "Updated " + courseTitle,
       content: (
         <Form
-          onFinish={onFinish1}
+          onFinish={(e) => {
+            onFinish1(e, id);
+            modal.destroy();
+          }}
           onFinishFailed={onFinishFailed1}
           autoComplete="off"
         >
@@ -136,6 +140,7 @@ const CourseComponent = ({ courses, viewType }) => {
         <Form
           onFinish={(e) => {
             onFinish(e, id);
+            modal.destroy();
           }}
         >
           <Form.Item

@@ -35,6 +35,10 @@ const courses = new Schema(
           required: true,
           default: "",
         },
+        totalHours: {
+          type: Number,
+          required: true,
+        },
         description: {
           type: String,
           required: true,

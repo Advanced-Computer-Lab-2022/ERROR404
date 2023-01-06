@@ -95,6 +95,7 @@ const CreateCourse = () => {
       exercises: exercises,
       previewURL: previewURL,
       category: category,
+      totalHours: totalHours,
     };
     axios
       .post("http://localhost:2020/createCourse", requestBody)
@@ -128,7 +129,7 @@ const CreateCourse = () => {
         onFinishFailed={onFinishFailed}
         autoComplete="off"
         style={{
-          width: "50%",
+          width: "60%",
         }}
       >
         <Form.Item
@@ -214,6 +215,21 @@ const CreateCourse = () => {
                   >
                     <Input />
                   </Form.Item>
+
+                  <Form.Item
+                    {...restField}
+                    name={[name, "totalHours"]}
+                    label="Add Subtitle Total Hours"
+                    rules={[
+                      {
+                        required: true,
+                        message: "Missing Subtitle Total Hours",
+                      },
+                    ]}
+                  >
+                    <Input />
+                  </Form.Item>
+
                   <Form.Item
                     {...restField}
                     name={[name, "description"]}

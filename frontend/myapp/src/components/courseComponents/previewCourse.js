@@ -83,7 +83,8 @@ const PreviewCourseWrapper = () => {
         let newPrice =
           response.data.discount.value == 0
             ? response.data.price
-            : response.data.price * (response.data.discount.value / 100);
+            : response.data.price -
+              response.data.price * (response.data.discount.value / 100);
         setNewPrice(newPrice);
       })
       .catch((err) => {
