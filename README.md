@@ -42,8 +42,30 @@ This project was easy and simple to do.
 ![js](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
 
 ## Website Snippets
+
+#### Homepage
+<img src="/Images/Capture2.PNG" alt="Alt text">
+
 #### user login
-<img src="Images/Capture2.PNG" alt="Alt text">
+<img src="/Images/Capture4.PNG" alt="Alt text">
+
+#### Admin dashboard
+<img src="/Images/Capture.PNG" alt="Alt text">
+
+#### Reports
+<img src="/Images/Capture1.PNG" alt="Alt text">
+
+#### View all courses
+<img src="/Images/Capture3.PNG" alt="Alt text">
+
+#### Forget Password
+<img src="/Images/Capture5.PNG" alt="Alt text">
+
+#### Instructor balance
+<img src="/Images/Capture6.PNG" alt="Alt text">
+
+#### Create Course
+<img src="/Images/Capture7.PNG" alt="Alt text">
 
 ## Features
 
