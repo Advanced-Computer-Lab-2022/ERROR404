@@ -76,7 +76,7 @@ const PreviewCourseWrapper = () => {
         setNoOfSubscribers(response.data.numberOfSubscribers);
         console.log(response.data.numberOfSubscribers);
 
-        console.log(response.data.discount.value);
+        console.log("MMM " + response.data.averageMark);
         setOldPrice(response.data.discount.value);
         setDate(response.data.discount.endDate);
         setTitle(response.data.title);
@@ -171,7 +171,13 @@ const PreviewCourseWrapper = () => {
                 <li>Certificate of completion</li>
               </ul>
             </div>
-            <Collapse ghost>
+
+            <Collapse ghost activeKey={["1", "2"]}>
+              <Panel header="Average Mark" key="2">
+                {user == "instructor" ? (
+                  <DemoGauge value={courseData.averageMark} />
+                ) : null}
+              </Panel>
               <Panel header="Subtitles" key="1">
                 <List
                   itemLayout="horizontal"
@@ -187,9 +193,6 @@ const PreviewCourseWrapper = () => {
                 />
               </Panel>
             </Collapse>
-            {user == "instructor" ? (
-              <DemoGauge value={courseData.averageMark} />
-            ) : null}
           </div>
           {/* <div
             style={{

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import { Gauge } from "@ant-design/plots";
+import { Alert } from "antd";
+import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 
 const DemoGauge = ({ value }) => {
   const config = {
@@ -32,7 +34,27 @@ const DemoGauge = ({ value }) => {
       },
     },
   };
-  return <Gauge {...config} />;
+  if (value == -1) {
+    return (
+      <Alert
+        icon={<AutoAwesomeIcon />}
+        description="None of the quizes were taken yet so no average mark"
+        message="Average Mark for the exercises "
+        type="info"
+        showIcon
+      />
+    );
+  } else {
+    return (
+      <Alert
+        icon={<AutoAwesomeIcon />}
+        description={value + "/4"}
+        message="Average Mark for the exercises "
+        type="info"
+        showIcon
+      />
+    );
+  }
 };
 
 export default DemoGauge;
