@@ -176,7 +176,11 @@ const PreviewCourseWrapper = () => {
             <Collapse ghost activeKey={["1", "2"]}>
               <Panel header="Average Mark" key="2">
                 {user == "instructor" ? (
-                  <DemoGauge value={courseData.averageMark} />
+                  <DemoGauge
+                    value={courseData.averageMark}
+                    students={courseData.numberOfSubscribers}
+                    views={courseData.views}
+                  />
                 ) : null}
               </Panel>
               <Panel header="Subtitles" key="1">
