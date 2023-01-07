@@ -26,6 +26,7 @@ import { Link, useNavigate } from "react-router-dom";
 import CreateRequestWrapper from "../corporateCreateRequest";
 import { AppContext } from "../../AppContext";
 import DemoGauge from "../instructorComponents/instrcutorAverageMark";
+import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 
 const { Panel } = Collapse;
 

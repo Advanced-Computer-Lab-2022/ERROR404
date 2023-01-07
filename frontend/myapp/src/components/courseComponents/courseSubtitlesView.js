@@ -18,6 +18,7 @@ import TraineeDashboard from "../traineeComponents/TraineeDashboard";
 import TraineeInsideCourse from "../traineeComponents/traineeInsideCourse";
 import RequestRefund from "../traineeComponents/requestRefund";
 import { Card } from "antd";
+import TraineeReviews from "../traineeComponents/traineeReviews";
 
 const { Meta } = Card;
 
@@ -35,6 +36,7 @@ const CoursePreview = () => {
   const [usertype, setUserType] = userType;
   const [price, setPrice] = useState("");
   const [course, setCourse] = useState({});
+  const [myReviews, setMyReviews] = useState([]);
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -67,6 +69,15 @@ const CoursePreview = () => {
         console.log(response.data.subtitles);
         setSubtitles(response.data.subtitles);
         setPrice(response.data.price);
+
+        let mine = [];
+        response.data.review.map((r) => {
+          if (r.username == userName) {
+            mine.push(r);
+          }
+        });
+        console.log("mine " + mine.length);
+        setMyReviews(mine);
       })
       .catch((err) => {
         console.log(err);
@@ -273,6 +284,12 @@ const CoursePreview = () => {
                 </div>
               </div>
             </div>
+            <h2>{"My Submitted Reviews for this course " + course.title} </h2>
+            <hr />
+            <TraineeReviews
+              reviews={myReviews}
+              instructor={course.instructor}
+            />
           </Content>
         </Layout>
       </Layout>
