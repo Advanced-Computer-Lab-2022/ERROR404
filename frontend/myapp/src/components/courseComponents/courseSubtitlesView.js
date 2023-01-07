@@ -8,6 +8,7 @@ import {
   Collapse,
   Breadcrumb,
   Layout,
+  Popconfirm,
 } from "antd";
 import axios from "axios";
 import { useEffect, useState, useContext } from "react";
@@ -18,7 +19,7 @@ import TraineeDashboard from "../traineeComponents/TraineeDashboard";
 import TraineeInsideCourse from "../traineeComponents/traineeInsideCourse";
 import RequestRefund from "../traineeComponents/requestRefund";
 import { Card } from "antd";
-import TraineeReviews from "../traineeComponents/traineeReviews";
+import ArticleIcon from "@mui/icons-material/Article";
 
 const { Meta } = Card;
 
@@ -37,9 +38,27 @@ const CoursePreview = () => {
   const [price, setPrice] = useState("");
   const [course, setCourse] = useState({});
   const [myReviews, setMyReviews] = useState([]);
+  const [refresh, setrefresh] = useState(false);
+  const [instructorReviews, setinstructorReviews] = useState([]);
+  const [instructorId, setinstructorId] = useState("");
 
   const location = useLocation();
   const navigate = useNavigate();
+
+  const confirm = (reviewId, id, deleteFrom) => {
+    let body = {
+      id: id,
+      reviewId: reviewId,
+      deleteFrom: deleteFrom,
+    };
+    axios.put("http://localhost:2020/removeReview", body).then((response) => {
+      console.log(response);
+      setrefresh(!refresh);
+      message.success("Review Has been removed");
+    });
+  };
+
+  const cancel = (e) => {};
 
   useEffect(() => {
     const idSearch = window.location.search;
@@ -78,11 +97,26 @@ const CoursePreview = () => {
         });
         console.log("mine " + mine.length);
         setMyReviews(mine);
+
+        axios
+          .get(`http://localhost:2020/login/${response.data.instructor}`)
+          .then((response) => {
+            console.log("HNNNNA");
+            console.log(response.data);
+            setinstructorId(response.data._id);
+            let dezz = [];
+            response.data.review.map((r) => {
+              if (r.username == userName) {
+                dezz.push(r);
+              }
+            });
+            setinstructorReviews(dezz);
+          });
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [location]);
+  }, [location, refresh]);
 
   const requestRefund = () => {
     if (progress > 50) {
@@ -175,7 +209,10 @@ const CoursePreview = () => {
   ];
 
   return (
-    <TraineeInsideCourse courseId={courseId} pageName="Course Preview">
+    <TraineeInsideCourse
+      courseId={courseId}
+      courseName={course.title + " Preview"}
+    >
       <Layout>
         <Header
           style={{
@@ -199,7 +236,7 @@ const CoursePreview = () => {
             <div
               style={{
                 width: "100%",
-                height: "100vh",
+                minHeight: "60vh",
                 display: "flex",
                 justifyContent: "flex-start",
                 alignItems: "center",
@@ -284,12 +321,118 @@ const CoursePreview = () => {
                 </div>
               </div>
             </div>
-            <h2>{"My Submitted Reviews for this course " + course.title} </h2>
-            <hr />
-            <TraineeReviews
-              reviews={myReviews}
-              instructor={course.instructor}
-            />
+
+            <>
+              <Collapse defaultActiveKey={["courseReviews"]}>
+                <Panel
+                  header={
+                    "My Submitted Reviews for this course " + course.title
+                  }
+                  key="courseReviews"
+                >
+                  {myReviews.length == 0 ? (
+                    <span>You have not submitted any reviews yet </span>
+                  ) : (
+                    <List
+                      className="demo-loadmore-list"
+                      itemLayout="horizontal"
+                      size="small"
+                      dataSource={myReviews}
+                      renderItem={(item) => (
+                        <List.Item
+                          actions={[
+                            <Button type="link" key="list-loadmore-edit">
+                              edit
+                            </Button>,
+                            <Popconfirm
+                              title="Delete the review"
+                              description="Are you sure to delete this review?"
+                              onConfirm={() => {
+                                confirm(item._id, course._id, "course");
+                              }}
+                              onCancel={cancel}
+                              okText="Yes"
+                              cancelText="No"
+                            >
+                              <Button
+                                danger
+                                type="link"
+                                key="list-loadmore-more"
+                              >
+                                delete
+                              </Button>
+                            </Popconfirm>,
+                          ]}
+                        >
+                          <List.Item.Meta
+                            avatar={<ArticleIcon />}
+                            title={item.username}
+                            description={item.review}
+                          />
+                        </List.Item>
+                      )}
+                    />
+                  )}
+                </Panel>
+              </Collapse>
+
+              <Collapse defaultActiveKey={["1"]}>
+                <Panel
+                  header={
+                    "Your Submitted Reviews about Instructor " +
+                    course.instructor +
+                    " teaching this course"
+                  }
+                  key="1"
+                >
+                  {instructorReviews == 0 ? (
+                    <span>
+                      You have not submitted any reviews for this instructor
+                    </span>
+                  ) : (
+                    <List
+                      className="demo-loadmore-list"
+                      itemLayout="horizontal"
+                      size="small"
+                      dataSource={instructorReviews}
+                      renderItem={(item) => (
+                        <List.Item
+                          actions={[
+                            <Button type="link" key="list-loadmore-edit">
+                              edit
+                            </Button>,
+                            <Popconfirm
+                              title="Delete the review"
+                              description="Are you sure to delete this review?"
+                              onConfirm={() => {
+                                confirm(item._id, instructorId, "instructor");
+                              }}
+                              onCancel={cancel}
+                              okText="Yes"
+                              cancelText="No"
+                            >
+                              <Button
+                                danger
+                                type="link"
+                                key="list-loadmore-more"
+                              >
+                                delete
+                              </Button>
+                            </Popconfirm>,
+                          ]}
+                        >
+                          <List.Item.Meta
+                            avatar={<ArticleIcon />}
+                            title={item.username}
+                            description={item.review}
+                          />
+                        </List.Item>
+                      )}
+                    />
+                  )}
+                </Panel>
+              </Collapse>
+            </>
           </Content>
         </Layout>
       </Layout>

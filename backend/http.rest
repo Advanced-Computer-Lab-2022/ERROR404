@@ -1,11 +1,10 @@
-PATCH http://localhost:2020/rateAndReviewCourse
+PUT http://localhost:2020/removeReview
 Content-Type: application/json
 
 {
-  "courseId":"63b87ada014c1e7f649eb93a",
-  "newRate": 4,
-  "reviewer": "dina",
-  "review": "one of the best courses i had"
+  "id":"6366d3ddd79a066bc2b74106",
+  "reviewId": "63b89802b4fc3744776359a6",
+  "deleteFrom": "instructor"
 }
 
 

@@ -1838,6 +1838,33 @@ const addAverageMark = async (req, res) => {
     }
   }).clone();
 };
+
+const removeReview = async (req, res) => {
+  console.log(req.body);
+  const id = req.body.id;
+  const reviewId = req.body.reviewId;
+  const deleteFrom = req.body.deleteFrom;
+
+  let model;
+  if (deleteFrom.toLowerCase() == "instructor") {
+    model = instructor;
+  } else if (deleteFrom.toLowerCase() == "course") {
+    model = Courses;
+  }
+
+  await model.findOneAndUpdate(
+    { _id: id },
+    { $pull: { review: { _id: reviewId } } },
+    (err, result) => {
+      if (err) {
+        console.log(err);
+        res.status(500).send(err);
+      } else {
+        res.status(200).json(result);
+      }
+    }
+  ).clone;
+};
 module.exports = {
   getUser,
   search,
@@ -1905,4 +1932,5 @@ module.exports = {
   putGrades,
   addToIndivisualTraineeWallet,
   addAverageMark,
+  removeReview,
 };
