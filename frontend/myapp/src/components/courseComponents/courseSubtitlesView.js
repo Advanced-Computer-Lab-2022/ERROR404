@@ -9,6 +9,10 @@ import {
   Breadcrumb,
   Layout,
   Popconfirm,
+  Modal,
+  Form,
+  Input,
+  Empty,
 } from "antd";
 import axios from "axios";
 import { useEffect, useState, useContext } from "react";
@@ -208,6 +212,20 @@ const CoursePreview = () => {
       : null,
   ];
 
+  const editReview = (e, id, reviewId, deleteFrom, modal) => {
+    console.log(e);
+    let body = {
+      id: id,
+      reviewId: reviewId,
+      deleteFrom: deleteFrom,
+      review: e.review,
+    };
+    axios.put("http://localhost:2020/editReview", body).then((response) => {
+      console.log(response);
+      setrefresh(!refresh);
+      modal.destroy();
+    });
+  };
   return (
     <TraineeInsideCourse
       courseId={courseId}
@@ -341,7 +359,45 @@ const CoursePreview = () => {
                       renderItem={(item) => (
                         <List.Item
                           actions={[
-                            <Button type="link" key="list-loadmore-edit">
+                            <Button
+                              type="link"
+                              key="list-loadmore-edit"
+                              onClick={() => {
+                                let modal = Modal.confirm();
+
+                                modal.update({
+                                  title: "Editting review.. ",
+                                  content: (
+                                    <>
+                                      <Form
+                                        layout="vertical"
+                                        onFinish={(e) => {
+                                          editReview(
+                                            e,
+                                            course._id,
+                                            item._id,
+                                            "course",
+                                            modal
+                                          );
+                                        }}
+                                      >
+                                        <Form.Item
+                                          name="review"
+                                          label="Edit the Review"
+                                        >
+                                          <Input defaultValue={item.review} />
+                                        </Form.Item>
+                                        <Form.Item>
+                                          <Button htmlType="submit">
+                                            Submit
+                                          </Button>
+                                        </Form.Item>
+                                      </Form>
+                                    </>
+                                  ),
+                                });
+                              }}
+                            >
                               edit
                             </Button>,
                             <Popconfirm
@@ -398,9 +454,48 @@ const CoursePreview = () => {
                       renderItem={(item) => (
                         <List.Item
                           actions={[
-                            <Button type="link" key="list-loadmore-edit">
+                            <Button
+                              type="link"
+                              key="list-loadmore-edit"
+                              onClick={() => {
+                                let modal = Modal.confirm();
+
+                                modal.update({
+                                  title: "Editting review.. ",
+                                  content: (
+                                    <>
+                                      <Form
+                                        layout="vertical"
+                                        onFinish={(e) => {
+                                          editReview(
+                                            e,
+                                            instructorId,
+                                            item._id,
+                                            "instructor",
+                                            modal
+                                          );
+                                        }}
+                                      >
+                                        <Form.Item
+                                          name="review"
+                                          label="Edit the Review"
+                                        >
+                                          <Input defaultValue={item.review} />
+                                        </Form.Item>
+                                        <Form.Item>
+                                          <Button htmlType="submit">
+                                            Submit
+                                          </Button>
+                                        </Form.Item>
+                                      </Form>
+                                    </>
+                                  ),
+                                });
+                              }}
+                            >
                               edit
                             </Button>,
+
                             <Popconfirm
                               title="Delete the review"
                               description="Are you sure to delete this review?"
@@ -635,27 +730,31 @@ const CourseSubtitleViewWrapper = () => {
                 </Collapse>
                 <Collapse ghost defaultActiveKey={"1"}>
                   <Panel header={subtitle + " Quizes"} key="1">
-                    <List
-                      itemLayout="vertical"
-                      dataSource={quizes == null ? [] : quizes}
-                      renderItem={(item) => (
-                        <List.Item>
-                          <Link
-                            type="link"
-                            to={
-                              "/trainee/takequiz?courseId=" +
-                              courseId +
-                              "&question=" +
-                              quizes.indexOf(item) +
-                              "&subtitle=" +
-                              subtitle
-                            }
-                          >
-                            Take Quiz {quizes.indexOf(item) + 1}
-                          </Link>
-                        </List.Item>
-                      )}
-                    />
+                    {quizes.length == 0 ? (
+                      <Empty description="No Quizes" />
+                    ) : (
+                      <List
+                        itemLayout="vertical"
+                        dataSource={quizes == null ? [] : quizes}
+                        renderItem={(item) => (
+                          <List.Item>
+                            <Link
+                              type="link"
+                              to={
+                                "/trainee/takequiz?courseId=" +
+                                courseId +
+                                "&question=" +
+                                quizes.indexOf(item) +
+                                "&subtitle=" +
+                                subtitle
+                              }
+                            >
+                              Take Quiz {quizes.indexOf(item) + 1}
+                            </Link>
+                          </List.Item>
+                        )}
+                      />
+                    )}
                   </Panel>
                 </Collapse>
               </div>
@@ -690,17 +789,17 @@ const CourseSubtitleViewWrapper = () => {
                     ></iframe>
                   }
                 >
-                  <Meta title={courseTitle} />
+                  <Meta title={courseTitle} description={description} />
                 </Card>
               </div>
             </div>
           </div>
-          <div>
+          {/* <div>
             <h4>Description</h4>
             <hr />
             <br />
             {description}
-          </div>
+          </div> */}
         </Content>
       </Layout>
     </TraineeInsideCourse>

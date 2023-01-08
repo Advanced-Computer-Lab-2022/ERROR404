@@ -1,10 +1,11 @@
-PUT http://localhost:2020/removeReview
+PUT http://localhost:2020/editReview
 Content-Type: application/json
 
 {
-  "id":"6366d3ddd79a066bc2b74106",
-  "reviewId": "63b89802b4fc3744776359a6",
-  "deleteFrom": "instructor"
+  "id":"63b87ada014c1e7f649eb93a",
+  "reviewId": "63b89864b4fc3744776359b2",
+  "deleteFrom": "course",
+  "review": "hello"
 }
 
 

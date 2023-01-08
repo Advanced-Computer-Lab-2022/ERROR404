@@ -74,6 +74,7 @@ const {
   instructorfilterByPriceOrRate,
   addAverageMark,
   removeReview,
+  editReview,
 } = require("./routes/routes");
 
 //App variables
@@ -177,5 +178,5 @@ app.put("/setDiscountForAllCourses", setDiscountForAllCourses);
 app.put("/putGrades", putGrades);
 app.put("/addToIndivisualTraineeWallet", addToIndivisualTraineeWallet);
 app.put("/addAverageMark", addAverageMark);
-
+app.put("/editReview", editReview);
 app.put("/removeReview", removeReview);
