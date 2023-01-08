@@ -12,6 +12,7 @@ import {
   Select,
   message,
   Divider,
+  List,
 } from "antd";
 
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
@@ -37,21 +38,46 @@ const CreateExam = () => {
   const [q4Form] = Form.useForm();
 
   const [courseId, setCourse] = useState("");
+  const [subtitles, setSubtitles] = useState([]);
+  const [quizSubtitle, setQuizSubtitle] = useState("");
+  const onChange = (value) => {
+    console.log(`selected ${value}`);
+    setQuizSubtitle(value);
+  };
+  const onSearch = (value) => {
+    console.log("search:", value);
+  };
 
   useEffect(() => {
     const idSearch = window.location.search;
     const urlParams = new URLSearchParams(idSearch);
     const course = urlParams.get("courseId");
-
     setCourse(course);
+    axios
+      .get("http://localhost:2020/getAllSubtitles/" + course)
+      .then((response) => {
+        console.log(response.data.subtitles);
+        let sub = [];
+        response.data.subtitles.map((result) => {
+          let body = {
+            value: result.subtitle,
+            label: result.subtitle,
+          };
+          sub.push(body);
+        });
+        setSubtitles(sub);
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
   }, []);
 
   const createExam = async () => {
     const requestBody = {
       username: userName,
-      courseId: "63af72c8dc50987ddd1e1848",
+      courseId: courseId,
       questions: {
-        subtitle: q1Form.getFieldValue("subtitle"),
+        subtitle: quizSubtitle,
         questions: [
           {
             question: q1Form.getFieldValue("q1"),
@@ -113,11 +139,16 @@ const CreateExam = () => {
           borderRadius: 20,
         }}
       >
+        <Select
+          style={{ width: "50%" }}
+          options={subtitles}
+          onChange={onChange}
+          placeholder="Select a subtitle"
+        />
+
         <h1>
           <b>
-            <i>
-              <u>Question 1</u>
-            </i>
+            <u>Question 1</u>
           </b>
         </h1>
         <Form
@@ -126,12 +157,12 @@ const CreateExam = () => {
             width: "50%",
           }}
         >
-          <Form.Item name="subtitle">
-            <Input
-              placeholder="enter the wanted subtitle"
-              style={{ borderRadius: 10 }}
-            />
-          </Form.Item>
+          {/* <Form.Item name="subtitle">
+            <Select> */}
+
+          {/* </Select>
+          </Form.Item> */}
+
           <Form.Item name="q1">
             <Input placeholder="Question 1" style={{ borderRadius: 10 }} />
           </Form.Item>
