@@ -1,14 +1,9 @@
 
 # Online Learning Website
 
-The goal of the project is to build a full online learning 
-system. An online learning system is a website where people 
-can take courses that have already been recorded. The Scrum 
-Agile Methodology was used to create this project using the 
-MERN stack (MongoDB, Express JS, React JS, and Node JS). We 
-used Java Script as our main language.
+The goal of the project is to build a full online learning system. An online learning system is a website where people can take courses that have already been recorded. The Scrum Agile Methodology was used to create this project using the MERN stack (MongoDB, Express JS, React JS, and Node JS). We used Java Script as our main language.
 
-## Motivation 
+## Motivation 🔥
 The project's main goal is to serve as a helpful tool for those who want to develop their skills and expand their horizons. Taking use of its online classes and exercises is a simple and accessible way to improve one's knowledge and abilities. The project aids students in not just acquiring new knowledge but also putting that knowledge to the test, increasing the likelihood that it will be retained. This project has always wanted to be the best it could be, and it remains committed to this ideal,as we also want to improve our skills in full stack development
 
 ## Table of contents 
@@ -19,6 +14,7 @@ The project's main goal is to serve as a helpful tool for those who want to deve
 * [Code style](#code-style)
 * [Features](#features)
 * [Run Locally Installation](#run-locally-installation)
+* [How to use](#how-to-use)
 * [Code Examples](#code-examples)
 * [API Reference](#api-reference)
 * [Tests](#tests)
@@ -46,6 +42,8 @@ The project's main goal is to serve as a helpful tool for those who want to deve
 ![github](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)
 
 ![js](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+
+![Material-UI](https://a11ybadges.com/badge?logo=materialui)
 
 ## Screenshots 
 #### Homepage
@@ -77,7 +75,6 @@ The project's main goal is to serve as a helpful tool for those who want to deve
 ## Build status  
 
 * The project is currently in development as there are UX validations to avoid spamming requests to the backend
-
 * corporate trainee needs some improvments
 * unit test needs to be added
 * messaging platform needs to be added 
@@ -88,6 +85,10 @@ The project's main goal is to serve as a helpful tool for those who want to deve
 ##### [back to top](#table-of-contents)
 
 ## Code style  
+* The code styling using `ESlint` and `prettier`.
+* Naming conventions are written using `camelCase`.
+* The project implemented using the [MVC](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller) design pattern, Which is commonly used for developing user interfaces that divides program logic into inter-connected elements.
+
 
 
 ##### [back to top](#table-of-contents)
@@ -106,8 +107,7 @@ The project's main goal is to serve as a helpful tool for those who want to deve
 * add another administrator with a set username and password
 * add instructors and create their usernames and passwords
 * add corporate trainees and create their usernames and passwords
-* view course requests from corporate trainees and grant their access 
-   to specific courses
+* view course requests from corporate trainees and grant their access to specific courses
 * set a promotion (% sale) for specific courses, several courses or all courses
 
 ### Instructor's Features
@@ -241,6 +241,7 @@ emailjs
           </Breadcrumb>
           
 ```
+### Taking notes
 ```html
   <Button
         type="link"
@@ -284,11 +285,9 @@ emailjs
 
 To run this project, you will need to add the following environment variables to your .env file
 
-`Add your Mongo database url at mongoURI=`
+`Add your Mongo database url at Mongo_URI=`
 
-`Add your backend server Port at backendPort= `
-
-`Add your frontend server Port at frontendPort= `
+`Add your backend server Port at Backend_Port=   `
 
 ##### [back to top](#table-of-contents)
 
@@ -318,7 +317,11 @@ To run the frontEnd
   then
   npm start
 ```
+## How to use
+You are welcome to be one of the four primary users of our website (Admin, instructor, trainee, and corporate trainee). You can make an account and login to the website as a trainee by using the sign up page to create an account, or if you are an instructor, the company will create an account for you on its own. After that, you will be able to utilise our features, log in, and change your password.
+
 ##### [back to top](#table-of-contents)
+
 
 ## API Reference 
 
@@ -667,6 +670,8 @@ To run the frontEnd
 | `email`  | `string` | **Required**.  trainee email                   |
 
 ##### [back to top](#table-of-contents)
+## Tests
+* There are no tests yet, and they should be added as soon as possible. 
 ## Contribute
 There may be user experience problems on our website that can be handled; perhaps enhancing the website with more features that are satisfying can help it stand out more.
 
@@ -681,5 +686,13 @@ or email us via [gmail](https://mail.google.com/mail/u/0/?fs=1&to=theStartupComp
 - [@Ali Ghieth](https://www.github.com/alighieth)
 - [@Abdelrahman Ali](https://www.github.com/AbdelrahmanAli12)
 
-## License  
+## Credits
+* Stack Overflow was extremely useful in debugging.
+* w3Schools, MDN and any [technology](#technologies) documentation mentioned helped us understand and use more of its functionality.
+* As this is a university project, there is a credit to the teaching assistant Nada and Noha who helped us with any question we had
+and provided clear ways to improve.
 
+## License  
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) 
+
+The project is licensed under the Apache License 2.0, see the license file for details
