@@ -28,7 +28,6 @@ const SocialMediaComponent = () => {
             textDecoration: "none",
           }}
           href="https://www.facebook.com/CanCham/"
-          onClick="return func();"
         >
           <FacebookOutlined
             style={{
@@ -44,7 +43,6 @@ const SocialMediaComponent = () => {
             textDecoration: "none",
           }}
           href="https://twitter.com/Mohamed55549552"
-          onClick="return func();"
         >
           <TwitterOutlined
             style={{
@@ -60,7 +58,6 @@ const SocialMediaComponent = () => {
             textDecoration: "none",
           }}
           href="https://www.linkedin.com/in/mohamed-tamer-68030b22a/"
-          onClick="return func();"
         >
           <LinkedinOutlined
             style={{
@@ -76,7 +73,6 @@ const SocialMediaComponent = () => {
             textDecoration: "none",
           }}
           href="https://www.youtube.com/channel/UC1ykoFKsMjVQCx3TeLIXDbg"
-          onClick="return func();"
         >
           {" "}
           <YoutubeOutlined
@@ -93,7 +89,6 @@ const SocialMediaComponent = () => {
             textDecoration: "none",
           }}
           href="https://github.com/Advanced-Computer-Lab-2022/ERROR404"
-          onClick="return func();"
         >
           <GithubOutlined
             style={{

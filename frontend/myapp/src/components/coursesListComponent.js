@@ -215,7 +215,7 @@ const CourseComponent = ({ courses, viewType }) => {
           gap: "40px",
         }}
       >
-        {/* <TopCourses /> */}
+        <TopCourses />
         <br />
         <div
           style={{
