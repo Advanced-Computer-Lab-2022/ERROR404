@@ -270,6 +270,8 @@ const { Option } = Select;
 
 const WrapperSignUp = ({ values }) => {
   const [open, setOpen] = values;
+  const [form] = Form.useForm();
+
   const showDrawer = () => {
     setOpen(true);
   };
@@ -312,11 +314,17 @@ const WrapperSignUp = ({ values }) => {
       .post("http://localhost:2020/createIndividualTrainee", requestBody)
       .then((response) => {
         message.success("User " + username + " has been created", 5);
+        onClose();
+        onReset();
       })
       .catch((error) => {
         console.log("erorr ", error);
         message.error(error.response.data, 5);
       });
+  };
+
+  const onReset = () => {
+    form.resetFields();
   };
 
   const formItemLayout = {
@@ -356,6 +364,7 @@ const WrapperSignUp = ({ values }) => {
             src="https://drnajafbeigi.com/wp-content/uploads/404%D8%AB.png"
           />
           <Form
+            form={form}
             layout="vertical"
             style={{
               width: "100%",
@@ -450,7 +459,10 @@ const WrapperSignUp = ({ values }) => {
                 {
                   required: true,
                   message: "Please enter your password!",
-                  min: 5,
+                },
+                {
+                  min: 6,
+                  message: "password length must be at least 6 characters",
                 },
               ]}
               hasFeedback

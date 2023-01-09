@@ -81,7 +81,7 @@ const InstructorFilteredCourses = () => {
       const value = urlParams.get("value");
       axios
         .get(
-          "http://localhost:2020/instructorfilter/" +
+          "http://localhost:2020/instructorFilterCourses/" +
             userName +
             "/" +
             filterType +

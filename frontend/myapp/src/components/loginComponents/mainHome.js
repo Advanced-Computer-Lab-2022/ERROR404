@@ -51,7 +51,7 @@ const LoginComponent = ({ values }) => {
   const [value, setValues] = useState({
     username: "",
     password: "",
-    showPassword: true,
+    showPassword: false,
   });
   const [isModalOpen, setIsModalOpen] = modal;
   const [isDrawerOpen, setIsDrawerOpen] = drawer;
@@ -212,6 +212,28 @@ const LoginComponent = ({ values }) => {
             }
           />
         </FormControl>
+        {/* <FormControl sx={{ m: 1, width: "70%" }} variant="standard" required>
+          <InputLabel htmlFor="outlined-adornment-password">
+            Password
+          </InputLabel>
+          <OutlinedInput
+            id="outlined-adornment-password"
+            type={showPassword ? "text" : "password"}
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPassword}
+                  onMouseDown={handleMouseDownPassword}
+                  edge="end"
+                >
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+            }
+            label="Password"
+          />
+        </FormControl> */}
 
         <br />
         <Button type="primary" icon={<Fingerprint />} onClick={handleClick}>

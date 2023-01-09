@@ -77,9 +77,9 @@ const App = ({ children }) => {
           {children}
         </Content>
       </Layout>
-      <Footer style={{ padding: 0, textAlign: "center", margin: "0 0px" }}>
+      {/* <Footer style={{ padding: 0, textAlign: "center", margin: "0 0px" }}>
         <FooterWrapper />
-      </Footer>
+      </Footer> */}
     </Layout>
   );
 };

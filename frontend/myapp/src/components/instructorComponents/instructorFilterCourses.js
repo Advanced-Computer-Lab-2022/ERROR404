@@ -52,6 +52,7 @@ const InstructorFilterCourses = ({ values }) => {
   const change = async (value) => {
     setMax(value[1]);
     setMin(value[0]);
+    navigate(`/filter?filterType=price&min=${value[0]}&max=${value[1]}`);
   };
   const onChange = (e) => {
     console.log(e.target.value);
@@ -67,6 +68,14 @@ const InstructorFilterCourses = ({ values }) => {
     navigate(
       "/instructorFilter?filterType=category&category=" + e.target.value
     );
+  };
+
+  const marks = {
+    0: "0",
+    1000: "1000",
+    2000: "2000",
+    3000: "3000",
+    4000: "4000",
   };
   return (
     <>
@@ -164,24 +173,23 @@ const InstructorFilterCourses = ({ values }) => {
         </Panel>
 
         <Panel header="Price" key="2" className="site-collapse-custom-panel">
-          <Form onFinish={price}>
+          <Form>
             <Form.Item name="price">
-              <Tooltip>
-                <Button
-                  htmlType="submit"
-                  type="primary"
-                  shape="circle"
-                  icon={<SearchOutlined />}
-                  onClick={() => {
-                    setMax(0);
-                    setMin(0);
-                  }}
-                ></Button>
-                Our free courses
-              </Tooltip>
+              <Button
+                htmlType="submit"
+                type="link"
+                icon={<SearchOutlined />}
+                onClick={() => {
+                  navigate(`/filter?filterType=price&min=0&max=0`);
+                }}
+              >
+                Our free courses{" "}
+              </Button>
             </Form.Item>
             <Form.Item>
+              <span>Use slider to set min and max based on ur preferneces</span>
               <Slider
+                marks={marks}
                 label="Budget"
                 id="slider"
                 onChange={change}
@@ -191,18 +199,6 @@ const InstructorFilterCourses = ({ values }) => {
                 defaultValue={[0, 5000]}
                 max={5000}
               />
-            </Form.Item>
-            <br />
-            <Form.Item>
-              <Tooltip>
-                <Button
-                  type="primary"
-                  shape="circle"
-                  icon={<SearchOutlined />}
-                  style={{ alignSelf: "center" }}
-                  htmlType="submit"
-                ></Button>
-              </Tooltip>
             </Form.Item>
           </Form>
         </Panel>

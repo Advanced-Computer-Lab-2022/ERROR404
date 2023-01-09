@@ -191,9 +191,9 @@ const InstructorDashboard = ({ children, pageName }) => {
             </Content>
           </Layout>
         </Content>
-        <Footer style={{ padding: 0, textAlign: "center", margin: "0 0px" }}>
+        {/* <Footer style={{ padding: 0, textAlign: "center", margin: "0 0px" }}>
           <FooterWrapper />
-        </Footer>
+        </Footer> */}
       </Layout>
     );
   } else {

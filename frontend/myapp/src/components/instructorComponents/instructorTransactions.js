@@ -131,7 +131,7 @@ const monthlyBalance = [
   },
   {
     month: "December",
-    balance: "1500",
+    balance: "",
   },
 ];
 
