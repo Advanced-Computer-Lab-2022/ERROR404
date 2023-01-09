@@ -6,19 +6,26 @@ system. An online learning system is a website where people
 can take courses that have already been recorded. The Scrum 
 Agile Methodology was used to create this project using the 
 MERN stack (MongoDB, Express JS, React JS, and Node JS). We 
-used Java Script as our main language, so throw it all away. 
-This project was easy and simple to do.
+used Java Script as our main language.
 
+## Motivation 
+The project's main goal is to serve as a helpful tool for those who want to develop their skills and expand their horizons. Taking use of its online classes and exercises is a simple and accessible way to improve one's knowledge and abilities. The project aids students in not just acquiring new knowledge but also putting that knowledge to the test, increasing the likelihood that it will be retained. This project has always wanted to be the best it could be, and it remains committed to this ideal,as we also want to improve our skills in full stack development
 
 ## Table of contents 
 * [Technologies](#technologies)
 * [Environment Variables](#environment-variables)
+* [Screenshots](#screenshots)
+* [Build status](#build-status) 
+* [Code style](#code-style)
 * [Features](#features)
 * [Run Locally Installation](#run-locally-installation)
 * [Code Examples](#code-examples)
 * [API Reference](#api-reference)
+* [Tests](#tests)
+* [Contribute](#contribute)
 * [Feedback](#feedback)
 * [Authors](#authors)
+* [License](#license)
 ## Technologies
 ![MongoDB](https://img.shields.io/badge/MongoDB%20-%2347A248.svg?&style=for-the-badge&logo=MongoDB&logoColor=white)
 
@@ -40,8 +47,7 @@ This project was easy and simple to do.
 
 ![js](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
 
-## Website Snippets
-
+## Screenshots 
 #### Homepage
 <img src="/Images/Capture2.PNG" alt="Alt text">
 
@@ -66,9 +72,29 @@ This project was easy and simple to do.
 #### Create Course
 <img src="/Images/Capture7.PNG" alt="Alt text">
 
-## Features
+##### [back to top](#table-of-contents)
 
-### Our Webstie User Types
+## Build status  
+
+* The project is currently in development as there are UX validations to avoid spamming requests to the backend
+
+* corporate trainee needs some improvments
+* unit test needs to be added
+* messaging platform needs to be added 
+
+
+
+
+##### [back to top](#table-of-contents)
+
+## Code style  
+
+
+##### [back to top](#table-of-contents)
+
+## Features  
+
+### Our Webstie User Types 
 
 #### Admin ,Instructor ,Individual Trainee ,Corporate Trainee and Guest
 
@@ -158,7 +184,9 @@ This project was easy and simple to do.
 * view the most viewed/ most popular courses
 * filter the courses based on a subject and/or rating and choose a course from the results and view (but not open) its details including course subtitles, excercises , total hours of each subtitle, total hours of the course and price (including % discount if applicable) according to the country selected
 * search for a course based on course title or subject or instructor
-## Code Examples 🐱‍💻
+
+##### [back to top](#table-of-contents)
+## Code Examples 🐱‍💻  
 
 ### Email sending
 ```javascript
@@ -250,7 +278,9 @@ emailjs
       </Drawer>
 ```
 
-## Environment Variables
+##### [back to top](#table-of-contents)
+
+## Environment Variables 
 
 To run this project, you will need to add the following environment variables to your .env file
 
@@ -260,10 +290,9 @@ To run this project, you will need to add the following environment variables to
 
 `Add your frontend server Port at frontendPort= `
 
+##### [back to top](#table-of-contents)
 
-
-## Run Locally Installation
-
+## Run Locally Installation 
 Install the used libraries for the backEnd
 
 ```bash
@@ -289,8 +318,9 @@ To run the frontEnd
   then
   npm start
 ```
+##### [back to top](#table-of-contents)
 
-## API Reference
+## API Reference 
 
 #### Get all Reports
 
@@ -636,31 +666,20 @@ To run the frontEnd
 | `gender`  | `string` | **Required**.  trainee gender                 |
 | `email`  | `string` | **Required**.  trainee email                   |
 
+##### [back to top](#table-of-contents)
+## Contribute
+There may be user experience problems on our website that can be handled; perhaps enhancing the website with more features that are satisfying can help it stand out more.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-## Feedback
-
+## Feedback  
 If you have any feedback, please reach out to us at 
 [Our linkedin page](https://www.linkedin.com/company/thestartupcompany)
 or email us via [gmail](https://mail.google.com/mail/u/0/?fs=1&to=theStartupCompany@gmail.com&su=ContactUs&tf=cm)
 
+##### [back to top](#table-of-contents)
+
 ## Authors
 - [@Ali Ghieth](https://www.github.com/alighieth)
 - [@Abdelrahman Ali](https://www.github.com/AbdelrahmanAli12)
+
+## License  
 
