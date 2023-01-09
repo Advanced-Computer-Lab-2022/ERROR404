@@ -241,7 +241,7 @@ const AdminRequests = () => {
                                 onOpenChange={() => console.log("open change")}
                               >
                                 <Button type="primary" htmlType="submit">
-                                  Submit Statuss
+                                  Submit Status
                                 </Button>
                               </Popconfirm>
                             </Form.Item>

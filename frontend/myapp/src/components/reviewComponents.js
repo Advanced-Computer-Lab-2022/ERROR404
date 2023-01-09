@@ -54,6 +54,8 @@ const ReviewNavigation = () => {
           color: "red",
         }}
       />
+      <br />
+      <br />
       <List
         itemLayout="vertical"
         size="small"
@@ -87,6 +89,7 @@ const ReviewNavigation = () => {
                   fontWeight: "bold",
                 }}
                 avatar={<Avatar icon={<UserOutlined />} />}
+                title={item.username}
                 description={item.review}
               />
             </List.Item>

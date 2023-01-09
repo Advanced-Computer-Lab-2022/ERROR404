@@ -132,7 +132,7 @@ const AdminReports = () => {
     },
     {
       title: "Report type",
-      dataIndex: "reportType",
+      dataIndex: "problemType",
       render: (reportType) => {
         let type = "";
         if (reportType == "technical") {

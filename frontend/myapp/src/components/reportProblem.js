@@ -11,7 +11,7 @@ import { Button, Space, message, Form, Dropdown, Select } from "antd";
 import { useState } from "react";
 import { Input } from "antd";
 import { AppContext } from "../AppContext";
-
+import { useNavigate } from "react-router-dom";
 const { Option } = Select;
 const { TextArea } = Input;
 const ReportaProblemWrapper = () => {
@@ -22,11 +22,16 @@ const ReportaProblemWrapper = () => {
   const [description, setDescription] = useState("");
   const [reportType, setReportType] = useState("");
 
+  const navigate = useNavigate();
   const handleChange = (event) => {
     console.log(event.target.value);
     setDescription(event.target.value);
   };
+  const cc = (e) => {
+    console.log(e);
 
+    setReportType(e);
+  };
   const report = () => {
     let body = {
       username: UserName,
@@ -40,6 +45,7 @@ const ReportaProblemWrapper = () => {
       .then(() => {
         message.success("you have created your report successfully", 3);
         console.log("hello");
+        navigate("/");
       })
       .catch((err) => {
         message.error("An unexpected error has occurred", 3);
@@ -135,6 +141,7 @@ const ReportaProblemWrapper = () => {
                 <Select
                   placeholder="Select a option and change input text above"
                   allowClear
+                  onChange={cc}
                 >
                   <Option value="financial">Financial</Option>
                   <Option value="technical">Technical</Option>

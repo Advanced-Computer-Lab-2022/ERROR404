@@ -18,6 +18,7 @@ import {
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 import InstructorDashboard from "./instructorComponents/InstructorDashboard";
 import { AppContext } from "../AppContext";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const { Option } = Select;
 
@@ -30,6 +31,7 @@ const CreateExamWrapper = () => {
 };
 
 const CreateExam = () => {
+  const navigate = useNavigate();
   const { username } = useContext(AppContext);
   const [userName, setUserName] = username;
   const [q1Form] = Form.useForm();
@@ -73,6 +75,15 @@ const CreateExam = () => {
   }, []);
 
   const createExam = async () => {
+    if (
+      q1Form.getFieldValue("q1Answer") == undefined ||
+      q2Form.getFieldValue("q2Answer") == undefined ||
+      q3Form.getFieldValue("q3Answer") == undefined ||
+      q4Form.getFieldValue("q4Answer") == undefined
+    ) {
+      message.warning("all fields must be filled", 3);
+      return;
+    }
     const requestBody = {
       username: userName,
       courseId: courseId,
@@ -121,6 +132,7 @@ const CreateExam = () => {
       .then((data) => {
         console.log(data);
         message.success("Quiz created", 1);
+        navigate("/instructorDashBoard/allMyCourses");
       })
       .catch((err) => console.log(err));
   };
@@ -157,44 +169,63 @@ const CreateExam = () => {
             width: "50%",
           }}
         >
-          {/* <Form.Item name="subtitle">
+          {/* <Form.Item 
+rules={[{ required: true, message: 'this field is required' }]} name="subtitle">
             <Select> */}
 
           {/* </Select>
           </Form.Item> */}
 
-          <Form.Item name="q1">
+          <Form.Item
+            rules={[{ required: true, message: "this field is required" }]}
+            name="q1"
+          >
             <Input placeholder="Question 1" style={{ borderRadius: 10 }} />
           </Form.Item>
 
-          <Form.Item name="q1a">
+          <Form.Item
+            name="q1a"
+            rules={[{ required: true, message: "this field is required" }]}
+          >
             <Input
               placeholder="Question 1, 1st possible answer(a)"
               style={{ borderRadius: 10 }}
             />
           </Form.Item>
-          <Form.Item name="q1b">
+          <Form.Item
+            rules={[{ required: true, message: "this field is required" }]}
+            name="q1b"
+          >
             <Input
               placeholder="Question 1, 2nd possible answer(b)"
               style={{ borderRadius: 10 }}
             />
           </Form.Item>
 
-          <Form.Item name="q1c">
+          <Form.Item
+            name="q1c"
+            rules={[{ required: true, message: "this field is required" }]}
+          >
             <Input
               placeholder="Question 1, 3rd possible answer(c)"
               style={{ borderRadius: 10 }}
             />
           </Form.Item>
 
-          <Form.Item name="q1d">
+          <Form.Item
+            rules={[{ required: true, message: "this field is required" }]}
+            name="q1d"
+          >
             <Input
               placeholder="Question 1, 4th possible answer(d)"
               style={{ borderRadius: 10 }}
             />
           </Form.Item>
 
-          <Form.Item name="q1Answer">
+          <Form.Item
+            rules={[{ required: true, message: "this field is required" }]}
+            name="q1Answer"
+          >
             <select
               class="ui dropdown"
               style={{ borderRadius: 10, marginLeft: 170 }}
@@ -235,38 +266,56 @@ const CreateExam = () => {
             width: "50%",
           }}
         >
-          <Form.Item name="q2">
+          <Form.Item
+            rules={[{ required: true, message: "this field is required" }]}
+            name="q2"
+          >
             <Input placeholder="Question 2" style={{ borderRadius: 10 }} />
           </Form.Item>
 
-          <Form.Item name="q2a">
+          <Form.Item
+            rules={[{ required: true, message: "this field is required" }]}
+            name="q2a"
+          >
             <Input
               placeholder="Question 2, 2st possible answer(a)"
               style={{ borderRadius: 10 }}
             />
           </Form.Item>
-          <Form.Item name="q2b">
+          <Form.Item
+            rules={[{ required: true, message: "this field is required" }]}
+            name="q2b"
+          >
             <Input
               placeholder="Question 2, 2nd possible answer(b)"
               style={{ borderRadius: 10 }}
             />
           </Form.Item>
 
-          <Form.Item name="q2c">
+          <Form.Item
+            rules={[{ required: true, message: "this field is required" }]}
+            name="q2c"
+          >
             <Input
               placeholder="Question 2, 3rd possible answer(c)"
               style={{ borderRadius: 10 }}
             />
           </Form.Item>
 
-          <Form.Item name="q2d">
+          <Form.Item
+            rules={[{ required: true, message: "this field is required" }]}
+            name="q2d"
+          >
             <Input
               placeholder="Question 2, 4th possible answer(d)"
               style={{ borderRadius: 10 }}
             />
           </Form.Item>
 
-          <Form.Item name="q2Answer">
+          <Form.Item
+            rules={[{ required: true, message: "this field is required" }]}
+            name="q2Answer"
+          >
             <select
               class="ui dropdown"
               style={{ borderRadius: 10, marginLeft: 170 }}
@@ -306,38 +355,56 @@ const CreateExam = () => {
             width: "50%",
           }}
         >
-          <Form.Item name="q3">
+          <Form.Item
+            rules={[{ required: true, message: "this field is required" }]}
+            name="q3"
+          >
             <Input placeholder="Question 3" style={{ borderRadius: 10 }} />
           </Form.Item>
 
-          <Form.Item name="q3a">
+          <Form.Item
+            rules={[{ required: true, message: "this field is required" }]}
+            name="q3a"
+          >
             <Input
               placeholder="Question 3, 1st possible answer(a)"
               style={{ borderRadius: 10 }}
             />
           </Form.Item>
-          <Form.Item name="q3b">
+          <Form.Item
+            rules={[{ required: true, message: "this field is required" }]}
+            name="q3b"
+          >
             <Input
               placeholder="Question 3, 2nd possible answer(b)"
               style={{ borderRadius: 10 }}
             />
           </Form.Item>
 
-          <Form.Item name="q3c">
+          <Form.Item
+            rules={[{ required: true, message: "this field is required" }]}
+            name="q3c"
+          >
             <Input
               placeholder="Question 3, 3rd possible answer(c)"
               style={{ borderRadius: 10 }}
             />
           </Form.Item>
 
-          <Form.Item name="q3d">
+          <Form.Item
+            rules={[{ required: true, message: "this field is required" }]}
+            name="q3d"
+          >
             <Input
               placeholder="Question 3, 4th possible answer(d)"
               style={{ borderRadius: 10 }}
             />
           </Form.Item>
 
-          <Form.Item name="q3Answer">
+          <Form.Item
+            rules={[{ required: true, message: "this field is required" }]}
+            name="q3Answer"
+          >
             <select
               class="ui dropdown"
               style={{ borderRadius: 10, marginLeft: 170 }}
@@ -377,37 +444,55 @@ const CreateExam = () => {
             width: "50%",
           }}
         >
-          <Form.Item name="q4">
+          <Form.Item
+            rules={[{ required: true, message: "this field is required" }]}
+            name="q4"
+          >
             <Input placeholder="Question 4" style={{ borderRadius: 10 }} />
           </Form.Item>
 
-          <Form.Item name="q4a">
+          <Form.Item
+            rules={[{ required: true, message: "this field is required" }]}
+            name="q4a"
+          >
             <Input
               placeholder="Question 4, 1st possible answer(a)"
               style={{ borderRadius: 10 }}
             />
           </Form.Item>
-          <Form.Item name="q4b">
+          <Form.Item
+            rules={[{ required: true, message: "this field is required" }]}
+            name="q4b"
+          >
             <Input
               placeholder="Question 4, 2nd possible answer(b)"
               style={{ borderRadius: 10 }}
             />
           </Form.Item>
 
-          <Form.Item name="q4c">
+          <Form.Item
+            rules={[{ required: true, message: "this field is required" }]}
+            name="q4c"
+          >
             <Input
               placeholder="Question 4, 3rd possible answer(c)"
               style={{ borderRadius: 10 }}
             />
           </Form.Item>
 
-          <Form.Item name="q4d">
+          <Form.Item
+            rules={[{ required: true, message: "this field is required" }]}
+            name="q4d"
+          >
             <Input
               placeholder="Question 4, 4th possible answer(d)"
               style={{ borderRadius: 10 }}
             />
           </Form.Item>
-          <Form.Item name="q4Answer">
+          <Form.Item
+            rules={[{ required: true, message: "this field is required" }]}
+            name="q4Answer"
+          >
             <select
               class="ui dropdown"
               style={{ borderRadius: 10, marginLeft: 170 }}

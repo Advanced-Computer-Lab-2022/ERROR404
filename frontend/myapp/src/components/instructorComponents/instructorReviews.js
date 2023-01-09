@@ -7,9 +7,6 @@ const InstructorReviewWrapper = () => {
   // create a backend callout to get user
   return (
     <InstructorDashboard pageName="My Reviews">
-      <Breadcrumb>
-        <Breadcrumb.Item>My Reviews</Breadcrumb.Item>
-      </Breadcrumb>
       <ReviewNavigation />
     </InstructorDashboard>
   );

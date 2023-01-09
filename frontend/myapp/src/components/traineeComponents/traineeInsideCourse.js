@@ -66,6 +66,16 @@ const TraineeInsideCourse = ({ children, courseId, courseName }) => {
     getItem(<Avatar size="medium" icon={<UserOutlined />} />, "user", <></>, [
       getItem(<span>{userName}</span>, "4", <UserOutlined />),
       getItem(
+        <Link
+          to="/ReportaProblem"
+          style={{ color: "white", textDecoration: "none" }}
+        >
+          {" "}
+          Report a Problem{" "}
+        </Link>,
+        "link"
+      ),
+      getItem(
         <Link className="link" to="/settings">
           Settings
         </Link>,

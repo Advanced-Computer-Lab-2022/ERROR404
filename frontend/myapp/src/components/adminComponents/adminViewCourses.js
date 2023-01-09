@@ -76,7 +76,7 @@ const AdminViewCourseComponent = () => {
       .put("http://localhost:2020/setDiscountForAllCourses", body)
       .then((respnse) => {
         console.log(respnse);
-        message.success("Dscount Applied ");
+        message.success("Discount Applied ");
         setcheckedCourses([]);
       })
       .catch((err) => {

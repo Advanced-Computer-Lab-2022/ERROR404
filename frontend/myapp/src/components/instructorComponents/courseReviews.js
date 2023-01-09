@@ -63,6 +63,7 @@ const CourseReviews = ({ reviews }) => {
                   fontWeight: "bold",
                 }}
                 avatar={<Avatar icon={<UserOutlined />} />}
+                title={item.username}
                 description={item.review}
               />
             </List.Item>

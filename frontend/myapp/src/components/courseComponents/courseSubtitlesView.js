@@ -53,8 +53,8 @@ const CoursePreview = () => {
   const update = (index) => {
     console.log((progress * subtitles.length) / 100);
     console.log(index);
-    if ((progress * subtitles.length) / 100 < index) {
-      let newProgress = progress + Math.ceil(100 / subtitles.length);
+    if ((progress * subtitles.length) / 100 - 1 < index + 1) {
+      let newProgress = 20 + progress + Math.ceil(200 / subtitles.length);
       if (newProgress >= 100) newProgress = 100;
       setProgress(newProgress);
       let body = {
@@ -580,8 +580,8 @@ const CourseSubtitleViewWrapper = () => {
   const update = (index) => {
     console.log((progress * subtitles.length) / 100);
     console.log(index);
-    if ((progress * subtitles.length) / 100 < index) {
-      let newProgress = progress + Math.ceil(100 / subtitles.length);
+    if ((progress * subtitles.length) / 100 - 1 < index + 1) {
+      let newProgress = 20 + progress + Math.ceil(200 / subtitles.length);
       if (newProgress >= 100) newProgress = 100;
       setProgress(newProgress);
       let body = {

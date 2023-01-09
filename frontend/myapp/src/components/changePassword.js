@@ -8,38 +8,10 @@ import App from "../App";
 import InstructorDashboard from "./instructorComponents/InstructorDashboard";
 import TraineeDashboard from "./traineeComponents/TraineeDashboard";
 import axios from "axios";
-
-// const ChangePasswordPageWrapper = () => {
-//   const { userType } = useContext(AppContext);
-//   const [user, setUser] = userType;
-//   if (user == "instructor") {
-//     return (
-//       <InstructorDashboard>
-//         <UserSettingPage Settings="Change Password">
-//           <ChangePasswordPage />
-//         </UserSettingPage>
-//       </InstructorDashboard>
-//     );
-//   } else if (user == "individual") {
-//     return (
-//       <TraineeDashboard>
-//         <UserSettingPage>
-//           <ChangePasswordPage />
-//         </UserSettingPage>
-//       </TraineeDashboard>
-//     );
-//   } else {
-//     return (
-//       <App>
-//         <UserSettingPage>
-//           <ChangePasswordPage />
-//         </UserSettingPage>
-//       </App>
-//     );
-//   }
-// };
+import { Navigate, useNavigate } from "react-router-dom";
 
 const ChangePasswordPageWrapper = () => {
+  const navigate = useNavigate();
   const { userEmail, userMongoId, userType, username, userPassword } =
     useContext(AppContext);
   const [useremail, setUserEmail] = userEmail;
@@ -50,7 +22,10 @@ const ChangePasswordPageWrapper = () => {
 
   const [form] = Form.useForm();
   const [, forceUpdate] = useState({});
-
+  const logout = () => {
+    setName("");
+    setUserType("");
+  };
   const onFinish = (values) => {
     console.log("Received values of form: ", values);
     const newPassword = values.newPassword;
@@ -66,7 +41,8 @@ const ChangePasswordPageWrapper = () => {
         .then(() => {
           message.success("you have changed your password successfully", 1);
           setOldPassword(newPassword);
-          console.log("hello2");
+          logout();
+          navigate("/");
         })
         .catch((err) => {
           message.error(

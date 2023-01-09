@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import {
   MinusCircleOutlined,
   PlusOutlined,
@@ -19,7 +19,8 @@ import {
 } from "antd";
 import InstructorDashboard from "./instructorComponents/InstructorDashboard";
 import { positions } from "@mui/system";
-
+import { AppContext } from "../AppContext";
+import { Navigate, useNavigate } from "react-router-dom";
 const WrapperCreateCourses = () => {
   return (
     <InstructorDashboard pageName="Create Course">
@@ -29,9 +30,12 @@ const WrapperCreateCourses = () => {
 };
 
 const CreateCourse = () => {
+  const { userMongoId } = useContext(AppContext);
+  const [userId, setUserId] = userMongoId;
+  const navigate = useNavigate();
   const onFinish = async (event) => {
     console.log("Success:", event);
-    const id = event.instructorId;
+    const id = userId;
     const title = event.title;
     const subject = event.subject;
     const subtitles = event.subtitles;
@@ -81,7 +85,7 @@ const CreateCourse = () => {
     category
   ) => {
     const requestBody = {
-      id: "6366d3ddd79a066bc2b74106",
+      id: userId,
       title: title,
       subject: subject,
       subtitles: subtitles,
@@ -101,6 +105,7 @@ const CreateCourse = () => {
       .post("http://localhost:2020/createCourse", requestBody)
       .then((response) => {
         message.success("Course " + title + " has been created", 1);
+        navigate("/instructorDashBoard/allMyCourses");
       })
       .catch((error) => {
         console.log("erorr ", error);

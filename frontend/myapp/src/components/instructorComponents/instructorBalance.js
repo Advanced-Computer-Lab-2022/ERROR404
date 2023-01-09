@@ -89,13 +89,8 @@ const InstructorBalanceWrapper = () => {
           onChange={onChange}
           items={[
             {
-              label: `Transactions history`,
-              key: "1",
-              children: <InstructorTransactions />,
-            },
-            {
               label: `Statistics`,
-              key: "2",
+              key: "1",
               children: <InstructorMonthlyBalances />,
             },
           ]}
