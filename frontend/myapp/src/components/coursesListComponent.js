@@ -295,50 +295,6 @@ const CourseComponent = ({ courses, viewType }) => {
                         <CreateRequestWrapper courseId={item._id} />{" "}
                       </>
                     ) : null}
-                    {user == "instructor" && viewType == "instructor" ? (
-                      <div
-                        style={{
-                          display: "flex",
-                          flexDirection: "column",
-                        }}
-                      >
-                        <Button
-                          style={{ width: "100%" }}
-                          onClick={() => {
-                            openPreview(item._id, item.title);
-                          }}
-                        >
-                          Add preview video
-                        </Button>
-                        <Button
-                          style={{ width: "100%" }}
-                          onClick={() => {
-                            navigation("/createQuiz?courseId=" + item._id);
-                          }}
-                        >
-                          Create Quiz
-                        </Button>
-                        <Button
-                          style={{ width: "100%" }}
-                          onClick={() => {
-                            openDis(item._id, item.title);
-                          }}
-                        >
-                          Add Dicount
-                        </Button>
-                        <Link to={"/course/reviews?courseId=" + item._id}>
-                          <Button
-                            style={{ width: "100%" }}
-                            onClick={() => {
-                              setTitle(item.title);
-                              setId(item._id);
-                            }}
-                          >
-                            View Reviews
-                          </Button>
-                        </Link>
-                      </div>
-                    ) : null}
                     <img
                       width={250}
                       alt="logo"
@@ -381,6 +337,61 @@ const CourseComponent = ({ courses, viewType }) => {
                     <p>{"Exercises " + item.questions.length}</p>
                     <p>{"Discount " + item.discount.value + "%"}</p>
                   </Panel>
+                  {user == "instructor" && viewType == "instructor" ? (
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                      }}
+                    >
+                      <Collapse ghost={true}>
+                        <Panel header="Options" ghost={true}>
+                          <Space>
+                            <Button
+                              style={{ width: "100%" }}
+                              onClick={() => {
+                                openPreview(item._id, item.title);
+                              }}
+                              type="primary"
+                            >
+                              Add preview video
+                            </Button>
+
+                            <Button
+                              style={{ width: "100%" }}
+                              onClick={() => {
+                                navigation("/createQuiz?courseId=" + item._id);
+                              }}
+                              type="primary"
+                            >
+                              Create Quiz
+                            </Button>
+                            <Button
+                              style={{ width: "100%" }}
+                              onClick={() => {
+                                openDis(item._id, item.title);
+                              }}
+                              type="primary"
+                            >
+                              Add Dicount
+                            </Button>
+                            <Link to={"/course/reviews?courseId=" + item._id}>
+                              <Button
+                                style={{ width: "100%" }}
+                                onClick={() => {
+                                  setTitle(item.title);
+                                  setId(item._id);
+                                }}
+                                type="primary"
+                              >
+                                View Reviews
+                              </Button>
+                            </Link>
+                          </Space>
+                        </Panel>
+                      </Collapse>
+                    </div>
+                  ) : null}
                 </Collapse>
               </List.Item>
             </div>

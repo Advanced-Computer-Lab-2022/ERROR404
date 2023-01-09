@@ -36,9 +36,10 @@ const CoursePreview = () => {
   const [courseId, setcourseId] = useState([]);
   const [video, setVideo] = useState("");
   const [progress, setProgress] = useState(0);
-  const { username, userType } = useContext(AppContext);
+  const { username, userType, userMongoId } = useContext(AppContext);
   const [userName, setUserName] = username;
   const [usertype, setUserType] = userType;
+  const [userId, setUserId] = userMongoId;
   const [price, setPrice] = useState("");
   const [course, setCourse] = useState({});
   const [myReviews, setMyReviews] = useState([]);
@@ -49,6 +50,29 @@ const CoursePreview = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
+  const update = (index) => {
+    console.log((progress * subtitles.length) / 100);
+    console.log(index);
+    if ((progress * subtitles.length) / 100 < index) {
+      let newProgress = progress + Math.ceil(100 / subtitles.length);
+      if (newProgress >= 100) newProgress = 100;
+      setProgress(newProgress);
+      let body = {
+        usertype: usertype,
+        id: userId,
+        courseId: courseId,
+        progress: newProgress,
+      };
+      axios
+        .patch("http://localhost:2020/updateCourseProgress", body)
+        .then((response) => {
+          console.log(response.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
   const confirm = (reviewId, id, deleteFrom) => {
     let body = {
       id: id,
@@ -74,7 +98,6 @@ const CoursePreview = () => {
     axios
       .get(`http://localhost:2020/getUser/${userName}/${usertype}`)
       .then((response) => {
-        console.log("HNNNNA");
         console.log(response.data.progress);
         response.data.progress.map((course) => {
           if (course.course == courseId) {
@@ -281,9 +304,12 @@ const CoursePreview = () => {
                       <List
                         itemLayout="horizontal"
                         dataSource={subtitles}
-                        renderItem={(item, index) => (
+                        renderItem={(item) => (
                           <List.Item>
                             <Link
+                              onClick={() => {
+                                update(subtitles.indexOf(item));
+                              }}
                               to={
                                 "/trainee/course/subtitle?subtitle=" +
                                 item.subtitle +
@@ -542,15 +568,38 @@ const CourseSubtitleViewWrapper = () => {
   const [subtitles, setSubtitles] = useState([]);
   const [courseId, setcourseId] = useState([]);
   const [progress, setProgress] = useState(0);
-  const { username, userType } = useContext(AppContext);
+  const { username, userType, userMongoId } = useContext(AppContext);
   const [userName, setUserName] = username;
   const [usertype, setUserType] = userType;
+  const [userId, setUserId] = userMongoId;
   const [courseTitle, setCourseTitle] = useState("");
   const location = useLocation();
   const [quizes, setQuizes] = useState([]);
-
   const navigate = useNavigate();
 
+  const update = (index) => {
+    console.log((progress * subtitles.length) / 100);
+    console.log(index);
+    if ((progress * subtitles.length) / 100 < index) {
+      let newProgress = progress + Math.ceil(100 / subtitles.length);
+      if (newProgress >= 100) newProgress = 100;
+      setProgress(newProgress);
+      let body = {
+        usertype: usertype,
+        id: userId,
+        courseId: courseId,
+        progress: newProgress,
+      };
+      axios
+        .patch("http://localhost:2020/updateCourseProgress", body)
+        .then((response) => {
+          console.log(response.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
   useEffect(() => {
     const idSearch = window.location.search;
     const urlParams = new URLSearchParams(idSearch);
@@ -597,7 +646,7 @@ const CourseSubtitleViewWrapper = () => {
         setSubtitles(response.data.subtitles);
       })
       .catch((err) => {
-        console.log(err.response);
+        console.log(err);
       });
   }, [location]);
 
@@ -708,6 +757,9 @@ const CourseSubtitleViewWrapper = () => {
                       renderItem={(item) => (
                         <List.Item>
                           <Link
+                            onClick={() => {
+                              update(subtitles.indexOf(item));
+                            }}
                             to={
                               "/trainee/course/subtitle?subtitle=" +
                               item.subtitle +

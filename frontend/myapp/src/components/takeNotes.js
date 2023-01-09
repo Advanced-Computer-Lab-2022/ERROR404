@@ -44,7 +44,7 @@ const TakeNotesWrapper = () => {
       <Drawer
         title="Taking Note.."
         placement="left"
-        width="25vw"
+        width="20%"
         onClose={handleCancel}
         open={isModalOpen}
         extra={
@@ -62,7 +62,11 @@ const TakeNotesWrapper = () => {
               height: "50vh",
             }}
           >
-            <Input.TextArea id="input" placeholder="Type here........" />
+            <Input.TextArea
+              id="input"
+              placeholder="Type here........"
+              rows={15}
+            />
           </Form.Item>
         </Form>
       </Drawer>
