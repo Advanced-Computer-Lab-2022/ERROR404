@@ -1,5 +1,5 @@
 import "./App.css";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Layout, Select, Breadcrumb, Menu, Modal, Button, Avatar } from "antd";
 import {
@@ -56,6 +56,10 @@ const App = ({ children }) => {
   const handleCancel = () => {
     setIsModalOpen(false);
   };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <Layout className="layout">

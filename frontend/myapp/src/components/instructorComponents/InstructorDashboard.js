@@ -36,6 +36,10 @@ const InstructorDashboard = ({ children, pageName }) => {
   const [visible, setVisibility] = useState(false);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const items = [
     getItem(
       <Link className="link" to="/">

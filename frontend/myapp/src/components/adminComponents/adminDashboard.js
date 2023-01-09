@@ -33,6 +33,10 @@ const AdminDashboard = ({ children, pageName }) => {
     setUser("");
   };
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const items = [
     getItem(
       <Link className="link" to="/">

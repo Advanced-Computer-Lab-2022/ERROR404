@@ -52,6 +52,9 @@ const TraineeDashboard = ({ children, pageName }) => {
   const [userName, setUserName] = username;
   const [user, setUser] = userType;
   //const [visible, setVisibility] = useState(false);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const items = [
     getItem(
