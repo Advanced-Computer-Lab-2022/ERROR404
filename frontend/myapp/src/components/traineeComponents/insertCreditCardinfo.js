@@ -70,7 +70,7 @@ const InsertCreditCardInfoWrapper = () => {
           message.success("Credit card info has been saved successfully", 5);
         })
         .catch((error) => {
-          message.error("An unexpected error has occured", 5);
+          message.error(error.response.data, 3);
           console.log("error at credit card info ", JSON.stringify(error));
         });
       console.log("Received values of form: ", values);

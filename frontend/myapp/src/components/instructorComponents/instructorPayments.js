@@ -26,7 +26,7 @@ const DemoLine = () => {
   const data = [
     {
       year: "January",
-      value: 500,
+      value: january,
     },
     {
       year: "Februeray",
@@ -70,7 +70,7 @@ const DemoLine = () => {
     },
     {
       year: "December",
-      value: january,
+      value: 3000,
     },
   ];
   G2.registerShape("point", "custom-point", {

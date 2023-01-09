@@ -23,11 +23,18 @@ const createIndividualTrainee = async (req, res) => {
   const gender = req.body.gender;
   const email = req.body.email;
   let x;
+  let y;
   await usernames
     .find({ name: username })
     .count({ limit: 1 })
     .then((count) => {
       x = count;
+    });
+  await individualTrainee
+    .find({ email: email })
+    .count({ limit: 1 })
+    .then((count) => {
+      y = count;
     });
   //const country = req.body.country;
   const userData = {
@@ -53,10 +60,13 @@ const createIndividualTrainee = async (req, res) => {
     return res.status(400).json("Valid data not submitted");
   } else if (x == 1) {
     return res.status(409).json("username already in use");
+  } else if (y == 1) {
+    return res.status(409).json("Email already in use");
   } else {
-    await individualTrainee.create(userData, async function (err, small) {
+    individualTrainee.create(userData, async function (err, small) {
       if (err) {
-        res.status(500).send("Database not responding  => " + err);
+        console.log(err);
+        res.status(err.status).send("Databstatusse not responding  => " + err);
       } else {
         await usernames.create({ name: username });
         res.status(200).send("Individual Trainee Created Successfully");
@@ -940,6 +950,7 @@ const addCreditCardInfo = async (req, res) => {
     cvv: req.body.cvv,
     expirationDate: req.body.expirationDate,
   };
+
   await individualTrainee
     .findOneAndUpdate(
       { username: username },
@@ -973,7 +984,7 @@ const addCreditCardInfo = async (req, res) => {
 // };
 
 const topCourses = async (req, res) => {
-  const topCourses = await courses.find({}).sort({ views: -1 }).limit(5);
+  const topCourses = await courses.find({}).sort({ views: -1 }).limit(4);
   res.status(200).json(topCourses);
 };
 
