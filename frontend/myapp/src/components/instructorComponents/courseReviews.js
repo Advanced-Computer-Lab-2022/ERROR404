@@ -54,7 +54,7 @@ const CourseReviews = ({ reviews }) => {
               border: "1px solid rgba(140, 140, 140, 0.35)",
             }}
           >
-            <List.Item key={item} style={{ color: "black" }}>
+            <List.Item key={item._id} style={{ color: "black" }}>
               <List.Item.Meta
                 style={{
                   alignItems: "center",
@@ -63,7 +63,7 @@ const CourseReviews = ({ reviews }) => {
                   fontWeight: "bold",
                 }}
                 avatar={<Avatar icon={<UserOutlined />} />}
-                description={item}
+                description={item.review}
               />
             </List.Item>
           </div>
