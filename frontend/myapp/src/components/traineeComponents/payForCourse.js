@@ -32,6 +32,7 @@ const PayForCourse = () => {
   const [course, setCourse] = useState("");
   const [userData, setUserData] = useState({});
   const [value, setValue] = useState(1);
+  const [steps, setSteps] = useState(3);
 
   const onChange = (e) => {
     console.log("radio checked", e.target.value);
@@ -117,6 +118,7 @@ const PayForCourse = () => {
       courseId: courseId,
     };
     axios.put("http://localhost:2020/salary", b);
+    navigate("/user/myPrograms");
   };
   return (
     <TraineeDashboard>
