@@ -1,24 +1,27 @@
 
 # Online Learning Website
 
-The goal of the project is to build a full online learning 
-system. An online learning system is a website where people 
-can take courses that have already been recorded. The Scrum 
-Agile Methodology was used to create this project using the 
-MERN stack (MongoDB, Express JS, React JS, and Node JS). We 
-used Java Script as our main language, so throw it all away. 
-This project was easy and simple to do.
+The goal of the project is to build a full online learning system. An online learning system is a website where people can take courses that have already been recorded. The Scrum Agile Methodology was used to create this project using the MERN stack (MongoDB, Express JS, React JS, and Node JS). We used Java Script as our main language.
 
+## Motivation 🔥
+The project's main goal is to serve as a helpful tool for those who want to develop their skills and expand their horizons. Taking use of its online classes and exercises is a simple and accessible way to improve one's knowledge and abilities. The project aids students in not just acquiring new knowledge but also putting that knowledge to the test, increasing the likelihood that it will be retained. This project has always wanted to be the best it could be, and it remains committed to this ideal,as we also want to improve our skills in full stack development
 
 ## Table of contents 
 * [Technologies](#technologies)
 * [Environment Variables](#environment-variables)
+* [Screenshots](#screenshots)
+* [Build status](#build-status) 
+* [Code style](#code-style)
 * [Features](#features)
 * [Run Locally Installation](#run-locally-installation)
+* [How to use](#how-to-use)
 * [Code Examples](#code-examples)
 * [API Reference](#api-reference)
+* [Tests](#tests)
+* [Contribute](#contribute)
 * [Feedback](#feedback)
 * [Authors](#authors)
+* [License](#license)
 ## Technologies
 ![MongoDB](https://img.shields.io/badge/MongoDB%20-%2347A248.svg?&style=for-the-badge&logo=MongoDB&logoColor=white)
 
@@ -40,8 +43,9 @@ This project was easy and simple to do.
 
 ![js](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
 
-## Website Snippets
+![Material-UI](https://a11ybadges.com/badge?logo=materialui)
 
+## Screenshots 
 #### Homepage
 <img src="/Images/Capture2.PNG" alt="Alt text">
 
@@ -66,9 +70,32 @@ This project was easy and simple to do.
 #### Create Course
 <img src="/Images/Capture7.PNG" alt="Alt text">
 
-## Features
+##### [back to top](#table-of-contents)
 
-### Our Webstie User Types
+## Build status  
+
+* The project is currently in development as there are UX validations to avoid spamming requests to the backend
+* corporate trainee needs some improvments
+* unit test needs to be added
+* messaging platform needs to be added 
+
+
+
+
+##### [back to top](#table-of-contents)
+
+## Code style  
+* The code styling using `ESlint` and `prettier`.
+* Naming conventions are written using `camelCase`.
+* The project implemented using the [MVC](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller) design pattern, Which is commonly used for developing user interfaces that divides program logic into inter-connected elements.
+
+
+
+##### [back to top](#table-of-contents)
+
+## Features  
+
+### Our Webstie User Types 
 
 #### Admin ,Instructor ,Individual Trainee ,Corporate Trainee and Guest
 
@@ -80,8 +107,7 @@ This project was easy and simple to do.
 * add another administrator with a set username and password
 * add instructors and create their usernames and passwords
 * add corporate trainees and create their usernames and passwords
-* view course requests from corporate trainees and grant their access 
-   to specific courses
+* view course requests from corporate trainees and grant their access to specific courses
 * set a promotion (% sale) for specific courses, several courses or all courses
 
 ### Instructor's Features
@@ -158,7 +184,9 @@ This project was easy and simple to do.
 * view the most viewed/ most popular courses
 * filter the courses based on a subject and/or rating and choose a course from the results and view (but not open) its details including course subtitles, excercises , total hours of each subtitle, total hours of the course and price (including % discount if applicable) according to the country selected
 * search for a course based on course title or subject or instructor
-## Code Examples 🐱‍💻
+
+##### [back to top](#table-of-contents)
+## Code Examples 🐱‍💻  
 
 ### Email sending
 ```javascript
@@ -251,17 +279,19 @@ emailjs
       </Drawer>
 ```
 
-## Environment Variables
+##### [back to top](#table-of-contents)
+
+## Environment Variables 
 
 To run this project, you will need to add the following environment variables to your .env file
 
 `Add your Mongo database url at Mongo_URI=`
 
-`Add your backend server Port at Backend_Port= `
+`Add your backend server Port at Backend_Port=   `
 
+##### [back to top](#table-of-contents)
 
-## Run Locally Installation
-
+## Run Locally Installation 
 Install the used libraries for the backEnd
 
 ```bash
@@ -287,8 +317,13 @@ To run the frontEnd
   then
   npm start
 ```
+## How to use
+You are welcome to be one of the four primary users of our website (Admin, instructor, trainee, and corporate trainee). You can make an account and login to the website as a trainee by using the sign up page to create an account, or if you are an instructor, the company will create an account for you on its own. After that, you will be able to utilise our features, log in, and change your password.
 
-## API Reference
+##### [back to top](#table-of-contents)
+
+
+## API Reference 
 
 #### Get all Reports
 
@@ -634,31 +669,30 @@ To run the frontEnd
 | `gender`  | `string` | **Required**.  trainee gender                 |
 | `email`  | `string` | **Required**.  trainee email                   |
 
+##### [back to top](#table-of-contents)
+## Tests
+* There are no tests yet, and they should be added as soon as possible. 
+## Contribute
+There may be user experience problems on our website that can be handled; perhaps enhancing the website with more features that are satisfying can help it stand out more.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-## Feedback
-
+## Feedback  
 If you have any feedback, please reach out to us at 
 [Our linkedin page](https://www.linkedin.com/company/thestartupcompany)
 or email us via [gmail](https://mail.google.com/mail/u/0/?fs=1&to=theStartupCompany@gmail.com&su=ContactUs&tf=cm)
+
+##### [back to top](#table-of-contents)
 
 ## Authors
 - [@Ali Ghieth](https://www.github.com/alighieth)
 - [@Abdelrahman Ali](https://www.github.com/AbdelrahmanAli12)
 
+## Credits
+* Stack Overflow was extremely useful in debugging.
+* w3Schools, MDN and any [technology](#technologies) documentation mentioned helped us understand and use more of its functionality.
+* As this is a university project, there is a credit to the teaching assistant Nada and Noha who helped us with any question we had
+and provided clear ways to improve.
+
+## License  
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) 
+
+The project is licensed under the Apache License 2.0, see the license file for details
