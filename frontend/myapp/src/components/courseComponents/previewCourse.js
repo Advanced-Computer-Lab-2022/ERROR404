@@ -14,12 +14,9 @@ import {
   Collapse,
 } from "antd";
 
-import button from "react-bootstrap/Button";
-import "bootstrap/dist/css/bootstrap.min.css";
 import "semantic-ui-css/semantic.min.css";
 import { Header, header as semanticHeader } from "semantic-ui-react";
 import React, { useContext, useEffect, useState } from "react";
-import { alignPropType } from "react-bootstrap/esm/types";
 import PreviewCourses from "../CourseViewWrapper";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
